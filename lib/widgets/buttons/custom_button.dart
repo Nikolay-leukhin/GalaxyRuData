@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:starter/utils/utils.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 
 class CustomButton extends StatefulWidget {
   final String text;

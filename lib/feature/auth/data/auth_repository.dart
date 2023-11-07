@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:starter/models/user.dart';
-import 'package:starter/services/api/api_service.dart';
-import 'package:starter/utils/utils.dart';
+import 'package:galaxy_rudata/models/user.dart';
+import 'package:galaxy_rudata/services/api/api_service.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 
 class AuthRepository {
   final ApiService _apiService;

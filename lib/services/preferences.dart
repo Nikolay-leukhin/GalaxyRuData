@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:starter/services/api/token_model.dart';
+import 'package:galaxy_rudata/services/api/token_model.dart';
 
 const String _tokenKey = 'token';
 

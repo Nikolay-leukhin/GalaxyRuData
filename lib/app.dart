@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:starter/feature/auth/bloc/app/app_cubit.dart';
-import 'package:starter/feature/auth/bloc/auth/auth_cubit.dart';
-import 'package:starter/feature/auth/data/auth_repository.dart';
-import 'package:starter/feature/auth/ui/login_screen.dart';
-import 'package:starter/services/api/api_service.dart';
-import 'package:starter/services/preferences.dart';
+import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
+import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
+import 'package:galaxy_rudata/feature/auth/ui/login_screen.dart';
+import 'package:galaxy_rudata/services/api/api_service.dart';
+import 'package:galaxy_rudata/services/preferences.dart';
 
 final PreferencesService prefs = PreferencesService();
 final ApiService apiService = ApiService(preferencesService: prefs);

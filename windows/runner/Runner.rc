@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "starter" "\0"
+            VALUE "FileDescription", "galaxy_rudata" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "starter" "\0"
+            VALUE "InternalName", "galaxy_rudata" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "starter.exe" "\0"
-            VALUE "ProductName", "starter" "\0"
+            VALUE "OriginalFilename", "galaxy_rudata.exe" "\0"
+            VALUE "ProductName", "galaxy_rudata" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

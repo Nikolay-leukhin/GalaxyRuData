@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:starter/feature/auth/data/auth_repository.dart';
-import 'package:starter/utils/utils.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 
 part 'app_state.dart';
 
