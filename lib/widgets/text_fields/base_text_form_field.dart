@@ -55,11 +55,11 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
                 Radius.circular(12.0),
               ),
               borderSide: BorderSide(
-                color: AppColors.border,
+                color: AppColors.fieldsBorder,
               ),
             ),
           ),
-          style: AppTypography.font16w400.copyWith(color: AppColors.border),
+          style: AppTypography.font16w400.copyWith(color: AppColors.fieldsBorder),
           onChanged: (String value) {
             setState(() {});
           },
