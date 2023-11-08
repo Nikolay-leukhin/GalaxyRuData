@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/text_fields/base_text_form_field.dart';
@@ -106,7 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: AppTypography.font16w600
                           .copyWith(color: Colors.white),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteNames.nftCertificate);
+                    },
                     width: double.infinity)
               ],
             ),
