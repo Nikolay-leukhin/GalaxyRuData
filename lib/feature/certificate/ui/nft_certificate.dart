@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/widgets/app_bar_items/actions_container.dart';
+import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 
 class NftCertificateScreen extends StatefulWidget {
   const NftCertificateScreen({super.key});
@@ -18,15 +20,13 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
               image: AssetImage("assets/images/auth_background.png"))),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar:AppBar(
+        appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SvgPicture.asset('assets/icons/rf.svg')
-            ],
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [ActionsContainer(), RfContainer()],
           ),
         ),
         body: const Column(

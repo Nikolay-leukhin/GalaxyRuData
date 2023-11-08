@@ -7,7 +7,7 @@ class ActionsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const radius = Radius.circular(30);
+    const radius = Radius.circular(40);
     return Container(
       decoration: const BoxDecoration(
           color: AppColors.darkBlue,
