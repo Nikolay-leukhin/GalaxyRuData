@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool checkPermission() {
-    if (isConditionsAccepted == false) {
+    if (isConditionsAccepted == false){
       setState(() {
         withErrorCheckBox = true;
       });
@@ -59,20 +59,17 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage("assets/images/auth_background.png"))),
-        child: SafeArea(
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: MainAppBar(context, isAction: false,),
-            backgroundColor: Colors.transparent,
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              filterQuality: FilterQuality.low,
+              image: AssetImage("assets/images/auth_background.png"))),
+      child: SafeArea(
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: MainAppBar(context, isAction: false,),
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
