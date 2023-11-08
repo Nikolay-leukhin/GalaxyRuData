@@ -185,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       errorEmailField = checkEmail();
                       setState(() {});
                       if (permission) {
-                        Navigator.pushNamed(context, RouteNames.nftCertificate);
+                        Navigator.pushNamed(context, RouteNames.safe);
                       }
                     },
                     width: double.infinity),
