@@ -36,6 +36,7 @@ class _AccessCodeFieldState extends State<AccessCodeField> {
       width: widget.width,
       height: widget.height,
       child: TextFormField(
+        cursorColor: Colors.white,
         maxLines: widget.maxLines,
         keyboardType: widget.keyboardType,
         autofocus: false,
