@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
 class CustomButton extends StatefulWidget {
-  final String text;
+  final Widget content;
 
   final VoidCallback onTap;
+  final EdgeInsets padding;
 
   final double width;
   final double height;
@@ -17,13 +18,14 @@ class CustomButton extends StatefulWidget {
 
   const CustomButton(
       {super.key,
-      required this.text,
+      required this.content,
       required this.onTap,
       required this.width,
       this.isActive = true,
-      this.height = 55,
-      this.radius = 12,
-      this.color = AppColors.primary});
+      this.height = 60,
+        this.padding = EdgeInsets.zero,
+      this.radius = 16,
+      this.color = AppColors.blue});
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -32,23 +34,23 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: widget.width,
-        height: widget.height,
-        decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-          side: BorderSide(
-              width: 0.50,
-              color: widget.isActive ? AppColors.primary : AppColors.disable),
-          borderRadius: BorderRadius.circular(widget.radius),
-        )),
-        child: TextButton(
-            onPressed: widget.isActive ? widget.onTap : () {},
-            style: TextButton.styleFrom(
-                backgroundColor:
-                    widget.isActive ? widget.color : AppColors.disableButton,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(widget.radius))),
-            child: Text(widget.text, style: AppTypography.font16w400)));
+    return Ink(
+      width: widget.width,
+      height: widget.height,
+      decoration: BoxDecoration(
+        color: widget.color,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 1, color: Colors.white)
+      ),
+      child: InkWell(
+        onTap: () {
+          widget.onTap();
+        },
+        child: Padding(
+          padding: widget.padding,
+          child: Center(child: widget.content),
+        ),
+      ),
+    );
   }
 }
