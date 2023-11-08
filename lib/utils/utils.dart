@@ -13,3 +13,4 @@ part 'dialogs.dart';
 part 'enums.dart';
 part 'exceptions.dart';
 part 'fonts.dart';
+part 'gradients.dart';

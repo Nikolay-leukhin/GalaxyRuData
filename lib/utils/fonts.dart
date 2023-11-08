@@ -13,6 +13,12 @@ class AppTypography {
     fontWeight: FontWeight.w600,
   );
 
+  static final font16w600underline  =_font.copyWith(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    decoration: TextDecoration.underline,
+  );
+
   static final font24w700  =_font.copyWith(
     fontSize: 24,
     fontWeight: FontWeight.w700,
