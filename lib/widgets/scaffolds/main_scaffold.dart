@@ -27,12 +27,13 @@ class MainScaffold extends StatelessWidget {
             isBottomImage ? Container(
                 alignment: Alignment.bottomCenter,
                 child: SvgPicture.asset(
-                  'assets/icons/bottom_back.svg',
+                  'assets/icons/bottom_bcg.svg',
                   width: size.width,
                   height: size.width * 0.89,
                 )) : Container(),
             SafeArea(
               child: Scaffold(
+                resizeToAvoidBottomInset: false,
                 backgroundColor: Colors.transparent,
                 appBar: appBar,
                 body: body,
