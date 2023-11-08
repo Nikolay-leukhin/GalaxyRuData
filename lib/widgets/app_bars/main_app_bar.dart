@@ -3,7 +3,7 @@ import 'package:galaxy_rudata/widgets/app_bar_items/actions_container.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 
 class MainAppBar extends AppBar {
-  MainAppBar()
+  MainAppBar({super.key})
       : super(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,
