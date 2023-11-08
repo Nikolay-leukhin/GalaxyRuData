@@ -4,6 +4,7 @@ import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/login_screen.dart';
+import 'package:galaxy_rudata/main.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 
@@ -15,15 +16,13 @@ class MyRepositoryProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider(
-              create: (_) => AuthRepository(apiService: apiService)),
-        ],
-        child: const MyBlocProviders(),
-        // child: MyApp(),
-      ),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+            create: (_) => AuthRepository(apiService: apiService)),
+      ],
+      child: const MyBlocProviders(),
+      // child: MyApp(),
     );
   }
 }
@@ -33,24 +32,22 @@ class MyBlocProviders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider<AppCubit>(
-            create: (_) => AppCubit(
-              authRepository: RepositoryProvider.of<AuthRepository>(context),
-            ),
-            lazy: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AppCubit>(
+          create: (_) => AppCubit(
+            authRepository: RepositoryProvider.of<AuthRepository>(context),
           ),
-          BlocProvider<AuthCubit>(
-            create: (_) => AuthCubit(
-              authRepository: RepositoryProvider.of<AuthRepository>(context),
-            ),
-            lazy: false,
+          lazy: false,
+        ),
+        BlocProvider<AuthCubit>(
+          create: (_) => AuthCubit(
+            authRepository: RepositoryProvider.of<AuthRepository>(context),
           ),
-        ],
-        child: const AppStateWidget(),
-      ),
+          lazy: false,
+        ),
+      ],
+      child: const MyApp(),
     );
   }
 }
@@ -66,15 +63,17 @@ class AppStateWidget extends StatelessWidget {
           // TODO: implement listener
         },
         builder: (context, state) {
-          if (state is AppAuthState) {
-            return Scaffold();
-          } else if (state is AppUnAuthState) {
-            return const LoginScreen();
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+          // if (state is AppAuthState) {
+          //   return LoginScreen();
+          // } else if (state is AppUnAuthState) {
+          //   return const LoginScreen();
+          // } else {
+          //   return const Center(
+          //     child: CircularProgressIndicator(),
+          //   );
+          // }
+
+          return const MyApp();
         },
       ),
     );

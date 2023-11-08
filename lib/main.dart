@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:galaxy_rudata/app.dart';
+import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/services/custom_bloc_observer.dart';
 
 void main() async {
@@ -17,7 +18,7 @@ void main() async {
 
   await dotenv.load();
 
-  runApp(const MyApp());
+  runApp(const MyRepositoryProvider());
 }
 
 class MyApp extends StatelessWidget {
@@ -30,8 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Nunito',
       ),
-      home: const MyRepositoryProvider(),
       debugShowCheckedModeBanner: false,
+      routes: appRoutes,
     );
   }
 }

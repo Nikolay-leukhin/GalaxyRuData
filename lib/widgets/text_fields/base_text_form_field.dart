@@ -9,22 +9,21 @@ class BaseTextFormField extends StatefulWidget {
     Key? key,
     required this.controller,
     required this.keyboardType,
-    this.height = 80,
+    this.height = 76,
     this.width = double.infinity,
-    this.padding = const EdgeInsets.all(10),
     this.maxLines = 1,
     this.hintText = '',
-    this.obscureText = false,
+    this.obscureText = false, this.withError = false,
   }) : super(key: key);
 
   final TextEditingController controller;
   final TextInputType keyboardType;
   final double height;
   final double width;
-  final EdgeInsets padding;
   final int maxLines;
   final String hintText;
   final bool obscureText;
+  final bool withError;
 
   @override
   State<BaseTextFormField> createState() => _BaseTextFormFieldState();
@@ -33,39 +32,37 @@ class BaseTextFormField extends StatefulWidget {
 class _BaseTextFormFieldState extends State<BaseTextFormField> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
-      width: widget.width,
-      child: Padding(
-        padding: widget.padding,
-        child: TextFormField(
-          maxLines: widget.maxLines,
-          keyboardType: widget.keyboardType,
-          autofocus: false,
-          obscureText: widget.obscureText,
-          textAlignVertical: TextAlignVertical.bottom,
-          decoration: InputDecoration(
-            hintStyle: AppTypography.font16w400,
-            // fillColor: AppColors.grey8E8E93,
-            filled: true,
-            hintText: widget.hintText,
-            label: widget.controller.text != '' ? Text(widget.hintText) : null,
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(12.0),
-              ),
-              borderSide: BorderSide(
-                color: AppColors.fieldsBorder,
-              ),
-            ),
+    return TextFormField(
+      maxLines: widget.maxLines,
+      keyboardType: widget.keyboardType,
+      autofocus: false,
+      obscureText: widget.obscureText,
+      textAlignVertical: TextAlignVertical.center,
+      decoration: InputDecoration(
+        hintStyle: AppTypography.font16w400,
+        fillColor: Colors.black.withOpacity(0.20000000298023224),
+        filled: true,
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: widget.height / 2 - 20),
+        hintText: widget.hintText,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide:  BorderSide(color: !widget.withError ? AppColors.silver : Colors.red, width: 1)
+        ),
+        enabledBorder:  OutlineInputBorder(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(12.0),
           ),
-          style: AppTypography.font16w400.copyWith(color: AppColors.fieldsBorder),
-          onChanged: (String value) {
-            setState(() {});
-          },
-          controller: widget.controller,
+          borderSide: BorderSide(
+            color: !widget.withError ? AppColors.silver : Colors.red,
+            width: 1
+          ),
         ),
       ),
+      style: AppTypography.font16w400.copyWith(color: Colors.white),
+      onChanged: (String value) {
+        setState(() {});
+      },
+      controller: widget.controller,
     );
   }
 }
