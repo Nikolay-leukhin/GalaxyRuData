@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:galaxy_rudata/widgets/app_bar_items/actions_container.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/text_fields/base_text_form_field.dart';
 
@@ -23,6 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
               image: AssetImage("assets/images/auth_background.png"))),
       child: SafeArea(
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+
+            actions: [
+            ],
+          ),
           backgroundColor: Colors.transparent,
           body: Container(
             padding: const EdgeInsets.symmetric(horizontal: 24),
