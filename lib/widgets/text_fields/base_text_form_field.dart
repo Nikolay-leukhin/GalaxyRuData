@@ -1,7 +1,4 @@
-// Flutter imports:
 import 'package:flutter/material.dart';
-
-// Project imports:
 import 'package:galaxy_rudata/utils/utils.dart';
 
 class BaseTextFormField extends StatefulWidget {
@@ -43,7 +40,7 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         hintStyle: AppTypography.font16w400,
-        fillColor: Colors.black.withOpacity(0.20000000298023224),
+        fillColor: AppColors.textFieldBackground,
         filled: true,
         contentPadding: widget.padding ?? EdgeInsets.symmetric(
                 horizontal: 16, vertical: widget.height / 2 - 16),
