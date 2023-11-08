@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/actions_container.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 
-class MainAppBar extends AppBar {
-  MainAppBar()
+class MainAppBar extends PreferredSize {
+  MainAppBar({super.key, required BuildContext context, bool isAction = true})
       : super(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [ActionsContainer(), RfContainer()],
+          preferredSize: Size(MediaQuery.sizeOf(context).width, 100),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                isAction ? const ActionsContainer() : Container(),
+                const RfContainer()
+              ],
+            ),
           ),
         );
 }
