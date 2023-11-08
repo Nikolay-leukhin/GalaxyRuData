@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/text_fields/base_text_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -46,8 +47,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 32,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Checkbox(value: false, onChanged: (v) {}, ),
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: AppColors.blue,
+                        border: Border.all(width: 1, color: AppColors.silver),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Transform.scale(
+                        scale: 25 / Checkbox.width,
+                        child: Checkbox(
+                          value: true,
+                          onChanged: (v) {},
+                          splashRadius: 0,
+                          fillColor: MaterialStateProperty.all(AppColors.blue),
+                          side: const BorderSide(
+                              width: 0, color: AppColors.silver),
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
                     Flexible(
                       child: RichText(
                           text: TextSpan(children: [
@@ -56,20 +83,31 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: AppTypography.font12w400),
                         TextSpan(
                             text: "Правилами Использования",
-                            style: AppTypography.font12w400
-                                .copyWith(decoration: TextDecoration.underline)),
+                            style: AppTypography.font12w400.copyWith(
+                                decoration: TextDecoration.underline)),
                         TextSpan(
                             text: "и ",
-                            style: AppTypography.font12w400
-                                .copyWith(decoration: TextDecoration.underline)),
+                            style: AppTypography.font12w400.copyWith(
+                                decoration: TextDecoration.underline)),
                         TextSpan(
                             text: "Политикой Конфиденциальности ",
-                            style: AppTypography.font12w400
-                                .copyWith(decoration: TextDecoration.underline)),
+                            style: AppTypography.font12w400.copyWith(
+                                decoration: TextDecoration.underline)),
                       ])),
                     ),
                   ],
-                )
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                CustomButton(
+                    content: Text(
+                      "Войти / Регистрация".toUpperCase(),
+                      style: AppTypography.font16w600
+                          .copyWith(color: Colors.white),
+                    ),
+                    onTap: () {},
+                    width: double.infinity)
               ],
             ),
           ),

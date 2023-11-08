@@ -10,4 +10,5 @@ class AppColors {
 
 
   static const silver = Color(0xffC6C6C6);
+  static const blue = Color(0xff005ea8);
 }
