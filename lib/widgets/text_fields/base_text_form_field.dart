@@ -42,7 +42,7 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
         hintStyle: AppTypography.font16w400,
         fillColor: Colors.black.withOpacity(0.20000000298023224),
         filled: true,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: widget.height / 2 - 20),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: widget.height / 2 - 16),
         hintText: widget.hintText,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
