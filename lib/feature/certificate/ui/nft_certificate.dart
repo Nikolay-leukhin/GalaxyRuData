@@ -34,7 +34,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

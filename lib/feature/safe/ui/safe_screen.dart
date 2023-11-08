@@ -24,7 +24,7 @@ class _SafeScreenState extends State<SafeScreen> {
               fit: BoxFit.cover,
               image: AssetImage("assets/images/auth_background.png"))),
       child: Stack(children: [
-        SvgPicture.asset('assets/'),
+        Container(alignment: Alignment.bottomCenter,child: SvgPicture.asset('assets/icons/bottom_back.svg', width: size.width, height: size.width * 0.89,)),
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: MainAppBar(),
@@ -36,10 +36,13 @@ class _SafeScreenState extends State<SafeScreen> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Поздравляем! Вы получили NFT-сертификат собственного жилья во Вселенной Большого Росреестра!',
-                      style: AppTypography.font16w400,
-                      textAlign: TextAlign.center,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                      child: Text(
+                        'Чтобы забрать ваш\nNFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
+                        style: AppTypography.font16w400,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     const SizedBox(
                       height: 30,
@@ -47,40 +50,18 @@ class _SafeScreenState extends State<SafeScreen> {
                     Container(
                       width: size.width - 64,
                       height: (size.width - 64) * 0.854,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black26.withOpacity(0.5),
-                              spreadRadius: 0.5,
-                              blurRadius: 10,
-                              offset: const Offset(0, 0),
-                            ),
-                          ],
-                          image: const DecorationImage(
-                            image: AssetImage('assets/images/certificate.png'),
-                          )),
+                      color: Colors.blueAccent,
                     ),
                     const SizedBox(
                       height: 50,
                     ),
                     CustomButton(
                         content: Text(
-                          'Посмотреть в кошельке'.toUpperCase(),
+                          'Отправить код'.toUpperCase(),
                           style: AppTypography.font16w600,
                         ),
                         onTap: () {},
-                        width: double.infinity),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    CustomButton(
-                        content: Text(
-                          'Забронировать ещё жилье!'.toUpperCase(),
-                          style: AppTypography.font16w600,
-                        ),
-                        onTap: () {},
-                        width: double.infinity),
+                        width: size.width * 0.528),
                   ],
                 ),
               ],
