@@ -59,148 +59,153 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              filterQuality: FilterQuality.low,
-              image: AssetImage("assets/images/auth_background.png"))),
-      child: SafeArea(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: MainAppBar(context, isAction: false,),
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  BaseTextFormField(
-                    withError: errorEmailField,
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    hintText: "E-mail адрес",
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  SizedBox(
-                    height: 60,
-                    child: Stack(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.low,
+                image: AssetImage("assets/images/auth_background.png"))),
+        child: SafeArea(
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: MainAppBar(context, isAction: false,),
+              body: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    BaseTextFormField(
+                      withError: errorEmailField,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: "E-mail адрес",
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    SizedBox(
+                      height: 60,
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            child: BaseTextFormField(
+                              withError: errorCodeField,
+                              padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 22)
+                                  .copyWith(right: 120),
+                              controller: codeController,
+                              keyboardType: TextInputType.emailAddress,
+                              hintText: "Код",
+                            ),
+                          ),
+                          Positioned(
+                            right: 0,
+                            child: CustomButton(
+                                content: Text("Отправить".toUpperCase(),
+                                    style: AppTypography.font16w600
+                                        .copyWith(color: Colors.white)),
+                                onTap: () {},
+                                width: 120),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Positioned(
-                          child: BaseTextFormField(
-                            withError: errorCodeField,
-                            padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 22)
-                                .copyWith(right: 120),
-                            controller: codeController,
-                            keyboardType: TextInputType.emailAddress,
-                            hintText: "Код",
+                        Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            color: AppColors.blue,
+                            border: Border.all(
+                                width: 2,
+                                color: !withErrorCheckBox
+                                    ? AppColors.silver
+                                    : Colors.red),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Transform.scale(
+                            scale: 25 / Checkbox.width,
+                            child: Checkbox(
+                              value: isConditionsAccepted,
+                              onChanged: (v) {
+                                changeCheckboxValue(v ?? false);
+                              },
+                              splashRadius: 0,
+                              fillColor:
+                                  MaterialStateProperty.all(AppColors.blue),
+                              side: const BorderSide(
+                                  width: 0, color: Colors.transparent),
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                            ),
                           ),
                         ),
-                        Positioned(
-                          right: 0,
-                          child: CustomButton(
-                              content: Text("Отправить".toUpperCase(),
-                                  style: AppTypography.font16w600
-                                      .copyWith(color: Colors.white)),
-                              onTap: () {},
-                              width: 120),
-                        )
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Flexible(
+                          child: RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                                text: "Я согласен с ",
+                                style: AppTypography.font12w400),
+                            TextSpan(
+                                text: "Правилами Использования",
+                                style: AppTypography.font12w400.copyWith(
+                                    decoration: TextDecoration.underline)),
+                            TextSpan(
+                                text: "и ",
+                                style: AppTypography.font12w400.copyWith(
+                                    decoration: TextDecoration.underline)),
+                            TextSpan(
+                                text: "Политикой Конфиденциальности ",
+                                style: AppTypography.font12w400.copyWith(
+                                    decoration: TextDecoration.underline)),
+                          ])),
+                        ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: AppColors.blue,
-                          border: Border.all(
-                              width: 2,
-                              color: !withErrorCheckBox
-                                  ? AppColors.silver
-                                  : Colors.red),
-                          borderRadius: BorderRadius.circular(4),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                    CustomButton(
+                        content: Text(
+                          "Войти / Регистрация".toUpperCase(),
+                          style: AppTypography.font16w600
+                              .copyWith(color: Colors.white),
                         ),
-                        child: Transform.scale(
-                          scale: 25 / Checkbox.width,
-                          child: Checkbox(
-                            value: isConditionsAccepted,
-                            onChanged: (v) {
-                              changeCheckboxValue(v ?? false);
-                            },
-                            splashRadius: 0,
-                            fillColor:
-                                MaterialStateProperty.all(AppColors.blue),
-                            side: const BorderSide(
-                                width: 0, color: Colors.transparent),
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Flexible(
-                        child: RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                              text: "Я согласен с ",
-                              style: AppTypography.font12w400),
-                          TextSpan(
-                              text: "Правилами Использования",
-                              style: AppTypography.font12w400.copyWith(
-                                  decoration: TextDecoration.underline)),
-                          TextSpan(
-                              text: "и ",
-                              style: AppTypography.font12w400.copyWith(
-                                  decoration: TextDecoration.underline)),
-                          TextSpan(
-                              text: "Политикой Конфиденциальности ",
-                              style: AppTypography.font12w400.copyWith(
-                                  decoration: TextDecoration.underline)),
-                        ])),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  CustomButton(
-                      content: Text(
-                        "Войти / Регистрация".toUpperCase(),
-                        style: AppTypography.font16w600
-                            .copyWith(color: Colors.white),
-                      ),
-                      onTap: () {
-                        final permission = checkPermission();
-                        errorCodeField = checkCode();
-                        errorEmailField = checkEmail();
-                        setState(() {});
-                        if (permission) {
-                          Navigator.pushNamed(context, RouteNames.nftCertificate);
-                        }
-                      },
-                      width: double.infinity),
-                  SizedBox(
-                    height: size.height * 0.2,
-                  )
-                ],
+                        onTap: () {
+                          final permission = checkPermission();
+                          errorCodeField = checkCode();
+                          errorEmailField = checkEmail();
+                          setState(() {});
+                          if (permission) {
+                            Navigator.pushNamed(context, RouteNames.nftCertificate);
+                          }
+                        },
+                        width: double.infinity),
+                    SizedBox(
+                      height: size.height * 0.2,
+                    )
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
+    ),
     );
   }
 }
