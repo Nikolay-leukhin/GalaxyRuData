@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SafeArea(
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: MainAppBar(context: context, isAction: false,),
+            appBar: MainAppBar(context, isAction: false,),
             backgroundColor: Colors.transparent,
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         errorEmailField = checkEmail();
                         setState(() {});
                         if (permission) {
-                          Navigator.pushNamed(context, RouteNames.safe);
+                          Navigator.pushNamed(context, RouteNames.nftCertificate);
                         }
                       },
                       width: double.infinity),

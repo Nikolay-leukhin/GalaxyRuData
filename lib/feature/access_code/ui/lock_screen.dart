@@ -37,7 +37,7 @@ class _LockScreenState extends State<LockScreen> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
-          appBar: MainAppBar(),
+          appBar: MainAppBar(context,),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Center(

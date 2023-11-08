@@ -3,7 +3,7 @@ import 'package:galaxy_rudata/widgets/app_bar_items/actions_container.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 
 class MainAppBar extends PreferredSize {
-  MainAppBar({super.key, required BuildContext context, bool isAction = true})
+  MainAppBar(BuildContext context, {super.key, bool isAction = true})
       : super(
           preferredSize: Size(MediaQuery.sizeOf(context).width, 100),
           child: Padding(

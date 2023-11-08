@@ -20,6 +20,7 @@ class _SafeScreenState extends State<SafeScreen> {
     final size = MediaQuery.sizeOf(context);
 
     return MainScaffold(
+      isBottomImage: true,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32),
         child: Column(
@@ -59,7 +60,7 @@ class _SafeScreenState extends State<SafeScreen> {
           ],
         ),
       ),
-      appBar: MainAppBar(context: context,),
+      appBar: MainAppBar(context,),
     );
   }
 }
