@@ -13,7 +13,9 @@ class BaseTextFormField extends StatefulWidget {
     this.width = double.infinity,
     this.maxLines = 1,
     this.hintText = '',
-    this.obscureText = false, this.withError = false,
+    this.padding,
+    this.obscureText = false,
+    this.withError = false,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -24,6 +26,7 @@ class BaseTextFormField extends StatefulWidget {
   final String hintText;
   final bool obscureText;
   final bool withError;
+  final EdgeInsets? padding;
 
   @override
   State<BaseTextFormField> createState() => _BaseTextFormFieldState();
@@ -42,20 +45,21 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
         hintStyle: AppTypography.font16w400,
         fillColor: Colors.black.withOpacity(0.20000000298023224),
         filled: true,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: widget.height / 2 - 16),
+        contentPadding: widget.padding ?? EdgeInsets.symmetric(
+                horizontal: 16, vertical: widget.height / 2 - 16),
         hintText: widget.hintText,
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide:  BorderSide(color: !widget.withError ? AppColors.silver : Colors.red, width: 1)
-        ),
-        enabledBorder:  OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(
+                color: !widget.withError ? AppColors.silver : Colors.red,
+                width: 1)),
+        enabledBorder: OutlineInputBorder(
           borderRadius: const BorderRadius.all(
             Radius.circular(12.0),
           ),
           borderSide: BorderSide(
-            color: !widget.withError ? AppColors.silver : Colors.red,
-            width: 1
-          ),
+              color: !widget.withError ? AppColors.silver : Colors.red,
+              width: 1),
         ),
       ),
       style: AppTypography.font16w400.copyWith(color: Colors.white),

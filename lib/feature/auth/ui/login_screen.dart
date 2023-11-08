@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
-import 'package:galaxy_rudata/widgets/app_bar_items/actions_container.dart';
+import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/text_fields/base_text_form_field.dart';
 
@@ -13,44 +13,106 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController codeController = TextEditingController();
+
+  var isConditionsAccepted = false;
+
+  bool errorEmailField = false;
+  bool errorCodeField = false;
+  bool withErrorCheckBox = false;
+
+  void changeCheckboxValue(bool value) {
+    setState(() {
+      isConditionsAccepted = value;
+    });
+  }
+
+  bool checkPermission() {
+    if (isConditionsAccepted == false){
+      setState(() {
+        withErrorCheckBox = true;
+      });
+      return false;
+    }
+
+    return true;
+  }
+
+  bool checkEmail() {
+    return emailController.text == "";
+  }
+
+  bool checkCode() {
+    return codeController.text == "";
+  }
+
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    codeController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       decoration: const BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage("assets/images/auth_background.png"))),
       child: SafeArea(
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-
-            actions: [
-            ],
+            actions: const [RfContainer()],
           ),
           backgroundColor: Colors.transparent,
           body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 BaseTextFormField(
-                  withError: false,
-                  controller: controller,
+                  withError: errorEmailField,
+                  controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   hintText: "E-mail адрес",
                 ),
                 const SizedBox(
                   height: 32,
                 ),
-                BaseTextFormField(
-                  controller: controller,
-                  keyboardType: TextInputType.emailAddress,
-                  hintText: "Код",
+                SizedBox(
+                  height: 60,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        child: BaseTextFormField(
+                          withError: errorCodeField,
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22).copyWith(right: 120),
+                          controller: codeController,
+                          keyboardType: TextInputType.emailAddress,
+                          hintText: "Код",
+                        ),
+                      ),
+                      Positioned(
+                        right: 0,
+                        child: CustomButton(
+                            content: Text("Отправить".toUpperCase(),
+                                style: AppTypography.font16w600
+                                    .copyWith(color: Colors.white)),
+                            onTap: () {},
+                            width: 120),
+                      )
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 32,
@@ -64,18 +126,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 32,
                       decoration: BoxDecoration(
                         color: AppColors.blue,
-                        border: Border.all(width: 1, color: AppColors.silver),
+                        border: Border.all(width: 2, color: !withErrorCheckBox ? AppColors.silver : Colors.red),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Transform.scale(
                         scale: 25 / Checkbox.width,
                         child: Checkbox(
-                          value: true,
-                          onChanged: (v) {},
+                          value: isConditionsAccepted,
+                          onChanged: (v) {
+                            changeCheckboxValue(v ?? false);
+                          },
                           splashRadius: 0,
                           fillColor: MaterialStateProperty.all(AppColors.blue),
                           side: const BorderSide(
-                              width: 0, color: AppColors.silver),
+                              width: 0, color: Colors.transparent),
                           materialTapTargetSize:
                               MaterialTapTargetSize.shrinkWrap,
                         ),
@@ -116,9 +180,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           .copyWith(color: Colors.white),
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, RouteNames.nftCertificate);
+                      final permission = checkPermission();
+                      errorCodeField = checkCode();
+                      errorEmailField = checkEmail();
+                      setState(() {});
+                      if (permission) {
+                        Navigator.pushNamed(context, RouteNames.nftCertificate);
+                      }
                     },
-                    width: double.infinity)
+                    width: double.infinity),
+                SizedBox(
+                  height: size.height * 0.2,
+                )
               ],
             ),
           ),
