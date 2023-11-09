@@ -163,18 +163,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       width: 120),
                                 )
                               : Positioned(
-                                  bottom: 0,
-                                  top: 0,
                                   right: 0,
-                                  child: Container(
-                                    width: 40,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      currentRemainingTime.toString(),
-                                      style: AppTypography.font16w600
-                                          .copyWith(color: Colors.white),
-                                    ),
-                                  ),
+                                  child: CustomButton(
+                                      content: Text("${currentRemainingTime} СЕКУНД".toUpperCase(),
+                                          style: AppTypography.font16w600
+                                              .copyWith(color: Colors.white)),
+                                      onTap: () {
+                                        sendAuthCode();
+                                      },
+                                      width: 120),
                                 )
                         ],
                       ),
