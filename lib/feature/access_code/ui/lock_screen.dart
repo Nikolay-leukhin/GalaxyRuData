@@ -22,18 +22,22 @@ class _LockScreenState extends State<LockScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    final lockHeight = (size.width - 100) * 334 / 275;
+
+    print(size.width);
     return MainScaffold(
       isBottomImage: true,
-      appBar: MainAppBar(context,),
+      appBar: MainAppBar(
+        context,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+              Container(
+                width: size.width * 0.69,
+                constraints: const BoxConstraints(maxWidth: 500),
                 child: Text(
                   _lockMessage,
                   style: AppTypography.font16w400,
@@ -43,9 +47,10 @@ class _LockScreenState extends State<LockScreen> {
               const SizedBox(
                 height: 16,
               ),
-              SizedBox(
-                width: size.width - 100,
-                height: lockHeight,
+              Container(
+                width: size.width * 0.725,
+                height: size.width * 0.88,
+                constraints: const BoxConstraints(maxWidth: 300, maxHeight: 360),
                 child: Stack(
                   children: [
                     Image.asset(
@@ -55,14 +60,19 @@ class _LockScreenState extends State<LockScreen> {
                     ),
                     Center(
                       child: Padding(
-                        padding:
-                            EdgeInsets.only(top: (lockHeight - 60) / 3),
-                        child: AccessCodeField(
-                            controller: codeController,
-                            keyboardType:
-                                const TextInputType.numberWithOptions(),
-                            hintText: 'Введите код',
-                            width: size.width - 230),
+                        padding: EdgeInsets.only(
+                            top: size.width * 0.88 < 425
+                                ? (size.width * 0.88 - 60) / 2.8
+                                : 290 / 2.8),
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 200),
+                          child: AccessCodeField(
+                              controller: codeController,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(),
+                              hintText: 'Введите код',
+                              width: size.width - 100),
+                        ),
                       ),
                     ),
                   ],

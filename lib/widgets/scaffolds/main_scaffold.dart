@@ -24,12 +24,16 @@ class MainScaffold extends StatelessWidget {
                 image: AssetImage("assets/images/auth_background.png"))),
         child: Stack(
           children: [
-            isBottomImage ? Container(
-                alignment: Alignment.bottomCenter,
+            isBottomImage ? Positioned(
+              bottom: 0,
+                right: 0,
+                left: 0,
+                top: size.height * 0.60,
                 child: SvgPicture.asset(
                   'assets/icons/bottom_bcg.svg',
                   width: size.width,
                   height: size.width * 0.89,
+                  fit: BoxFit.fill,
                 )) : Container(),
             SafeArea(
               child: Scaffold(

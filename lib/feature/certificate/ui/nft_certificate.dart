@@ -26,30 +26,35 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  'Поздравляем! Вы получили NFT-сертификат собственного жилья во Вселенной Большого Росреестра!',
-                  style: AppTypography.font16w400,
-                  textAlign: TextAlign.center,
+                SizedBox(
+                  width: 260,
+                  child: Text(
+                    'Поздравляем! Вы получили NFT-сертификат собственного жилья во Вселенной Большого Росреестра!',
+                    style: AppTypography.font16w400,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
                 Container(
-                  width: size.width - 64,
-                  height: (size.width - 64) * 0.854,
+                  width: size.width * 0.86,
+                  constraints: const BoxConstraints(maxWidth: 350),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26.withOpacity(0.5),
-                          spreadRadius: 0.5,
-                          blurRadius: 10,
-                          offset: const Offset(0, 0),
-                        ),
-                      ],
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/certificate.png'),
-                      )),
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26.withOpacity(0.5),
+                        spreadRadius: 0.5,
+                        blurRadius: 10,
+                        offset: const Offset(0, 0),
+                      ),
+                    ],
+                  ),
+                  child: const Image(
+                    image: AssetImage('assets/images/certificate.png'),
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
                 const SizedBox(
                   height: 50,

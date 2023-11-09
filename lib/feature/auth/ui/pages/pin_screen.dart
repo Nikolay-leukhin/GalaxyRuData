@@ -25,7 +25,7 @@ class _PinScreenState extends State<PinScreen> {
     }
 
     if (pinData.length >= 4) {
-      await Future.delayed(Duration(milliseconds: 150));
+      await Future.delayed(const Duration(milliseconds: 150));
       context.read<AuthRepository>().typedUserPinCode = List.from(pinData);
       pinData.clear();
       Navigator.of(context).pushNamed(RouteNames.authPinRepeat);
@@ -93,7 +93,7 @@ class _PinScreenState extends State<PinScreen> {
                   ),
                   Container(
                     width: size.width * 0.73,
-                    constraints: BoxConstraints(maxWidth: 500),
+                    constraints: const BoxConstraints(maxWidth: 500),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -197,7 +197,7 @@ class _PinScreenState extends State<PinScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              constraints: BoxConstraints(maxWidth: 125),
+                              constraints: const BoxConstraints(maxWidth: 125),
                               width: size.width * 0.189,
                             ),
                             PinNumTab(
@@ -226,7 +226,7 @@ class _PinScreenState extends State<PinScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                 ],

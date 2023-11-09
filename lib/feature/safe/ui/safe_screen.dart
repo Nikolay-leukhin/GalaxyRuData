@@ -20,41 +20,43 @@ class _SafeScreenState extends State<SafeScreen> {
       isBottomImage: true,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                  child: Text(
-                    'Чтобы забрать ваш\nNFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
-                    style: AppTypography.font16w400,
-                    textAlign: TextAlign.center,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                width: 260,
+                child: Text(
+                  'Чтобы забрать ваш\nNFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
+                  style: AppTypography.font16w400,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                width: size.width * 0.86,
+                constraints: const BoxConstraints(maxWidth: 350),
+                color: Colors.blueAccent,
+                child: const Image(
+                  image: AssetImage('assets/images/certificate.png'),
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              CustomButton(
+                  content: Text(
+                    'Отправить код'.toUpperCase(),
+                    style: AppTypography.font16w600,
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  width: size.width - 64,
-                  height: (size.width - 64) * 0.854,
-                  color: Colors.blueAccent,
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                CustomButton(
-                    content: Text(
-                      'Отправить код'.toUpperCase(),
-                      style: AppTypography.font16w600,
-                    ),
-                    onTap: () {},
-                    width: size.width * 0.528),
-              ],
-            ),
-          ],
+                  onTap: () {},
+                  width: size.width * 0.528),
+            ],
+          ),
         ),
       ),
       appBar: MainAppBar(context),
