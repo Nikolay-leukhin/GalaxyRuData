@@ -8,5 +8,6 @@ class RouteNames{
 
   static const String nftCertificate = '/nft_certificate';
   static const String accessCodeLock = '/access_code_lock';
+  static const String congratulations = '/congratulations_screen';
   static const String safe = '/safe';
 }
