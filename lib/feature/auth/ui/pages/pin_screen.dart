@@ -24,8 +24,8 @@ class _PinScreenState extends State<PinScreen> {
       pinData.add(index);
     }
 
-    if (pinData.length >= 4) {
-      await Future.delayed(const Duration(milliseconds: 150));
+    if (pinData.length == 4) {
+      print(pinData);
       context.read<AuthRepository>().typedUserPinCode = List.from(pinData);
       pinData.clear();
       Navigator.of(context).pushNamed(RouteNames.authPinRepeat);

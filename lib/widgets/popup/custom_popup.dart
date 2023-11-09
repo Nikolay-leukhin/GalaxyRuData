@@ -24,7 +24,7 @@ class CustomPopup extends StatelessWidget {
           width: MediaQuery.sizeOf(context).width - 32,
           constraints: const BoxConstraints(maxWidth: 500),
           decoration: BoxDecoration(
-              gradient: AppGradients.skyBlue,
+              color: AppColors.darkBlue1,
               borderRadius: BorderRadius.circular(16)),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Column(

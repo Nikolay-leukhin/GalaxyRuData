@@ -44,7 +44,11 @@ class AuthRepository {
     }
   }
 
-  void logout() => apiService.logout();
+  void logout() async {
+    await apiService.logout();
+    appState.add(AppStateEnum.unAuth);
+    
+  }
 
   Future<void> savePinCode() async {
     await prefs.setPinCode(typedUserPinCode.join(""));

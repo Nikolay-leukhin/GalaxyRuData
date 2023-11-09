@@ -22,7 +22,8 @@ class MyRepositoryProvider extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-            create: (_) => AuthRepository(apiService: apiService, prefs: prefs)),
+            create: (_) =>
+                AuthRepository(apiService: apiService, prefs: prefs)),
       ],
       child: const MyBlocProviders(),
       // child: MyApp(),
@@ -78,8 +79,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class AppStateWidget extends StatelessWidget {
   const AppStateWidget({Key? key}) : super(key: key);
 
@@ -101,7 +100,6 @@ class AppStateWidget extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-
         },
       ),
     );
