@@ -6,7 +6,6 @@ import 'package:galaxy_rudata/feature/auth/ui/widgets/pin_code_indicator.dart';
 import 'package:galaxy_rudata/feature/auth/ui/widgets/pin_num_tab.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
-import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 
 class PinScreen extends StatefulWidget {

@@ -6,7 +6,6 @@ import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
-import 'package:galaxy_rudata/main.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
@@ -87,6 +86,7 @@ class AppStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocConsumer<AppCubit, AppState>(
         listener: (context, state) {
           // TODO: implement listener
