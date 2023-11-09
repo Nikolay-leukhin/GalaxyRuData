@@ -3,6 +3,8 @@ import 'package:galaxy_rudata/app.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_repeat_screen.dart';
+import 'package:galaxy_rudata/feature/access_code/ui/congratulations_booked_accommodation.dart';
+import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_screen.dart';
 import 'package:galaxy_rudata/feature/access_code/ui/lock_screen.dart';
 import 'package:galaxy_rudata/feature/certificate/ui/nft_certificate.dart';
@@ -14,6 +16,7 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
 
   RouteNames.nftCertificate: (context) => const NftCertificateScreen(),
   RouteNames.accessCodeLock: (context) => const LockScreen(),
+  RouteNames.congratulations: (context) => const CongratulationsBookedAccommodation(),
   RouteNames.safe: (context) => const SafeScreen(),
 
   RouteNames.authPinCreate: (context) => const PinScreen(),
