@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/painters/white_circle.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
 class SafeScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _SafeScreenState extends State<SafeScreen> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
+              SizedBox(
                 width: 260,
                 child: Text(
                   'Чтобы забрать ваш\nNFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
@@ -37,13 +38,36 @@ class _SafeScreenState extends State<SafeScreen> {
                 height: 30,
               ),
               Container(
-                width: size.width * 0.86,
+                  key: UniqueKey(),
+                width: size.width * 0.82,
+                height: size.width * 0.86,
+                alignment: Alignment.center,
                 constraints: const BoxConstraints(maxWidth: 350),
-                color: Colors.blueAccent,
-                child: const Image(
-                  image: AssetImage('assets/images/certificate.png'),
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage('assets/images/safe.png'),
                   fit: BoxFit.fitWidth,
-                ),
+                )),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      key: UniqueKey(),
+                      width: size.width * 0.23,
+                      height: size.width * 0.23,
+                      constraints: const BoxConstraints(maxWidth: 94, minHeight: 94),
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/safe1.png'),
+                          fit: BoxFit.fitHeight
+                        )
+                      ),
+                      child: CustomPaint(
+                        painter: WhiteCircle(),
+                      ),
+                    ),
+                  ],
+                )
               ),
               const SizedBox(
                 height: 50,
