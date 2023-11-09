@@ -57,7 +57,7 @@ class _SafeScreenState extends State<SafeScreen> {
           ],
         ),
       ),
-      appBar: MainAppBar(context,),
+      appBar: MainAppBar(context),
     );
   }
 }

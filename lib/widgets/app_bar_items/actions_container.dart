@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -22,7 +23,7 @@ class ActionsContainer extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, RouteNames.authEnterEmail);
+                Navigator.pushNamed(context, RouteNames.root);
               },
               child: SvgPicture.asset(
                 'assets/icons/back.svg',

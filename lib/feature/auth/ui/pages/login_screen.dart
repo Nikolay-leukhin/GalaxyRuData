@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       currentRemainingTime -= 1;
 
       setState(() {});
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
     }
   }
 
