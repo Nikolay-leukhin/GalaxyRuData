@@ -10,29 +10,25 @@ import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 
-class PinRepeatScreen extends StatefulWidget {
-  const PinRepeatScreen({super.key});
+class PinEnterScreen extends StatefulWidget {
+  const PinEnterScreen({super.key});
 
   @override
-  State<PinRepeatScreen> createState() => _PinRepeatScreenState();
+  State<PinEnterScreen> createState() => _PinEnterScreenState();
 }
 
-class _PinRepeatScreenState extends State<PinRepeatScreen> {
+class _PinEnterScreenState extends State<PinEnterScreen> {
   final pinKeyboard = [1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "del"];
-  late final List<int> pinCode;
-  final repeatedPinCode = [];
+  final pinCode = [];
 
   void onNumTabTap(int index) async {
-    if (repeatedPinCode.length < 4) {
-      repeatedPinCode.add(index);
+    if (pinCode.length < 4) {
+      pinCode.add(index);
     }
 
-    if (repeatedPinCode.length >= 4) {
-      print(repeatedPinCode);
-      await context
-          .read<PinCodeCubit>()
-          .checkRepeatedPinCode(pinCode.join(""), repeatedPinCode.join(""));
-      
+    if (pinCode.length >= 4) {
+      print(pinCode);
+      await context.read<PinCodeCubit>().checkUserPinCode(pinCode.join(""));
     }
 
     setState(() {});
@@ -40,7 +36,6 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
 
   @override
   void initState() {
-    pinCode = context.read<AuthRepository>().typedUserPinCode;
     super.initState();
   }
 
@@ -50,19 +45,21 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
 
     return BlocListener<PinCodeCubit, PinCodeState>(
       listener: (context, state) {
-        if (state is PinCodeRepeatSuccess) {
+        if (state is PinCodeEnterSuccess) {
           Navigator.pushNamed(context, RouteNames.nftCertificate);
-        } else if (state is PinCodeRepeatFailure) {
+        } else if (state is PinCodeEnterFailure) {
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) {
                 return CustomPopup(
-                    label:
-                        "Пин-коды не совпадают, пожалуйста, попробуйте еще раз",
+                    label: "Пин-код неверный!\nПопробуйте еще раз 🥲",
                     onTap: () {
-                      Navigator.pushReplacementNamed(
-                          context, RouteNames.authPinCreate);
+                      pinCode.clear();
+                      setState(() {
+                        
+                      });
+                      Navigator.pop(context);
                     });
               });
         }
@@ -112,7 +109,7 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
                           children: List.generate(
                             4,
                             (index) => PinCodeIndicatorItem(
-                              isActive: index < repeatedPinCode.length,
+                              isActive: index < pinCode.length,
                             ),
                           )),
                     ),
@@ -239,8 +236,8 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
                               ),
                               PinNumTab(
                                 onTap: () {
-                                  if (repeatedPinCode.isNotEmpty) {
-                                    repeatedPinCode.removeLast();
+                                  if (pinCode.isNotEmpty) {
+                                    pinCode.removeLast();
                                   }
                                   setState(() {});
                                 },

@@ -21,20 +21,3 @@ void main() async {
 
   runApp(const MyRepositoryProvider());
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Росреестор',
-      theme: ThemeData(
-        fontFamily: 'Nunito',
-      ),
-      debugShowCheckedModeBanner: false,
-      routes: appRoutes,
-      initialRoute: RouteNames.authPin,
-    );
-  }
-}

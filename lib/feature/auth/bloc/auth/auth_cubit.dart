@@ -20,12 +20,6 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  login({required String email, required String password}) async =>
-      _authRepository.login(email, password);
-
-  register(
-          {required String name,
-          required String password,
-          required String email}) async =>
-      _authRepository.register(name, email, password);
+  auth({required String email, required String password}) async =>
+      _authRepository.auth(email, password);
 }

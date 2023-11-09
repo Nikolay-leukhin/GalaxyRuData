@@ -10,14 +10,7 @@ class Auth with ApiHandler {
     currentToken = token;
   }
 
-  Future<User> login(String email, String password) async {
-    return User(name: 'Лох');
-  }
-
-  Future<User> register(
-      {required String name,
-      required String email,
-      required String password}) async {
+  Future<User> auth(String email, String password) async {
     return User(name: 'Лох');
   }
 }

@@ -13,20 +13,29 @@ class PinNumTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        onTap();
-      },
-      child: Ink(
-        width: 70,
-        height: 50,
-        decoration: BoxDecoration(
-            color: AppColors.pinButton,
-            borderRadius: BorderRadius.circular(8),
-            border:
-            Border.all(width: 1.36, color: AppColors.blue)),
-        child: Center(
-          child:  content,
+    final size = MediaQuery.sizeOf(context);
+
+
+    return Container(
+      constraints: const BoxConstraints(
+        maxWidth: 125
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: () {
+          onTap();
+        },
+        child: Ink(
+          width: size.width * 0.189,
+          height: 50,
+          decoration: BoxDecoration(
+              color: AppColors.pinButton,
+              borderRadius: BorderRadius.circular(8),
+              border:
+              Border.all(width: 1.36, color: AppColors.blue)),
+          child: Center(
+            child:  content,
+          ),
         ),
       ),
     );

@@ -22,7 +22,7 @@ class ActionsContainer extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, RouteNames.root);
+                Navigator.pushNamed(context, RouteNames.authEnterEmail);
               },
               child: SvgPicture.asset(
                 'assets/icons/back.svg',

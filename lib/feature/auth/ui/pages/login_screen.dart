@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:galaxy_rudata/utils/validators.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 import 'package:galaxy_rudata/widgets/text_fields/base_text_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController codeController = TextEditingController();
 
+  final int codeSendDuration = 60;
+  int currentRemainingTime = 0;
+
   var isConditionsAccepted = false;
 
   bool errorEmailField = false;
@@ -28,22 +36,32 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  bool checkPermission() {
-    if (isConditionsAccepted == false){
-      setState(() {
-        withErrorCheckBox = true;
-      });
+  void processTimerStart() async {
+    while (currentRemainingTime > 0) {
+      currentRemainingTime -= 1;
+
+      setState(() {});
+      await Future.delayed(Duration(seconds: 1));
     }
-
-    return isConditionsAccepted;
   }
 
-  bool checkEmail() {
-    return emailController.text == "";
+  void sendAuthCode() {
+    errorEmailField = Validator.emailValidator(emailController.text) is String;
+    setState(() {});
+
+    if (!errorEmailField) {
+      currentRemainingTime = 60;
+      processTimerStart();
+    }
   }
 
-  bool checkCode() {
-    return codeController.text == "";
+  bool checkFieldsState() {
+    errorEmailField = Validator.emailValidator(emailController.text) is String;
+    errorCodeField = Validator.code(codeController.text) is String;
+    withErrorCheckBox = !isConditionsAccepted;
+    setState(() {});
+
+    return !errorCodeField && !errorEmailField && isConditionsAccepted;
   }
 
   @override
@@ -58,21 +76,50 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthFailState) {
+          Navigator.pop(context);
+          showDialog(
+              context: context,
+              builder: (context) => CustomPopup(
+                    label: "Некорректный код, пожалуйста, попробуйте еще раз",
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ));
+        } else if (state is AuthSuccessState) {
+          Navigator.pop(context);
+
+          Navigator.pushNamed(context, RouteNames.authPinCreate);
+        } else if (state is AuthLoadingState) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              });
+        }
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                filterQuality: FilterQuality.low,
-                image: AssetImage("assets/images/auth_background.png"))),
-        child: SafeArea(
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: MainAppBar(context, isAction: false,),
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.low,
+                  image: AssetImage("assets/images/auth_background.png"))),
+          child: SafeArea(
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              resizeToAvoidBottomInset: false,
+              appBar: MainAppBar(
+                context,
+                isAction: false,
+              ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
@@ -103,15 +150,32 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintText: "Код",
                             ),
                           ),
-                          Positioned(
-                            right: 0,
-                            child: CustomButton(
-                                content: Text("Отправить".toUpperCase(),
-                                    style: AppTypography.font16w600
-                                        .copyWith(color: Colors.white)),
-                                onTap: () {},
-                                width: 120),
-                          )
+                          currentRemainingTime == 0
+                              ? Positioned(
+                                  right: 0,
+                                  child: CustomButton(
+                                      content: Text("Отправить".toUpperCase(),
+                                          style: AppTypography.font16w600
+                                              .copyWith(color: Colors.white)),
+                                      onTap: () {
+                                        sendAuthCode();
+                                      },
+                                      width: 120),
+                                )
+                              : Positioned(
+                                  bottom: 0,
+                                  top: 0,
+                                  right: 0,
+                                  child: Container(
+                                    width: 40,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      currentRemainingTime.toString(),
+                                      style: AppTypography.font16w600
+                                          .copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                )
                         ],
                       ),
                     ),
@@ -186,12 +250,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               .copyWith(color: Colors.white),
                         ),
                         onTap: () {
-                          final permission = checkPermission();
-                          errorCodeField = checkCode();
-                          errorEmailField = checkEmail();
-                          setState(() {});
+                          final permission = checkFieldsState();
+
                           if (permission) {
-                            Navigator.pushNamed(context, RouteNames.nftCertificate);
+                            context.read<AuthRepository>().auth(
+                                emailController.text, codeController.text);
                           }
                         },
                         width: double.infinity),
@@ -204,6 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
+      ),
     );
   }
 }

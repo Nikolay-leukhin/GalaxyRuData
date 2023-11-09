@@ -23,7 +23,7 @@ class CustomButton extends StatefulWidget {
       required this.width,
       this.isActive = true,
       this.height = 60,
-        this.padding = EdgeInsets.zero,
+      this.padding = EdgeInsets.zero,
       this.radius = 16,
       this.color = AppColors.blue});
 
@@ -34,21 +34,24 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    return Ink(
-      width: widget.width,
-      height: widget.height,
-      decoration: BoxDecoration(
-        color: widget.color,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 1, color: Colors.white)
-      ),
+    return Material(
+      borderRadius: BorderRadius.circular(8),
+      color: widget.color,
       child: InkWell(
+        borderRadius: BorderRadius.circular(8),
         onTap: () {
           widget.onTap();
         },
-        child: Padding(
-          padding: widget.padding,
-          child: Center(child: widget.content),
+        child: Container(
+          width: widget.width,
+          height: widget.height,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: Colors.white)),
+          child: Padding(
+            padding: widget.padding,
+            child: Center(child: widget.content),
+          ),
         ),
       ),
     );

@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:galaxy_rudata/services/api/token_model.dart';
 
-const String _tokenKey = 'token';
-
 class PreferencesService {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  final String _tokenKey = 'token';
+  final String _pinCodeKey = 'pin';
 
   Future saveToken(Token token) async {
     _prefs.then(
@@ -24,6 +25,15 @@ class PreferencesService {
     }
   }
 
-  Future logout() async =>
-      _prefs.then((value) => value.clear());
+  Future<void> setPinCode(String pinCode) async {
+    final prefs = await _prefs;
+    prefs.setString(_pinCodeKey, pinCode);
+  }
+
+  Future<String?> getPinCode() async {
+    final prefs = await _prefs;
+    return prefs.getString(_pinCodeKey);
+  }
+
+  Future logout() async => _prefs.then((value) => value.clear());
 }
