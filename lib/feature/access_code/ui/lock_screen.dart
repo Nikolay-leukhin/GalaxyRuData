@@ -55,6 +55,8 @@ class _LockScreenState extends State<LockScreen> {
                   children: [
                     Image.asset(
                       'assets/images/access_code_lock.png',
+                      width: size.width - 100,
+                      height: (size.width - 100) * 334 / 275,
                     ),
                     Center(
                       child: Padding(
