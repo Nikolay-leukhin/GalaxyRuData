@@ -43,7 +43,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
     final size = MediaQuery.sizeOf(context);
 
     return MainScaffold(
-      appBar:MainAppBar(context),
+      appBar:MainAppBar.back(context),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [

@@ -116,9 +116,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Scaffold(
               backgroundColor: Colors.transparent,
               resizeToAvoidBottomInset: false,
-              appBar: MainAppBar(
+              appBar: MainAppBar.onlyLogo(
                 context,
-                isAction: false,
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),

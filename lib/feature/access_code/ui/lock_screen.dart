@@ -71,7 +71,7 @@ class _LockScreenState extends State<LockScreen> {
     print(size.width);
     return MainScaffold(
       isBottomImage: true,
-      appBar: MainAppBar(
+      appBar: MainAppBar.backWallet(
         context,
       ),
       body: Padding(

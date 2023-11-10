@@ -18,7 +18,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
     final size = MediaQuery.sizeOf(context);
 
     return MainScaffold(
-      appBar: MainAppBar(context),
+      appBar: MainAppBar.logoutWallet(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(

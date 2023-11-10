@@ -25,7 +25,7 @@ class _CongratulationsBookedAccommodationState
   @override
   Widget build(BuildContext context) {
     return MainScaffold(
-        appBar: MainAppBar(context),
+        appBar: MainAppBar.logoutWallet(context),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Center(
