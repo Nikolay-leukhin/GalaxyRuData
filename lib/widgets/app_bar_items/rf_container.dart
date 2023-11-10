@@ -6,6 +6,9 @@ class RfContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset('assets/icons/rf.svg');
+    return SizedBox(
+        height: 60,
+        child: SizedBox(
+            height: 50, child: SvgPicture.asset('assets/icons/rf.svg')));
   }
 }

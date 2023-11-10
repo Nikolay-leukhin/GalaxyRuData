@@ -5,11 +5,23 @@ import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
-class BackWalletActions extends StatelessWidget {
-  const BackWalletActions({super.key});
+class AppBarActions extends StatelessWidget {
+  const AppBarActions({super.key, required this.actions});
+
+  final List<AppBarButton> actions;
 
   @override
   Widget build(BuildContext context) {
+    final children = <Widget>[];
+
+    for (var i = 0; i < actions.length; i ++) {
+      children.add(actions[i]);
+      if (i != actions.length - 1 && actions.length != 1) {
+        children.add(
+          const SizedBox(width: 30,));
+      }
+    }
+
     const radius = Radius.circular(40);
     return Container(
       decoration: const BoxDecoration(
@@ -20,32 +32,34 @@ class BackWalletActions extends StatelessWidget {
       height: 60,
       child: Center(
         child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, RouteNames.authPinEnter);
-              },
-              child: SvgPicture.asset(
-                'assets/icons/back.svg',
-                width: 32,
-                height: 32,
-              ),
-            ),
-            const SizedBox(
-              width: 30,
-            ),
-            InkWell(
-              onTap: () {},
-              child: SvgPicture.asset(
-                'assets/icons/wallet.svg',
-                width: 32,
-                height: 32,
-              ),
-            ),
-          ],
+            mainAxisSize: MainAxisSize.min,
+            children: children
         ),
       ),
     );
   }
 }
+
+class AppBarButton extends StatelessWidget {
+  const AppBarButton({super.key, required this.onTap, required this.iconName});
+
+  final VoidCallback onTap;
+
+  /// Указывать не полным путем, а только то что после ...icons/
+  /// Например не 'assets/icons/wallet.svg' а wallet.svg
+  final String iconName;
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      InkWell(
+        onTap: () {},
+        child: SvgPicture.asset(
+          'assets/icons/$iconName',
+          width: 32,
+          height: 32,
+        ),
+      );
+  }
+}
+

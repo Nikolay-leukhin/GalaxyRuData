@@ -51,9 +51,8 @@ class _PinScreenState extends State<PinScreen> {
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: MainAppBar(
+            appBar: MainAppBar.onlyLogo(
               context,
-              isAction: false,
             ),
             body: Container(
               padding: const EdgeInsets.symmetric(horizontal: 24),

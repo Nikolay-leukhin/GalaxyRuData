@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
@@ -67,7 +66,7 @@ class _LockScreenState extends State<LockScreen> {
 
     return MainScaffold(
       isBottomImage: true,
-      appBar: MainAppBar(
+      appBar: MainAppBar.backWallet(
         context,
       ),
       body: Padding(
@@ -135,7 +134,10 @@ class _LockScreenState extends State<LockScreen> {
                     'Отправить код'.toUpperCase(),
                     style: AppTypography.font16w600,
                   ),
-                  onTap: turnLock,
+                  onTap: () {
+                    turnLock();
+                    Navigator.of(context).pushNamed(RouteNames.congratulations);
+                  },
                   width: double.infinity),
             ],
           ),
