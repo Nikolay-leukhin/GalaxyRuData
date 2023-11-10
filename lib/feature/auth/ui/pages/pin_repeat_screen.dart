@@ -51,7 +51,7 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
     return BlocListener<PinCodeCubit, PinCodeState>(
       listener: (context, state) {
         if (state is PinCodeRepeatSuccess) {
-          Navigator.pushNamed(context, RouteNames.nftCertificate);
+          Navigator.pushNamed(context, RouteNames.accessCodeLock);
         } else if (state is PinCodeRepeatFailure) {
           showDialog(
               barrierDismissible: false,
