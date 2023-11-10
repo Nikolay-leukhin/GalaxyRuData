@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
@@ -32,16 +31,20 @@ class _LockScreenState extends State<LockScreen> {
       setState(() {
         top = 0;
       });
-      Future.delayed(moveDuration).then((value) {setState(() {
-        turn = 0.13;
-      });});
+      Future.delayed(moveDuration).then((value) {
+        setState(() {
+          turn = 0.13;
+        });
+      });
     } else {
       setState(() {
         turn = 0;
       });
-      Future.delayed(rotationDuration).then((value) {setState(() {
-        top = 20;
-      });});
+      Future.delayed(rotationDuration).then((value) {
+        setState(() {
+          top = 20;
+        });
+      });
     }
   }
 
@@ -104,9 +107,10 @@ class _LockScreenState extends State<LockScreen> {
                     ),
                     AnimatedPositioned(
                       top: top,
-                      duration:  moveDuration,
+                      duration: moveDuration,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: size.width * (0.725 - 0.51) / 2),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: size.width * (0.725 - 0.51) / 2),
                         child: AnimatedRotation(
                           alignment: const Alignment(0.2, 0.3),
                           curve: Curves.decelerate,
@@ -116,11 +120,10 @@ class _LockScreenState extends State<LockScreen> {
                             height: size.width * 0.48,
                             width: size.width * 0.51,
                             decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/lock/lock.png'),
-                                fit: BoxFit.fitHeight
-                              )
-                            ),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/lock/lock.png'),
+                                    fit: BoxFit.fitHeight)),
                           ),
                         ),
                       ),
@@ -143,7 +146,10 @@ class _LockScreenState extends State<LockScreen> {
                     'Отправить код'.toUpperCase(),
                     style: AppTypography.font16w600,
                   ),
-                  onTap: turnLock,
+                  onTap: () {
+                    turnLock();
+                    Navigator.of(context).pushNamed(RouteNames.congratulations);
+                  },
                   width: double.infinity),
             ],
           ),
