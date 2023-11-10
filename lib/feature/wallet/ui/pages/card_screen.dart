@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
-class NftCertificateScreen extends StatefulWidget {
-  const NftCertificateScreen({super.key});
+class WalletCardScreen extends StatefulWidget {
+  const WalletCardScreen({super.key});
 
   @override
-  State<NftCertificateScreen> createState() => _NftCertificateScreenState();
+  State<WalletCardScreen> createState() => _WalletCardScreenState();
 }
 
-class _NftCertificateScreenState extends State<NftCertificateScreen> {
+class _WalletCardScreenState extends State<WalletCardScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -22,14 +21,14 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               children: [
                 SizedBox(
                   width: 320,
                   child: Text(
-                    'Поздравляем! Вы получили NFT-сертификат собственного жилья во Вселенной Большого Росреестра!',
+                    "Подключите цифровой кошелек, после прохождения квестов на него будет отправлен NFT-сертификат вашего жилья во Вселенной  Большого Росреестра",
                     style: AppTypography.font16w400,
                     textAlign: TextAlign.center,
                   ),
@@ -40,41 +39,35 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                 Container(
                   width: size.width * 0.86,
                   constraints: const BoxConstraints(maxWidth: 350),
+                  clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26.withOpacity(0.5),
-                        spreadRadius: 0.5,
-                        blurRadius: 10,
-                        offset: const Offset(0, 0),
-                      ),
-                    ],
+                    borderRadius: BorderRadius.circular(16),
                   ),
                   child: const Image(
-                    image: AssetImage('assets/images/certificate.png'),
+                    image: AssetImage('assets/images/bank_card.png'),
                     fit: BoxFit.fitWidth,
                   ),
                 ),
               ],
             ),
+            const SizedBox(
+              height: 25,
+            ),
             Column(
               children: [
                 CustomButton(
                     content: Text(
-                      'Посмотреть в кошельке'.toUpperCase(),
+                      'Создать кошелек'.toUpperCase(),
                       style: AppTypography.font16w600,
                     ),
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteNames.walletCard);
-                    },
+                    onTap: () {},
                     width: double.infinity),
                 const SizedBox(
                   height: 15,
                 ),
                 CustomButton(
                     content: Text(
-                      'Забронировать ещё жилье!'.toUpperCase(),
+                      'Ввести сид-фразу'.toUpperCase(),
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {},
