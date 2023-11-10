@@ -18,12 +18,16 @@ class CongratulationsBookedAccommodation extends StatefulWidget {
 
 class _CongratulationsBookedAccommodationState
     extends State<CongratulationsBookedAccommodation> {
-  final separate = const SizedBox(
-    height: 32,
-  );
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+
+    final separate = Container(
+      height: size.height *0.05,
+      constraints: const BoxConstraints(maxHeight: 60),
+    );
+
     return MainScaffold(
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(
@@ -32,17 +36,21 @@ class _CongratulationsBookedAccommodationState
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'Поздравляем, вы забронировали жилье!',
-                  textAlign: TextAlign.center,
-                  style: AppTypography.font24w700,
+                Container(
+                  width: size.width * 0.6,
+                  constraints: const BoxConstraints(maxWidth: 350),
+                  child: Text(
+                    'Поздравляем, вы забронировали жилье!',
+                    textAlign: TextAlign.center,
+                    style: size.width > 300 ? AppTypography.font24w700 : AppTypography.font16w700,
+                  ),
                 ),
                 separate,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
                     _congratulationsMessage,
-                    style: AppTypography.font16w400,
+                    style: size.width > 300 ? AppTypography.font16w400 : AppTypography.font14w400,
                     textAlign: TextAlign.center,
                   ),
                 ),
