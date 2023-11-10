@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 class WhiteCircle extends CustomPainter {
+  final List<int> colors;
+
+  WhiteCircle({required this.colors});
+
   @override
   void paint(Canvas canvas, Size size) {
+    List<Path> paths = [];
+
     Path path_0 = Path();
     path_0.moveTo(size.width * 0.1041237, size.height * 0.9933041);
     path_0.lineTo(size.width * 0.1175155, size.height * 0.9932456);
@@ -18,9 +24,7 @@ class WhiteCircle extends CustomPainter {
     path_0.lineTo(size.width * 0.1041237, size.height * 0.9933041);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_0, paint_0_fill);
+    paths.add(path_0);
 
     Path path_1 = Path();
     path_1.moveTo(size.width * 0.1392971, size.height * 0.9933918);
@@ -37,10 +41,6 @@ class WhiteCircle extends CustomPainter {
     path_1.lineTo(size.width * 0.1392971, size.height * 0.9933918);
     path_1.close();
 
-    Paint paint_1_fill = Paint()..style = PaintingStyle.fill;
-    paint_1_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_1, paint_1_fill);
-
     Path path_2 = Path();
     path_2.moveTo(size.width * 0.1744734, size.height * 0.9934795);
     path_2.lineTo(size.width * 0.1878652, size.height * 0.9934795);
@@ -55,10 +55,6 @@ class WhiteCircle extends CustomPainter {
     path_2.lineTo(size.width * 0.1744442, size.height * 0.9934503);
     path_2.lineTo(size.width * 0.1744734, size.height * 0.9934795);
     path_2.close();
-
-    Paint paint_2_fill = Paint()..style = PaintingStyle.fill;
-    paint_2_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_2, paint_2_fill);
 
     Path path_3 = Path();
     path_3.moveTo(size.width * 0.2096494, size.height * 0.9935673);
@@ -75,10 +71,6 @@ class WhiteCircle extends CustomPainter {
     path_3.lineTo(size.width * 0.2096494, size.height * 0.9935673);
     path_3.close();
 
-    Paint paint_3_fill = Paint()..style = PaintingStyle.fill;
-    paint_3_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_3, paint_3_fill);
-
     Path path_4 = Path();
     path_4.moveTo(size.width * 0.2448257, size.height * 0.9936550);
     path_4.lineTo(size.width * 0.2582175, size.height * 0.9936550);
@@ -93,10 +85,6 @@ class WhiteCircle extends CustomPainter {
     path_4.lineTo(size.width * 0.2447965, size.height * 0.9936257);
     path_4.lineTo(size.width * 0.2448257, size.height * 0.9936550);
     path_4.close();
-
-    Paint paint_4_fill = Paint()..style = PaintingStyle.fill;
-    paint_4_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_4, paint_4_fill);
 
     Path path_5 = Path();
     path_5.moveTo(size.width * 0.2799708, size.height * 0.9937427);
@@ -113,10 +101,6 @@ class WhiteCircle extends CustomPainter {
     path_5.lineTo(size.width * 0.2799708, size.height * 0.9937427);
     path_5.close();
 
-    Paint paint_5_fill = Paint()..style = PaintingStyle.fill;
-    paint_5_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_5, paint_5_fill);
-
     Path path_6 = Path();
     path_6.moveTo(size.width * 0.3151462, size.height * 0.9938304);
     path_6.lineTo(size.width * 0.3285380, size.height * 0.9938304);
@@ -131,10 +115,6 @@ class WhiteCircle extends CustomPainter {
     path_6.lineTo(size.width * 0.3151170, size.height * 0.9938012);
     path_6.lineTo(size.width * 0.3151462, size.height * 0.9938304);
     path_6.close();
-
-    Paint paint_6_fill = Paint()..style = PaintingStyle.fill;
-    paint_6_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_6, paint_6_fill);
 
     Path path_7 = Path();
     path_7.moveTo(size.width * 0.3503216, size.height * 0.9939181);
@@ -151,10 +131,6 @@ class WhiteCircle extends CustomPainter {
     path_7.lineTo(size.width * 0.3503216, size.height * 0.9939181);
     path_7.close();
 
-    Paint paint_7_fill = Paint()..style = PaintingStyle.fill;
-    paint_7_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_7, paint_7_fill);
-
     Path path_8 = Path();
     path_8.moveTo(size.width * 0.3854678, size.height * 0.9940058);
     path_8.lineTo(size.width * 0.3988596, size.height * 0.9940058);
@@ -169,10 +145,6 @@ class WhiteCircle extends CustomPainter {
     path_8.lineTo(size.width * 0.3854386, size.height * 0.9939766);
     path_8.lineTo(size.width * 0.3854678, size.height * 0.9940058);
     path_8.close();
-
-    Paint paint_8_fill = Paint()..style = PaintingStyle.fill;
-    paint_8_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_8, paint_8_fill);
 
     Path path_9 = Path();
     path_9.moveTo(size.width * 0.4206433, size.height * 0.9940936);
@@ -189,10 +161,6 @@ class WhiteCircle extends CustomPainter {
     path_9.lineTo(size.width * 0.4206433, size.height * 0.9940936);
     path_9.close();
 
-    Paint paint_9_fill = Paint()..style = PaintingStyle.fill;
-    paint_9_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_9, paint_9_fill);
-
     Path path_10 = Path();
     path_10.moveTo(size.width * 0.4558187, size.height * 0.9941813);
     path_10.lineTo(size.width * 0.4692105, size.height * 0.9941813);
@@ -207,10 +175,6 @@ class WhiteCircle extends CustomPainter {
     path_10.lineTo(size.width * 0.4557895, size.height * 0.9941520);
     path_10.lineTo(size.width * 0.4558187, size.height * 0.9941813);
     path_10.close();
-
-    Paint paint_10_fill = Paint()..style = PaintingStyle.fill;
-    paint_10_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_10, paint_10_fill);
 
     Path path_11 = Path();
     path_11.moveTo(size.width * 0.4907895, size.height * 0.9993567);
@@ -234,10 +198,6 @@ class WhiteCircle extends CustomPainter {
     path_11.lineTo(size.width * 0.4907895, size.height * 0.9993567);
     path_11.close();
 
-    Paint paint_11_fill = Paint()..style = PaintingStyle.fill;
-    paint_11_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_11, paint_11_fill);
-
     Path path_12 = Path();
     path_12.moveTo(size.width * 0.5306725, size.height * 0.9566082);
     path_12.lineTo(size.width * 0.5343275, size.height * 0.9983041);
@@ -252,10 +212,6 @@ class WhiteCircle extends CustomPainter {
         size.height * 0.9566374);
     path_12.lineTo(size.width * 0.5306725, size.height * 0.9566082);
     path_12.close();
-
-    Paint paint_12_fill = Paint()..style = PaintingStyle.fill;
-    paint_12_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_12, paint_12_fill);
 
     Path path_13 = Path();
     path_13.moveTo(size.width * 0.5704386, size.height * 0.9521930);
@@ -272,10 +228,6 @@ class WhiteCircle extends CustomPainter {
     path_13.lineTo(size.width * 0.5704386, size.height * 0.9521930);
     path_13.close();
 
-    Paint paint_13_fill = Paint()..style = PaintingStyle.fill;
-    paint_13_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_13, paint_13_fill);
-
     Path path_14 = Path();
     path_14.moveTo(size.width * 0.6096199, size.height * 0.9443567);
     path_14.lineTo(size.width * 0.6203801, size.height * 0.9846784);
@@ -289,10 +241,6 @@ class WhiteCircle extends CustomPainter {
         size.width * 0.6096199,
         size.height * 0.9443567);
     path_14.close();
-
-    Paint paint_14_fill = Paint()..style = PaintingStyle.fill;
-    paint_14_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_14, paint_14_fill);
 
     Path path_15 = Path();
     path_15.moveTo(size.width * 0.6479240, size.height * 0.9330994);
@@ -308,10 +256,6 @@ class WhiteCircle extends CustomPainter {
         size.height * 0.9330994);
     path_15.close();
 
-    Paint paint_15_fill = Paint()..style = PaintingStyle.fill;
-    paint_15_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_15, paint_15_fill);
-
     Path path_16 = Path();
     path_16.moveTo(size.width * 0.6851170, size.height * 0.9185088);
     path_16.lineTo(size.width * 0.7027778, size.height * 0.9563158);
@@ -325,10 +269,6 @@ class WhiteCircle extends CustomPainter {
         size.width * 0.6851170,
         size.height * 0.9185088);
     path_16.close();
-
-    Paint paint_16_fill = Paint()..style = PaintingStyle.fill;
-    paint_16_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_16, paint_16_fill);
 
     Path path_17 = Path();
     path_17.moveTo(size.width * 0.7209649, size.height * 0.9007602);
@@ -345,10 +285,6 @@ class WhiteCircle extends CustomPainter {
     path_17.lineTo(size.width * 0.7209649, size.height * 0.9007602);
     path_17.close();
 
-    Paint paint_17_fill = Paint()..style = PaintingStyle.fill;
-    paint_17_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_17, paint_17_fill);
-
     Path path_18 = Path();
     path_18.moveTo(size.width * 0.7550877, size.height * 0.8798830);
     path_18.lineTo(size.width * 0.7790058, size.height * 0.9140643);
@@ -362,10 +298,6 @@ class WhiteCircle extends CustomPainter {
         size.width * 0.7550877,
         size.height * 0.8798830);
     path_18.close();
-
-    Paint paint_18_fill = Paint()..style = PaintingStyle.fill;
-    paint_18_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_18, paint_18_fill);
 
     Path path_19 = Path();
     path_19.moveTo(size.width * 0.7871345, size.height * 0.8561696);
@@ -382,10 +314,6 @@ class WhiteCircle extends CustomPainter {
     path_19.lineTo(size.width * 0.7871345, size.height * 0.8561696);
     path_19.close();
 
-    Paint paint_19_fill = Paint()..style = PaintingStyle.fill;
-    paint_19_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_19, paint_19_fill);
-
     Path path_20 = Path();
     path_20.moveTo(size.width * 0.8171345, size.height * 0.8297368);
     path_20.lineTo(size.width * 0.8466959, size.height * 0.8592982);
@@ -400,10 +328,6 @@ class WhiteCircle extends CustomPainter {
         size.height * 0.8297368);
     path_20.close();
 
-    Paint paint_20_fill = Paint()..style = PaintingStyle.fill;
-    paint_20_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_20, paint_20_fill);
-
     Path path_21 = Path();
     path_21.moveTo(size.width * 0.8478947, size.height * 0.7971930);
     path_21.lineTo(size.width * 0.8798830, size.height * 0.8239766);
@@ -417,10 +341,6 @@ class WhiteCircle extends CustomPainter {
         size.width * 0.8478947,
         size.height * 0.7971930);
     path_21.close();
-
-    Paint paint_21_fill = Paint()..style = PaintingStyle.fill;
-    paint_21_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_21, paint_21_fill);
 
     Path path_22 = Path();
     path_22.moveTo(size.width * 0.8724561, size.height * 0.7657018);
@@ -437,10 +357,6 @@ class WhiteCircle extends CustomPainter {
     path_22.lineTo(size.width * 0.8724561, size.height * 0.7657018);
     path_22.close();
 
-    Paint paint_22_fill = Paint()..style = PaintingStyle.fill;
-    paint_22_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_22, paint_22_fill);
-
     Path path_23 = Path();
     path_23.moveTo(size.width * 0.8942690, size.height * 0.7322222);
     path_23.lineTo(size.width * 0.9303801, size.height * 0.7530117);
@@ -455,10 +371,6 @@ class WhiteCircle extends CustomPainter {
         size.height * 0.7322222);
     path_23.lineTo(size.width * 0.8942690, size.height * 0.7322222);
     path_23.close();
-
-    Paint paint_23_fill = Paint()..style = PaintingStyle.fill;
-    paint_23_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_23, paint_23_fill);
 
     Path path_24 = Path();
     path_24.moveTo(size.width * 0.9130702, size.height * 0.6969591);
@@ -475,10 +387,6 @@ class WhiteCircle extends CustomPainter {
     path_24.lineTo(size.width * 0.9130702, size.height * 0.6969591);
     path_24.close();
 
-    Paint paint_24_fill = Paint()..style = PaintingStyle.fill;
-    paint_24_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_24, paint_24_fill);
-
     Path path_25 = Path();
     path_25.moveTo(size.width * 0.9287427, size.height * 0.6601754);
     path_25.lineTo(size.width * 0.9678655, size.height * 0.6743860);
@@ -494,10 +402,6 @@ class WhiteCircle extends CustomPainter {
     path_25.lineTo(size.width * 0.9287427, size.height * 0.6601754);
     path_25.close();
 
-    Paint paint_25_fill = Paint()..style = PaintingStyle.fill;
-    paint_25_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_25, paint_25_fill);
-
     Path path_26 = Path();
     path_26.moveTo(size.width * 0.9410819, size.height * 0.6221637);
     path_26.lineTo(size.width * 0.9812573, size.height * 0.6329240);
@@ -511,10 +415,6 @@ class WhiteCircle extends CustomPainter {
         size.width * 0.9410819,
         size.height * 0.6221637);
     path_26.close();
-
-    Paint paint_26_fill = Paint()..style = PaintingStyle.fill;
-    paint_26_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_26, paint_26_fill);
 
     Path path_27 = Path();
     path_27.moveTo(size.width * 0.9500585, size.height * 0.5832164);
@@ -530,10 +430,6 @@ class WhiteCircle extends CustomPainter {
         size.height * 0.5832164);
     path_27.close();
 
-    Paint paint_27_fill = Paint()..style = PaintingStyle.fill;
-    paint_27_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_27, paint_27_fill);
-
     Path path_28 = Path();
     path_28.moveTo(size.width * 0.9555263, size.height * 0.5436550);
     path_28.lineTo(size.width * 0.9970468, size.height * 0.5472515);
@@ -548,10 +444,6 @@ class WhiteCircle extends CustomPainter {
         size.height * 0.5436550);
     path_28.lineTo(size.width * 0.9555263, size.height * 0.5436550);
     path_28.close();
-
-    Paint paint_28_fill = Paint()..style = PaintingStyle.fill;
-    paint_28_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_28, paint_28_fill);
 
     Path path_29 = Path();
     path_29.moveTo(size.width * 0.8959649, size.height * 0.4907602);
@@ -574,10 +466,6 @@ class WhiteCircle extends CustomPainter {
     path_29.lineTo(size.width * 0.8959649, size.height * 0.4907602);
     path_29.close();
 
-    Paint paint_29_fill = Paint()..style = PaintingStyle.fill;
-    paint_29_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_29, paint_29_fill);
-
     Path path_30 = Path();
     path_30.moveTo(size.width * 0.9550292, size.height * 0.4509064);
     path_30.cubicTo(
@@ -592,10 +480,6 @@ class WhiteCircle extends CustomPainter {
     path_30.lineTo(size.width * 0.9550292, size.height * 0.4509357);
     path_30.lineTo(size.width * 0.9550292, size.height * 0.4509064);
     path_30.close();
-
-    Paint paint_30_fill = Paint()..style = PaintingStyle.fill;
-    paint_30_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_30, paint_30_fill);
 
     Path path_31 = Path();
     path_31.moveTo(size.width * 0.9491228, size.height * 0.4113743);
@@ -612,10 +496,6 @@ class WhiteCircle extends CustomPainter {
     path_31.lineTo(size.width * 0.9491228, size.height * 0.4113743);
     path_31.close();
 
-    Paint paint_31_fill = Paint()..style = PaintingStyle.fill;
-    paint_31_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_31, paint_31_fill);
-
     Path path_32 = Path();
     path_32.moveTo(size.width * 0.9397076, size.height * 0.3725731);
     path_32.cubicTo(
@@ -630,10 +510,6 @@ class WhiteCircle extends CustomPainter {
     path_32.lineTo(size.width * 0.9397368, size.height * 0.3725439);
     path_32.lineTo(size.width * 0.9397076, size.height * 0.3725731);
     path_32.close();
-
-    Paint paint_32_fill = Paint()..style = PaintingStyle.fill;
-    paint_32_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_32, paint_32_fill);
 
     Path path_33 = Path();
     path_33.moveTo(size.width * 0.9269591, size.height * 0.3346784);
@@ -650,10 +526,6 @@ class WhiteCircle extends CustomPainter {
     path_33.lineTo(size.width * 0.9269591, size.height * 0.3346784);
     path_33.close();
 
-    Paint paint_33_fill = Paint()..style = PaintingStyle.fill;
-    paint_33_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_33, paint_33_fill);
-
     Path path_34 = Path();
     path_34.moveTo(size.width * 0.9109357, size.height * 0.2980702);
     path_34.cubicTo(
@@ -668,10 +540,6 @@ class WhiteCircle extends CustomPainter {
     path_34.lineTo(size.width * 0.9109064, size.height * 0.2980702);
     path_34.lineTo(size.width * 0.9109357, size.height * 0.2980702);
     path_34.close();
-
-    Paint paint_34_fill = Paint()..style = PaintingStyle.fill;
-    paint_34_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_34, paint_34_fill);
 
     Path path_35 = Path();
     path_35.moveTo(size.width * 0.8918421, size.height * 0.2630117);
@@ -688,10 +556,6 @@ class WhiteCircle extends CustomPainter {
     path_35.lineTo(size.width * 0.8918421, size.height * 0.2630117);
     path_35.close();
 
-    Paint paint_35_fill = Paint()..style = PaintingStyle.fill;
-    paint_35_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_35, paint_35_fill);
-
     Path path_36 = Path();
     path_36.moveTo(size.width * 0.8696199, size.height * 0.2297661);
     path_36.cubicTo(
@@ -707,10 +571,6 @@ class WhiteCircle extends CustomPainter {
     path_36.lineTo(size.width * 0.8696199, size.height * 0.2297661);
     path_36.close();
 
-    Paint paint_36_fill = Paint()..style = PaintingStyle.fill;
-    paint_36_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_36, paint_36_fill);
-
     Path path_37 = Path();
     path_37.moveTo(size.width * 0.8446784, size.height * 0.1985380);
     path_37.cubicTo(
@@ -724,10 +584,6 @@ class WhiteCircle extends CustomPainter {
     path_37.lineTo(size.width * 0.8767251, size.height * 0.1716959);
     path_37.lineTo(size.width * 0.8446784, size.height * 0.1985380);
     path_37.close();
-
-    Paint paint_37_fill = Paint()..style = PaintingStyle.fill;
-    paint_37_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_37, paint_37_fill);
 
     Path path_38 = Path();
     path_38.moveTo(size.width * 0.8171345, size.height * 0.1696199);
@@ -743,10 +599,6 @@ class WhiteCircle extends CustomPainter {
     path_38.lineTo(size.width * 0.8171345, size.height * 0.1696199);
     path_38.close();
 
-    Paint paint_38_fill = Paint()..style = PaintingStyle.fill;
-    paint_38_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_38, paint_38_fill);
-
     Path path_39 = Path();
     path_39.moveTo(size.width * 0.7871345, size.height * 0.1432164);
     path_39.cubicTo(
@@ -760,10 +612,6 @@ class WhiteCircle extends CustomPainter {
     path_39.lineTo(size.width * 0.8140643, size.height * 0.1111988);
     path_39.lineTo(size.width * 0.7871345, size.height * 0.1432164);
     path_39.close();
-
-    Paint paint_39_fill = Paint()..style = PaintingStyle.fill;
-    paint_39_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_39, paint_39_fill);
 
     Path path_40 = Path();
     path_40.moveTo(size.width * 0.7550000, size.height * 0.1194737);
@@ -780,10 +628,6 @@ class WhiteCircle extends CustomPainter {
     path_40.lineTo(size.width * 0.7550000, size.height * 0.1194737);
     path_40.close();
 
-    Paint paint_40_fill = Paint()..style = PaintingStyle.fill;
-    paint_40_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_40, paint_40_fill);
-
     Path path_41 = Path();
     path_41.moveTo(size.width * 0.7209649, size.height * 0.09865497);
     path_41.cubicTo(
@@ -799,10 +643,6 @@ class WhiteCircle extends CustomPainter {
     path_41.lineTo(size.width * 0.7209649, size.height * 0.09865497);
     path_41.close();
 
-    Paint paint_41_fill = Paint()..style = PaintingStyle.fill;
-    paint_41_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_41, paint_41_fill);
-
     Path path_42 = Path();
     path_42.moveTo(size.width * 0.6851170, size.height * 0.08084795);
     path_42.cubicTo(
@@ -816,10 +656,6 @@ class WhiteCircle extends CustomPainter {
     path_42.lineTo(size.width * 0.7027778, size.height * 0.04307018);
     path_42.lineTo(size.width * 0.6851170, size.height * 0.08084795);
     path_42.close();
-
-    Paint paint_42_fill = Paint()..style = PaintingStyle.fill;
-    paint_42_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_42, paint_42_fill);
 
     Path path_43 = Path();
     path_43.moveTo(size.width * 0.6479240, size.height * 0.06625731);
@@ -835,10 +671,6 @@ class WhiteCircle extends CustomPainter {
     path_43.lineTo(size.width * 0.6479240, size.height * 0.06625731);
     path_43.close();
 
-    Paint paint_43_fill = Paint()..style = PaintingStyle.fill;
-    paint_43_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_43, paint_43_fill);
-
     Path path_44 = Path();
     path_44.moveTo(size.width * 0.6096199, size.height * 0.05502924);
     path_44.cubicTo(
@@ -852,10 +684,6 @@ class WhiteCircle extends CustomPainter {
     path_44.lineTo(size.width * 0.6203801, size.height * 0.01473678);
     path_44.lineTo(size.width * 0.6096199, size.height * 0.05502924);
     path_44.close();
-
-    Paint paint_44_fill = Paint()..style = PaintingStyle.fill;
-    paint_44_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_44, paint_44_fill);
 
     Path path_45 = Path();
     path_45.moveTo(size.width * 0.5704386, size.height * 0.04716374);
@@ -872,10 +700,6 @@ class WhiteCircle extends CustomPainter {
     path_45.lineTo(size.width * 0.5704386, size.height * 0.04716374);
     path_45.close();
 
-    Paint paint_45_fill = Paint()..style = PaintingStyle.fill;
-    paint_45_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_45, paint_45_fill);
-
     Path path_46 = Path();
     path_46.moveTo(size.width * 0.5306725, size.height * 0.04277778);
     path_46.cubicTo(
@@ -890,10 +714,6 @@ class WhiteCircle extends CustomPainter {
     path_46.lineTo(size.width * 0.5306725, size.height * 0.04277778);
     path_46.close();
 
-    Paint paint_46_fill = Paint()..style = PaintingStyle.fill;
-    paint_46_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_46, paint_46_fill);
-
     Path path_47 = Path();
     path_47.moveTo(size.width * 0.4907895, 0);
     path_47.lineTo(size.width * 0.4907895, size.height * 0.1033626);
@@ -901,10 +721,6 @@ class WhiteCircle extends CustomPainter {
     path_47.lineTo(size.width * 0.5037719, 0);
     path_47.lineTo(size.width * 0.4907895, 0);
     path_47.close();
-
-    Paint paint_47_fill = Paint()..style = PaintingStyle.fill;
-    paint_47_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_47, paint_47_fill);
 
     Path path_48 = Path();
     path_48.moveTo(size.width * 0.4472807, size.height * 0.002690023);
@@ -921,10 +737,6 @@ class WhiteCircle extends CustomPainter {
     path_48.lineTo(size.width * 0.4472807, size.height * 0.002690023);
     path_48.close();
 
-    Paint paint_48_fill = Paint()..style = PaintingStyle.fill;
-    paint_48_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_48, paint_48_fill);
-
     Path path_49 = Path();
     path_49.moveTo(size.width * 0.4041813, size.height * 0.009152047);
     path_49.lineTo(size.width * 0.4113743, size.height * 0.05026316);
@@ -939,10 +751,6 @@ class WhiteCircle extends CustomPainter {
     path_49.lineTo(size.width * 0.4042105, size.height * 0.009181287);
     path_49.lineTo(size.width * 0.4041813, size.height * 0.009152047);
     path_49.close();
-
-    Paint paint_49_fill = Paint()..style = PaintingStyle.fill;
-    paint_49_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_49, paint_49_fill);
 
     Path path_50 = Path();
     path_50.moveTo(size.width * 0.3617251, size.height * 0.01932740);
@@ -959,10 +767,6 @@ class WhiteCircle extends CustomPainter {
     path_50.lineTo(size.width * 0.3617251, size.height * 0.01932740);
     path_50.close();
 
-    Paint paint_50_fill = Paint()..style = PaintingStyle.fill;
-    paint_50_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_50, paint_50_fill);
-
     Path path_51 = Path();
     path_51.moveTo(size.width * 0.3204094, size.height * 0.03318713);
     path_51.lineTo(size.width * 0.3346784, size.height * 0.07236842);
@@ -978,10 +782,6 @@ class WhiteCircle extends CustomPainter {
     path_51.lineTo(size.width * 0.3204094, size.height * 0.03318713);
     path_51.close();
 
-    Paint paint_51_fill = Paint()..style = PaintingStyle.fill;
-    paint_51_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_51, paint_51_fill);
-
     Path path_52 = Path();
     path_52.moveTo(size.width * 0.2804392, size.height * 0.05058480);
     path_52.lineTo(size.width * 0.2980702, size.height * 0.08842105);
@@ -995,10 +795,6 @@ class WhiteCircle extends CustomPainter {
     path_52.lineTo(size.width * 0.2921643, size.height * 0.04514620);
     path_52.lineTo(size.width * 0.2804392, size.height * 0.05058480);
     path_52.close();
-
-    Paint paint_52_fill = Paint()..style = PaintingStyle.fill;
-    paint_52_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_52, paint_52_fill);
 
     Path path_53 = Path();
     path_53.moveTo(size.width * 0.2421333, size.height * 0.07140351);
@@ -1015,10 +811,6 @@ class WhiteCircle extends CustomPainter {
     path_53.lineTo(size.width * 0.2421333, size.height * 0.07140351);
     path_53.close();
 
-    Paint paint_53_fill = Paint()..style = PaintingStyle.fill;
-    paint_53_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_53, paint_53_fill);
-
     Path path_54 = Path();
     path_54.moveTo(size.width * 0.2057892, size.height * 0.09549708);
     path_54.lineTo(size.width * 0.2297658, size.height * 0.1297368);
@@ -1032,10 +824,6 @@ class WhiteCircle extends CustomPainter {
     path_54.lineTo(size.width * 0.2164032, size.height * 0.08804094);
     path_54.lineTo(size.width * 0.2057892, size.height * 0.09549708);
     path_54.close();
-
-    Paint paint_54_fill = Paint()..style = PaintingStyle.fill;
-    paint_54_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_54, paint_54_fill);
 
     Path path_55 = Path();
     path_55.moveTo(size.width * 0.1716667, size.height * 0.1226316);
@@ -1052,10 +840,6 @@ class WhiteCircle extends CustomPainter {
     path_55.lineTo(size.width * 0.1716667, size.height * 0.1226316);
     path_55.close();
 
-    Paint paint_55_fill = Paint()..style = PaintingStyle.fill;
-    paint_55_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_55, paint_55_fill);
-
     Path path_56 = Path();
     path_56.moveTo(size.width * 0.1400883, size.height * 0.1526608);
     path_56.lineTo(size.width * 0.1696497, size.height * 0.1822222);
@@ -1069,10 +853,6 @@ class WhiteCircle extends CustomPainter {
     path_56.lineTo(size.width * 0.1492404, size.height * 0.1435088);
     path_56.lineTo(size.width * 0.1400883, size.height * 0.1526608);
     path_56.close();
-
-    Paint paint_56_fill = Paint()..style = PaintingStyle.fill;
-    paint_56_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_56, paint_56_fill);
 
     Path path_57 = Path();
     path_57.moveTo(size.width * 0.1142977, size.height * 0.1815789);
@@ -1089,10 +869,6 @@ class WhiteCircle extends CustomPainter {
     path_57.lineTo(size.width * 0.1142977, size.height * 0.1815789);
     path_57.close();
 
-    Paint paint_57_fill = Paint()..style = PaintingStyle.fill;
-    paint_57_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_57, paint_57_fill);
-
     Path path_58 = Path();
     path_58.moveTo(size.width * 0.08804211, size.height * 0.2164327);
     path_58.lineTo(size.width * 0.1221942, size.height * 0.2403216);
@@ -1106,10 +882,6 @@ class WhiteCircle extends CustomPainter {
     path_58.lineTo(size.width * 0.09543977, size.height * 0.2058187);
     path_58.lineTo(size.width * 0.08804211, size.height * 0.2164327);
     path_58.close();
-
-    Paint paint_58_fill = Paint()..style = PaintingStyle.fill;
-    paint_58_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_58, paint_58_fill);
 
     Path path_59 = Path();
     path_59.moveTo(size.width * 0.06491287, size.height * 0.2533333);
@@ -1126,10 +898,6 @@ class WhiteCircle extends CustomPainter {
     path_59.lineTo(size.width * 0.06491287, size.height * 0.2533333);
     path_59.close();
 
-    Paint paint_59_fill = Paint()..style = PaintingStyle.fill;
-    paint_59_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_59, paint_59_fill);
-
     Path path_60 = Path();
     path_60.moveTo(size.width * 0.04508743, size.height * 0.2921637);
     path_60.lineTo(size.width * 0.08283596, size.height * 0.3097661);
@@ -1143,10 +911,6 @@ class WhiteCircle extends CustomPainter {
     path_60.lineTo(size.width * 0.05055526, size.height * 0.2804386);
     path_60.lineTo(size.width * 0.04508743, size.height * 0.2921637);
     path_60.close();
-
-    Paint paint_60_fill = Paint()..style = PaintingStyle.fill;
-    paint_60_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_60, paint_60_fill);
 
     Path path_61 = Path();
     path_61.moveTo(size.width * 0.02874292, size.height * 0.3326023);
@@ -1163,10 +927,6 @@ class WhiteCircle extends CustomPainter {
     path_61.lineTo(size.width * 0.02874292, size.height * 0.3326023);
     path_61.close();
 
-    Paint paint_61_fill = Paint()..style = PaintingStyle.fill;
-    paint_61_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_61, paint_61_fill);
-
     Path path_62 = Path();
     path_62.moveTo(size.width * 0.01599336, size.height * 0.3742690);
     path_62.lineTo(size.width * 0.05619795, size.height * 0.3850292);
@@ -1182,10 +942,6 @@ class WhiteCircle extends CustomPainter {
     path_62.lineTo(size.width * 0.01599336, size.height * 0.3742690);
     path_62.close();
 
-    Paint paint_62_fill = Paint()..style = PaintingStyle.fill;
-    paint_62_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_62, paint_62_fill);
-
     Path path_63 = Path();
     path_63.moveTo(size.width * 0.006870205, size.height * 0.4169006);
     path_63.lineTo(size.width * 0.04795205, size.height * 0.4241228);
@@ -1199,10 +955,6 @@ class WhiteCircle extends CustomPainter {
     path_63.lineTo(size.width * 0.009121667, size.height * 0.4041520);
     path_63.lineTo(size.width * 0.006870205, size.height * 0.4169006);
     path_63.close();
-
-    Paint paint_63_fill = Paint()..style = PaintingStyle.fill;
-    paint_63_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_63, paint_63_fill);
 
     Path path_64 = Path();
     path_64.moveTo(size.width * 0.001579061, size.height * 0.4601754);
@@ -1218,10 +970,6 @@ class WhiteCircle extends CustomPainter {
     path_64.lineTo(size.width * 0.001579061, size.height * 0.4601462);
     path_64.lineTo(size.width * 0.001579061, size.height * 0.4601754);
     path_64.close();
-
-    Paint paint_64_fill = Paint()..style = PaintingStyle.fill;
-    paint_64_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_64, paint_64_fill);
 
     Path path_65 = Path();
     path_65.moveTo(0, size.height * 0.4907602);
@@ -1244,10 +992,6 @@ class WhiteCircle extends CustomPainter {
     path_65.lineTo(0, size.height * 0.4907602);
     path_65.close();
 
-    Paint paint_65_fill = Paint()..style = PaintingStyle.fill;
-    paint_65_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_65, paint_65_fill);
-
     Path path_66 = Path();
     path_66.moveTo(size.width * 0.004268889, size.height * 0.5320760);
     path_66.lineTo(size.width * 0.004268889, size.height * 0.5454678);
@@ -1262,10 +1006,6 @@ class WhiteCircle extends CustomPainter {
     path_66.lineTo(size.width * 0.004268889, size.height * 0.5320468);
     path_66.lineTo(size.width * 0.004268889, size.height * 0.5320760);
     path_66.close();
-
-    Paint paint_66_fill = Paint()..style = PaintingStyle.fill;
-    paint_66_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_66, paint_66_fill);
 
     Path path_67 = Path();
     path_67.moveTo(size.width * 0.004180380, size.height * 0.5672222);
@@ -1282,10 +1022,6 @@ class WhiteCircle extends CustomPainter {
     path_67.lineTo(size.width * 0.004180380, size.height * 0.5672222);
     path_67.close();
 
-    Paint paint_67_fill = Paint()..style = PaintingStyle.fill;
-    paint_67_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_67, paint_67_fill);
-
     Path path_68 = Path();
     path_68.moveTo(size.width * 0.004094708, size.height * 0.6023977);
     path_68.lineTo(size.width * 0.004094708, size.height * 0.6157895);
@@ -1300,10 +1036,6 @@ class WhiteCircle extends CustomPainter {
     path_68.lineTo(size.width * 0.004094708, size.height * 0.6023684);
     path_68.lineTo(size.width * 0.004094708, size.height * 0.6023977);
     path_68.close();
-
-    Paint paint_68_fill = Paint()..style = PaintingStyle.fill;
-    paint_68_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_68, paint_68_fill);
 
     Path path_69 = Path();
     path_69.moveTo(size.width * 0.004006199, size.height * 0.6375731);
@@ -1320,10 +1052,6 @@ class WhiteCircle extends CustomPainter {
     path_69.lineTo(size.width * 0.004006199, size.height * 0.6375731);
     path_69.close();
 
-    Paint paint_69_fill = Paint()..style = PaintingStyle.fill;
-    paint_69_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_69, paint_69_fill);
-
     Path path_70 = Path();
     path_70.moveTo(size.width * 0.003917661, size.height * 0.6727193);
     path_70.lineTo(size.width * 0.003917661, size.height * 0.6861111);
@@ -1338,10 +1066,6 @@ class WhiteCircle extends CustomPainter {
     path_70.lineTo(size.width * 0.003917661, size.height * 0.6726901);
     path_70.lineTo(size.width * 0.003917661, size.height * 0.6727193);
     path_70.close();
-
-    Paint paint_70_fill = Paint()..style = PaintingStyle.fill;
-    paint_70_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_70, paint_70_fill);
 
     Path path_71 = Path();
     path_71.moveTo(size.width * 0.003829152, size.height * 0.7078947);
@@ -1358,10 +1082,6 @@ class WhiteCircle extends CustomPainter {
     path_71.lineTo(size.width * 0.003829152, size.height * 0.7078947);
     path_71.close();
 
-    Paint paint_71_fill = Paint()..style = PaintingStyle.fill;
-    paint_71_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_71, paint_71_fill);
-
     Path path_72 = Path();
     path_72.moveTo(size.width * 0.003743480, size.height * 0.7430702);
     path_72.lineTo(size.width * 0.003743480, size.height * 0.7564620);
@@ -1376,10 +1096,6 @@ class WhiteCircle extends CustomPainter {
     path_72.lineTo(size.width * 0.003743480, size.height * 0.7430409);
     path_72.lineTo(size.width * 0.003743480, size.height * 0.7430702);
     path_72.close();
-
-    Paint paint_72_fill = Paint()..style = PaintingStyle.fill;
-    paint_72_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_72, paint_72_fill);
 
     Path path_73 = Path();
     path_73.moveTo(size.width * 0.003654971, size.height * 0.7782456);
@@ -1396,10 +1112,6 @@ class WhiteCircle extends CustomPainter {
     path_73.lineTo(size.width * 0.003654971, size.height * 0.7782456);
     path_73.close();
 
-    Paint paint_73_fill = Paint()..style = PaintingStyle.fill;
-    paint_73_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_73, paint_73_fill);
-
     Path path_74 = Path();
     path_74.moveTo(size.width * 0.003566462, size.height * 0.8133918);
     path_74.lineTo(size.width * 0.003566462, size.height * 0.8267836);
@@ -1414,10 +1126,6 @@ class WhiteCircle extends CustomPainter {
     path_74.lineTo(size.width * 0.003566462, size.height * 0.8133626);
     path_74.lineTo(size.width * 0.003566462, size.height * 0.8133918);
     path_74.close();
-
-    Paint paint_74_fill = Paint()..style = PaintingStyle.fill;
-    paint_74_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_74, paint_74_fill);
 
     Path path_75 = Path();
     path_75.moveTo(size.width * 0.003480789, size.height * 0.8485673);
@@ -1434,10 +1142,6 @@ class WhiteCircle extends CustomPainter {
     path_75.lineTo(size.width * 0.003480789, size.height * 0.8485673);
     path_75.close();
 
-    Paint paint_75_fill = Paint()..style = PaintingStyle.fill;
-    paint_75_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_75, paint_75_fill);
-
     Path path_76 = Path();
     path_76.moveTo(size.width * 0.003392281, size.height * 0.8837427);
     path_76.lineTo(size.width * 0.003392281, size.height * 0.8971345);
@@ -1452,10 +1156,6 @@ class WhiteCircle extends CustomPainter {
     path_76.lineTo(size.width * 0.003421520, size.height * 0.8837135);
     path_76.lineTo(size.width * 0.003392281, size.height * 0.8837427);
     path_76.close();
-
-    Paint paint_76_fill = Paint()..style = PaintingStyle.fill;
-    paint_76_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_76, paint_76_fill);
 
     Path path_77 = Path();
     path_77.moveTo(0, size.height * 0.9882749);
@@ -1478,9 +1178,92 @@ class WhiteCircle extends CustomPainter {
     path_77.lineTo(0, size.height * 0.9882749);
     path_77.close();
 
-    Paint paint_77_fill = Paint()..style = PaintingStyle.fill;
-    paint_77_fill.color = Colors.white.withOpacity(1.0);
-    canvas.drawPath(path_77, paint_77_fill);
+    paths.addAll([
+      path_0,
+      path_1,
+      path_2,
+      path_3,
+      path_4,
+      path_5,
+      path_6,
+      path_7,
+      path_8,
+      path_9,
+      path_10,
+      path_11,
+      path_12,
+      path_13,
+      path_14,
+      path_15,
+      path_16,
+      path_17,
+      path_18,
+      path_19,
+      path_20,
+      path_21,
+      path_22,
+      path_23,
+      path_24,
+      path_25,
+      path_26,
+      path_27,
+      path_28,
+      path_29,
+      path_30,
+      path_31,
+      path_32,
+      path_33,
+      path_34,
+      path_35,
+      path_36,
+      path_37,
+      path_38,
+      path_39,
+      path_40,
+      path_41,
+      path_42,
+      path_43,
+      path_44,
+      path_45,
+      path_46,
+      path_47,
+      path_48,
+      path_49,
+      path_50,
+      path_51,
+      path_52,
+      path_53,
+      path_54,
+      path_55,
+      path_56,
+      path_57,
+      path_58,
+      path_59,
+      path_60,
+      path_61,
+      path_62,
+      path_63,
+      path_64,
+      path_65,
+      path_66,
+      path_67,
+      path_68,
+      path_69,
+      path_70,
+      path_71,
+      path_72,
+      path_73,
+      path_74,
+      path_75,
+      path_76,
+      path_77
+    ]);
+
+    for(var i = 0; i < paths.length; i++){
+      Paint paint_fill = Paint()..style = PaintingStyle.fill;
+      paint_fill.color = colors.contains(i) ? Colors.blue : Colors.white;
+      canvas.drawPath(paths[i], paint_fill);
+    }
   }
 
   @override

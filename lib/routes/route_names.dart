@@ -1,4 +1,4 @@
-class RouteNames{
+class RouteNames {
   static const String root = '/';
 
   static const String authEnterEmail = '/enter_email';
@@ -10,4 +10,7 @@ class RouteNames{
   static const String accessCodeLock = '/access_code_lock';
   static const String congratulations = '/congratulations_screen';
   static const String safe = '/safe';
+
+  static const String walletSeedPhrase = '/wallet/seed_phrase';
+  static const String wallet = '/wallet';
 }

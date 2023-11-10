@@ -21,13 +21,12 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: 260,
+                  width: 320,
                   child: Text(
                     'Поздравляем! Вы получили NFT-сертификат собственного жилья во Вселенной Большого Росреестра!',
                     style: AppTypography.font16w400,
@@ -35,7 +34,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 25,
                 ),
                 Container(
                   width: size.width * 0.86,
@@ -56,9 +55,10 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                     fit: BoxFit.fitWidth,
                   ),
                 ),
-                const SizedBox(
-                  height: 50,
-                ),
+              ],
+            ),
+            Column(
+              children: [
                 CustomButton(
                     content: Text(
                       'Посмотреть в кошельке'.toUpperCase(),
@@ -67,7 +67,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                     onTap: () {},
                     width: double.infinity),
                 const SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 CustomButton(
                     content: Text(

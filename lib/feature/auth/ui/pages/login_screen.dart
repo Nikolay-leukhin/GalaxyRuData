@@ -126,6 +126,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    Text(
+                      "Авторизация",
+                      style: AppTypography.font24w700
+                          .copyWith(color: Colors.white),
+                    ),
+                    Container(
+                      height: size.height * 0.059,
+                      constraints: const BoxConstraints(maxHeight: 48),
+                    ),
                     BaseTextFormField(
                       withError: errorEmailField,
                       controller: emailController,
@@ -165,7 +174,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               : Positioned(
                                   right: 0,
                                   child: CustomButton(
-                                      content: Text("${currentRemainingTime} СЕКУНД".toUpperCase(),
+                                      content: Text(
+                                          "${currentRemainingTime} СЕКУНД"
+                                              .toUpperCase(),
                                           style: AppTypography.font16w600
                                               .copyWith(color: Colors.white)),
                                       onTap: () {

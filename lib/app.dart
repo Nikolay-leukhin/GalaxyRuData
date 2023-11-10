@@ -6,6 +6,7 @@ import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
+import 'package:galaxy_rudata/feature/safe/data/safe_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
@@ -24,6 +25,9 @@ class MyRepositoryProvider extends StatelessWidget {
         RepositoryProvider(
             create: (_) =>
                 AuthRepository(apiService: apiService, prefs: prefs)),
+        RepositoryProvider(
+            create: (_) =>
+                SafeRepository()),
       ],
       child: const MyBlocProviders(),
       // child: MyApp(),
