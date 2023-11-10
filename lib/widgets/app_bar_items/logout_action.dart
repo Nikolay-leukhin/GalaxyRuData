@@ -5,8 +5,8 @@ import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
-class ActionsContainer extends StatelessWidget {
-  const ActionsContainer({super.key});
+class LogoutAction extends StatelessWidget {
+  const LogoutAction({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,7 @@ class ActionsContainer extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                context.read<AuthRepository>().logout();
-                Navigator.pushNamedAndRemoveUntil(context, RouteNames.root, (route) => false,);
+                Navigator.pushNamed(context, RouteNames.authPinEnter);
               },
               child: SvgPicture.asset(
                 'assets/icons/back.svg',

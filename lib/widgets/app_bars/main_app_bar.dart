@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:galaxy_rudata/widgets/app_bar_items/actions_container.dart';
+import 'package:galaxy_rudata/widgets/app_bar_items/back_wallet.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 
 class MainAppBar extends PreferredSize {
@@ -11,7 +11,7 @@ class MainAppBar extends PreferredSize {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                isAction ? const ActionsContainer() : Container(),
+                isAction ? const BackWalletActions() : Container(),
                 const RfContainer()
               ],
             ),
