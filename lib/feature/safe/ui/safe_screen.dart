@@ -56,7 +56,7 @@ class _SafeScreenState extends State<SafeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(
+              Container(
                 width: 320,
                 child: Text(
                   'Чтобы забрать ваш NFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
@@ -68,7 +68,7 @@ class _SafeScreenState extends State<SafeScreen> {
                   width: size.width * 0.82,
                   height: size.width * 0.86,
                   alignment: Alignment.center,
-                  constraints: const BoxConstraints(maxWidth: 350),
+                  constraints: const BoxConstraints(maxWidth: 350, maxHeight: 368),
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                     image: AssetImage('assets/images/safe.png'),
@@ -82,7 +82,7 @@ class _SafeScreenState extends State<SafeScreen> {
                         width: size.width * 0.25,
                         height: size.width * 0.25,
                         constraints: const BoxConstraints(
-                            minWidth: 94, minHeight: 86.5),
+                            maxWidth: 94, maxHeight: 94),
                         decoration: const BoxDecoration(
                             image: DecorationImage(
                                 image:
@@ -92,13 +92,13 @@ class _SafeScreenState extends State<SafeScreen> {
                           painter: WhiteCircle(colors: activeRise),
                         ),
                       ),
-                      SizedBox(height: size.width * 0.07,),
+                      const SizedBox(height: 15,),
                       AccessCodeField(
                           controller: codeController,
                           keyboardType:
                           const TextInputType.numberWithOptions(),
                           hintText: 'Введите код',
-                          width: size.width * 0.528),
+                          width: size.width * 0.82 > 350 ? 225 : size.width * 0.528),
                     ],
                   )),
               CustomButton(
