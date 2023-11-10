@@ -9,6 +9,7 @@ class AppColors {
   static final textFieldBackground = Colors.black.withOpacity(0.2);
   static const darkBlue = Color(0xff00273D);
   static const darkBlue1 = Color(0xFF084677);
+  static const darkBlue2 = Color(0xff0A4473);
 
   static const silver = Color(0xffC6C6C6);
   static const blue = Color(0xff005ea8);
