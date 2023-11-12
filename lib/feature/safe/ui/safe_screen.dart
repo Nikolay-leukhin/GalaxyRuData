@@ -7,7 +7,6 @@ import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
-import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/painters/white_circle.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:galaxy_rudata/widgets/text_fields/access_code_field.dart';
@@ -115,29 +114,9 @@ class _SafeScreenState extends State<SafeScreen> {
                     style: AppTypography.font16w600,
                   ),
                   onTap: () async {
-                    // await startAnimation((n) => repository.getRandomList(n));
-                    //
-                    // Navigator.pushNamed(context, RouteNames.nftCertificate);
+                    await startAnimation((n) => repository.getRandomList(n));
 
-                    ShowBottomSheet.show(
-                      context,
-                      Container(
-                        color: Colors.white,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              const Text('Modal BottomSheet'),
-                              ElevatedButton(
-                                child: const Text('Close BottomSheet'),
-                                onPressed: () => Navigator.pop(context),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+                    Navigator.pushNamed(context, RouteNames.nftCertificate);
                   },
                   width: size.width * 0.528),
             ],

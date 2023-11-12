@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:galaxy_rudata/feature/access_code/widgets/bottom_sheet_links.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
 const String _congratulationsMessage =
@@ -61,8 +63,10 @@ class _CongratulationsBookedAccommodationState
                       style: AppTypography.font16w400,
                     ),
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(RouteNames.walletSeedPhrase);
+                      ShowBottomSheet.show(
+                        context,
+                        const BottomSheetLinks(),
+                      );
                     },
                     width: double.infinity),
                 separate,

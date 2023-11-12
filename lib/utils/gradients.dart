@@ -1,10 +1,19 @@
 part of 'utils.dart';
 
 class AppGradients {
-  static const pinIndicatorGradient = RadialGradient(
+  static const pinIndicator = RadialGradient(
     center: Alignment(0.48, 0.62),
     radius: 0.8,
     colors: [Color(0xFF4AFFC8), Color(0xFF60FF67), Color(0xFFB3FF85)],
+  );
+
+  static const lightBlue = RadialGradient(
+    center: Alignment.center,
+    radius: 5,
+    colors: [
+      Color(0xFF0F7CD1),
+      Color(0xff3799FB),
+    ],
   );
 
   static const skyBlue = LinearGradient(
