@@ -53,7 +53,7 @@ class _CustomButtonState extends State<CustomButton> {
             color: widget.gradient == null
                 ? widget.isActive
                     ? widget.color
-                    : AppColors.blue
+                    : AppColors.blueGrey
                 : Colors.transparent,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(width: 1.6, color: widget.borderColor)),
