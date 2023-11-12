@@ -56,7 +56,7 @@ class _CustomButtonState extends State<CustomButton> {
                     : AppColors.blueGrey
                 : null,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(width: 1.6, color: widget.borderColor)),
+            border: Border.all(width: 1.6, color: widget.isActive ? widget.borderColor : AppColors.grey)),
         child: Padding(
           padding: widget.padding,
           child: Center(child: widget.content),
