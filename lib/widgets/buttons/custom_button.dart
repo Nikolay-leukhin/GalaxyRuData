@@ -15,6 +15,7 @@ class CustomButton extends StatefulWidget {
   final double radius;
 
   final Color color;
+  final Gradient? gradient;
 
   const CustomButton(
       {super.key,
@@ -25,7 +26,8 @@ class CustomButton extends StatefulWidget {
       this.height = 60,
       this.padding = EdgeInsets.zero,
       this.radius = 16,
-      this.color = AppColors.blue});
+      this.color = AppColors.blue,
+      this.gradient});
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -47,6 +49,7 @@ class _CustomButtonState extends State<CustomButton> {
           height: widget.height,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
+              gradient: widget.gradient,
               border: Border.all(width: 1, color: Colors.white)),
           child: Padding(
             padding: widget.padding,

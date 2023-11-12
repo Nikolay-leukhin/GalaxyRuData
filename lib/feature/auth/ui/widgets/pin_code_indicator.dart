@@ -18,7 +18,7 @@ class _PinCodeIndicatorItemState extends State<PinCodeIndicatorItem> {
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: widget.isActive ? AppGradients.pinIndicatorGradient : LinearGradient(colors: [Colors.white, Colors.white])
+          gradient: widget.isActive ? AppGradients.pinIndicator : LinearGradient(colors: [Colors.white, Colors.white])
       ),
     );
   }
