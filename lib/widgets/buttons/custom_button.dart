@@ -36,7 +36,7 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8),
-      color: widget.color,
+      color: widget.isActive ? widget.color : AppColors.blueGrey,
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
