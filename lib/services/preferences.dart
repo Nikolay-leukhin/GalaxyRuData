@@ -8,6 +8,7 @@ class PreferencesService {
 
   final String _tokenKey = 'token';
   final String _pinCodeKey = 'pin';
+  final String _seedPhraseKey = 'seed';
 
   Future saveToken(Token token) async {
     _prefs.then(
@@ -33,6 +34,16 @@ class PreferencesService {
   Future<String?> getPinCode() async {
     final prefs = await _prefs;
     return prefs.getString(_pinCodeKey);
+  }
+
+  Future<void> setSeedPhrase(String seedPhrase) async {
+    final prefs = await _prefs;
+    prefs.setString(_seedPhraseKey, seedPhrase);
+  }
+
+  Future<String?> getSeedPhrase() async {
+    final prefs = await _prefs;
+    return prefs.getString(_seedPhraseKey);
   }
 
   Future logout() async => _prefs.then((value) => value.clear());

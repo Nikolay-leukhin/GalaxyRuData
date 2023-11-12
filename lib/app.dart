@@ -8,6 +8,7 @@ import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
 import 'package:galaxy_rudata/feature/safe/data/safe_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
+import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
@@ -27,9 +28,11 @@ class MyRepositoryProvider extends StatelessWidget {
             create: (_) =>
                 AuthRepository(apiService: apiService, prefs: prefs)),
         RepositoryProvider(create: (_) => SafeRepository()),
+        RepositoryProvider(
+            create: (_) =>
+                WalletRepository(apiService: apiService, prefs: prefs)),
       ],
       child: const MyBlocProviders(),
-      // child: MyApp(),
     );
   }
 }
