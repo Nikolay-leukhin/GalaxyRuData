@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -60,7 +61,9 @@ class _WalletCardScreenState extends State<WalletCardScreen> {
                       'Создать кошелек'.toUpperCase(),
                       style: AppTypography.font16w600,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteNames.walletSeedPhrase);
+                    },
                     width: double.infinity),
                 const SizedBox(
                   height: 15,
@@ -70,7 +73,10 @@ class _WalletCardScreenState extends State<WalletCardScreen> {
                       'Ввести сид-фразу'.toUpperCase(),
                       style: AppTypography.font16w600,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, RouteNames.walletEnterSeedPhrase);
+                    },
                     width: double.infinity),
               ],
             ),
