@@ -72,6 +72,8 @@ class WalletEnterSeedPhraseScreeenState
                           bottom: 15,
                           right: 14,
                           child: CustomButton(
+                            borderColor: AppColors.blue1,
+                            gradient: AppGradients.radialSky,
                             height: 36,
                             content: Row(
                               mainAxisSize: MainAxisSize.min,
