@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/safe/data/safe_repository.dart';
@@ -5,6 +7,7 @@ import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/painters/white_circle.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:galaxy_rudata/widgets/text_fields/access_code_field.dart';
@@ -68,7 +71,8 @@ class _SafeScreenState extends State<SafeScreen> {
                   width: size.width * 0.82,
                   height: size.width * 0.86,
                   alignment: Alignment.center,
-                  constraints: const BoxConstraints(maxWidth: 350, maxHeight: 368),
+                  constraints:
+                      const BoxConstraints(maxWidth: 350, maxHeight: 368),
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                     image: AssetImage('assets/images/safe.png'),
@@ -77,28 +81,32 @@ class _SafeScreenState extends State<SafeScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(height: size.width * 0.12,),
+                      SizedBox(
+                        height: size.width * 0.12,
+                      ),
                       Container(
                         width: size.width * 0.25,
                         height: size.width * 0.25,
-                        constraints: const BoxConstraints(
-                            maxWidth: 94, maxHeight: 94),
+                        constraints:
+                            const BoxConstraints(maxWidth: 94, maxHeight: 94),
                         decoration: const BoxDecoration(
                             image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/safe1.png'),
+                                image: AssetImage('assets/images/safe1.png'),
                                 fit: BoxFit.fitWidth)),
                         child: CustomPaint(
                           painter: WhiteCircle(colors: activeRise),
                         ),
                       ),
-                      const SizedBox(height: 15,),
+                      const SizedBox(
+                        height: 15,
+                      ),
                       AccessCodeField(
                           controller: codeController,
-                          keyboardType:
-                          const TextInputType.numberWithOptions(),
+                          keyboardType: const TextInputType.numberWithOptions(),
                           hintText: 'Введите код',
-                          width: size.width * 0.82 > 350 ? 225 : size.width * 0.528),
+                          width: size.width * 0.82 > 350
+                              ? 225
+                              : size.width * 0.528),
                     ],
                   )),
               CustomButton(
@@ -106,10 +114,30 @@ class _SafeScreenState extends State<SafeScreen> {
                     'Отправить код'.toUpperCase(),
                     style: AppTypography.font16w600,
                   ),
-                  onTap: () async{
-                    await startAnimation((n) => repository.getRandomList(n));
+                  onTap: () async {
+                    // await startAnimation((n) => repository.getRandomList(n));
+                    //
+                    // Navigator.pushNamed(context, RouteNames.nftCertificate);
 
-                    Navigator.pushNamed(context, RouteNames.nftCertificate);
+                    ShowBottomSheet.show(
+                      context,
+                      Container(
+                        color: Colors.white,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const Text('Modal BottomSheet'),
+                              ElevatedButton(
+                                child: const Text('Close BottomSheet'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
                   },
                   width: size.width * 0.528),
             ],
