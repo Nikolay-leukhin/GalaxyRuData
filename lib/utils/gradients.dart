@@ -23,7 +23,7 @@ class AppGradients {
   );
 
   static const radialSky = RadialGradient(
-    center: Alignment( - 0.41,- 0.70),
+    center: Alignment( - 0.11,- 0.70),
     radius: 8,
     colors: [Color(0xFF55A3FF), Color(0xFF1A75B7), Color(0xFF0049D8)],
   );
