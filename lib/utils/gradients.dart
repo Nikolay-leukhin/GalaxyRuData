@@ -27,4 +27,10 @@ class AppGradients {
     radius: 8,
     colors: [Color(0xFF55A3FF), Color(0xFF1A75B7), Color(0xFF0049D8)],
   );
+
+  static const oceanBlue = LinearGradient(
+    begin: Alignment(-1, 0),
+    end: Alignment(1, 0),
+    colors: [Color(0xFF45DDC2), Color(0xFF00C8FB), Color(0xFF3799FA), Color(0xFF007CF9)],
+  );
 }

@@ -31,7 +31,7 @@ class CustomButton extends StatefulWidget {
       this.padding = EdgeInsets.zero,
       this.radius = 16,
       this.gradient,
-      this.color = AppColors.blue});
+      this.color = AppColors.primary});
 
   @override
   State<CustomButton> createState() => _CustomButtonState();

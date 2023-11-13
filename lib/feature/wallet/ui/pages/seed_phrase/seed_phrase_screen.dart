@@ -62,7 +62,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
           Container(
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                color: AppColors.blue,
+                color: AppColors.primary,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(width: 1, color: AppColors.darkBlue2),
                 boxShadow: const [
@@ -127,7 +127,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                         maintainAnimation: true,
                         maintainState: true,
                         child: Container(
-                          color: AppColors.blue,
+                          color: AppColors.primary,
                           child: Center(
                             child: Material(
                               color: AppColors.darkBlue,

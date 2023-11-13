@@ -32,7 +32,7 @@ class PinNumTab extends StatelessWidget {
               color: AppColors.pinButton,
               borderRadius: BorderRadius.circular(8),
               border:
-              Border.all(width: 1.36, color: AppColors.blue)),
+              Border.all(width: 1.36, color: AppColors.primary)),
           child: Center(
             child:  content,
           ),

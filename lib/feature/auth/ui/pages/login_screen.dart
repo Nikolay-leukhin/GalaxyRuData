@@ -197,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 32,
                           height: 32,
                           decoration: BoxDecoration(
-                            color: AppColors.blue,
+                            color: AppColors.primary,
                             border: Border.all(
                                 width: 2,
                                 color: !withErrorCheckBox
@@ -214,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               splashRadius: 0,
                               fillColor:
-                                  MaterialStateProperty.all(AppColors.blue),
+                                  MaterialStateProperty.all(AppColors.primary),
                               side: const BorderSide(
                                   width: 0, color: Colors.transparent),
                               materialTapTargetSize:
