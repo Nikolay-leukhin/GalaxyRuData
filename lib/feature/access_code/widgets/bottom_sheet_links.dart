@@ -15,6 +15,7 @@ class BottomSheetLinks extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
 
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.only(top: 2),
       decoration: const BoxDecoration(
         color: AppColors.lightBlue,

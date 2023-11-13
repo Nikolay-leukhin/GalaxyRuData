@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/feature/access_code/widgets/bottom_sheet_links.dart';
+import 'package:galaxy_rudata/feature/access_code/widgets/sperial_bottom_sheet.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -20,13 +21,12 @@ class CongratulationsBookedAccommodation extends StatefulWidget {
 
 class _CongratulationsBookedAccommodationState
     extends State<CongratulationsBookedAccommodation> {
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
     final separate = Container(
-      height: size.height *0.05,
+      height: size.height * 0.05,
       constraints: const BoxConstraints(maxHeight: 60),
     );
 
@@ -44,7 +44,9 @@ class _CongratulationsBookedAccommodationState
                   child: Text(
                     'Поздравляем, вы забронировали жилье!',
                     textAlign: TextAlign.center,
-                    style: size.width > 300 ? AppTypography.font24w700 : AppTypography.font16w700,
+                    style: size.width > 300
+                        ? AppTypography.font24w700
+                        : AppTypography.font16w700,
                   ),
                 ),
                 separate,
@@ -52,7 +54,9 @@ class _CongratulationsBookedAccommodationState
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
                     _congratulationsMessage,
-                    style: size.width > 300 ? AppTypography.font16w400 : AppTypography.font14w400,
+                    style: size.width > 300
+                        ? AppTypography.font16w400
+                        : AppTypography.font14w400,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -76,8 +80,10 @@ class _CongratulationsBookedAccommodationState
                       style: AppTypography.font16w400,
                     ),
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(RouteNames.nftCertificate);
+                      ShowBottomSheet.show(
+                        context,
+                        const BottomSheetSpatial(),
+                      );
                     },
                     width: double.infinity),
                 separate,
@@ -87,8 +93,7 @@ class _CongratulationsBookedAccommodationState
                       style: AppTypography.font16w400,
                     ),
                     onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(RouteNames.safe);
+
                     },
                     width: double.infinity),
               ],

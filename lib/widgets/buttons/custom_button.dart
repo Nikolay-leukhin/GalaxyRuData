@@ -40,26 +40,27 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(8),
-      onTap: () {
-        widget.onTap();
-      },
-      child: Ink(
-        width: widget.width,
-        height: widget.height,
-        decoration: BoxDecoration(
-            gradient: widget.gradient,
-            color: widget.gradient == null
-                ? widget.isActive
-                    ? widget.color
-                    : AppColors.blueGrey
-                : null,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(width: 1.6, color: widget.isActive ? widget.borderColor : AppColors.grey)),
-        child: Padding(
-          padding: widget.padding,
-          child: Center(child: widget.content),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: () {
+          widget.onTap();
+        },
+        child: Ink(
+          width: widget.width,
+          height: widget.height,
+          decoration: BoxDecoration(
+              gradient: widget.gradient,
+              color: widget.isActive ? widget.color : AppColors.blueGrey,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                  width: 1.6,
+                  color: widget.isActive ? widget.borderColor : AppColors.grey)),
+          child: Padding(
+            padding: widget.padding,
+            child: Center(child: widget.content),
+          ),
         ),
       ),
     );
