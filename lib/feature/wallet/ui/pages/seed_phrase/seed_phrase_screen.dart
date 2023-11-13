@@ -6,6 +6,7 @@ import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
+import 'package:galaxy_rudata/widgets/snack_bars/success_snack_bar.dart';
 
 class WalletSeedPhraseScreen extends StatefulWidget {
   const WalletSeedPhraseScreen({super.key});
@@ -110,6 +111,8 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                             onTap: () {
                               Clipboard.setData(
                                   ClipboardData(text: seedPhrase.join(" ")));
+
+                              ScaffoldMessenger.of(context).showSnackBar(AppSnackBar.successSnackBar);
                             },
                             child: Container(
                                 alignment: Alignment.center,

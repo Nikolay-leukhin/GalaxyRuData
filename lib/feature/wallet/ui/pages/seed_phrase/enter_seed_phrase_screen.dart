@@ -12,10 +12,10 @@ class WalletEnterSeedPhraseScreeen extends StatefulWidget {
 
   @override
   State<WalletEnterSeedPhraseScreeen> createState() =>
-      WalletEnterSeedPhraseScreeenState();
+      WalletEnterSeedPhraseScreenState();
 }
 
-class WalletEnterSeedPhraseScreeenState
+class WalletEnterSeedPhraseScreenState
     extends State<WalletEnterSeedPhraseScreeen> {
   final TextEditingController controller = TextEditingController();
 
