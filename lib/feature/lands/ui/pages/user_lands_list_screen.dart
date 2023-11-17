@@ -4,14 +4,14 @@ import 'package:galaxy_rudata/widgets/buttons/floating_action_button.dart';
 import 'package:galaxy_rudata/widgets/cards/nft_card.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
-class NFTStorageScreen extends StatefulWidget {
-  const NFTStorageScreen({super.key});
+class UserLandsListScreen extends StatefulWidget {
+  const UserLandsListScreen({super.key});
 
   @override
-  State<NFTStorageScreen> createState() => _NFTStorageScreenState();
+  State<UserLandsListScreen> createState() => _NFTStorageScreenState();
 }
 
-class _NFTStorageScreenState extends State<NFTStorageScreen> {
+class _NFTStorageScreenState extends State<UserLandsListScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);

@@ -74,24 +74,25 @@ class _LockScreenState extends State<LockScreen> {
     return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
       listener: (context, state) {
         if (state is UseInviteCodeLoading) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
-              });
+          // showDialog(
+          //     context: context,
+          //     builder: (context) {
+          //       return const Center(
+          //         child: CircularProgressIndicator.adaptive(),
+          //       );
+          //     });
         } else if (state is UseInviteCodeSuccess) {
-          Navigator.pop(context);
+          // Navigator.pop(context);
 
           turnLock();
         } else if (state is UseInviteCodeFailure) {
-          Navigator.pop(context);
+          // Navigator.pop(context);
+
 
           showDialog(
               context: context,
               builder: (context) => CustomPopup(
-                    label: "Извините, данный код был уже исопльзован.",
+                    label: "Извините, данный код был уже использован.",
                     onTap: () {
                       Navigator.of(context).pop();
                     },

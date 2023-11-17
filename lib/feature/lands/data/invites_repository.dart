@@ -8,11 +8,7 @@ class InvitesRepository {
   InvitesRepository({required this.apiService, required this.prefs});
 
   Future<void> useInviteCode(String code) async {
-    try {
-      await apiService.land.useInviteCode(code);
-    } catch (e) {
-      print(e);
-    }
+    await apiService.land.useInviteCode(code);
   }
 
   Future<void> linkLandByCode() async {
