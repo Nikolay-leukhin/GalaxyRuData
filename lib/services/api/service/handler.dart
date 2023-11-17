@@ -31,7 +31,7 @@ mixin class ApiHandler {
 
     dio.options.headers = {
       'Content-Type': 'application/json',
-      'Authorization': currentToken.jwt
+      'Authorization': 'Bearer ${currentToken.jwt}'
     };
   }
 

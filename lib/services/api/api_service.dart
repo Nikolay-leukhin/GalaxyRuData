@@ -49,7 +49,7 @@ class ApiService {
     wallet = Wallet(dio_: dio, preferences: preferencesService, token: token);
     land = Land(dio_: dio, preferences: preferencesService, token: token);
 
-    // auth.refreshToken(token);
+    auth.refreshToken(token);
   }
 
   Future<void> logout() async {
