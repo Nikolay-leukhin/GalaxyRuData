@@ -1,3 +1,4 @@
+import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -6,6 +7,8 @@ import 'package:rxdart/rxdart.dart';
 class LandsRepository {
   final ApiService apiService;
   final PreferencesService prefs;
+
+  List<LandModel> freeLandsList = [];
 
   BehaviorSubject<LoadingStateEnum> freeLandsStream =
       BehaviorSubject.seeded(LoadingStateEnum.wait);
@@ -24,7 +27,24 @@ class LandsRepository {
     // сейф
   }
 
-  Future loadFreeLands() async {}
+  Future<void> loadFreeLands() async {
+    freeLandsStream.add(LoadingStateEnum.loading);
+    print("here ------------");
+
+    try {
+      final response = (await apiService.land.getFreeLands())['lands'];
+      freeLandsList.clear();
+      for (var json in response) {
+        freeLandsList.add(LandModel.fromJson(json));
+      }
+      print(freeLandsList);
+      freeLandsStream.add(LoadingStateEnum.success);
+    } catch (e, st) {
+      print(e);
+      print(st);
+      freeLandsStream.add(LoadingStateEnum.fail);
+    }
+  }
 
   Future loadUserLands() async {}
 }

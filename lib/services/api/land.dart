@@ -17,4 +17,8 @@ class Land with ApiHandler {
   Future<void> useInviteCode(String code) async {
     await post(ApiEndpoints.useLandCode, data: {'code': code});
   }
+
+  Future<Map<String, dynamic>> getFreeLands() async {
+    return await post(ApiEndpoints.freeLands);
+  }
 }

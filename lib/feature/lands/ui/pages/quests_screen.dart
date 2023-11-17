@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/feature/lands/ui/widgets/bottom_sheet_links.dart';
 import 'package:galaxy_rudata/feature/lands/ui/widgets/sperial_bottom_sheet.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';

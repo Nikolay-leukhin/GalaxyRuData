@@ -22,7 +22,7 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
   RouteNames.nftCertificate: (context) => const NftCertificateScreen(),
 
   RouteNames.landsList: (context) => const LandsListScreen(),
-  RouteNames.landsUserList: (context) => const UserLandsListScreen(),
+  // RouteNames.landsUserList: (context) => const UserLandsListScreen(),
   
   RouteNames.accessCodeLock: (context) => const LockScreen(),
   RouteNames.quests: (context) => const QuestsScreen(),
