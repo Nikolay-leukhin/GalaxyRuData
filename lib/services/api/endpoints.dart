@@ -9,6 +9,7 @@ class ApiEndpoints {
   static const verifyLandCode = '/v1/invite-codes/verify';
 
   static const freeLands = '/v1/lands/free';
+  static const userLands = '/v1/lands/owner';
 
   static const user = '/v1/user/self';
   static const userWalletUpdate = '/v1/user/update/wallet';
