@@ -32,9 +32,7 @@ class _LockScreenState extends State<LockScreen> {
     final field = Center(
       child: Padding(
         padding: EdgeInsets.only(
-            top: size.width * 0.88 < 450
-                ? size.width * 0.88 / 2.5
-                : 180),
+            top: size.width * 0.88 < 450 ? size.width * 0.88 / 2.5 : 180),
         child: Container(
           constraints: const BoxConstraints(maxWidth: 200),
           child: AccessCodeField(
@@ -51,17 +49,24 @@ class _LockScreenState extends State<LockScreen> {
         setState(() {
           top = 0;
         });
-        Future.delayed(moveDuration).then((value) {setState(() {
-          turn = 0.13;
-        });});
+        Future.delayed(moveDuration).then((value) {
+          setState(() {
+            turn = 0.13;
+          });
+        });
       } else {
         setState(() {
           turn = 0;
         });
-        Future.delayed(rotationDuration).then((value) {setState(() {
-          top = 25;
-        });});
+        Future.delayed(rotationDuration).then((value) {
+          setState(() {
+            top = 25;
+          });
+        });
       }
+
+      Future.delayed(rotationDuration + moveDuration,
+          () => Navigator.of(context).pushNamed(RouteNames.congratulations));
     }
 
     return MainScaffold(
@@ -80,7 +85,9 @@ class _LockScreenState extends State<LockScreen> {
                 constraints: const BoxConstraints(maxWidth: 500),
                 child: Text(
                   _lockMessage,
-                  style: size.width < 300 ? AppTypography.font16w400 : AppTypography.font14w400,
+                  style: size.width < 300
+                      ? AppTypography.font16w400
+                      : AppTypography.font14w400,
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -100,22 +107,22 @@ class _LockScreenState extends State<LockScreen> {
                     AnimatedPositioned(
                       top: top,
                       left: size.width * 0.725 < 300 ? size.width * 0.108 : 50,
-                      duration:  moveDuration,
+                      duration: moveDuration,
                       child: AnimatedRotation(
                         alignment: const Alignment(0.2, 0.3),
                         curve: Curves.decelerate,
                         turns: turn,
                         duration: rotationDuration,
                         child: Container(
-                          constraints: const BoxConstraints(maxWidth: 230, maxHeight: 250),
+                          constraints: const BoxConstraints(
+                              maxWidth: 230, maxHeight: 250),
                           height: size.width * 0.48,
                           width: size.width * 0.51,
                           decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/lock/lock.png'),
-                              fit: BoxFit.fitWidth
-                            )
-                          ),
+                              image: DecorationImage(
+                                  image:
+                                      AssetImage('assets/images/lock/lock.png'),
+                                  fit: BoxFit.fitWidth)),
                         ),
                       ),
                     ),
@@ -136,7 +143,6 @@ class _LockScreenState extends State<LockScreen> {
                   ),
                   onTap: () {
                     turnLock();
-                    Navigator.of(context).pushNamed(RouteNames.congratulations);
                   },
                   width: double.infinity),
             ],
