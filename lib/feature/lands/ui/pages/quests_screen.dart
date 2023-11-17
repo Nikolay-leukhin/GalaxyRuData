@@ -11,16 +11,16 @@ import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 const String _congratulationsMessage =
     'Чтобы получить NFT-сертификат, пройдите квесты на космической базе Большого Росреестра в метавселенной Spatial. Вы можете сделать это как с телефона, так и на компьютере.';
 
-class CongratulationsBookedAccommodation extends StatefulWidget {
-  const CongratulationsBookedAccommodation({super.key});
+class QuestsScreen extends StatefulWidget {
+  const QuestsScreen({super.key});
 
   @override
-  State<CongratulationsBookedAccommodation> createState() =>
-      _CongratulationsBookedAccommodationState();
+  State<QuestsScreen> createState() =>
+      _QuestsScreenState();
 }
 
-class _CongratulationsBookedAccommodationState
-    extends State<CongratulationsBookedAccommodation> {
+class _QuestsScreenState
+    extends State<QuestsScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
