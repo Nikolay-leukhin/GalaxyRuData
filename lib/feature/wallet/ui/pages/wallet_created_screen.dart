@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
-class WalletCardScreen extends StatefulWidget {
-  const WalletCardScreen({super.key});
+class WalletCreatedScreen extends StatefulWidget {
+  const WalletCreatedScreen({super.key});
 
   @override
-  State<WalletCardScreen> createState() => _WalletCardScreenState();
+  State<WalletCreatedScreen> createState() => _WalletCreatedScreenState();
 }
 
-class _WalletCardScreenState extends State<WalletCardScreen> {
+class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -31,7 +29,7 @@ class _WalletCardScreenState extends State<WalletCardScreen> {
                 SizedBox(
                   width: 320,
                   child: Text(
-                    "Подключите цифровой кошелек, после прохождения квестов на него будет отправлен NFT-сертификат вашего жилья во Вселенной  Большого Росреестра",
+                    "Цифровой кошелек успешно создан. Не забудьте записать сид-фразу, чтобы всегда иметь возможность восстановить свой кошелек.",
                     style: AppTypography.font16w400,
                     textAlign: TextAlign.center,
                   ),
@@ -60,15 +58,11 @@ class _WalletCardScreenState extends State<WalletCardScreen> {
               children: [
                 CustomButton(
                     content: Text(
-                      'Создать кошелек'.toUpperCase(),
+                      'Посмотреть сид-фразу'.toUpperCase(),
                       style: AppTypography.font16w600,
                     ),
-                    onTap: () async {
-                      await context
-                          .read<WalletRepository>()
-                          .createWallet()
-                          .then((value) => Navigator.pushNamed(
-                              context, RouteNames.authPinCreate));
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteNames.walletSeedPhrase);
                     },
                     width: double.infinity),
                 const SizedBox(
@@ -76,12 +70,12 @@ class _WalletCardScreenState extends State<WalletCardScreen> {
                 ),
                 CustomButton(
                     content: Text(
-                      'Ввести сид-фразу'.toUpperCase(),
+                      'запишу позже'.toUpperCase(),
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
                       Navigator.pushNamed(
-                          context, RouteNames.walletEnterSeedPhrase);
+                          context, RouteNames.accessCodeLock);
                     },
                     width: double.infinity),
               ],

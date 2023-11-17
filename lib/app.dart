@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/access_code/ui/lock_screen.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
@@ -63,7 +64,7 @@ class MyBlocProviders extends StatelessWidget {
           lazy: false,
         ),
         BlocProvider<EnterSeedCubit>(
-          create: (_) => EnterSeedCubit(),
+          create: (_) => EnterSeedCubit(context.read<WalletRepository>()),
           lazy: false,
         ),
       ],
@@ -102,7 +103,7 @@ class AppStateWidget extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is AppAuthState) {
-            return const PinEnterScreen();
+            return const LockScreen();
           } else if (state is AppUnAuthState) {
             return const LoginScreen();
           } else {

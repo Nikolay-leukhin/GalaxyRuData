@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state is AuthSuccessState) {
           Navigator.pop(context);
 
-          Navigator.pushNamed(context, RouteNames.authPinCreate);
+          Navigator.pushNamed(context, RouteNames.walletCard);
         } else if (state is AuthLoadingState) {
           showDialog(
               context: context,

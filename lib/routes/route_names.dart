@@ -16,4 +16,5 @@ class RouteNames {
   static const String wallet = '/wallet';
   static const String walletCard = '/wallet/card';
   static const String walletEnterSeedPhrase = '/wallet/seed_phrase/enter';
+  static const String walletCardCreated = '/wallet/card/created';
 }

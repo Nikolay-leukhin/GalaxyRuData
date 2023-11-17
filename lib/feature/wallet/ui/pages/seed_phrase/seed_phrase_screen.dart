@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/widgets/seed_phrase_word.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -16,21 +19,6 @@ class WalletSeedPhraseScreen extends StatefulWidget {
 }
 
 class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
-  final List<String> seedPhrase = [
-    "Serendipity",
-    "Quixotic",
-    "Mellifluous",
-    "Pernicious",
-    "Obfuscate",
-    "Nebulous",
-    "Perspicacious",
-    "Ineffable",
-    "Mellifluous",
-    "Labyrinthine",
-    "Ephemeral",
-    "Panache"
-  ];
-
   bool isSeedHidden = true;
 
   void changeSeedState() {
@@ -42,9 +30,11 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final seedPhrase =
+        context.read<WalletRepository>().wallet.mnemonic().split(" ");
 
     return MainScaffold(
-      appBar:MainAppBar.back(context),
+      appBar: MainAppBar.back(context),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -112,7 +102,8 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                               Clipboard.setData(
                                   ClipboardData(text: seedPhrase.join(" ")));
 
-                              ScaffoldMessenger.of(context).showSnackBar(AppSnackBar.successSnackBar);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(AppSnackBar.successSnackBar);
                             },
                             child: Container(
                                 alignment: Alignment.center,
@@ -161,7 +152,9 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                   "ДАЛЕЕ",
                   style: AppTypography.font16w600,
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, RouteNames.accessCodeLock);
+                },
                 width: double.infinity),
           )
         ]),

@@ -22,8 +22,8 @@ class AuthRepository {
   List<int> typedUserPinCode = [];
 
   Future<void> checkUserAuth() async {
-    final pinCode = await prefs.getPinCode();
-    if (pinCode == null) {
+    final token = await prefs.getToken();
+    if (token.jwt == "") {
       appState.add(AppStateEnum.unAuth);
     } else {
       appState.add(AppStateEnum.auth);

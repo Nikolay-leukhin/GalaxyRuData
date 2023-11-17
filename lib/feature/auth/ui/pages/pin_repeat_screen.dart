@@ -51,7 +51,7 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
     return BlocListener<PinCodeCubit, PinCodeState>(
       listener: (context, state) {
         if (state is PinCodeRepeatSuccess) {
-          Navigator.pushNamed(context, RouteNames.accessCodeLock);
+          Navigator.pushNamed(context, RouteNames.walletCardCreated);
         } else if (state is PinCodeRepeatFailure) {
           showDialog(
               barrierDismissible: false,
