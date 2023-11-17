@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
 import 'package:galaxy_rudata/models/land.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
 class NFTCard extends StatelessWidget {
@@ -12,18 +15,19 @@ class NFTCard extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        context.read<LandsRepository>().code = "00${land.id.toString()}";
+        Navigator.pushNamed(context, RouteNames.quests);
+      },
       child: Container(
         width: double.infinity,
         height: size.height * 0.4,
-        constraints: const BoxConstraints(
-          maxHeight: 500
-        ),
+        constraints: const BoxConstraints(maxHeight: 500),
         margin: const EdgeInsets.only(top: 16),
         decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(16),
-            image: DecorationImage(
+            image: const DecorationImage(
                 fit: BoxFit.cover, image: AssetImage("assets/images/s.png"))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,

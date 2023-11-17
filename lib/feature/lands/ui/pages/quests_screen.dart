@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/widgets/bottom_sheet_links.dart';
 import 'package:galaxy_rudata/feature/lands/ui/widgets/sperial_bottom_sheet.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -28,7 +29,8 @@ class _QuestsScreenState extends State<QuestsScreen> {
       height: size.height * 0.05,
       constraints: const BoxConstraints(maxHeight: 60),
     );
-
+    print('-' * 40);
+    print(context.read<LandsRepository>().code);
     return MainScaffold(
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(

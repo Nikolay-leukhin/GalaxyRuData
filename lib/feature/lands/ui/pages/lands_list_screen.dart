@@ -17,13 +17,12 @@ class LandsListScreen extends StatefulWidget {
 class _LandsListScreenState extends State<LandsListScreen> {
   @override
   void initState() {
+    context.read<LandsRepository>().loadFreeLands();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    context.read<LandsRepository>().loadFreeLands();
-
     return MainScaffold(
         appBar: MainAppBar.back(context),
         floatingActionButton: const DoubleFloatingButton(),
@@ -31,8 +30,6 @@ class _LandsListScreenState extends State<LandsListScreen> {
             padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
             child: BlocBuilder<LandsFreeCubit, LandsFreeState>(
               builder: (context, state) {
-                
-
                 if (state is LandsFreeLoading) {
                   return const Center(
                     child: CircularProgressIndicator.adaptive(),
@@ -43,10 +40,8 @@ class _LandsListScreenState extends State<LandsListScreen> {
 
                   return SingleChildScrollView(
                     child: Column(
-                      children: List.generate(
-                          landsList.length,
-                          (index) => NFTCard(
-                              land: landsList[index])),
+                      children: List.generate(landsList.length,
+                          (index) => NFTCard(land: landsList[index])),
                     ),
                   );
                 }
