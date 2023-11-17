@@ -12,7 +12,8 @@ part 'service/handler.dart';
 part 'service/methods.dart';
 part 'service/request_model.dart';
 part 'auth.dart';
-
+part 'wallet.dart';
+part 'land.dart';
 
 const Map<String, dynamic> _authHeaders = {
   'Content-Type': 'application/json',
@@ -32,6 +33,8 @@ class ApiService {
 
   late final Token token;
   late final Auth auth;
+  late final Wallet wallet;
+  late final Land land;
 
   ApiService({required this.preferencesService}) {
     initialServices();
@@ -43,6 +46,8 @@ class ApiService {
     log(token.jwt.toString());
 
     auth = Auth(dio_: dio, preferences: preferencesService, token: token);
+    wallet = Wallet(dio_: dio, preferences: preferencesService, token: token);
+    land = Land(dio_: dio, preferences: preferencesService, token: token);
 
     // auth.refreshToken(token);
   }

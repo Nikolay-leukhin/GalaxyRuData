@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:galaxy_rudata/feature/access_code/ui/lock_screen.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
-import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
+import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
+import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
+import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
 import 'package:galaxy_rudata/feature/safe/data/safe_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
@@ -26,12 +27,22 @@ class MyRepositoryProvider extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-            create: (_) =>
-                AuthRepository(apiService: apiService, prefs: prefs)),
-        RepositoryProvider(create: (_) => SafeRepository()),
+          create: (_) => AuthRepository(apiService: apiService, prefs: prefs),
+          lazy: false,
+        ),
         RepositoryProvider(
-            create: (_) =>
-                WalletRepository(apiService: apiService, prefs: prefs)),
+          create: (_) => SafeRepository(),
+          lazy: false,
+        ),
+        RepositoryProvider(
+          create: (_) =>
+              InvitesRepository(apiService: apiService, prefs: prefs),
+          lazy: false,
+        ),
+        RepositoryProvider(
+          create: (_) => WalletRepository(apiService: apiService, prefs: prefs),
+          lazy: false,
+        ),
       ],
       child: const MyBlocProviders(),
     );
@@ -60,6 +71,12 @@ class MyBlocProviders extends StatelessWidget {
         BlocProvider<PinCodeCubit>(
           create: (_) => PinCodeCubit(
             RepositoryProvider.of<AuthRepository>(context),
+          ),
+          lazy: false,
+        ),
+        BlocProvider<UseInviteCodeCubit>(
+          create: (_) => UseInviteCodeCubit(
+            RepositoryProvider.of<InvitesRepository>(context),
           ),
           lazy: false,
         ),
