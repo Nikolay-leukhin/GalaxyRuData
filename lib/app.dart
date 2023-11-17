@@ -35,8 +35,7 @@ class MyRepositoryProvider extends StatelessWidget {
           lazy: false,
         ),
         RepositoryProvider(
-          create: (_) =>
-              InvitesRepository(apiService: apiService, prefs: prefs),
+          create: (_) => LandsRepository(apiService: apiService, prefs: prefs),
           lazy: false,
         ),
         RepositoryProvider(
@@ -76,7 +75,7 @@ class MyBlocProviders extends StatelessWidget {
         ),
         BlocProvider<UseInviteCodeCubit>(
           create: (_) => UseInviteCodeCubit(
-            RepositoryProvider.of<InvitesRepository>(context),
+            RepositoryProvider.of<LandsRepository>(context),
           ),
           lazy: false,
         ),

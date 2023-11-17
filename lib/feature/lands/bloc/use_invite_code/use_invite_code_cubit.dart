@@ -5,14 +5,14 @@ import 'package:meta/meta.dart';
 part 'use_invite_code_state.dart';
 
 class UseInviteCodeCubit extends Cubit<UseInviteCodeState> {
-  final InvitesRepository invitesRepository;
+  final LandsRepository landsRepository;
 
-  UseInviteCodeCubit(this.invitesRepository) : super(UseInviteCodeInitial());
+  UseInviteCodeCubit(this.landsRepository) : super(UseInviteCodeInitial());
 
   void useInviteCode(String code) async {
     emit(UseInviteCodeLoading());
     try {
-      await invitesRepository.useInviteCode(code);
+      await landsRepository.useInviteCode(code);
 
       emit(UseInviteCodeSuccess());
     } catch (e) {
