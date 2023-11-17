@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/widgets/bottom_sheet_links.dart';
 import 'package:galaxy_rudata/feature/lands/ui/widgets/sperial_bottom_sheet.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
@@ -15,12 +17,10 @@ class QuestsScreen extends StatefulWidget {
   const QuestsScreen({super.key});
 
   @override
-  State<QuestsScreen> createState() =>
-      _QuestsScreenState();
+  State<QuestsScreen> createState() => _QuestsScreenState();
 }
 
-class _QuestsScreenState
-    extends State<QuestsScreen> {
+class _QuestsScreenState extends State<QuestsScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -92,8 +92,11 @@ class _QuestsScreenState
                       'Я уже прошел квесты!'.toUpperCase(),
                       style: AppTypography.font16w400,
                     ),
-                    onTap: () {
-
+                    onTap: () async {
+                      RepositoryProvider.of<LandsRepository>(context)
+                          .getApprove()
+                          .then((value) =>
+                              Navigator.pushNamed(context, RouteNames.safe));
                     },
                     width: double.infinity),
               ],

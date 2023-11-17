@@ -6,6 +6,7 @@ class ApiEndpoints {
 
   static const useLandCode = '/v1/invite-codes/use';
   static const connectCodeAndLand = '/v1/invite-codes/connect-land';
+  static const getApprove = '/v1/invite-codes/get-approve';
   static const verifyLandCode = '/v1/invite-codes/verify';
 
   static const freeLands = '/v1/lands/free';

@@ -17,4 +17,12 @@ class Land with ApiHandler {
   Future<void> useInviteCode(String code) async {
     await post(ApiEndpoints.useLandCode, data: {'code': code});
   }
+
+  Future getApprove(String code) =>
+      post(ApiEndpoints.getApprove, data: {'code': code});
+
+  Future<void> verifyLandCode(String code, String approveCode) async {
+    await post(ApiEndpoints.verifyLandCode,
+        data: {'code': code, 'approve': approveCode});
+  }
 }

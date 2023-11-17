@@ -1,8 +1,9 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:galaxy_rudata/feature/safe/data/safe_repository.dart';
+import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -44,12 +45,28 @@ class _SafeScreenState extends State<SafeScreen> {
     setState(() {});
   }
 
+  List<int> getRandomList(int n){
+    final random = Random();
+
+    List<int> list = [];
+
+    for (var i = 0; i < n; i++){
+      var temp = random.nextInt(77);
+
+      while(list.contains(temp)){
+        temp = random.nextInt(77);
+      }
+
+      list.add(temp);
+    }
+    print(list);
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final repository = RepositoryProvider.of<SafeRepository>(context);
-
     final size = MediaQuery.sizeOf(context);
-
+    final repository = RepositoryProvider.of<LandsRepository>(context);
     return MainScaffold(
       isBottomImage: true,
       body: Padding(
@@ -58,7 +75,7 @@ class _SafeScreenState extends State<SafeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
+              SizedBox(
                 width: 320,
                 child: Text(
                   'Чтобы забрать ваш NFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
@@ -100,6 +117,7 @@ class _SafeScreenState extends State<SafeScreen> {
                         height: 15,
                       ),
                       AccessCodeField(
+                        initialValue: repository.approve,
                           controller: codeController,
                           keyboardType: const TextInputType.numberWithOptions(),
                           hintText: 'Введите код',
@@ -114,9 +132,10 @@ class _SafeScreenState extends State<SafeScreen> {
                     style: AppTypography.font16w600,
                   ),
                   onTap: () async {
-                    await startAnimation((n) => repository.getRandomList(n));
-
-                    Navigator.pushNamed(context, RouteNames.nftCertificate);
+                    startAnimation((n) => getRandomList(n)).then((value) async {
+                      await repository.verifyInviteCode(codeController.text);
+                      Navigator.pushNamed(context, RouteNames.nftCertificate);
+                    });
                   },
                   width: size.width * 0.528),
             ],
