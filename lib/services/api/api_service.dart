@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:galaxy_rudata/models/user.dart';
 import 'package:galaxy_rudata/services/api/endpoints.dart';
 import 'package:galaxy_rudata/services/api/token_model.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
