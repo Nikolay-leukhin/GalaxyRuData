@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:galaxy_rudata/services/api/token_model.dart';
+import 'package:galaxy_rudata/services/api/service/token_model.dart';
 
 class PreferencesService {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();

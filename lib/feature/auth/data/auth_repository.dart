@@ -1,4 +1,3 @@
-import 'package:galaxy_rudata/services/api/token_model.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:galaxy_rudata/models/user.dart';

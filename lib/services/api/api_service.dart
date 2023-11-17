@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:galaxy_rudata/services/api/endpoints.dart';
-import 'package:galaxy_rudata/services/api/token_model.dart';
+import 'package:galaxy_rudata/services/api/service/token_model.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 
-part 'handler.dart';
+part 'service/handler.dart';
+part 'service/methods.dart';
+part 'service/request_model.dart';
 part 'auth.dart';
 
 
@@ -46,7 +49,6 @@ class ApiService {
 
   Future<void> logout() async {
     await preferencesService.logout();
-    
-    auth.currentToken = Token.zero();
+    token.setJwt('');
   }
 }

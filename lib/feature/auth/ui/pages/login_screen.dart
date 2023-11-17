@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       horizontal: 16, vertical: 22)
                                   .copyWith(right: 120),
                               controller: codeController,
-                              keyboardType: TextInputType.emailAddress,
+                              keyboardType: TextInputType.number,
                               hintText: "Код",
                             ),
                           ),
