@@ -45,7 +45,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
     return BlocListener<PinCodeCubit, PinCodeState>(
       listener: (context, state) {
         if (state is PinCodeEnterSuccess) {
-          Navigator.pushReplacementNamed(context, RouteNames.nftStorage);
+          Navigator.pushReplacementNamed(context, RouteNames.landsList);
         } else if (state is PinCodeEnterFailure) {
           showDialog(
               barrierDismissible: false,

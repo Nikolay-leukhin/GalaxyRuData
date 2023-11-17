@@ -7,7 +7,6 @@ class RouteNames {
   static const String authPinEnter = '/pin/enter';
 
   static const String nftCertificate = '/nft_certificate';
-  static const String nftStorage = '/nft_storage';
   static const String accessCodeLock = '/access_code_lock';
   static const String congratulations = '/congratulations_screen';
   static const String safe = '/safe';
@@ -17,4 +16,7 @@ class RouteNames {
   static const String walletCard = '/wallet/card';
   static const String walletEnterSeedPhrase = '/wallet/seed_phrase/enter';
   static const String walletCardCreated = '/wallet/card/created';
+
+  static const String landsList = '/lands/list';
+  static const String landsUserList = '/lands/list/screen';
 }
