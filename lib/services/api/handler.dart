@@ -26,7 +26,7 @@ mixin class ApiHandler {
       if (res.statusCode == 401) {
         final newToken = await dio.post(ApiEndpoints.refresh);
 
-        await refreshToken(newToken.data['jwt']);
+        // await refreshToken(newToken.data['jwt']);
 
         if (method == Methods.get) {
           res = await dio.get(url, queryParameters: queryParams, data: data);
@@ -73,14 +73,14 @@ mixin class ApiHandler {
     }
   }
 
-  Future<void> refreshToken(Token token) async {
-    await preferencesService.saveToken(token);
+  // Future<void> refreshToken(Token token) async {
+  //   await preferencesService.saveToken(token);
 
-    currentToken.copy(token);
+  //   currentToken.copy(token);
 
-    dio.options.headers = {
-      'Content-Type': 'application/json',
-      'Authorization': currentToken.accessToken
-    };
-  }
+  //   dio.options.headers = {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': currentToken.accessToken
+  //   };
+  // }
 }

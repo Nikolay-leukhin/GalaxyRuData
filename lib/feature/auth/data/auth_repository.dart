@@ -1,3 +1,4 @@
+import 'package:galaxy_rudata/services/api/token_model.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:galaxy_rudata/models/user.dart';
@@ -18,8 +19,6 @@ class AuthRepository {
   BehaviorSubject<AppStateEnum> appState =
       BehaviorSubject.seeded(AppStateEnum.wait);
 
-  User? user;
-
   List<int> typedUserPinCode = [];
 
   Future<void> checkUserAuth() async {
@@ -34,12 +33,14 @@ class AuthRepository {
   void auth(String email, String code) async {
     authState.add(LoadingStateEnum.loading);
     try {
-      user = await apiService.auth.auth(email, code);
+      final jwt = await apiService.auth.verifyCode(email, code);
+      await prefs.saveToken(Token(jwt: jwt));
 
-      await Future.delayed(Duration(seconds: 2));
       authState.add(LoadingStateEnum.success);
       appState.add(AppStateEnum.auth);
-    } catch (e) {
+    } catch (e, st) {
+      print(e);
+      print(st);
       authState.add(LoadingStateEnum.fail);
     }
   }
@@ -47,7 +48,6 @@ class AuthRepository {
   void logout() async {
     await apiService.logout();
     appState.add(AppStateEnum.unAuth);
-    
   }
 
   Future<void> savePinCode() async {
@@ -56,5 +56,9 @@ class AuthRepository {
 
   Future<String?> getPinCode() async {
     return await prefs.getPinCode();
+  }
+
+  Future<void> sendEmailCode(String email) async {
+    await apiService.auth.sendCode(email);
   }
 }

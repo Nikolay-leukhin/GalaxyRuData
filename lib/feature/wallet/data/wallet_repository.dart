@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart';

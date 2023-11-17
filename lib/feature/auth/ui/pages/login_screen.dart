@@ -38,19 +38,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void processTimerStart() async {
     while (currentRemainingTime > 0) {
-      currentRemainingTime -= 1;
+      if (mounted) {
+        currentRemainingTime -= 1;
 
-      setState(() {});
-      await Future.delayed(const Duration(seconds: 1));
+        setState(() {});
+        await Future.delayed(const Duration(seconds: 1));
+      } else {
+        break;
+      }
     }
   }
 
-  void sendAuthCode() {
+  void sendAuthCode() async {
     errorEmailField = Validator.emailValidator(emailController.text) is String;
     setState(() {});
 
-    if (!errorEmailField) {
+    if (!errorEmailField && currentRemainingTime == 0) {
       currentRemainingTime = 60;
+      context.read<AuthRepository>().sendEmailCode(emailController.text);
       processTimerStart();
     }
   }
@@ -260,8 +265,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           final permission = checkFieldsState();
 
                           if (permission) {
-                            context.read<AuthRepository>().auth(
-                                emailController.text, codeController.text);
+                            context.read<AuthCubit>().auth(
+                                email: emailController.text,
+                                password: codeController.text);
                           }
                         },
                         width: double.infinity),

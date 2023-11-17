@@ -11,17 +11,17 @@ class PreferencesService {
   final String _seedPhraseKey = 'seed';
 
   Future saveToken(Token token) async {
-    _prefs.then(
+    await _prefs.then(
         (prefs) => prefs.setString(_tokenKey, jsonEncode(token.toJson())));
   }
 
   Future<Token> getToken() async {
     final prefs = await _prefs;
 
-    final res = prefs.getString(_tokenKey);
-    if (res != null) {
-      return Token.fromJson(jsonDecode(res));
-    } else {
+    try {
+      final Token jwt = Token.fromJson(jsonDecode(prefs.getString(_tokenKey)!));
+      return jwt;
+    } catch (e) {
       return Token.zero();
     }
   }

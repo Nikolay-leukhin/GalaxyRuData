@@ -10,7 +10,14 @@ class Auth with ApiHandler {
     currentToken = token;
   }
 
-  Future<User> auth(String email, String password) async {
-    return User(name: 'Лох');
+  Future<String> verifyCode(String email, String password) async {
+    final response = await post(ApiEndpoints.authVerifyCode,
+        data: {'email': email, 'time_code': password});
+
+    return response['jwt'];
+  }
+
+  Future<void> sendCode(String email) async {
+    await post(ApiEndpoints.authSendEmailCode, data: {"email": email});
   }
 }

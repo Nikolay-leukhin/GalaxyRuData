@@ -1,20 +1,15 @@
 class Token {
-  String accessToken;
-  String refreshToken;
+  String jwt;
+
+  Token({required this.jwt});
 
   Token.fromJson(Map<String, dynamic> json)
-      : accessToken = json['access'],
-        refreshToken = json['refresh'];
+      : jwt = json['jwt'];
 
   Token.zero()
-      : refreshToken = '',
-        accessToken = '';
+      : jwt = "";
 
   Map<String, String> toJson() =>
-      {'access': accessToken, 'refresh': refreshToken};
+      {'jwt': jwt};
 
-  void copy(Token token) {
-    accessToken = token.accessToken;
-    refreshToken = token.refreshToken;
-  }
 }

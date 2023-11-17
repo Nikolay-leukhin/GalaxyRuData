@@ -15,7 +15,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (event == LoadingStateEnum.loading) emit(AuthLoadingState());
       if (event == LoadingStateEnum.fail) emit(AuthFailState());
       if (event == LoadingStateEnum.success) {
-        emit(AuthSuccessState(name: _authRepository.user!.name));
+        emit(AuthSuccessState());
       }
     });
   }

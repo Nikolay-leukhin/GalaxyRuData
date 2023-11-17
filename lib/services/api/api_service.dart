@@ -38,16 +38,16 @@ class ApiService {
   void initialServices() async {
     token = await preferencesService.getToken();
 
-    log(token.accessToken.toString());
+    log(token.jwt.toString());
 
     auth = Auth(dio_: dio, preferences: preferencesService, token: token);
 
-    auth.refreshToken(token);
+    // auth.refreshToken(token);
   }
 
   Future<void> logout() async {
     await preferencesService.logout();
     
-    auth.refreshToken(Token.zero());
+    auth.currentToken = Token.zero();
   }
 }
