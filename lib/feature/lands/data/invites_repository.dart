@@ -8,6 +8,11 @@ class LandsRepository {
   final ApiService apiService;
   final PreferencesService prefs;
 
+  String? code;
+
+  /// снести потом
+  String? approve;
+
   List<LandModel> freeLandsList = [];
 
   BehaviorSubject<LoadingStateEnum> freeLandsStream =
@@ -23,8 +28,13 @@ class LandsRepository {
     // nft card dtails
   }
 
-  Future<void> verifyInviteCode() async {
-    // сейф
+  Future getApprove() async {
+    final res = await apiService.land.getApprove(code!);
+    approve = res['data'];
+  }
+
+  Future<void> verifyInviteCode(String approveCode) async {
+    await apiService.land.verifyLandCode(code!, approveCode);
   }
 
   Future<void> loadFreeLands() async {

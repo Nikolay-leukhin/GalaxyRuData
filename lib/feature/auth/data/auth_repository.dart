@@ -8,6 +8,8 @@ class AuthRepository {
   final ApiService apiService;
   final PreferencesService prefs;
 
+  String? currentEmail;
+
   AuthRepository({required this.apiService, required this.prefs}) {
     checkUserAuth();
   }
@@ -33,7 +35,7 @@ class AuthRepository {
     authState.add(LoadingStateEnum.loading);
     try {
       await apiService.auth.verifyCode(email, code);
-
+      currentEmail = email;
       authState.add(LoadingStateEnum.success);
       appState.add(AppStateEnum.auth);
     } catch (e, st) {
@@ -43,8 +45,8 @@ class AuthRepository {
     }
   }
 
-  Future<void> logout() async {
-    await apiService.logout();
+  void logout() {
+    apiService.logout();
     appState.add(AppStateEnum.unAuth);
   }
 

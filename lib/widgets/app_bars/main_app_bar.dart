@@ -4,6 +4,7 @@ import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/back_wallet.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
+import 'package:galaxy_rudata/widgets/popup/choose_popup.dart';
 
 class MainAppBar extends PreferredSize {
   // MainAppBar(BuildContext context, {super.key, bool isAction = true})
@@ -79,9 +80,12 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () async {
-                        await context.read<AuthRepository>().logout().then(
-                            (value) => Navigator.pushNamed(
-                                context, RouteNames.root));
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => CustomLogOutPopup(onTap: () {
+                                  context.read<AuthRepository>().logout();
+                                  Navigator.pushNamed(context, RouteNames.root);
+                                }));
                       },
                       iconName: 'logout.svg'),
                   AppBarButton(

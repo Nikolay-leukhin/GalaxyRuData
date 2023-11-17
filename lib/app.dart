@@ -9,7 +9,6 @@ import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dar
 import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
-import 'package:galaxy_rudata/feature/safe/data/safe_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
@@ -29,10 +28,6 @@ class MyRepositoryProvider extends StatelessWidget {
       providers: [
         RepositoryProvider(
           create: (_) => AuthRepository(apiService: apiService, prefs: prefs),
-          lazy: false,
-        ),
-        RepositoryProvider(
-          create: (_) => SafeRepository(),
           lazy: false,
         ),
         RepositoryProvider(

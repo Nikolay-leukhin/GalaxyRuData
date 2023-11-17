@@ -12,7 +12,7 @@ class AccessCodeField extends StatefulWidget {
     this.hintText = '',
     this.padding,
     this.obscureText = false,
-    this.withError = false,
+    this.withError = false, this.initialValue,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -23,6 +23,7 @@ class AccessCodeField extends StatefulWidget {
   final String hintText;
   final bool obscureText;
   final bool withError;
+  final String? initialValue;
   final EdgeInsets? padding;
 
   @override
@@ -36,6 +37,7 @@ class _AccessCodeFieldState extends State<AccessCodeField> {
       width: widget.width,
       height: widget.height,
       child: TextFormField(
+        initialValue: widget.initialValue,
         cursorColor: Colors.white,
         maxLines: widget.maxLines,
         keyboardType: widget.keyboardType,
