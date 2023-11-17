@@ -66,7 +66,7 @@ class _LockScreenState extends State<LockScreen> {
       }
 
       Future.delayed(rotationDuration + moveDuration,
-          () => Navigator.of(context).pushNamed(RouteNames.congratulations));
+          () => Navigator.of(context).pushNamed(RouteNames.nftCertificate));
     }
 
     return MainScaffold(
