@@ -11,10 +11,10 @@ class Land with ApiHandler {
   }
 
   Future<void> updateWalletAddress(String walletAddress) async {
-    await post(ApiEndpoints.walletUpdateAddress, data: {'Land': walletAddress});
+    await post(ApiEndpoints.userWalletUpdate, data: {'Land': walletAddress});
   }
 
   Future<void> useInviteCode(String code) async {
-    await post(ApiEndpoints.landUseInviteCode, data: {'code': code});
+    await post(ApiEndpoints.useLandCode, data: {'code': code});
   }
 }

@@ -11,7 +11,7 @@ class Wallet with ApiHandler {
   }
 
   Future<void> updateWalletAddress(String walletAddress) async {
-    await post(ApiEndpoints.walletUpdateAddress,
+    await post(ApiEndpoints.userWalletUpdate,
         data: {'wallet': walletAddress});
   }
 }
