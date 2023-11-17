@@ -47,6 +47,6 @@ class ApiService {
   Future<void> logout() async {
     await preferencesService.logout();
     
-    auth.currentToken = Token.zero();
+    // auth.currentToken = Token.zero();
   }
 }

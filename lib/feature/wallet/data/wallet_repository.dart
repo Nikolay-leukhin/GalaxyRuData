@@ -21,9 +21,7 @@ class WalletRepository {
   }
 
   Future<void> enterWalletBySeedPhrase(String seedPhrase) async {
-    HDWallet wallet = HDWallet.createWithMnemonic(seedPhrase);
-
-    wallet = wallet;
+    wallet = HDWallet.createWithMnemonic(seedPhrase);
     print(wallet);
 
     await prefs.setSeedPhrase(wallet.mnemonic());

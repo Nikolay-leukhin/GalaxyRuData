@@ -44,7 +44,7 @@ class AuthRepository {
     }
   }
 
-  void logout() async {
+  Future<void> logout() async {
     await apiService.logout();
     appState.add(AppStateEnum.unAuth);
   }

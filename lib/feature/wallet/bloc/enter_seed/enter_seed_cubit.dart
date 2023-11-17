@@ -16,6 +16,7 @@ class EnterSeedCubit extends Cubit<EnterSeedState> {
       await walletRepository.enterWalletBySeedPhrase(seedPhrase);
       emit(EnterSeedSuccess());
     } catch (e, st) {
+      print(e);
       print(st);
       emit(EnterSeedFailure());
     }

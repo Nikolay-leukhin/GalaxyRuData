@@ -66,7 +66,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, RouteNames.walletCard);
+                      Navigator.pushNamed(context, RouteNames.authPinEnter);
                     },
                     width: double.infinity),
                 const SizedBox(
@@ -77,7 +77,9 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                       'Забронировать ещё жилье!'.toUpperCase(),
                       style: AppTypography.font16w600,
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      print("DEVELOPING...");
+                    },
                     width: double.infinity),
               ],
             ),
