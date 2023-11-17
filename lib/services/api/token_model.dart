@@ -11,5 +11,4 @@ class Token {
 
   Map<String, String> toJson() =>
       {'jwt': jwt};
-
 }

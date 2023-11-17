@@ -33,8 +33,7 @@ class AuthRepository {
   void auth(String email, String code) async {
     authState.add(LoadingStateEnum.loading);
     try {
-      final jwt = await apiService.auth.verifyCode(email, code);
-      await prefs.saveToken(Token(jwt: jwt));
+      await apiService.auth.verifyCode(email, code);
 
       authState.add(LoadingStateEnum.success);
       appState.add(AppStateEnum.auth);
