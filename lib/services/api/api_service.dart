@@ -50,5 +50,6 @@ class ApiService {
   Future<void> logout() async {
     await preferencesService.logout();
     token.setJwt('');
+    dio.options.headers = _authHeaders;
   }
 }
