@@ -1,36 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
+import 'package:galaxy_rudata/models/land.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
 class NFTCard extends StatelessWidget {
-  const NFTCard(
-      {super.key,
-      required this.size,
-      required this.image,
-      required this.title,
-      required this.nftType,
-      required this.id, this.onTap});
+  const NFTCard({super.key, required this.land});
 
-  final double size;
-
-  final String image;
-  final String title;
-  final String nftType;
-  final String id;
-  final VoidCallback? onTap;
+  final LandModel land;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
+    final size = MediaQuery.sizeOf(context);
+
+    return GestureDetector(
+      onTap: () {
+        context.read<LandsRepository>().code = "00${land.id.toString()}";
+        Navigator.pushNamed(context, RouteNames.quests);
+      },
       child: Container(
-        width: size,
-        height: size,
+        width: double.infinity,
+        height: size.height * 0.4,
+        constraints: const BoxConstraints(maxHeight: 500),
         margin: const EdgeInsets.only(top: 16),
         decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(16),
-            image: DecorationImage(
-                fit: BoxFit.cover, image: AssetImage(image))),
+            image: const DecorationImage(
+                fit: BoxFit.cover, image: AssetImage("assets/images/s.png"))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -44,29 +42,31 @@ class NFTCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(width: double.infinity,),
+                  const SizedBox(
+                    width: double.infinity,
+                  ),
                   SizedBox(
-                    width: size - 24,
+                    width: size.width - 80,
                     child: Text(
-                      title,
+                      land.name,
                       style: AppTypography.font16w600,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
                   ),
                   SizedBox(
-                    width: size - 24,
+                    width: size.width - 80,
                     child: Text(
-                      nftType,
+                      land.type,
                       style: AppTypography.font12w400,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
                   ),
                   SizedBox(
-                    width: size - 24,
+                    width: size.width - 80,
                     child: Text(
-                      'Жилье во владении № $id',
+                      land.description,
                       style: AppTypography.font12w400,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,

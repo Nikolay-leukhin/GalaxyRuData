@@ -29,7 +29,8 @@ class _QuestsScreenState extends State<QuestsScreen> {
       height: size.height * 0.05,
       constraints: const BoxConstraints(maxHeight: 60),
     );
-
+    print('-' * 40);
+    print(context.read<LandsRepository>().code);
     return MainScaffold(
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(

@@ -67,8 +67,9 @@ class _LockScreenState extends State<LockScreen> {
         });
       }
 
-      Future.delayed(rotationDuration + moveDuration,
-          () => Navigator.of(context).pushNamed(RouteNames.nftCertificate));
+      Future.delayed(rotationDuration + moveDuration, () {
+        Navigator.of(context).pushNamed(RouteNames.landsList);
+      });
     }
 
     return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
@@ -87,7 +88,6 @@ class _LockScreenState extends State<LockScreen> {
           turnLock();
         } else if (state is UseInviteCodeFailure) {
           // Navigator.pop(context);
-
 
           showDialog(
               context: context,
@@ -173,9 +173,11 @@ class _LockScreenState extends State<LockScreen> {
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
-                      context
-                          .read<UseInviteCodeCubit>()
-                          .useInviteCode(codeController.text);
+                      // context
+                      //     .read<UseInviteCodeCubit>()
+                      //     .useInviteCode(codeController.text);
+
+                      Navigator.pushNamed(context, RouteNames.arPlanetView);
                     },
                     width: double.infinity),
               ],
