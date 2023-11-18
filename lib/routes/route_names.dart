@@ -19,4 +19,6 @@ class RouteNames {
 
   static const String landsList = '/lands/list';
   static const String landsUserList = '/lands/list/screen';
+
+  static const String arPlanetView = '/ar/planet';
 }

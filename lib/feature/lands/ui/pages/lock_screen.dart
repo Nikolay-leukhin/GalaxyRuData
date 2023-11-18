@@ -173,9 +173,11 @@ class _LockScreenState extends State<LockScreen> {
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
-                      context
-                          .read<UseInviteCodeCubit>()
-                          .useInviteCode(codeController.text);
+                      // context
+                      //     .read<UseInviteCodeCubit>()
+                      //     .useInviteCode(codeController.text);
+
+                      Navigator.pushNamed(context, RouteNames.arPlanetView);
                     },
                     width: double.infinity),
               ],

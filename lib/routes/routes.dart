@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:galaxy_rudata/app.dart';
+import 'package:galaxy_rudata/feature/ar_planet_view/ui/ar_plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_repeat_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_screen.dart';
@@ -32,9 +33,10 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
   RouteNames.authPinRepeat: (context) => const PinRepeatScreen(),
   RouteNames.authPinEnter: (context) => const PinEnterScreen(),
 
-
   RouteNames.walletSeedPhrase: (context) =>  const WalletSeedPhraseScreen(),
   RouteNames.walletCard: (context) => const WalletCardScreen(),
   RouteNames.walletEnterSeedPhrase: (context) => const WalletEnterSeedPhraseScreeen(),
-  RouteNames.walletCardCreated: (context) => const WalletCreatedScreen()
+  RouteNames.walletCardCreated: (context) => const WalletCreatedScreen(),
+
+  RouteNames.arPlanetView: (context) => const ArPlanetViewScreen(),
 };
