@@ -19,7 +19,6 @@ class AppCubit extends Cubit<AppState> {
         super(AppInitial()) {
     _authRepository.appState.stream.listen((event) async {
       if (event == AppStateEnum.auth) {
-        loadWalletAddress();
         emit(AppAuthState());
       }
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
