@@ -3,7 +3,6 @@ import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
-import 'package:trust_wallet_core_lib/trust_wallet_core_ffi.dart';
 
 part 'app_state.dart';
 
