@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/back_wallet.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
@@ -71,8 +72,6 @@ class MainAppBar extends PreferredSize {
           ),
         );
 
-  
-
   MainAppBar.logoutWallet(BuildContext context, {super.key})
       : super(
           preferredSize: Size(MediaQuery.sizeOf(context).width, 100),
@@ -84,12 +83,10 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () async {
-                        showDialog(
-                            context: context,
-                            builder: (ctx) => CustomLogOutPopup(onTap: () {
-                                  context.read<AuthRepository>().logout();
-                                  Navigator.pushNamed(context, RouteNames.root);
-                                }));
+                        Dialogs.showModal(context, CustomLogOutPopup(onTap: () {
+                          context.read<AuthRepository>().logout();
+                          Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
+                        }));
                       },
                       iconName: 'logout.svg'),
                   AppBarButton(
