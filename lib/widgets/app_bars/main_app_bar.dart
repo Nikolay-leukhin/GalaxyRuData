@@ -85,6 +85,7 @@ class MainAppBar extends PreferredSize {
                       onTap: () async {
                         Dialogs.showModal(context, CustomLogOutPopup(onTap: () {
                           context.read<AuthRepository>().logout();
+                          Dialogs.hide(context);
                           Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
                         }));
                       },
