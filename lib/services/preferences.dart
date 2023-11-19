@@ -12,7 +12,6 @@ class PreferencesService {
 
   Future saveToken(Token token) async {
     final prefs = await _prefs;
-    print(token.jwt);
     await prefs.setString(_tokenKey, jsonEncode(token.toJson()));
   }
 

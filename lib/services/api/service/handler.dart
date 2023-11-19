@@ -28,7 +28,8 @@ mixin class ApiHandler {
     await preferencesService.saveToken(token);
 
     currentToken.setJwt(token.jwt);
-
+    print(currentToken.jwt);
+    print("________________________");
     dio.options.headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${currentToken.jwt}'
