@@ -17,70 +17,73 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return MainScaffold(
-      appBar: MainAppBar.logoutWallet(context),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  width: 320,
-                  child: Text(
-                    "Цифровой кошелек успешно создан. Не забудьте записать сид-фразу, чтобы всегда иметь возможность восстановить свой кошелек.",
-                    style: AppTypography.font16w400,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  width: size.width * 0.86,
-                  constraints: const BoxConstraints(maxWidth: 350),
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: const Image(
-                    image: AssetImage('assets/images/bank_card.png'),
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            Column(
-              children: [
-                CustomButton(
-                    content: Text(
-                      'Посмотреть сид-фразу'.toUpperCase(),
-                      style: AppTypography.font16w600,
+    return WillPopScope(
+      onWillPop: () =>  Future.value(false),
+      child: MainScaffold(
+        appBar: MainAppBar.logoutWallet(context),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    width: 320,
+                    child: Text(
+                      "Цифровой кошелек успешно создан. Не забудьте записать сид-фразу, чтобы всегда иметь возможность восстановить свой кошелек.",
+                      style: AppTypography.font16w400,
+                      textAlign: TextAlign.center,
                     ),
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteNames.walletSeedPhrase);
-                    },
-                    width: double.infinity),
-                const SizedBox(
-                  height: 15,
-                ),
-                CustomButton(
-                    content: Text(
-                      'запишу позже'.toUpperCase(),
-                      style: AppTypography.font16w600,
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    width: size.width * 0.86,
+                    constraints: const BoxConstraints(maxWidth: 350),
+                    clipBehavior: Clip.hardEdge,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, RouteNames.accessCodeLock);
-                    },
-                    width: double.infinity),
-              ],
-            ),
-          ],
+                    child: const Image(
+                      image: AssetImage('assets/images/card_success.png'),
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Column(
+                children: [
+                  CustomButton(
+                      content: Text(
+                        'Посмотреть сид-фразу'.toUpperCase(),
+                        style: AppTypography.font16w600,
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteNames.walletSeedPhrase);
+                      },
+                      width: double.infinity),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  CustomButton(
+                      content: Text(
+                        'запишу позже'.toUpperCase(),
+                        style: AppTypography.font16w600,
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, RouteNames.accessCodeLock);
+                      },
+                      width: double.infinity),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
