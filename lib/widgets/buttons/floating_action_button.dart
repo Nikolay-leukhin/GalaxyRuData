@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
+import 'package:galaxy_rudata/widgets/dialogs/wallet_bottom_sheet.dart';
 
 class DoubleFloatingButton extends StatelessWidget {
   const DoubleFloatingButton({super.key});
@@ -13,7 +16,9 @@ class DoubleFloatingButton extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(24),
-            onTap: () {},
+            onTap: () {
+              ShowBottomSheet.show(context, const WalletAddressBottomSheet());
+            },
             child: Ink(
               width: 48,
               height: 48,
@@ -33,7 +38,9 @@ class DoubleFloatingButton extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(24),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, RouteNames.walletSeedPhrase);
+            },
             child: Ink(
               width: 48,
               height: 48,

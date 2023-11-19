@@ -25,7 +25,7 @@ class _UserLandsScreenState extends State<UserLandsScreen> {
   @override
   Widget build(BuildContext context) {
     return MainScaffold(
-        appBar: MainAppBar.back(context),
+        appBar: MainAppBar.backWallet(context),
         floatingActionButton: const DoubleFloatingButton(),
         body: Padding(
             padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
@@ -42,7 +42,7 @@ class _UserLandsScreenState extends State<UserLandsScreen> {
                   return SingleChildScrollView(
                     child: Column(
                       children: List.generate(landsList.length,
-                              (index) => NFTCard(land: landsList[index])),
+                          (index) => NFTCard(land: landsList[index])),
                     ),
                   );
                 }
