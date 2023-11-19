@@ -37,13 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void processTimerStart() async {
-    while (currentRemainingTime > 0) {
+    while (currentRemainingTime > 1) {
       if (mounted) {
         currentRemainingTime -= 1;
 
         setState(() {});
         await Future.delayed(const Duration(seconds: 1));
       } else {
+        currentRemainingTime -= 1;
         break;
       }
     }
@@ -98,9 +99,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
           // Navigator.pushNamed(context, RouteNames.walletCard);
         } else if (state is AuthLoadingState) {
-          Dialogs.showModal(context, const Center(
-            child: CircularProgressIndicator.adaptive(),
-          ));
+          Dialogs.showModal(
+              context,
+              const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ));
         }
       },
       child: GestureDetector(
