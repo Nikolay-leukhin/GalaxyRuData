@@ -14,7 +14,7 @@ class Auth with ApiHandler {
     final response = await post(ApiEndpoints.authVerifyCode,
         data: {'email': email, 'time_code': password});
 
-    refreshToken(Token(jwt: response['jwt']));
+    await refreshToken(Token(jwt: response['jwt']));
 
     // await preferencesService.saveToken(Token(jwt: response['jwt'],));
   }

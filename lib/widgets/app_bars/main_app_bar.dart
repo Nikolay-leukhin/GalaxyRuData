@@ -4,6 +4,8 @@ import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/back_wallet.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
+import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
+import 'package:galaxy_rudata/widgets/dialogs/wallet_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/popup/choose_popup.dart';
 
 class MainAppBar extends PreferredSize {
@@ -90,7 +92,10 @@ class MainAppBar extends PreferredSize {
                       iconName: 'logout.svg'),
                   AppBarButton(
                       onTap: () {
-                        Navigator.pushNamed(context, RouteNames.wallet);
+                        ShowBottomSheet.show(
+                          context,
+                          const WalletAddressBottomSheet(),
+                        );
                       },
                       iconName: 'wallet.svg'),
                 ]),

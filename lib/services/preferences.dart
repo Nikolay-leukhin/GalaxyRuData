@@ -11,8 +11,9 @@ class PreferencesService {
   final String _seedPhraseKey = 'seed';
 
   Future saveToken(Token token) async {
-    await _prefs.then(
-        (prefs) => prefs.setString(_tokenKey, jsonEncode(token.toJson())));
+    final prefs = await _prefs;
+    print(token.jwt);
+    await prefs.setString(_tokenKey, jsonEncode(token.toJson()));
   }
 
   Future<Token> getToken() async {
@@ -21,14 +22,16 @@ class PreferencesService {
     try {
       final Token jwt = Token.fromJson(jsonDecode(prefs.getString(_tokenKey)!));
       return jwt;
-    } catch (e) {
+    } catch (e, st) {
+      print(e);
+      print(st);
       return Token.zero();
     }
   }
 
   Future<void> setPinCode(String pinCode) async {
     final prefs = await _prefs;
-    prefs.setString(_pinCodeKey, pinCode);
+    await prefs.setString(_pinCodeKey, pinCode);
   }
 
   Future<String?> getPinCode() async {
@@ -38,7 +41,7 @@ class PreferencesService {
 
   Future<void> setSeedPhrase(String seedPhrase) async {
     final prefs = await _prefs;
-    prefs.setString(_seedPhraseKey, seedPhrase);
+    await prefs.setString(_seedPhraseKey, seedPhrase);
   }
 
   Future<String?> getSeedPhrase() async {

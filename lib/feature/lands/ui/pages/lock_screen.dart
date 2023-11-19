@@ -101,7 +101,7 @@ class _LockScreenState extends State<LockScreen> {
       },
       child: MainScaffold(
         isBottomImage: true,
-        appBar: MainAppBar.backWallet(
+        appBar: MainAppBar.logoutWallet(
           context,
         ),
         body: Padding(
@@ -173,11 +173,11 @@ class _LockScreenState extends State<LockScreen> {
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
-                      // context
-                      //     .read<UseInviteCodeCubit>()
-                      //     .useInviteCode(codeController.text);
+                      context
+                          .read<UseInviteCodeCubit>()
+                          .useInviteCode(codeController.text);
 
-                      Navigator.pushNamed(context, RouteNames.arPlanetView);
+                      // Navigator.pushNamed(context, RouteNames.arPlanetView);
                     },
                     width: double.infinity),
               ],
