@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/snack_bars/success_snack_bar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_ffi.dart';
 
@@ -26,8 +28,8 @@ class WalletAddressBottomSheet extends StatelessWidget {
         color: AppColors.lightBlue,
         borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
       ),
-      child: Container(      clipBehavior: Clip.hardEdge,
-
+      child: Container(
+        clipBehavior: Clip.hardEdge,
         width: double.infinity,
         decoration: const BoxDecoration(
           color: AppColors.primary,
@@ -87,7 +89,17 @@ class WalletAddressBottomSheet extends StatelessWidget {
                       style: AppTypography.font16w600
                           .copyWith(color: Colors.white),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Clipboard.setData(ClipboardData(
+                          text: context
+                              .read<WalletRepository>()
+                              .wallet
+                              .getAddressForCoin(
+                                  TWCoinType.TWCoinTypePolygon)));
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(AppSnackBar.successSnackBar);
+                    },
                     width: size.width - 56),
                 seperator16
               ],

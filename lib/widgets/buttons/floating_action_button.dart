@@ -39,7 +39,7 @@ class DoubleFloatingButton extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(24),
             onTap: () {
-              Navigator.pushNamed(context, RouteNames.walletSeedPhrase);
+              Navigator.pushNamed(context, RouteNames.walletSeedPhraseView);
             },
             child: Ink(
               width: 48,

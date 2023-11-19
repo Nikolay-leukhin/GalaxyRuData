@@ -32,7 +32,9 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
   RouteNames.authPinRepeat: (context) => const PinRepeatScreen(),
   RouteNames.authPinEnter: (context) => const PinEnterScreen(),
 
-  RouteNames.walletSeedPhrase: (context) =>  const WalletSeedPhraseScreen(),
+
+  RouteNames.walletSeedPhraseView: (context) =>  const WalletSeedPhraseScreen(withContinueButton: false),
+  RouteNames.walletSeedPhrase: (context) =>  const WalletSeedPhraseScreen(withContinueButton: true),
   RouteNames.walletCard: (context) => const WalletCardScreen(),
   RouteNames.walletEnterSeedPhrase: (context) => const WalletEnterSeedPhraseScreeen(),
   RouteNames.walletCardCreated: (context) => const WalletCreatedScreen(),

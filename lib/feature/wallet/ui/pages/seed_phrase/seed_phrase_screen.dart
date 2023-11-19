@@ -8,11 +8,14 @@ import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:galaxy_rudata/widgets/snack_bars/success_snack_bar.dart';
 
 class WalletSeedPhraseScreen extends StatefulWidget {
-  const WalletSeedPhraseScreen({super.key});
+  final bool withContinueButton;
+
+  const WalletSeedPhraseScreen({super.key, required this.withContinueButton});
 
   @override
   State<WalletSeedPhraseScreen> createState() => _WalletSeedPhraseScreenState();
@@ -98,10 +101,10 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                         borderRadius: BorderRadius.circular(1000),
                         child: InkWell(
                             borderRadius: BorderRadius.circular(1000),
-                            onTap: () {
-                              Clipboard.setData(
+                            onTap: () async {
+                              await Clipboard.setData(
                                   ClipboardData(text: seedPhrase.join(" ")));
-
+                              
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(AppSnackBar.successSnackBar);
                             },
@@ -145,18 +148,20 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
           const SizedBox(
             height: 20,
           ),
-          Opacity(
-            opacity: isSeedHidden ? 0 : 1,
-            child: CustomButton(
-                content: Text(
-                  "ДАЛЕЕ",
-                  style: AppTypography.font16w600,
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, RouteNames.accessCodeLock);
-                },
-                width: double.infinity),
-          )
+          widget.withContinueButton
+              ? Opacity(
+                  opacity: isSeedHidden ? 0 : 1,
+                  child: CustomButton(
+                      content: Text(
+                        "ДАЛЕЕ",
+                        style: AppTypography.font16w600,
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteNames.accessCodeLock);
+                      },
+                      width: double.infinity),
+                )
+              : Container()
         ]),
       ),
     );

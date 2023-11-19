@@ -25,7 +25,7 @@ class _UserLandsScreenState extends State<UserLandsScreen> {
   @override
   Widget build(BuildContext context) {
     return MainScaffold(
-        appBar: MainAppBar.backWallet(context),
+        appBar: MainAppBar.back(context),
         floatingActionButton: const DoubleFloatingButton(),
         body: Padding(
             padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
