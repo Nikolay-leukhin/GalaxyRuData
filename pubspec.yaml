@@ -30,6 +30,8 @@ dependencies:
   arkit_plugin: ^1.0.7
   qr_flutter: ^4.1.0
 
+  model_viewer_plus: ^1.7.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
