@@ -19,13 +19,15 @@ class WalletAddressBottomSheet extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
 
     return Container(
+      clipBehavior: Clip.hardEdge,
       width: double.infinity,
       padding: const EdgeInsets.only(top: 2),
       decoration: const BoxDecoration(
         color: AppColors.lightBlue,
         borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
       ),
-      child: Container(
+      child: Container(      clipBehavior: Clip.hardEdge,
+
         width: double.infinity,
         decoration: const BoxDecoration(
           color: AppColors.primary,

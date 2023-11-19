@@ -71,6 +71,8 @@ class MainAppBar extends PreferredSize {
           ),
         );
 
+  
+
   MainAppBar.logoutWallet(BuildContext context, {super.key})
       : super(
           preferredSize: Size(MediaQuery.sizeOf(context).width, 100),
