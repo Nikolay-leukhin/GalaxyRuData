@@ -1,5 +1,4 @@
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/app.dart';
 import 'package:galaxy_rudata/feature/ar_planet_view/ui/ar_plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
