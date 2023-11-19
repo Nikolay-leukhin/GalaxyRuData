@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
+import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/widgets/bottom_sheet_links.dart';
 import 'package:galaxy_rudata/feature/lands/ui/widgets/sperial_bottom_sheet.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';

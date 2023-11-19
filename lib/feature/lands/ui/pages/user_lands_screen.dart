@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dart';
+import 'package:galaxy_rudata/feature/lands/bloc/user_lands/lands_user_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/floating_action_button.dart';
 import 'package:galaxy_rudata/widgets/cards/nft_card.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
-class LandsListScreen extends StatefulWidget {
-  const LandsListScreen({super.key});
+class UserLandsScreen extends StatefulWidget {
+  const UserLandsScreen({super.key});
 
   @override
-  State<LandsListScreen> createState() => _LandsListScreenState();
+  State<UserLandsScreen> createState() => _UserLandsScreenState();
 }
 
-class _LandsListScreenState extends State<LandsListScreen> {
+class _UserLandsScreenState extends State<UserLandsScreen> {
   @override
   void initState() {
-    context.read<LandsRepository>().loadFreeLands();
+    context.read<LandsRepository>().loadUserLands();
     super.initState();
   }
 
@@ -29,23 +29,20 @@ class _LandsListScreenState extends State<LandsListScreen> {
         floatingActionButton: const DoubleFloatingButton(),
         body: Padding(
             padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
-            child: BlocBuilder<LandsFreeCubit, LandsFreeState>(
+            child: BlocBuilder<LandsUserCubit, LandsUserState>(
               builder: (context, state) {
-                if (state is LandsFreeLoading) {
+                if (state is LandsUserLoading) {
                   return const Center(
                     child: CircularProgressIndicator.adaptive(),
                   );
-                } else if (state is LandsFreeSuccess) {
+                } else if (state is LandsUserSuccess) {
                   final landsList =
-                      context.read<LandsRepository>().freeLandsList;
+                      context.read<LandsRepository>().userLandsList;
 
                   return SingleChildScrollView(
                     child: Column(
                       children: List.generate(landsList.length,
-                          (index) => NFTCard(land: landsList[index], onTap: () {
-                            context.read<LandsRepository>().connectLandToCurrentCode(landsList[index].id);
-                            Navigator.pushNamed(context, RouteNames.quests);
-                          },)),
+                              (index) => NFTCard(land: landsList[index])),
                     ),
                   );
                 }

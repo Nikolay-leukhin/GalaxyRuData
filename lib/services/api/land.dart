@@ -22,6 +22,14 @@ class Land with ApiHandler {
     return await post(ApiEndpoints.freeLands);
   }
 
+  Future<Map<String, dynamic>> getUserLands() async {
+    return await post(ApiEndpoints.userLands);
+  }
+
+  Future connectLandAndCode({required String code, required int landId}) =>
+      post(ApiEndpoints.connectCodeAndLand,
+          data: {"code": code, "landId": landId});
+
   Future getApprove(String code) =>
       post(ApiEndpoints.getApprove, data: {'code': code});
 

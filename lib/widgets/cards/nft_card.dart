@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
+import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
 class NFTCard extends StatelessWidget {
-  const NFTCard({super.key, required this.land});
+  const NFTCard({super.key, required this.land, this.onTap});
 
   final LandModel land;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
     return GestureDetector(
-      onTap: () {
-        context.read<LandsRepository>().code = "00${land.id.toString()}";
-        Navigator.pushNamed(context, RouteNames.quests);
-      },
+      onTap: onTap,
       child: Container(
         width: double.infinity,
         height: size.height * 0.4,

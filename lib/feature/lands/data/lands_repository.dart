@@ -14,18 +14,22 @@ class LandsRepository {
   String? approve;
 
   List<LandModel> freeLandsList = [];
+  List<LandModel> userLandsList = [];
 
   BehaviorSubject<LoadingStateEnum> freeLandsStream =
+      BehaviorSubject.seeded(LoadingStateEnum.wait);
+  BehaviorSubject<LoadingStateEnum> userLandsStream =
       BehaviorSubject.seeded(LoadingStateEnum.wait);
 
   LandsRepository({required this.apiService, required this.prefs});
 
-  Future<void> useInviteCode(String code) async {
-    await apiService.land.useInviteCode(code);
+  Future<void> useInviteCode(String usedCode) async {
+    await apiService.land.useInviteCode(usedCode);
+    code = usedCode;
   }
 
-  Future<void> linkLandByCode() async {
-    // nft card dtails
+  Future<void> connectLandToCurrentCode(int landId) async {
+    await apiService.land.connectLandAndCode(code: code!, landId: landId);
   }
 
   Future getApprove() async {
@@ -39,15 +43,12 @@ class LandsRepository {
 
   Future<void> loadFreeLands() async {
     freeLandsStream.add(LoadingStateEnum.loading);
-    print("here ------------");
-
     try {
       final response = (await apiService.land.getFreeLands())['lands'];
       freeLandsList.clear();
       for (var json in response) {
         freeLandsList.add(LandModel.fromJson(json));
       }
-      print(freeLandsList);
       freeLandsStream.add(LoadingStateEnum.success);
     } catch (e, st) {
       print(e);
@@ -56,5 +57,20 @@ class LandsRepository {
     }
   }
 
-  Future loadUserLands() async {}
+  Future loadUserLands() async {
+    userLandsStream.add(LoadingStateEnum.loading);
+
+    try {
+      final response = (await apiService.land.getUserLands())['lands'];
+      userLandsList.clear();
+      for (var json in response) {
+        userLandsList.add(LandModel.fromJson(json));
+      }
+      userLandsStream.add(LoadingStateEnum.success);
+    } catch (e, st) {
+      print(e);
+      print(st);
+      userLandsStream.add(LoadingStateEnum.fail);
+    }
+  }
 }

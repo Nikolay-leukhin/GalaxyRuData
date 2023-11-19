@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
+import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'use_invite_code_state.dart';

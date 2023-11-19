@@ -60,6 +60,7 @@ mixin class ApiHandler {
 
       return res.data;
     } catch (e) {
+      log('headers: ${dio.options.headers}');
       log('error by calling ${requestData.url}');
       rethrow;
     }

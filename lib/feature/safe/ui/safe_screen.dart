@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
+import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -45,15 +45,15 @@ class _SafeScreenState extends State<SafeScreen> {
     setState(() {});
   }
 
-  List<int> getRandomList(int n){
+  List<int> getRandomList(int n) {
     final random = Random();
 
     List<int> list = [];
 
-    for (var i = 0; i < n; i++){
+    for (var i = 0; i < n; i++) {
       var temp = random.nextInt(77);
 
-      while(list.contains(temp)){
+      while (list.contains(temp)) {
         temp = random.nextInt(77);
       }
 
@@ -61,6 +61,13 @@ class _SafeScreenState extends State<SafeScreen> {
     }
     print(list);
     return list;
+  }
+
+  @override
+  void initState() {
+    codeController.text =
+        RepositoryProvider.of<LandsRepository>(context).approve.toString();
+    super.initState();
   }
 
   @override
@@ -117,7 +124,7 @@ class _SafeScreenState extends State<SafeScreen> {
                         height: 15,
                       ),
                       AccessCodeField(
-                        initialValue: repository.approve,
+                          // initialValue: repository.approve.toString(),
                           controller: codeController,
                           keyboardType: const TextInputType.numberWithOptions(),
                           hintText: 'Введите код',

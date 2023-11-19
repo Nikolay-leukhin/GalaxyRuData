@@ -27,6 +27,7 @@ class AuthRepository {
     if (pin == null) {
       appState.add(AppStateEnum.unAuth);
     } else {
+      currentEmail = await prefs.getEmail();
       appState.add(AppStateEnum.auth);
     }
   }
@@ -35,6 +36,7 @@ class AuthRepository {
     authState.add(LoadingStateEnum.loading);
     try {
       await apiService.auth.verifyCode(email, code);
+      prefs.setEmail(email);
       currentEmail = email;
       authState.add(LoadingStateEnum.success);
       appState.add(AppStateEnum.auth);

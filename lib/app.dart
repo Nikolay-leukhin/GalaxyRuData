@@ -7,7 +7,8 @@ import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
-import 'package:galaxy_rudata/feature/lands/data/invites_repository.dart';
+import 'package:galaxy_rudata/feature/lands/bloc/user_lands/lands_user_cubit.dart';
+import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
@@ -82,6 +83,10 @@ class MyBlocProviders extends StatelessWidget {
         ),
         BlocProvider<LandsFreeCubit>(
           create: (_) => LandsFreeCubit(context.read<LandsRepository>()),
+          lazy: false,
+        ),
+        BlocProvider<LandsUserCubit>(
+          create: (_) => LandsUserCubit(context.read<LandsRepository>()),
           lazy: false,
         ),
       ],

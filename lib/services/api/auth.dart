@@ -15,8 +15,6 @@ class Auth with ApiHandler {
         data: {'email': email, 'time_code': password});
 
     await refreshToken(Token(jwt: response['jwt']));
-
-    // await preferencesService.saveToken(Token(jwt: response['jwt'],));
   }
 
   Future<void> sendCode(String email) async {

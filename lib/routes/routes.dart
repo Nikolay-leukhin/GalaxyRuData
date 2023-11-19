@@ -7,7 +7,7 @@ import 'package:galaxy_rudata/feature/auth/ui/pages/pin_repeat_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
-import 'package:galaxy_rudata/feature/lands/ui/pages/user_lands_list_screen.dart';
+import 'package:galaxy_rudata/feature/lands/ui/pages/user_lands_screen.dart';
 import 'package:galaxy_rudata/feature/nft/ui/nft_certificate.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lands_list_screen.dart';
 import 'package:galaxy_rudata/feature/safe/ui/safe_screen.dart';
@@ -23,7 +23,7 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
   RouteNames.nftCertificate: (context) => const NftCertificateScreen(),
 
   RouteNames.landsList: (context) => const LandsListScreen(),
-  RouteNames.landsUserList: (context) => const UserLandsListScreen(),
+  RouteNames.landsUserList: (context) => const UserLandsScreen(),
   
   RouteNames.accessCodeLock: (context) => const LockScreen(),
   RouteNames.quests: (context) => const QuestsScreen(),
