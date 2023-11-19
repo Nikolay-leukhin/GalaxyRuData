@@ -44,14 +44,21 @@ class WalletAddressBottomSheet extends StatelessWidget {
                   color: AppColors.lightBlue,
                 ),
                 seperator16,
-                QrImageView(
-                  data: context
-                      .read<WalletRepository>()
-                      .wallet
-                      .getAddressForCoin(TWCoinType.TWCoinTypePolygon),
-                  version: QrVersions.auto,
-                  size: 320,
-                  gapless: false,
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: QrImageView(
+                    data: context
+                        .read<WalletRepository>()
+                        .wallet
+                        .getAddressForCoin(TWCoinType.TWCoinTypePolygon),
+                    version: QrVersions.auto,
+                    size: 180,
+                    gapless: false,
+                  ),
                 ),
                 seperator16,
                 Text(
@@ -62,7 +69,10 @@ class WalletAddressBottomSheet extends StatelessWidget {
                 ),
                 seperator16,
                 Text(
-                  "0x4fCaE2A6Ac0685be58ADA5a6c6f359FDf309f95b",
+                  context
+                      .read<WalletRepository>()
+                      .wallet
+                      .getAddressForCoin(TWCoinType.TWCoinTypePolygon),
                   style: AppTypography.font16w600
                       .copyWith(color: AppColors.blueAccent),
                   textAlign: TextAlign.center,
@@ -71,11 +81,10 @@ class WalletAddressBottomSheet extends StatelessWidget {
                 CustomButton(
                     gradient: AppGradients.lightBlue,
                     content: Text(
-                      "Копировать адрес",
+                      "Копировать адрес".toUpperCase(),
                       style: AppTypography.font16w600
                           .copyWith(color: Colors.white),
                     ),
-                    height: 36,
                     onTap: () {},
                     width: size.width - 56),
                 seperator16
