@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 import 'package:galaxy_rudata/widgets/text_fields/base_text_form_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final int codeSendDuration = 60;
   int currentRemainingTime = 0;
 
-  var isConditionsAccepted = false;
+  bool isConditionsAccepted = false;
 
   bool errorEmailField = false;
   bool errorCodeField = false;
@@ -86,14 +88,14 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         if (state is AuthFailState) {
           Dialogs.hide(context);
-          showDialog(
-              context: context,
-              builder: (context) => CustomPopup(
-                    label: "Некорректный код, пожалуйста, попробуйте еще раз",
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ));
+          Dialogs.showModal(
+              context,
+              CustomPopup(
+                label: "Некорректный код, пожалуйста, попробуйте еще раз",
+                onTap: () {
+                  Dialogs.hide(context);
+                },
+              ));
         } else if (state is AuthSuccessState) {
           Dialogs.hide(context);
 
@@ -232,22 +234,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         Flexible(
                           child: RichText(
                               text: TextSpan(children: [
-                            TextSpan(
-                                text: "Я согласен с ",
-                                style: AppTypography.font12w400),
-                            TextSpan(
-                                text: "Правилами Использования",
-                                style: AppTypography.font12w400.copyWith(
-                                    decoration: TextDecoration.underline)),
-                            TextSpan(
-                                text: "и ",
-                                style: AppTypography.font12w400.copyWith(
-                                    decoration: TextDecoration.underline)),
-                            TextSpan(
-                                text: "Политикой Конфиденциальности ",
-                                style: AppTypography.font12w400.copyWith(
-                                    decoration: TextDecoration.underline)),
-                          ])),
+                                TextSpan(
+                                    text: "Я согласен с ",
+                                    style: AppTypography.font12w400),
+                                TextSpan(
+                                    text: "Правилами Использования",
+                                    style: AppTypography.font12w400.copyWith(
+                                        decoration: TextDecoration.underline),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () async {
+                                        await launchUrl(Uri.parse(
+                                            'https://docs.google.com/document/d/15zGuCD50uoIJdmAC9_T8tpzzG9NDN26wRNye2Spy160/edit?usp=share_link'));
+                                      }),
+                                TextSpan(
+                                    text: "и ",
+                                    style: AppTypography.font12w400.copyWith(
+                                        decoration: TextDecoration.underline)),
+                                TextSpan(
+                                    text: "Политикой Конфиденциальности ",
+                                    style: AppTypography.font12w400.copyWith(
+                                        decoration: TextDecoration.underline),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () async {
+                                        await launchUrl(Uri.parse(
+                                            'https://docs.google.com/document/d/1c6zaEfcPYEUsjOpBVnVyzt2Gb3ryIZVBX3O0id4JKik/edit?usp=share_link'));
+                                      }),
+                              ])),
                         ),
                       ],
                     ),
