@@ -13,17 +13,21 @@ class WalletRepository {
 
   Future<bool> checkWalletAuth() async {
     final cachedSeed = await prefs.getSeedPhrase();
+    print('1--------------');
+    print(cachedSeed);
     return cachedSeed != null;
   }
 
-  void getWalletInstance() async {
+  Future<void> getWalletInstance() async {
     final cachedSeed = await prefs.getSeedPhrase();
+    print('2--------------');
+    print(cachedSeed);
     wallet = HDWallet.createWithMnemonic(cachedSeed!);
   }
 
   Future<void> enterWalletBySeedPhrase(String seedPhrase) async {
     wallet = HDWallet.createWithMnemonic(seedPhrase);
-    
+
     await updateWalletAddress();
 
     await prefs.setSeedPhrase(wallet.mnemonic());

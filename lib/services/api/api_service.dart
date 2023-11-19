@@ -43,7 +43,7 @@ class ApiService {
   void initialServices() async {
     token = await preferencesService.getToken();
 
-    log(token.jwt.toString());
+    print("${token.jwt} TOKEN");
 
     auth = Auth(dio_: dio, preferences: preferencesService, token: token);
     wallet = Wallet(dio_: dio, preferences: preferencesService, token: token);
