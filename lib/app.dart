@@ -130,7 +130,7 @@ class AppStateWidget extends StatelessWidget {
         builder: (context, state) {
           if (state is AppAuthState) {
             if (state.walletCreated) {
-              return const WalletSeedPhraseScreen();
+              return const LockScreen();
             } else {
               return const WalletCardScreen();
             }

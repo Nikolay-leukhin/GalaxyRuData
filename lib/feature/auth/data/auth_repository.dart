@@ -43,7 +43,7 @@ class AuthRepository {
       prefs.setEmail(email);
       currentEmail = email;
       authState.add(LoadingStateEnum.success);
-      appState.add(AppStateEnum.createPin);
+      appState.add(AppStateEnum.auth);
     } catch (e, st) {
       print(e);
       print(st);

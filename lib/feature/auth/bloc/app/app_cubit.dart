@@ -28,8 +28,8 @@ class AppCubit extends Cubit<AppState> {
       }
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
 
-      if (event == AppStateEnum.createPin) emit(AppCreatePin());
-      if (event == AppStateEnum.enterPin) emit(AppEnterPin());
+      // if (event == AppStateEnum.createPin) emit(AppCreatePin());
+      // if (event == AppStateEnum.enterPin) emit(AppEnterPin());
     });
   }
 }
