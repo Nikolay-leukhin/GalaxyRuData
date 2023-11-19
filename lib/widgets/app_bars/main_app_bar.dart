@@ -92,10 +92,7 @@ class MainAppBar extends PreferredSize {
                       iconName: 'logout.svg'),
                   AppBarButton(
                       onTap: () {
-                        ShowBottomSheet.show(
-                          context,
-                          const WalletAddressBottomSheet(),
-                        );
+                        Navigator.pushNamed(context, RouteNames.authPinEnter);
                       },
                       iconName: 'wallet.svg'),
                 ]),
