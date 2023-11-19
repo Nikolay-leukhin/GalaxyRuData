@@ -51,7 +51,7 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
     return BlocListener<PinCodeCubit, PinCodeState>(
       listener: (context, state) {
         if (state is PinCodeRepeatSuccess) {
-          Navigator.pushNamed(context, RouteNames.walletCardCreated);
+          Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
         } else if (state is PinCodeRepeatFailure) {
           showDialog(
               barrierDismissible: false,
@@ -61,8 +61,8 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
                     label:
                         "Пин-коды не совпадают, пожалуйста, попробуйте еще раз",
                     onTap: () {
-                      Navigator.pushReplacementNamed(
-                          context, RouteNames.authPinCreate);
+                      Navigator.popUntil(
+                          context, ModalRoute.withName(RouteNames.authPinCreate));
                     });
               });
         }

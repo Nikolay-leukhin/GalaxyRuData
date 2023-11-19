@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthFailState) {
-          Navigator.pop(context);
+          Dialogs.hide(context);
           showDialog(
               context: context,
               builder: (context) => CustomPopup(
@@ -94,17 +94,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ));
         } else if (state is AuthSuccessState) {
-          Navigator.pop(context);
+          Dialogs.hide(context);
 
-          Navigator.pushNamed(context, RouteNames.walletCard);
+          // Navigator.pushNamed(context, RouteNames.walletCard);
         } else if (state is AuthLoadingState) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
-              });
+          Dialogs.showModal(context, const Center(
+            child: CircularProgressIndicator.adaptive(),
+          ));
         }
       },
       child: GestureDetector(

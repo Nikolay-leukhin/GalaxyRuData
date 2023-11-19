@@ -28,7 +28,7 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
   RouteNames.quests: (context) => const QuestsScreen(),
   RouteNames.safe: (context) => const SafeScreen(),
 
-  RouteNames.authPinCreate: (context) => const PinScreen(),
+  RouteNames.authPinCreate: (context) => const PinCreateFirstScreen(),
   RouteNames.authPinRepeat: (context) => const PinRepeatScreen(),
   RouteNames.authPinEnter: (context) => const PinEnterScreen(),
 

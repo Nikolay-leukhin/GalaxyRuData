@@ -19,12 +19,17 @@ class AppCubit extends Cubit<AppState> {
         super(AppInitial()) {
     _authRepository.appState.stream.listen((event) async {
       if (event == AppStateEnum.auth) {
-        if (await _walletRepository.checkWalletAuth()) {
+        final walletCreated = await _walletRepository.checkWalletAuth();
+
+        if (walletCreated) {
           await _walletRepository.getWalletInstance();
         }
-        emit(AppAuthState());
+        emit(AppAuthState(walletCreated: walletCreated));
       }
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
+
+      if (event == AppStateEnum.createPin) emit(AppCreatePin());
+      if (event == AppStateEnum.enterPin) emit(AppEnterPin());
     });
   }
 }

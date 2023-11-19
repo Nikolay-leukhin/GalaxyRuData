@@ -46,26 +46,15 @@ class _LockScreenState extends State<LockScreen> {
       ),
     );
 
-    turnLock() {
-      if (turn == 0) {
+    openLock() {
+      setState(() {
+        top = 0;
+      });
+      Future.delayed(moveDuration).then((value) {
         setState(() {
-          top = 0;
+          turn = 0.13;
         });
-        Future.delayed(moveDuration).then((value) {
-          setState(() {
-            turn = 0.13;
-          });
-        });
-      } else {
-        setState(() {
-          turn = 0;
-        });
-        Future.delayed(rotationDuration).then((value) {
-          setState(() {
-            top = 25;
-          });
-        });
-      }
+      });
 
       Future.delayed(rotationDuration + moveDuration, () {
         Navigator.of(context).pushNamed(RouteNames.landsList);
@@ -75,28 +64,26 @@ class _LockScreenState extends State<LockScreen> {
     return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
       listener: (context, state) {
         if (state is UseInviteCodeLoading) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
-              });
+          Dialogs.showModal(
+              context,
+              const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ));
         } else if (state is UseInviteCodeSuccess) {
-          Navigator.pop(context);
+          Dialogs.hide(context);
 
-          turnLock();
+          openLock();
         } else if (state is UseInviteCodeFailure) {
-          Navigator.pop(context);
+          Dialogs.hide(context);
 
-          showDialog(
-              context: context,
-              builder: (context) => CustomPopup(
-                    label: "Извините, данный код был уже использован.",
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ));
+          Dialogs.showModal(
+              context,
+              CustomPopup(
+                label: "Извините, данный код был уже использован.",
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ));
         }
       },
       child: WillPopScope(
@@ -138,8 +125,9 @@ class _LockScreenState extends State<LockScreen> {
                         ),
                         AnimatedPositioned(
                           top: top,
-                          left:
-                              size.width * 0.725 < 300 ? size.width * 0.108 : 50,
+                          left: size.width * 0.725 < 300
+                              ? size.width * 0.108
+                              : 50,
                           duration: moveDuration,
                           child: AnimatedRotation(
                             alignment: const Alignment(0.2, 0.3),

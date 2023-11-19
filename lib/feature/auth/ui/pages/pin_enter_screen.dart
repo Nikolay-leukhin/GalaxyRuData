@@ -117,7 +117,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
                     ),
                     Container(
                       width: size.width * 0.73,
-                      constraints: BoxConstraints(maxWidth: 500),
+                      constraints: const BoxConstraints(maxWidth: 500),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [

@@ -1,4 +1,4 @@
-package com.example.galaxy_rudata
+package com.rosreestr.kadastr
 
 import io.flutter.embedding.android.FlutterActivity
 

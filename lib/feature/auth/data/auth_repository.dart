@@ -23,12 +23,16 @@ class AuthRepository {
   List<int> typedUserPinCode = [];
 
   Future<void> checkUserAuth() async {
-    final pin = await prefs.getPinCode();
-    if (pin == null) {
+    final token = await prefs.getToken();
+    if (token.jwt.isEmpty) {
       appState.add(AppStateEnum.unAuth);
     } else {
       currentEmail = await prefs.getEmail();
+
+      final pin = await prefs.getPinCode();
       appState.add(AppStateEnum.auth);
+
+      // appState.add(AppStateEnum.auth);
     }
   }
 
@@ -39,7 +43,7 @@ class AuthRepository {
       prefs.setEmail(email);
       currentEmail = email;
       authState.add(LoadingStateEnum.success);
-      appState.add(AppStateEnum.auth);
+      appState.add(AppStateEnum.createPin);
     } catch (e, st) {
       print(e);
       print(st);
@@ -54,6 +58,7 @@ class AuthRepository {
 
   Future<void> savePinCode() async {
     await prefs.setPinCode(typedUserPinCode.join(""));
+    appState.add(AppStateEnum.auth);
   }
 
   Future<String?> getPinCode() async {
