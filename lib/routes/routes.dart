@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/app.dart';
-import 'package:galaxy_rudata/feature/ar_planet_view/ui/ar_plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_repeat_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_screen.dart';
@@ -9,6 +8,7 @@ import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/user_lands_screen.dart';
 import 'package:galaxy_rudata/feature/nft/ui/nft_certificate.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lands_list_screen.dart';
+import 'package:galaxy_rudata/feature/planet_view/ui/plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/safe/ui/safe_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/card_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/seed_phrase/enter_seed_phrase_screen.dart';

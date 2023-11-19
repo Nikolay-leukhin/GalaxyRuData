@@ -1,6 +1,5 @@
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:galaxy_rudata/models/user.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
