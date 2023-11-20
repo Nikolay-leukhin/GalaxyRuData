@@ -43,8 +43,7 @@ class _LandsListScreenState extends State<LandsListScreen> {
                     child: Column(
                       children: List.generate(landsList.length,
                           (index) => NFTCard(land: landsList[index], onTap: () {
-                            context.read<LandsRepository>().connectLandToCurrentCode(landsList[index].id);
-                            Navigator.pushNamed(context, RouteNames.quests);
+                            Navigator.pushNamed(context, RouteNames.landsChoose, arguments: {'land': landsList[index]});
                           },)),
                     ),
                   );

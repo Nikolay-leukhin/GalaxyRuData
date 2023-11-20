@@ -59,6 +59,7 @@ class MyBlocProviders extends StatelessWidget {
         BlocProvider<AppCubit>(
           create: (_) => AppCubit(
             authRepository: RepositoryProvider.of<AuthRepository>(context),
+            landsRepository: RepositoryProvider.of<LandsRepository>(context),
             walletRepository: RepositoryProvider.of<WalletRepository>(context),
           ),
           lazy: false,

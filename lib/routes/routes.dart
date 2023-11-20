@@ -3,6 +3,7 @@ import 'package:galaxy_rudata/app.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_repeat_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_screen.dart';
+import 'package:galaxy_rudata/feature/lands/ui/pages/land_choose_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/user_lands_screen.dart';
@@ -23,7 +24,8 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
 
   RouteNames.landsList: (context) => const LandsListScreen(),
   RouteNames.landsUserList: (context) => const UserLandsScreen(),
-  
+  RouteNames.landsChoose: (context) => const LandChooseScreen(),
+
   RouteNames.accessCodeLock: (context) => const LockScreen(),
   RouteNames.quests: (context) => const QuestsScreen(),
   RouteNames.safe: (context) => const SafeScreen(),
