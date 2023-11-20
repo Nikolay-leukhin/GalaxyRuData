@@ -29,7 +29,7 @@ class AuthRepository {
 
   Future<void> checkUserAuth() async {
     final token = await prefs.getToken();
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 3, milliseconds: 200));
 
     if (token.jwt.isEmpty) {
       appState.add(AppStateEnum.unAuth);
