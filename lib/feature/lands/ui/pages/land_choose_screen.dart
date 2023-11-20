@@ -66,11 +66,11 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          'Бизнес кластер'.toUpperCase(),
+                          land.name.toUpperCase(),
                           style: AppTypography.font20w600,
                         ),
                         Text(
-                          'Бизнес кластер - это райский уголок для предпринимателей и амбициозных стартаперов, расположенный в самом сердце делового района мегаполиса. Этот район является идеальным местом для тех, кто хочет максимально эффективно использовать свое время и ресурсы, находясь в окружении единомышленников, готовых делиться опытом и знаниями.',
+                          land.description,
                           style: AppTypography.font12w400,
                           textAlign: TextAlign.center,
                         ),
@@ -94,3 +94,9 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
         ));
   }
 }
+//
+// class ClusterType {
+//   final String title;
+//   final String description;
+//   final String asset;
+// }

@@ -78,7 +78,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
-                      print("DEVELOPING...");
+                      Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
                     },
                     width: double.infinity),
               ],

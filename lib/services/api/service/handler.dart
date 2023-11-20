@@ -67,9 +67,11 @@ mixin class ApiHandler {
       if (e.response?.statusCode == 401) {
         print('add exception to stream');
         exceptionsStream.add(UnAuthorizedException());
+      } else {
+        log('headers: ${dio.options.headers}');
+        log('error by calling ${requestData.url}');
+        rethrow;
       }
-      log('headers: ${dio.options.headers}');
-      log('error by calling ${requestData.url}');
     } catch (e) {
       rethrow;
     }
