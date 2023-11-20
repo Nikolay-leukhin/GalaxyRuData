@@ -76,7 +76,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
           child: SafeArea(
             child: Scaffold(
               backgroundColor: Colors.transparent,
-              appBar: MainAppBar.onlyLogo(
+              appBar: MainAppBar.back(
                 context,
               ),
               body: Container(
@@ -89,7 +89,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
                     SizedBox(
                       width: 260,
                       child: Text(
-                        "Введите пин-код\nещё раз",
+                        "Введите пин-код",
                         textAlign: TextAlign.center,
                         style: AppTypography.font16w400
                             .copyWith(color: Colors.white),
