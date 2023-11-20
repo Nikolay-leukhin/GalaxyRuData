@@ -20,7 +20,7 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
     return WillPopScope(
       onWillPop: () =>  Future.value(false),
       child: MainScaffold(
-        appBar: MainAppBar.logoutWallet(context),
+        appBar: MainAppBar.logout(context),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(

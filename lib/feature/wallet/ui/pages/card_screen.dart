@@ -20,7 +20,7 @@ class _WalletCardScreenState extends State<WalletCardScreen> {
     final size = MediaQuery.sizeOf(context);
 
     return MainScaffold(
-      appBar: MainAppBar.logoutWallet(context),
+      appBar: MainAppBar.logout(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(

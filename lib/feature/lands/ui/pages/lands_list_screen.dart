@@ -25,7 +25,7 @@ class _LandsListScreenState extends State<LandsListScreen> {
   @override
   Widget build(BuildContext context) {
     return MainScaffold(
-        appBar: MainAppBar.back(context),
+        appBar: MainAppBar.logoutWallet(context),
         floatingActionButton: const DoubleFloatingButton(),
         body: Padding(
             padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
