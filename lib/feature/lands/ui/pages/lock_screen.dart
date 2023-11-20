@@ -39,7 +39,7 @@ class _LockScreenState extends State<LockScreen> {
           constraints: const BoxConstraints(maxWidth: 200),
           child: AccessCodeField(
               controller: codeController,
-              keyboardType: const TextInputType.numberWithOptions(),
+              keyboardType: TextInputType.emailAddress,
               hintText: 'Введите код',
               width: size.width - 100),
         ),
@@ -81,7 +81,7 @@ class _LockScreenState extends State<LockScreen> {
               CustomPopup(
                 label: "Извините, данный код был уже использован.",
                 onTap: () {
-                  Navigator.of(context).pop();
+                  Dialogs.hide(context);
                 },
               ));
         }

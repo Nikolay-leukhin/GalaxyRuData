@@ -9,7 +9,9 @@ import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dar
 import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/user_lands/lands_user_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
+import 'package:galaxy_rudata/feature/lands/ui/pages/lands_list_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
+import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/card_screen.dart';
@@ -126,20 +128,18 @@ class AppStateWidget extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is AppAuthState) {
-            if (state.walletCreated) {
+            if (state.state == StatesEnum.lockScreen) {
               return const LockScreen();
-            } else {
-              return const WalletCardScreen();
+            } else if (state.state == StatesEnum.createWalletScreen) {
+              return const WalletCreateScreen();
+            } else if (state.state == StatesEnum.landChoseScreen) {
+              return const LandsListScreen();
+            } else { // == questsScreen
+              return const QuestsScreen();
             }
           } else if (state is AppUnAuthState) {
             return const LoginScreen();
-          }
-          // else if (state is AppCreatePin) {
-          //   return const PinCreateFirstScreen();
-          // } else if (state is AppEnterPin) {
-          //   return const PinEnterScreen();
-          // }
-          else {
+          } else {
             return const Center(
               child: CircularProgressIndicator(),
             );

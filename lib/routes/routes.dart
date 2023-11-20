@@ -35,7 +35,7 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
 
   RouteNames.walletSeedPhraseView: (context) =>  const WalletSeedPhraseScreen(withContinueButton: false),
   RouteNames.walletSeedPhrase: (context) =>  const WalletSeedPhraseScreen(withContinueButton: true),
-  RouteNames.walletCard: (context) => const WalletCardScreen(),
+  RouteNames.walletCard: (context) => const WalletCreateScreen(),
   RouteNames.walletEnterSeedPhrase: (context) => const WalletEnterSeedPhraseScreeen(),
   RouteNames.walletCardCreated: (context) => const WalletCreatedScreen(),
 

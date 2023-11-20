@@ -4,9 +4,11 @@ class Wallet with ApiHandler {
   Wallet(
       {required Dio dio_,
       required PreferencesService preferences,
+        required BehaviorSubject apiExceptions,
       required Token token}) {
     preferencesService = preferences;
     dio = dio_;
+    exceptionsStream = apiExceptions;
     currentToken = token;
   }
 

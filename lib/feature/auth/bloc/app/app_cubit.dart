@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:meta/meta.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
@@ -22,13 +23,24 @@ class AppCubit extends Cubit<AppState> {
 
         if (walletCreated) {
           await _walletRepository.getWalletInstance();
+          
+          final currentCode = await _authRepository.currentInviteCode();
+          if (currentCode == null) {
+            emit(AppAuthState(state: StatesEnum.lockScreen));
+          } else{
+            if (currentCode.forLandId == null) {
+              emit(AppAuthState(state: StatesEnum.landChoseScreen));
+            } else {
+              emit(AppAuthState(state: StatesEnum.questsScreen));
+            }
+          }
+        } else {
+          emit(AppAuthState(state: StatesEnum.createWalletScreen));
         }
-        emit(AppAuthState(walletCreated: walletCreated));
+        
+        
       }
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
-
-      // if (event == AppStateEnum.createPin) emit(AppCreatePin());
-      // if (event == AppStateEnum.enterPin) emit(AppEnterPin());
     });
   }
 }

@@ -4,8 +4,10 @@ class Land with ApiHandler {
   Land(
       {required Dio dio_,
       required PreferencesService preferences,
+        required BehaviorSubject apiExceptions,
       required Token token}) {
     preferencesService = preferences;
+    exceptionsStream = apiExceptions;
     dio = dio_;
     currentToken = token;
   }

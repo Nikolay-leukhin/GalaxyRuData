@@ -11,6 +11,8 @@ class WalletRepository {
 
   WalletRepository({required this.apiService, required this.prefs});
 
+  Future<bool> walletPinCode() async => await prefs.getPinCode() != null;
+
   Future<bool> checkWalletAuth() async {
     final cachedSeed = await prefs.getSeedPhrase();
     print('1--------------');

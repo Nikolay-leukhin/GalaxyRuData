@@ -1,5 +1,7 @@
 part of 'app_cubit.dart';
 
+enum StatesEnum { createWalletScreen, lockScreen, landChoseScreen, questsScreen }
+
 @immutable
 abstract class AppState {}
 
@@ -10,9 +12,9 @@ class AppCreatePin extends AppState {}
 class AppEnterPin extends AppState {}
 
 class AppAuthState extends AppState {
-  final bool walletCreated;
+  final StatesEnum state;
 
-  AppAuthState({required this.walletCreated});
+  AppAuthState({required this.state});
 }
 
 class AppUnAuthState extends AppState {}

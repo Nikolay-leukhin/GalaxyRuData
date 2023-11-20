@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
@@ -11,6 +13,10 @@ class AuthRepository {
 
   AuthRepository({required this.apiService, required this.prefs}) {
     checkUserAuth();
+    apiService.apiExceptions.stream.listen((event) {
+      print(event);
+      if (event is UnAuthorizedException) logout();
+    });
   }
 
   BehaviorSubject<LoadingStateEnum> authState =
@@ -28,10 +34,7 @@ class AuthRepository {
     } else {
       currentEmail = await prefs.getEmail();
 
-      final pin = await prefs.getPinCode();
       appState.add(AppStateEnum.auth);
-
-      // appState.add(AppStateEnum.auth);
     }
   }
 
@@ -67,4 +70,25 @@ class AuthRepository {
   Future<void> sendEmailCode(String email) async {
     await apiService.auth.sendCode(email);
   }
+
+  Future<InviteCode?> currentInviteCode() async {
+    await apiService.initialized;
+
+    final res = await apiService.auth.getUser();
+    for (var i in res['user']['inviteCodes']) {
+      if (i['isClaimed'] == false) {
+        return InviteCode(
+            code: i['code'], isClaimed: false, forLandId: i['forLandId']);
+      }
+    }
+    return null;
+  }
+}
+
+class InviteCode {
+  final String code;
+  final String? forLandId;
+  final bool isClaimed;
+
+  InviteCode({required this.code, required this.isClaimed, this.forLandId});
 }
