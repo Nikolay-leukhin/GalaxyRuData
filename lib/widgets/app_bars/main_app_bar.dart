@@ -83,7 +83,6 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () async {
-                        print("000000000000000000000");
                         showDialog(
                             context: context,
                             builder: (context) => CustomLogOutPopup(onTap: () {
@@ -117,7 +116,6 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () async {
-                        print("000000000000000000000");
                         showDialog(
                             context: context,
                             builder: (context) => CustomLogOutPopup(onTap: () {

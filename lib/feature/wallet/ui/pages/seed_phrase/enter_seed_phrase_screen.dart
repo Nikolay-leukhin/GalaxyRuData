@@ -68,7 +68,7 @@ class WalletEnterSeedPhraseScreenState
         }
       },
       child: MainScaffold(
-        appBar: MainAppBar.onlyLogo(context),
+        appBar: MainAppBar.back(context),
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
