@@ -81,7 +81,7 @@ class _LockScreenState extends State<LockScreen> {
               CustomPopup(
                 label: "Извините, данный код был уже использован.",
                 onTap: () {
-                  Navigator.of(context).pop();
+                  Dialogs.hide(context);
                 },
               ));
         }
