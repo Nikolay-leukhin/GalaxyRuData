@@ -57,7 +57,7 @@ class _LandsListScreenState extends State<LandsListScreen> {
                                       .connectLandToCurrentCode(
                                           landsList[index].id);
                                   Navigator.pushNamed(
-                                      context, RouteNames.quests);
+                                      context, RouteNames.landsChoose, arguments: {'land': landsList[index]});
                                 },
                               ))),
                     ),
