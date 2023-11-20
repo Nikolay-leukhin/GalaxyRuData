@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/user_lands/lands_user_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/floating_action_button.dart';
 import 'package:galaxy_rudata/widgets/cards/nft_card.dart';
@@ -39,12 +40,22 @@ class _UserLandsScreenState extends State<UserLandsScreen> {
                   final landsList =
                       context.read<LandsRepository>().userLandsList;
 
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: List.generate(landsList.length,
-                          (index) => NFTCard(land: landsList[index])),
-                    ),
-                  );
+                  if (landsList.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "В вашем кошельке пока нет NFT.",
+                        style: AppTypography.font24w700
+                            .copyWith(color: Colors.white),
+                      ),  
+                    );
+                  } else {
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: List.generate(landsList.length,
+                            (index) => NFTCard(land: landsList[index])),
+                      ),
+                    );
+                  }
                 }
                 return Container();
               },

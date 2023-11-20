@@ -62,7 +62,7 @@ class MainAppBar extends PreferredSize {
                       iconName: 'back.svg'),
                   AppBarButton(
                       onTap: () {
-                        Navigator.pushNamed(context, RouteNames.wallet);
+                        Navigator.pushNamed(context, RouteNames.authPinEnter);
                       },
                       iconName: 'wallet.svg'),
                 ]),
@@ -83,11 +83,15 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () async {
-                        Dialogs.showModal(context, CustomLogOutPopup(onTap: () {
-                          context.read<AuthRepository>().logout();
-                          Dialogs.hide(context);
-                          Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
-                        }));
+                        print("000000000000000000000");
+                        showDialog(
+                            context: context,
+                            builder: (context) => CustomLogOutPopup(onTap: () {
+                                  context.read<AuthRepository>().logout();
+                                  Navigator.pop(context);
+                                  Navigator.popUntil(context,
+                                      ModalRoute.withName(RouteNames.root));
+                                }));
                       },
                       iconName: 'logout.svg'),
                   AppBarButton(
@@ -95,6 +99,35 @@ class MainAppBar extends PreferredSize {
                         Navigator.pushNamed(context, RouteNames.authPinEnter);
                       },
                       iconName: 'wallet.svg'),
+                ]),
+                const RfContainer()
+              ],
+            ),
+          ),
+        );
+
+  MainAppBar.logout(BuildContext context, {super.key})
+      : super(
+          preferredSize: Size(MediaQuery.sizeOf(context).width, 100),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppBarActions(actions: [
+                  AppBarButton(
+                      onTap: () async {
+                        print("000000000000000000000");
+                        showDialog(
+                            context: context,
+                            builder: (context) => CustomLogOutPopup(onTap: () {
+                                  context.read<AuthRepository>().logout();
+                                  Navigator.pop(context);
+                                  Navigator.popUntil(context,
+                                      ModalRoute.withName(RouteNames.root));
+                                }));
+                      },
+                      iconName: 'logout.svg'),
                 ]),
                 const RfContainer()
               ],
