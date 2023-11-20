@@ -13,9 +13,15 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Model Viewer')),
-      body: const ModelViewer(
-        backgroundColor: Color.fromARGB(0xFF, 0xEE, 0xEE, 0xEE),
-        src: 'assets/untitled.glb',
+      body: ModelViewer(
+        onWebViewCreated: (controller){
+          final a = controller.getScrollPosition();
+
+          print(a);
+          print('--------------------');
+        },
+        backgroundColor: Colors.white,
+        src: 'https://modelviewer.dev/shared-assets/models/Astronaut.glb',
         alt: 'A 3D model of an astronaut',
         ar: true,
         autoRotate: true,
