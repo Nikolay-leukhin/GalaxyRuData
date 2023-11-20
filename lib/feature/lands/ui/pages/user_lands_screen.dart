@@ -46,6 +46,7 @@ class _UserLandsScreenState extends State<UserLandsScreen> {
                         "В вашем кошельке пока нет NFT.",
                         style: AppTypography.font24w700
                             .copyWith(color: Colors.white),
+                        textAlign: TextAlign.center,
                       ),  
                     );
                   } else {
