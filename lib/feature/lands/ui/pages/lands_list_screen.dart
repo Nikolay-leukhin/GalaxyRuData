@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/floating_action_button.dart';
 import 'package:galaxy_rudata/widgets/cards/nft_card.dart';
@@ -41,10 +42,24 @@ class _LandsListScreenState extends State<LandsListScreen> {
 
                   return SingleChildScrollView(
                     child: Column(
-                      children: List.generate(landsList.length,
-                          (index) => NFTCard(land: landsList[index], onTap: () {
-                            Navigator.pushNamed(context, RouteNames.landsChoose, arguments: {'land': landsList[index]});
-                          },)),
+                      children: [
+                        Text(
+                          'Выберите участок',
+                          style: AppTypography.font16w700,
+                        )
+                      ]..addAll(List.generate(
+                          landsList.length,
+                          (index) => NFTCard(
+                                land: landsList[index],
+                                onTap: () {
+                                  context
+                                      .read<LandsRepository>()
+                                      .connectLandToCurrentCode(
+                                          landsList[index].id);
+                                  Navigator.pushNamed(
+                                      context, RouteNames.landsChoose, arguments: {'land': landsList[index]});
+                                },
+                              ))),
                     ),
                   );
                 }
