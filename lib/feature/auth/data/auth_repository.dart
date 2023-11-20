@@ -29,6 +29,8 @@ class AuthRepository {
 
   Future<void> checkUserAuth() async {
     final token = await prefs.getToken();
+    await Future.delayed(Duration(seconds: 3, milliseconds: 200));
+
     if (token.jwt.isEmpty) {
       appState.add(AppStateEnum.unAuth);
     } else {
@@ -44,6 +46,7 @@ class AuthRepository {
       await apiService.auth.verifyCode(email, code);
       prefs.setEmail(email);
       currentEmail = email;
+
       authState.add(LoadingStateEnum.success);
       appState.add(AppStateEnum.auth);
     } catch (e, st) {

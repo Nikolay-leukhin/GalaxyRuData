@@ -12,6 +12,7 @@ import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lands_list_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
+import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/card_screen.dart';
@@ -141,9 +142,7 @@ class AppStateWidget extends StatelessWidget {
           } else if (state is AppUnAuthState) {
             return const LoginScreen();
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return  SplashScreen();
           }
         },
       ),
