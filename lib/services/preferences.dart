@@ -10,6 +10,8 @@ class PreferencesService {
   final String _pinCodeKey = 'pin';
   final String _seedPhraseKey = 'seed';
   final String _emailKey = 'email';
+  final String _inviteCodeKey = 'invite_code';
+  final String _placeIdKey = 'place_id';
 
   Future saveToken(Token token) async {
     final prefs = await _prefs;
@@ -57,6 +59,25 @@ class PreferencesService {
   Future<String?> getEmail() async {
     final prefs = await _prefs;
     return prefs.getString(_emailKey);
+  }
+
+  Future<void> setInviteCode(String code) async {
+    final prefs = await _prefs;
+    prefs.setString(_inviteCodeKey, code);
+  }
+  Future<String?> getInviteCode() async {
+    final prefs = await _prefs;
+    final code = prefs.getString(_inviteCodeKey);
+    return code;
+  }
+  Future<void> setPlaceId(String code) async {
+    final prefs = await _prefs;
+    prefs.setString(_placeIdKey, code);
+  }
+  Future<String?> getPlaceId() async {
+    final prefs = await _prefs;
+    final code = prefs.getString(_inviteCodeKey);
+    return code;
   }
 
   Future logout() async => _prefs.then((value) => value.clear());

@@ -7,14 +7,14 @@ import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
-class WalletCardScreen extends StatefulWidget {
-  const WalletCardScreen({super.key});
+class WalletCreateScreen extends StatefulWidget {
+  const WalletCreateScreen({super.key});
 
   @override
-  State<WalletCardScreen> createState() => _WalletCardScreenState();
+  State<WalletCreateScreen> createState() => _WalletCreateScreenState();
 }
 
-class _WalletCardScreenState extends State<WalletCardScreen> {
+class _WalletCreateScreenState extends State<WalletCreateScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);

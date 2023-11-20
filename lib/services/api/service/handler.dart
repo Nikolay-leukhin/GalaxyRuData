@@ -4,6 +4,7 @@ mixin class ApiHandler {
   late final Dio dio;
   late final PreferencesService preferencesService;
   late final Token currentToken;
+  late final BehaviorSubject exceptionsStream;
 
   Future get(String url,
           {Map<String, dynamic>? queryParameters,
@@ -28,12 +29,15 @@ mixin class ApiHandler {
     await preferencesService.saveToken(token);
 
     currentToken.setJwt(token.jwt);
-    print(currentToken.jwt);
+    print('currentToken ${currentToken.jwt}');
     print("________________________");
     dio.options.headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${currentToken.jwt}'
     };
+    preferencesService.getToken().then((value) {
+      print(value.jwt == currentToken.jwt);
+    });
   }
 
   Future _handleErrors(
@@ -47,7 +51,7 @@ mixin class ApiHandler {
 
       res = await _executeMethod(method, requestData);
 
-      if (res.statusCode == 401) throw UnAuthorizedException;
+
 
       // if (res.statusCode == 401) {
       //   final newToken = await dio.post(ApiEndpoints.refresh);
@@ -59,10 +63,13 @@ mixin class ApiHandler {
       // }
 
       return res.data;
-    } catch (e) {
+    } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        print('add exception to stream');
+        exceptionsStream.add(UnAuthorizedException());
+      }
       log('headers: ${dio.options.headers}');
       log('error by calling ${requestData.url}');
-      rethrow;
     }
   }
 
