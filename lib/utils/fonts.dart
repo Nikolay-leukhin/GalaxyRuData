@@ -39,4 +39,9 @@ class AppTypography {
 
   static final font16w500 =
       _font.copyWith(fontSize: 16, fontWeight: FontWeight.w500);
+
+  static final font28w700 = _font.copyWith(
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+  );
 }
