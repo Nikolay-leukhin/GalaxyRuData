@@ -157,7 +157,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                         style: AppTypography.font16w600,
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, RouteNames.accessCodeLock);
+                        Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
                       },
                       width: double.infinity),
                 )

@@ -76,8 +76,7 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
                         style: AppTypography.font16w600,
                       ),
                       onTap: () {
-                        Navigator.pushNamed(
-                            context, RouteNames.accessCodeLock);
+                        Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
                       },
                       width: double.infinity),
                 ],
