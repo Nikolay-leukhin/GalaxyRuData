@@ -20,13 +20,20 @@ import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
+import 'package:just_audio/just_audio.dart';
 
 final PreferencesService prefs = PreferencesService();
 final ApiService apiService = ApiService(preferencesService: prefs);
 
-class MyRepositoryProvider extends StatelessWidget {
+class MyRepositoryProvider extends StatefulWidget {
   const MyRepositoryProvider({Key? key}) : super(key: key);
 
+  @override
+  State<MyRepositoryProvider> createState() => _MyRepositoryProviderState();
+}
+
+class _MyRepositoryProviderState extends State<MyRepositoryProvider>
+    with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -95,13 +102,13 @@ class MyBlocProviders extends StatelessWidget {
           lazy: false,
         ),
       ],
-      child: const MyApp(),
+      child: MyApp(),
     );
   }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -117,8 +124,85 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppStateWidget extends StatelessWidget {
+class AppStateWidget extends StatefulWidget {
   const AppStateWidget({Key? key}) : super(key: key);
+
+  @override
+  State<AppStateWidget> createState() => _AppStateWidgetState();
+}
+
+class _AppStateWidgetState extends State<AppStateWidget>
+    with WidgetsBindingObserver {
+  late AudioPlayer player;
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    player.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+
+    switch (state) {
+      case AppLifecycleState.resumed:
+        await player.play();
+        print("app in resumed");
+        break;
+      case AppLifecycleState.inactive:
+        await player.stop();
+        print("app in resumed");
+        break;
+      case AppLifecycleState.paused:
+        await player.stop();
+        print("app in paused");
+        break;
+      case AppLifecycleState.detached:
+        await player.stop();
+        print("app in detached");
+        break;
+      case AppLifecycleState.hidden:
+        await player.stop();
+        print("app in hidden");
+    }
+  }
+
+  Future<void> initBackgroundMusic() async {
+    player = AudioPlayer();
+
+    await player.setAsset("assets/musics/fist_background.wav");
+    await player.play();
+    await player.playerStateStream.listen((event) async {
+      print(event.processingState);
+
+      switch (event.processingState) {
+        case ProcessingState.completed:
+          await player.setAsset("assets/musics/loop_background.wav");
+          await player.play();
+        case ProcessingState.idle:
+        // TODO: Handle this case.
+        case ProcessingState.loading:
+        // TODO: Handle this case.
+        case ProcessingState.buffering:
+        // TODO: Handle this case.
+        case ProcessingState.ready:
+        // TODO: Handle this case.
+      }
+    });
+  }
+
+  Future<void> stopPlayer() async {
+    await player.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    initBackgroundMusic();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,13 +220,14 @@ class AppStateWidget extends StatelessWidget {
               return const WalletCreateScreen();
             } else if (state.state == StatesEnum.landChoseScreen) {
               return const LandsListScreen();
-            } else { // == questsScreen
+            } else {
+              // == questsScreen
               return const QuestsScreen();
             }
           } else if (state is AppUnAuthState) {
             return const LoginScreen();
           } else {
-            return  SplashScreen();
+            return const SplashScreen();
           }
         },
       ),

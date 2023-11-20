@@ -33,6 +33,8 @@ dependencies:
 
   model_viewer_plus: ^1.7.0
 
+  just_audio: ^0.9.34
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -52,5 +54,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/musics/
     - assets/images/lock/
     - .env
