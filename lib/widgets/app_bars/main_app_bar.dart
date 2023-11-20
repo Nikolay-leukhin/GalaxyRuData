@@ -83,12 +83,15 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () async {
-                        Dialogs.showModal(context, CustomLogOutPopup(onTap: () {
-                          context.read<AuthRepository>().logout();
-                          Dialogs.hide(context);
-                          Navigator.popUntil(
-                              context, ModalRoute.withName(RouteNames.root));
-                        }));
+                        print("000000000000000000000");
+                        showDialog(
+                            context: context,
+                            builder: (context) => CustomLogOutPopup(onTap: () {
+                                  context.read<AuthRepository>().logout();
+                                  Navigator.pop(context);
+                                  Navigator.popUntil(context,
+                                      ModalRoute.withName(RouteNames.root));
+                                }));
                       },
                       iconName: 'logout.svg'),
                   AppBarButton(
@@ -114,12 +117,15 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () async {
-                        Dialogs.showModal(context, CustomLogOutPopup(onTap: () {
-                          context.read<AuthRepository>().logout();
-                          Dialogs.hide(context);
-                          Navigator.popUntil(
-                              context, ModalRoute.withName(RouteNames.root));
-                        }));
+                        print("000000000000000000000");
+                        showDialog(
+                            context: context,
+                            builder: (context) => CustomLogOutPopup(onTap: () {
+                                  context.read<AuthRepository>().logout();
+                                  Navigator.pop(context);
+                                  Navigator.popUntil(context,
+                                      ModalRoute.withName(RouteNames.root));
+                                }));
                       },
                       iconName: 'logout.svg'),
                 ]),
