@@ -4,11 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
-import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
-import 'package:galaxy_rudata/widgets/buttons/floating_action_button.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
 class LandChooseScreen extends StatefulWidget {
