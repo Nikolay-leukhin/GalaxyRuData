@@ -87,7 +87,7 @@ class AuthRepository {
 
 class InviteCode {
   final String code;
-  final String? forLandId;
+  final int? forLandId;
   final bool isClaimed;
 
   InviteCode({required this.code, required this.isClaimed, this.forLandId});
