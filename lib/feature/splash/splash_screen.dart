@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>
     final size = MediaQuery.sizeOf(context);
 
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.cover, image: AssetImage("assets/images/bgg.png"))),
       child: SafeArea(
@@ -97,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ScaleTransition(
                     scale: _animation,
                     child: Container(
-                      constraints: BoxConstraints(
+                      constraints: const BoxConstraints(
                         maxWidth: 500
                       ),
                       child: Image.asset(
