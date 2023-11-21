@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
-import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
+import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -28,8 +28,8 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
   Widget build(BuildContext context) {
     final sizeOf = MediaQuery.sizeOf(context);
 
-    final land = ((ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map)['land'] as LandModel;
+    final clusterType = ((ModalRoute.of(context)?.settings.arguments ??
+        <String, dynamic>{}) as Map)['cluster'] as String;
 
     return MainScaffold(
         appBar: MainAppBar.backWallet(context),
@@ -65,11 +65,11 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          land.name.toUpperCase(),
+                          clusters[clusterType]!.name.toUpperCase(),
                           style: AppTypography.font20w600,
                         ),
                         Text(
-                          land.description,
+                          clusters[clusterType]!.description,
                           style: AppTypography.font12w400,
                           textAlign: TextAlign.center,
                         ),
@@ -86,7 +86,7 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                             onTap: () {
                               context
                                   .read<LandsRepository>()
-                                  .connectLandToCurrentCode(land.id)
+                                  .connectRandomFromClusterLandToCurrentCode(clusterType)
                                   .then((value) =>
                                       RepositoryProvider.of<AuthRepository>(
                                               context)

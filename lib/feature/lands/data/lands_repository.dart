@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
@@ -32,6 +34,19 @@ class LandsRepository {
 
   Future<void> connectLandToCurrentCode(int landId) async {
     await apiService.land.connectLandAndCode(code: code!, landId: landId);
+  }
+
+  Future<void> connectRandomFromClusterLandToCurrentCode(String clusterType) async {
+    List<LandModel> lands = [];
+    for (var i in freeLandsList) {
+      if (i.type == clusterType) {
+        lands.add(i);
+      }
+    }
+    final random =  Random();
+
+    final land = lands[random.nextInt(lands.length)];
+    await connectLandToCurrentCode(land.id);
   }
 
   Future getApprove() async {
