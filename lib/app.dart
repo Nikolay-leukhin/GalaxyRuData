@@ -225,7 +225,7 @@ class _AppStateWidgetState extends State<AppStateWidget> {
               } else if (state.state == StatesEnum.createWalletScreen) {
                 return const WalletCreateScreen();
               } else if (state.state == StatesEnum.landChoseScreen) {
-                return const LandsListScreen();
+                return const ArPlanetViewScreen();
               } else {
                 // == questsScreen
                 return const QuestsScreen();
