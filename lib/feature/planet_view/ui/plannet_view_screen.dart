@@ -42,6 +42,18 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                   backgroundColor: Colors.white,
                 ),
               ),
+              Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Text(
+                      "Нажмите на планету,\nчто бы выбрать район",
+                      textAlign: TextAlign.center,
+
+                      style:
+                          AppTypography.font18w400.copyWith(color: Colors.white),
+                    ),
+                  )),
               Center(
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 500),
@@ -49,7 +61,10 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                   child: ModelViewer(
                     loading: Loading.eager,
                     touchAction: TouchAction.none,
-                    onWebViewCreated: (controller) {},
+                    onWebViewCreated: (controller) {
+            
+                    },
+
                     disableTap: true,
                     backgroundColor: Colors.transparent,
                     src: 'assets/planet.glb',
@@ -98,8 +113,9 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                                     ),
                                   )),
                             ),
-                        width: 100)),
+                        width: 100, height: 100,)),
               ),
+
             ],
           ),
         ),
