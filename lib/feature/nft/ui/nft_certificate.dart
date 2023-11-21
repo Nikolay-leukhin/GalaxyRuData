@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -78,6 +80,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
+                      BlocProvider.of<AppCubit>(context).clearCodeState();
                       Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
                     },
                     width: double.infinity),

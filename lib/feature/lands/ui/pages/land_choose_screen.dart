@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
@@ -74,12 +75,25 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                         ),
                         CustomButton(
                             content: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: FittedBox(child: Text('Забронировать жилье'.toUpperCase(), style: AppTypography.font16w600,)),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: FittedBox(
+                                  child: Text(
+                                'Забронировать жилье'.toUpperCase(),
+                                style: AppTypography.font16w600,
+                              )),
                             ),
                             onTap: () {
-                              context.read<LandsRepository>().connectLandToCurrentCode(land.id);
-                              Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
+                              context
+                                  .read<LandsRepository>()
+                                  .connectLandToCurrentCode(land.id)
+                                  .then((value) =>
+                                      RepositoryProvider.of<AuthRepository>(
+                                              context)
+                                          .appState
+                                          .add(AppStateEnum.auth)).then((value) => null);
+                              Navigator.popUntil(context,
+                                  ModalRoute.withName(RouteNames.root));
                             },
                             width: double.infinity)
                       ],

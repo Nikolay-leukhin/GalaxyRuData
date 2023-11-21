@@ -174,7 +174,8 @@ class _AppStateWidgetState extends State<AppStateWidget>
 
     await player.setAsset("assets/musics/fist_background.wav");
     await player.play();
-    await player.playerStateStream.listen((event) async {
+
+    player.playerStateStream.listen((event) async {
       print(event.processingState);
 
       switch (event.processingState) {

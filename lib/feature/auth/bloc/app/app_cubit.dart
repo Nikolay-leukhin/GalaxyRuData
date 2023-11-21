@@ -51,4 +51,9 @@ class AppCubit extends Cubit<AppState> {
       }
     }
   }
+
+  void clearCodeState() {
+    _landsRepository.code = null;
+    _authRepository.appState.add(AppStateEnum.auth);
+  }
 }
