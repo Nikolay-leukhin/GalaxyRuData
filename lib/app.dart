@@ -25,15 +25,9 @@ import 'package:just_audio/just_audio.dart';
 final PreferencesService prefs = PreferencesService();
 final ApiService apiService = ApiService(preferencesService: prefs);
 
-class MyRepositoryProvider extends StatefulWidget {
+class MyRepositoryProvider extends StatelessWidget {
   const MyRepositoryProvider({Key? key}) : super(key: key);
 
-  @override
-  State<MyRepositoryProvider> createState() => _MyRepositoryProviderState();
-}
-
-class _MyRepositoryProviderState extends State<MyRepositoryProvider>
-    with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
@@ -107,32 +101,14 @@ class MyBlocProviders extends StatelessWidget {
   }
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget{
+  const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Росреестор',
-      theme: ThemeData(
-        fontFamily: 'Nunito',
-      ),
-      debugShowCheckedModeBanner: false,
-      routes: appRoutes,
-      initialRoute: RouteNames.root,
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
 
-class AppStateWidget extends StatefulWidget {
-  const AppStateWidget({Key? key}) : super(key: key);
-
-  @override
-  State<AppStateWidget> createState() => _AppStateWidgetState();
-}
-
-class _AppStateWidgetState extends State<AppStateWidget>
-    with WidgetsBindingObserver {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
   late AudioPlayer player;
 
   @override
@@ -140,6 +116,8 @@ class _AppStateWidgetState extends State<AppStateWidget>
     super.dispose();
 
     player.dispose();
+
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
@@ -174,7 +152,6 @@ class _AppStateWidgetState extends State<AppStateWidget>
 
     await player.setAsset("assets/musics/fist_background.wav");
     await player.play();
-
     player.playerStateStream.listen((event) async {
       print(event.processingState);
 
@@ -203,7 +180,32 @@ class _AppStateWidgetState extends State<AppStateWidget>
     super.initState();
 
     initBackgroundMusic();
+
+    WidgetsBinding.instance.addObserver(this);
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Росреестор',
+      theme: ThemeData(
+        fontFamily: 'Nunito',
+      ),
+      debugShowCheckedModeBanner: false,
+      routes: appRoutes,
+      initialRoute: RouteNames.root,
+    );
+  }
+}
+
+class AppStateWidget extends StatefulWidget {
+  const AppStateWidget({Key? key}) : super(key: key);
+
+  @override
+  State<AppStateWidget> createState() => _AppStateWidgetState();
+}
+
+class _AppStateWidgetState extends State<AppStateWidget> {
 
   @override
   Widget build(BuildContext context) {
