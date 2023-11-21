@@ -51,8 +51,8 @@ class LandsRepository {
       for (var json in response) {
         freeLandsList.add(LandModel.fromJson(json));
         try {
-          if (!availableClustersNames.contains(clusters[json['type']]!.name)) {
-            availableClustersNames.add(clusters[json['type']]!.name);
+          if (!availableClustersNames.contains(json['type'])) {
+            availableClustersNames.add(json['type']);
           }
         } catch (e) {}
       }
