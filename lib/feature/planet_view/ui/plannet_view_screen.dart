@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
@@ -15,7 +17,6 @@ class ArPlanetViewScreen extends StatefulWidget {
 }
 
 class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
-
   @override
   void initState() {
     context.read<LandsRepository>().loadFreeLands();
@@ -36,8 +37,22 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
           body: Stack(
             children: [
               const Center(
-                      child: CircularProgressIndicator.adaptive(backgroundColor: Colors.white,),
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: Colors.white,
+                ),
+              ),
+              Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Text(
+                      "Нажмите на планету,\nчто бы выбрать район",
+                      textAlign: TextAlign.center,
+                      
+                      style:
+                          AppTypography.font18w400.copyWith(color: Colors.white),
                     ),
+                  )),
               Center(
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 500),
@@ -45,10 +60,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                   child: ModelViewer(
                     loading: Loading.eager,
                     touchAction: TouchAction.none,
-                    onWebViewCreated: (controller) {
-            
-                    },
-
+                    onWebViewCreated: (controller) {},
                     disableTap: true,
                     backgroundColor: Colors.transparent,
                     src: 'assets/planet.glb',
@@ -65,40 +77,41 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                 child: Opacity(
                     opacity: 0,
                     child: CustomButton(
-                        content: Text('shit'),
-                        onTap: () => showModalBottomSheet(
-                              useSafeArea: true,
-                              elevation: 0,
-                              backgroundColor: Colors.transparent,
-                              isScrollControlled: true,
-                              barrierColor: Colors.transparent,
-                              context: context,
-                              builder: (context) => Container(
-                                  padding: const EdgeInsets.symmetric(
-                                          vertical: 0, horizontal: 24)
-                                      .copyWith(bottom: 0),
-                                  color: Colors.transparent,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: List.generate(
-                                          context
-                                              .read<LandsRepository>()
-                                              .availableClustersNames
-                                              .length,
-                                          (index) => ClusterWidget(
-                                              name: clusters[context
-                                                          .read<
-                                                              LandsRepository>()
-                                                          .availableClustersNames[index]]
-                                                      ?.name ??
-                                                  "КЛАСТЕР ДИМЫ СУХОВА")),
-                                    ),
-                                  )),
-                            ),
-                        width: 100)),
+                      content: Text('shit'),
+                      onTap: () => showModalBottomSheet(
+                        useSafeArea: true,
+                        elevation: 0,
+                        backgroundColor: Colors.transparent,
+                        isScrollControlled: true,
+                        barrierColor: Colors.transparent,
+                        context: context,
+                        builder: (context) => Container(
+                            padding: const EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 24)
+                                .copyWith(bottom: 0),
+                            color: Colors.transparent,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: List.generate(
+                                    context
+                                        .read<LandsRepository>()
+                                        .availableClustersNames
+                                        .length,
+                                    (index) => ClusterWidget(
+                                        name: clusters[context
+                                                        .read<LandsRepository>()
+                                                        .availableClustersNames[
+                                                    index]]
+                                                ?.name ??
+                                            "КЛАСТЕР ДИМЫ СУХОВА")),
+                              ),
+                            )),
+                      ),
+                      width: 100,
+                      height: 100,
+                    )),
               ),
-
             ],
           ),
         ),
