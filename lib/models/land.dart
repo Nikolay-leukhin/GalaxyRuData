@@ -22,7 +22,7 @@ class LandModel {
       id: json['id'] as int,
       name: json['name'] as String,
       description: json['description'] as String,
-      avatar: "https://roskadastr.danya-vecher.ru/photo/" + json['avatar'] as String,
+      avatar: "https://roskadastr.danya-vecher.ru/photo/" + (json['avatar'] ?? ""),
       isMinted: json['isMinted'] as bool,
       tokenId: json['tokenId'] as int?,
       type: json['type'] as String,

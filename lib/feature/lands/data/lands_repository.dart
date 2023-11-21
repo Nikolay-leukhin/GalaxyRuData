@@ -56,6 +56,7 @@ class LandsRepository {
           }
         } catch (e) {}
       }
+      print(availableClustersNames);
       freeLandsStream.add(LoadingStateEnum.success);
     } catch (e, st) {
       print(e);

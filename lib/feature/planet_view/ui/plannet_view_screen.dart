@@ -1,6 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
+import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -14,6 +15,13 @@ class ArPlanetViewScreen extends StatefulWidget {
 }
 
 class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
+
+  @override
+  void initState() {
+    context.read<LandsRepository>().loadFreeLands();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,23 +35,30 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
           appBar: MainAppBar.logoutWallet(context),
           body: Stack(
             children: [
+              const Center(
+                      child: CircularProgressIndicator.adaptive(backgroundColor: Colors.white,),
+                    ),
               Center(
-                child: ModelViewer(
-                  touchAction: TouchAction.none,
-                  onWebViewCreated: (controller) {
-                    final a = controller.getScrollPosition();
-                    print(a);
-                    print('--------------------');
-                  },
-                  disableTap: true,
-                  backgroundColor: Colors.transparent,
-                  src: 'assets/planet.glb',
-                  alt: 'A 3D model of an astronaut',
-                  ar: false,
-                  autoRotate: true,
-                  iosSrc: 'assets/planet.glb',
-                  disableZoom: true,
-                  disablePan: true,
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 500),
+                  alignment: Alignment.center,
+                  child: ModelViewer(
+                    loading: Loading.eager,
+                    touchAction: TouchAction.none,
+                    onWebViewCreated: (controller) {
+            
+                    },
+
+                    disableTap: true,
+                    backgroundColor: Colors.transparent,
+                    src: 'assets/planet.glb',
+                    alt: 'A 3D model of an planet',
+                    ar: false,
+                    autoRotate: true,
+                    iosSrc: 'assets/planet.glb',
+                    disableZoom: true,
+                    disablePan: true,
+                  ),
                 ),
               ),
               Center(
@@ -52,26 +67,38 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                     child: CustomButton(
                         content: Text('shit'),
                         onTap: () => showModalBottomSheet(
+                              useSafeArea: true,
+                              elevation: 0,
+                              backgroundColor: Colors.transparent,
                               isScrollControlled: true,
+                              barrierColor: Colors.transparent,
                               context: context,
                               builder: (context) => Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 24),
-                                  color: Colors.red,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: List.generate(
-                                        10,
-                                        (index) => Container(
-                                          margin: EdgeInsets.all(10),
-                                              height: 20,
-                                              width: 20,
-                                              color: Colors.black,
-                                            )),
+                                          vertical: 0, horizontal: 24)
+                                      .copyWith(bottom: 0),
+                                  color: Colors.transparent,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: List.generate(
+                                          context
+                                              .read<LandsRepository>()
+                                              .availableClustersNames
+                                              .length,
+                                          (index) => ClusterWidget(
+                                              name: clusters[context
+                                                          .read<
+                                                              LandsRepository>()
+                                                          .availableClustersNames[index]]
+                                                      ?.name ??
+                                                  "КЛАСТЕР ДИМЫ СУХОВА")),
+                                    ),
                                   )),
                             ),
                         width: 100)),
               ),
+
             ],
           ),
         ),
@@ -88,6 +115,7 @@ class ClusterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: AppColors.darkBlue3,
