@@ -1,15 +1,8 @@
 part of 'api_service.dart';
 
 class Auth with ApiHandler {
-  Auth(
-      {required Dio dio_,
-        required BehaviorSubject apiExceptions,
-      required PreferencesService preferences,
-      required Token token}) {
-    preferencesService = preferences;
-    dio = dio_;
-    exceptionsStream = apiExceptions;
-    currentToken = token;
+  Auth({required ServiceData apiServiceData}) {
+    serviceData = apiServiceData;
   }
 
   Future<void> verifyCode(String email, String password) async {
@@ -19,12 +12,8 @@ class Auth with ApiHandler {
     await refreshToken(Token(jwt: response['jwt']));
   }
 
-  Future<void> sendCode(String email) async {
-    await post(ApiEndpoints.authSendEmailCode, data: {"email": email});
-  }
+  Future<void> sendCode(String email) =>
+      post(ApiEndpoints.authSendEmailCode, data: {"email": email});
 
-  Future getUser() {
-    print('getUser');
-    return post(ApiEndpoints.user);
-  }
+  Future getUser() => post(ApiEndpoints.user);
 }

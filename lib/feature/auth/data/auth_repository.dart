@@ -75,8 +75,6 @@ class AuthRepository {
   }
 
   Future<InviteCode?> currentInviteCode() async {
-    await apiService.initialized;
-
     final res = await apiService.auth.getUser();
     for (var i in res['user']['inviteCodes']) {
       if (i['isClaimed'] == false) {

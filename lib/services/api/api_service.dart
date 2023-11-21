@@ -1,18 +1,18 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:galaxy_rudata/services/api/service/models/service_data.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:galaxy_rudata/services/api/endpoints.dart';
-import 'package:galaxy_rudata/services/api/service/token_model.dart';
+import 'package:galaxy_rudata/services/api/service/models/token_model.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'service/handler.dart';
 part 'service/methods.dart';
-part 'service/request_model.dart';
+part 'service/models/request_model.dart';
 part 'auth.dart';
 part 'wallet.dart';
 part 'land.dart';
@@ -30,37 +30,37 @@ BaseOptions _dioOptions = BaseOptions(
 );
 
 class ApiService {
-  final PreferencesService preferencesService;
-  final Dio dio = Dio(_dioOptions)..interceptors.add(PrettyDioLogger());
+  late final ServiceData _apiData;
 
   BehaviorSubject<Exception> apiExceptions = BehaviorSubject();
-
-  late final Token token;
   late final Auth auth;
   late final Wallet wallet;
   late final Land land;
 
   late Future initialized;
 
-  ApiService({required this.preferencesService}) {
-    initialized = initialServices();
+  ApiService({required PreferencesService preferencesService})  {
+    initialized = initialServices(preferencesService);
   }
 
-  Future initialServices() async {
-    token = await preferencesService.getToken();
+  Future initialServices(PreferencesService preferencesService) async {
+    final token = await preferencesService.getToken();
+    final dio = Dio(_dioOptions)..interceptors.add(PrettyDioLogger());
+    _apiData = ServiceData(token, dio, preferencesService, apiExceptions);
+    _apiData.requiredFuture = initialized;
 
-    print("${token.jwt} TOKEN");
+    log("JWT Token: ${token.jwt}");
 
-    auth = Auth(dio_: dio, preferences: preferencesService, token: token, apiExceptions: apiExceptions);
-    wallet = Wallet(dio_: dio, preferences: preferencesService, token: token, apiExceptions: apiExceptions);
-    land = Land(dio_: dio, preferences: preferencesService, token: token, apiExceptions: apiExceptions);
+    auth = Auth(apiServiceData: _apiData);
+    wallet = Wallet(apiServiceData: _apiData);
+    land = Land(apiServiceData: _apiData);
 
     await auth.refreshToken(token);
   }
 
   void logout() {
-    preferencesService.logout();
-    token.setJwt('');
-    dio.options.headers = _authHeaders;
+    _apiData.prefs.logout();
+    _apiData.token.setJwt('');
+    _apiData.dio.options.headers = _authHeaders;
   }
 }

@@ -1,19 +1,10 @@
 part of 'api_service.dart';
 
 class Wallet with ApiHandler {
-  Wallet(
-      {required Dio dio_,
-      required PreferencesService preferences,
-        required BehaviorSubject apiExceptions,
-      required Token token}) {
-    preferencesService = preferences;
-    dio = dio_;
-    exceptionsStream = apiExceptions;
-    currentToken = token;
+  Wallet({required ServiceData apiServiceData}) {
+    serviceData = apiServiceData;
   }
 
-  Future<void> updateWalletAddress(String walletAddress) async {
-    print(currentToken.jwt);
-    await post(ApiEndpoints.userWalletUpdate, data: {'wallet': walletAddress});
-  }
+  Future<void> updateWalletAddress(String walletAddress) =>
+      post(ApiEndpoints.userWalletUpdate, data: {'wallet': walletAddress});
 }

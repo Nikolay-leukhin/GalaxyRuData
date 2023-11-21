@@ -1,7 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:galaxy_rudata/services/api/service/token_model.dart';
+import 'package:galaxy_rudata/services/api/service/models/token_model.dart';
 
 class PreferencesService {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -20,15 +21,10 @@ class PreferencesService {
 
   Future<Token> getToken() async {
     final prefs = await _prefs;
-
-    try {
-      final Token jwt = Token.fromJson(jsonDecode(prefs.getString(_tokenKey)!));
-      return jwt;
-    } catch (e, st) {
-      print(e);
-      print(st);
-      return Token.zero();
-    }
+    final String? jwt = prefs.getString(_tokenKey);
+    if (jwt == null) return Token.zero();
+    final Token token = Token.fromJson(jsonDecode(jwt));
+    return token;
   }
 
   Future<void> setPinCode(String pinCode) async {
