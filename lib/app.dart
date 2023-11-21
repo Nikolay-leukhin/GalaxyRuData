@@ -210,30 +210,33 @@ class _AppStateWidgetState extends State<AppStateWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: BlocConsumer<AppCubit, AppState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        builder: (context, state) {
-          if (state is AppAuthState) {
-            if (state.state == StatesEnum.lockScreen) {
-              return const ArPlanetViewScreen();
-            } else if (state.state == StatesEnum.createWalletScreen) {
-              return const WalletCreateScreen();
-            } else if (state.state == StatesEnum.landChoseScreen) {
-              return const LandsListScreen();
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocConsumer<AppCubit, AppState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            if (state is AppAuthState) {
+              if (state.state == StatesEnum.lockScreen) {
+                return const LockScreen();
+              } else if (state.state == StatesEnum.createWalletScreen) {
+                return const WalletCreateScreen();
+              } else if (state.state == StatesEnum.landChoseScreen) {
+                return const ArPlanetViewScreen();
+              } else {
+                // == questsScreen
+                return const QuestsScreen();
+              }
+            } else if (state is AppUnAuthState) {
+              return const LoginScreen();
             } else {
-              // == questsScreen
-              return const QuestsScreen();
+              return const SplashScreen();
             }
-          } else if (state is AppUnAuthState) {
-            return const LoginScreen();
-          } else {
-            return const SplashScreen();
-          }
-        },
+          },
+        ),
       ),
     );
   }

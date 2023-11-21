@@ -1,8 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -25,94 +24,102 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage("assets/images/galaxy.jpg"))),
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: MainAppBar.logoutWallet(context),
-          body: Stack(
-            children: [
-              const Center(
-                child: CircularProgressIndicator.adaptive(
-                  backgroundColor: Colors.white,
-                ),
-              ),
-              Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 40),
-                    child: Text(
-                      "Нажмите на планету,\nчто бы выбрать район",
-                      textAlign: TextAlign.center,
-                      
-                      style:
-                          AppTypography.font18w400.copyWith(color: Colors.white),
-                    ),
-                  )),
-              Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 500),
-                  alignment: Alignment.center,
-                  child: ModelViewer(
-                    loading: Loading.eager,
-                    touchAction: TouchAction.none,
-                    onWebViewCreated: (controller) {},
-                    disableTap: true,
-                    backgroundColor: Colors.transparent,
-                    src: 'assets/planet.glb',
-                    alt: 'A 3D model of an planet',
-                    ar: false,
-                    autoRotate: true,
-                    iosSrc: 'assets/planet.glb',
-                    disableZoom: true,
-                    disablePan: true,
+    final repository = RepositoryProvider.of<LandsRepository>(context);
+
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage("assets/images/galaxy.jpg"))),
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: MainAppBar.logoutWallet(context),
+            body: Stack(
+              children: [
+                const Center(
+                  child: CircularProgressIndicator.adaptive(
+                    backgroundColor: Colors.white,
                   ),
                 ),
-              ),
-              Center(
-                child: Opacity(
-                    opacity: 0,
-                    child: CustomButton(
-                      content: Text('shit'),
-                      onTap: () => showModalBottomSheet(
-                        useSafeArea: true,
-                        elevation: 0,
-                        backgroundColor: Colors.transparent,
-                        isScrollControlled: true,
-                        barrierColor: Colors.transparent,
-                        context: context,
-                        builder: (context) => Container(
-                            padding: const EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 24)
-                                .copyWith(bottom: 0),
-                            color: Colors.transparent,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: List.generate(
-                                    context
-                                        .read<LandsRepository>()
-                                        .availableClustersNames
-                                        .length,
-                                    (index) => ClusterWidget(
-                                        name: clusters[context
-                                                        .read<LandsRepository>()
-                                                        .availableClustersNames[
-                                                    index]]
-                                                ?.name ??
-                                            "КЛАСТЕР ДИМЫ СУХОВА")),
-                              ),
-                            )),
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: Text(
+                        "Нажмите на планету,\nчто бы выбрать район",
+                        textAlign: TextAlign.center,
+
+                        style:
+                            AppTypography.font18w400.copyWith(color: Colors.white),
                       ),
-                      width: 100,
-                      height: 100,
                     )),
-              ),
-            ],
+                Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 500),
+                    alignment: Alignment.center,
+                    child: ModelViewer(
+                      loading: Loading.eager,
+                      touchAction: TouchAction.none,
+                      onWebViewCreated: (controller) {
+
+                      },
+
+                      disableTap: true,
+                      backgroundColor: Colors.transparent,
+                      src: 'assets/planet.glb',
+                      alt: 'A 3D model of an planet',
+                      ar: false,
+                      autoRotate: true,
+                      iosSrc: 'assets/planet.glb',
+                      disableZoom: true,
+                      disablePan: true,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Opacity(
+                      opacity: 0,
+                      child: CustomButton(
+                          content: Text('shit'),
+                          onTap: () => showModalBottomSheet(
+                                useSafeArea: true,
+                                elevation: 0,
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                barrierColor: Colors.transparent,
+                                context: context,
+                                builder: (context) => Container(
+                                    padding: const EdgeInsets.symmetric(
+                                            vertical: 0, horizontal: 24)
+                                        .copyWith(bottom: 0),
+                                    color: Colors.transparent,
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: List.generate(
+                                            repository
+                                                .availableClustersNames.length,
+                                            (index) => ClusterWidget(
+                                                  name: clusters[repository
+                                                                  .availableClustersNames[
+                                                              index]]
+                                                          ?.name ??
+                                                      "КЛАСТЕР ДИМЫ СУХОВА",
+                                                  type: repository
+                                                          .availableClustersNames[
+                                                      index],
+                                                )),
+                                      ),
+                                    )),
+                              ),
+                          width: 100, height: 100,)),
+                ),
+
+              ],
+            ),
           ),
         ),
       ),
@@ -122,35 +129,42 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
 
 class ClusterWidget extends StatelessWidget {
   final String name;
+  final String type;
 
-  const ClusterWidget({super.key, required this.name});
+  const ClusterWidget({super.key, required this.name, required this.type});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: AppColors.darkBlue3,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            name,
-            style: AppTypography.font16w600.copyWith(color: Colors.white),
-          ),
-          InkWell(
-            onTap: () {},
-            child: const Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
-              size: 24,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, RouteNames.landsChoose,
+            arguments: {'cluster': type});
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: AppColors.darkBlue3,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              name,
+              style: AppTypography.font16w600.copyWith(color: Colors.white),
             ),
-          )
-        ],
+            InkWell(
+              onTap: () {},
+              child: const Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+                size: 24,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
