@@ -1,7 +1,7 @@
 class LandModel {
   int id;
   String name;
-  String description;
+  String? description;
   String avatar;
   bool isMinted;
   int? tokenId;
@@ -21,8 +21,8 @@ class LandModel {
     return LandModel(
       id: json['id'] as int,
       name: json['name'] as String,
-      description: json['description'] as String,
-      avatar: "https://roskadastr.danya-vecher.ru/photo/" + (json['avatar'] ?? ""),
+      description: json['description'],
+      avatar: "https://roskadastr.danya-vecher.ru/photo/",
       isMinted: json['isMinted'] as bool,
       tokenId: json['tokenId'] as int?,
       type: json['type'] as String,

@@ -92,8 +92,9 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                                               context)
                                           .appState
                                           .add(AppStateEnum.auth)).then((value) => null);
-                              Navigator.popUntil(context,
-                                  ModalRoute.withName(RouteNames.root));
+                              Future.delayed(const Duration(milliseconds: 500)).then((value) =>  Navigator.popUntil(context,
+                                  ModalRoute.withName(RouteNames.root)));
+
                             },
                             width: double.infinity)
                       ],

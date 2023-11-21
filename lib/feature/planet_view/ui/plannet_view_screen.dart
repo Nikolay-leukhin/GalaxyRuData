@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
+import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -15,7 +16,6 @@ class ArPlanetViewScreen extends StatefulWidget {
 }
 
 class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
-
   @override
   void initState() {
     context.read<LandsRepository>().loadFreeLands();
@@ -24,6 +24,8 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final repository = RepositoryProvider.of<LandsRepository>(context);
+
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -36,8 +38,10 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
           body: Stack(
             children: [
               const Center(
-                      child: CircularProgressIndicator.adaptive(backgroundColor: Colors.white,),
-                    ),
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: Colors.white,
+                ),
+              ),
               Center(
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 500),
@@ -45,10 +49,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                   child: ModelViewer(
                     loading: Loading.eager,
                     touchAction: TouchAction.none,
-                    onWebViewCreated: (controller) {
-            
-                    },
-
+                    onWebViewCreated: (controller) {},
                     disableTap: true,
                     backgroundColor: Colors.transparent,
                     src: 'assets/planet.glb',
@@ -82,23 +83,23 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: List.generate(
-                                          context
-                                              .read<LandsRepository>()
-                                              .availableClustersNames
-                                              .length,
+                                          repository
+                                              .availableClustersNames.length,
                                           (index) => ClusterWidget(
-                                              name: clusters[context
-                                                          .read<
-                                                              LandsRepository>()
-                                                          .availableClustersNames[index]]
-                                                      ?.name ??
-                                                  "КЛАСТЕР ДИМЫ СУХОВА")),
+                                                name: clusters[repository
+                                                                .availableClustersNames[
+                                                            index]]
+                                                        ?.name ??
+                                                    "КЛАСТЕР ДИМЫ СУХОВА",
+                                                type: repository
+                                                        .availableClustersNames[
+                                                    index],
+                                              )),
                                     ),
                                   )),
                             ),
                         width: 100)),
               ),
-
             ],
           ),
         ),
@@ -109,35 +110,42 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
 
 class ClusterWidget extends StatelessWidget {
   final String name;
+  final String type;
 
-  const ClusterWidget({super.key, required this.name});
+  const ClusterWidget({super.key, required this.name, required this.type});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: AppColors.darkBlue3,
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            name,
-            style: AppTypography.font16w600.copyWith(color: Colors.white),
-          ),
-          InkWell(
-            onTap: () {},
-            child: const Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
-              size: 24,
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, RouteNames.landsChoose,
+            arguments: {'cluster': type});
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: AppColors.darkBlue3,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              name,
+              style: AppTypography.font16w600.copyWith(color: Colors.white),
             ),
-          )
-        ],
+            InkWell(
+              onTap: () {},
+              child: const Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+                size: 24,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

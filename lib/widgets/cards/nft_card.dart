@@ -64,7 +64,7 @@ class NFTCard extends StatelessWidget {
                   SizedBox(
                     width: size.width - 80,
                     child: Text(
-                      land.description,
+                      land.description ?? '',
                       style: AppTypography.font12w400,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
