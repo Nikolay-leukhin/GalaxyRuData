@@ -26,97 +26,100 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
   Widget build(BuildContext context) {
     final repository = RepositoryProvider.of<LandsRepository>(context);
 
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage("assets/images/galaxy.jpg"))),
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: MainAppBar.logoutWallet(context),
-          body: Stack(
-            children: [
-              const Center(
-                child: CircularProgressIndicator.adaptive(
-                  backgroundColor: Colors.white,
-                ),
-              ),
-              Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 40),
-                    child: Text(
-                      "Нажмите на планету,\nчто бы выбрать район",
-                      textAlign: TextAlign.center,
-
-                      style:
-                          AppTypography.font18w400.copyWith(color: Colors.white),
-                    ),
-                  )),
-              Center(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 500),
-                  alignment: Alignment.center,
-                  child: ModelViewer(
-                    loading: Loading.eager,
-                    touchAction: TouchAction.none,
-                    onWebViewCreated: (controller) {
-            
-                    },
-
-                    disableTap: true,
-                    backgroundColor: Colors.transparent,
-                    src: 'assets/planet.glb',
-                    alt: 'A 3D model of an planet',
-                    ar: false,
-                    autoRotate: true,
-                    iosSrc: 'assets/planet.glb',
-                    disableZoom: true,
-                    disablePan: true,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage("assets/images/galaxy.jpg"))),
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: MainAppBar.logoutWallet(context),
+            body: Stack(
+              children: [
+                const Center(
+                  child: CircularProgressIndicator.adaptive(
+                    backgroundColor: Colors.white,
                   ),
                 ),
-              ),
-              Center(
-                child: Opacity(
-                    opacity: 0,
-                    child: CustomButton(
-                        content: Text('shit'),
-                        onTap: () => showModalBottomSheet(
-                              useSafeArea: true,
-                              elevation: 0,
-                              backgroundColor: Colors.transparent,
-                              isScrollControlled: true,
-                              barrierColor: Colors.transparent,
-                              context: context,
-                              builder: (context) => Container(
-                                  padding: const EdgeInsets.symmetric(
-                                          vertical: 0, horizontal: 24)
-                                      .copyWith(bottom: 0),
-                                  color: Colors.transparent,
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: List.generate(
-                                          repository
-                                              .availableClustersNames.length,
-                                          (index) => ClusterWidget(
-                                                name: clusters[repository
-                                                                .availableClustersNames[
-                                                            index]]
-                                                        ?.name ??
-                                                    "КЛАСТЕР ДИМЫ СУХОВА",
-                                                type: repository
-                                                        .availableClustersNames[
-                                                    index],
-                                              )),
-                                    ),
-                                  )),
-                            ),
-                        width: 100, height: 100,)),
-              ),
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: Text(
+                        "Нажмите на планету,\nчто бы выбрать район",
+                        textAlign: TextAlign.center,
 
-            ],
+                        style:
+                            AppTypography.font18w400.copyWith(color: Colors.white),
+                      ),
+                    )),
+                Center(
+                  child: Container(
+                    constraints: const BoxConstraints(maxWidth: 500),
+                    alignment: Alignment.center,
+                    child: ModelViewer(
+                      loading: Loading.eager,
+                      touchAction: TouchAction.none,
+                      onWebViewCreated: (controller) {
+
+                      },
+
+                      disableTap: true,
+                      backgroundColor: Colors.transparent,
+                      src: 'assets/planet.glb',
+                      alt: 'A 3D model of an planet',
+                      ar: false,
+                      autoRotate: true,
+                      iosSrc: 'assets/planet.glb',
+                      disableZoom: true,
+                      disablePan: true,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Opacity(
+                      opacity: 0,
+                      child: CustomButton(
+                          content: Text('shit'),
+                          onTap: () => showModalBottomSheet(
+                                useSafeArea: true,
+                                elevation: 0,
+                                backgroundColor: Colors.transparent,
+                                isScrollControlled: true,
+                                barrierColor: Colors.transparent,
+                                context: context,
+                                builder: (context) => Container(
+                                    padding: const EdgeInsets.symmetric(
+                                            vertical: 0, horizontal: 24)
+                                        .copyWith(bottom: 0),
+                                    color: Colors.transparent,
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: List.generate(
+                                            repository
+                                                .availableClustersNames.length,
+                                            (index) => ClusterWidget(
+                                                  name: clusters[repository
+                                                                  .availableClustersNames[
+                                                              index]]
+                                                          ?.name ??
+                                                      "КЛАСТЕР ДИМЫ СУХОВА",
+                                                  type: repository
+                                                          .availableClustersNames[
+                                                      index],
+                                                )),
+                                      ),
+                                    )),
+                              ),
+                          width: 100, height: 100,)),
+                ),
+
+              ],
+            ),
           ),
         ),
       ),

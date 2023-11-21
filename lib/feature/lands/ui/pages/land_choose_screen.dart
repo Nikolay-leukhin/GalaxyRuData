@@ -31,80 +31,83 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
     final clusterType = ((ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map)['cluster'] as String;
 
-    return MainScaffold(
-        appBar: MainAppBar.backWallet(context),
-        body: Container(
-          width: sizeOf.width,
-          height: sizeOf.height,
-          child: Stack(
-            children: [
-              Container(
-                width: sizeOf.width * 4,
-                height: sizeOf.width * 1.1,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                  image: AssetImage('assets/images/klaster.png'),
-                  fit: BoxFit.fitWidth,
-                )),
-              ),
-              Positioned(
-                bottom: 0,
-                top: sizeOf.height * 0.4,
-                child: Stack(children: [
-                  SvgPicture.asset(
-                    'assets/icons/bottom_bcg.svg',
-                    width: sizeOf.width,
-                    height: sizeOf.width,
-                    fit: BoxFit.fill,
-                  ),
-                  Container(
-                    width: sizeOf.width,
-                    height: sizeOf.height,
-                    padding: const EdgeInsets.symmetric(horizontal: 43),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          clusters[clusterType]!.name.toUpperCase(),
-                          style: AppTypography.font20w600,
-                        ),
-                        Text(
-                          clusters[clusterType]!.description,
-                          style: AppTypography.font12w400,
-                          textAlign: TextAlign.center,
-                        ),
-                        CustomButton(
-                            content: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: FittedBox(
-                                  child: Text(
-                                'Забронировать жилье'.toUpperCase(),
-                                style: AppTypography.font16w600,
-                              )),
-                            ),
-                            onTap: () {
-                              context
-                                  .read<LandsRepository>()
-                                  .connectRandomFromClusterLandToCurrentCode(clusterType)
-                                  .then((value) =>
-                                      RepositoryProvider.of<AuthRepository>(
-                                              context)
-                                          .appState
-                                          .add(AppStateEnum.auth)).then((value) => null);
-                              Future.delayed(const Duration(milliseconds: 500)).then((value) =>  Navigator.popUntil(context,
-                                  ModalRoute.withName(RouteNames.root)));
-
-                            },
-                            width: double.infinity)
-                      ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: MainScaffold(
+          appBar: MainAppBar.backWallet(context),
+          body: Container(
+            width: sizeOf.width,
+            height: sizeOf.height,
+            child: Stack(
+              children: [
+                Container(
+                  width: sizeOf.width * 4,
+                  height: sizeOf.width * 1.1,
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage('assets/images/klaster.png'),
+                    fit: BoxFit.fitWidth,
+                  )),
+                ),
+                Positioned(
+                  bottom: 0,
+                  top: sizeOf.height * 0.4,
+                  child: Stack(children: [
+                    SvgPicture.asset(
+                      'assets/icons/bottom_bcg.svg',
+                      width: sizeOf.width,
+                      height: sizeOf.width,
+                      fit: BoxFit.fill,
                     ),
-                  )
-                ]),
-              ),
-            ],
-          ),
-        ));
+                    Container(
+                      width: sizeOf.width,
+                      height: sizeOf.height,
+                      padding: const EdgeInsets.symmetric(horizontal: 43),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            clusters[clusterType]!.name.toUpperCase(),
+                            style: AppTypography.font20w600,
+                          ),
+                          Text(
+                            clusters[clusterType]!.description,
+                            style: AppTypography.font12w400,
+                            textAlign: TextAlign.center,
+                          ),
+                          CustomButton(
+                              content: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: FittedBox(
+                                    child: Text(
+                                  'Забронировать жилье'.toUpperCase(),
+                                  style: AppTypography.font16w600,
+                                )),
+                              ),
+                              onTap: () {
+                                context
+                                    .read<LandsRepository>()
+                                    .connectRandomFromClusterLandToCurrentCode(clusterType)
+                                    .then((value) =>
+                                        RepositoryProvider.of<AuthRepository>(
+                                                context)
+                                            .appState
+                                            .add(AppStateEnum.auth)).then((value) => null);
+                                Future.delayed(const Duration(milliseconds: 500)).then((value) =>  Navigator.popUntil(context,
+                                    ModalRoute.withName(RouteNames.root)));
+
+                              },
+                              width: double.infinity)
+                        ],
+                      ),
+                    )
+                  ]),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 }
 //
