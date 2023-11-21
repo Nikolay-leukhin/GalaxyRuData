@@ -57,7 +57,7 @@ class _LockScreenState extends State<LockScreen> {
       });
 
       Future.delayed(rotationDuration + moveDuration, () {
-        Navigator.of(context).pushNamed(RouteNames.landsList);
+        Navigator.of(context).pushNamed(RouteNames.arPlanetView);
       });
     }
 

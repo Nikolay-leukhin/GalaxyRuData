@@ -12,6 +12,7 @@ import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lands_list_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
+import 'package:galaxy_rudata/feature/planet_view/ui/plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
@@ -218,7 +219,7 @@ class _AppStateWidgetState extends State<AppStateWidget> {
         builder: (context, state) {
           if (state is AppAuthState) {
             if (state.state == StatesEnum.lockScreen) {
-              return const LockScreen();
+              return const ArPlanetViewScreen();
             } else if (state.state == StatesEnum.createWalletScreen) {
               return const WalletCreateScreen();
             } else if (state.state == StatesEnum.landChoseScreen) {
