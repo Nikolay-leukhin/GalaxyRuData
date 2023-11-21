@@ -45,11 +45,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
         setState(() {});
         await Future.delayed(const Duration(seconds: 1));
-      } else {
-        currentRemainingTime -= 1;
-        setState(() {});
-        break;
       }
+    }
+
+    if (currentRemainingTime == 1 && mounted) {
+      currentRemainingTime -= 1;
+
+      setState(() {});
     }
   }
 
@@ -235,32 +237,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         Flexible(
                           child: RichText(
                               text: TextSpan(children: [
-                                TextSpan(
-                                    text: "Я согласен с ",
-                                    style: AppTypography.font12w400),
-                                TextSpan(
-                                    text: "Пользовательским Соглашением",
-                                    style: AppTypography.font12w400.copyWith(
-                                        decoration: TextDecoration.underline),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        await launchUrl(Uri.parse(
-                                            'https://docs.google.com/document/d/15zGuCD50uoIJdmAC9_T8tpzzG9NDN26wRNye2Spy160/edit?usp=share_link'));
-                                      }),
-                                TextSpan(
-                                    text: " и ",
-                                    style: AppTypography.font12w400.copyWith(
-                                        decoration: TextDecoration.underline)),
-                                TextSpan(
-                                    text: "Политикой Конфиденциальности",
-                                    style: AppTypography.font12w400.copyWith(
-                                        decoration: TextDecoration.underline),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        await launchUrl(Uri.parse(
-                                            'https://docs.google.com/document/d/1c6zaEfcPYEUsjOpBVnVyzt2Gb3ryIZVBX3O0id4JKik/edit?usp=share_link'));
-                                      }),
-                              ])),
+                            TextSpan(
+                                text: "Я согласен с ",
+                                style: AppTypography.font12w400),
+                            TextSpan(
+                                text: "Пользовательским Соглашением",
+                                style: AppTypography.font12w400.copyWith(
+                                    decoration: TextDecoration.underline),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () async {
+                                    await launchUrl(Uri.parse(
+                                        'https://docs.google.com/document/d/15zGuCD50uoIJdmAC9_T8tpzzG9NDN26wRNye2Spy160/edit?usp=share_link'));
+                                  }),
+                            TextSpan(
+                                text: " и ",
+                                style: AppTypography.font12w400.copyWith(
+                                    decoration: TextDecoration.underline)),
+                            TextSpan(
+                                text: "Политикой Конфиденциальности",
+                                style: AppTypography.font12w400.copyWith(
+                                    decoration: TextDecoration.underline),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () async {
+                                    await launchUrl(Uri.parse(
+                                        'https://docs.google.com/document/d/1c6zaEfcPYEUsjOpBVnVyzt2Gb3ryIZVBX3O0id4JKik/edit?usp=share_link'));
+                                  }),
+                          ])),
                         ),
                       ],
                     ),
