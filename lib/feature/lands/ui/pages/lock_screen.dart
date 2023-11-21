@@ -39,7 +39,7 @@ class _LockScreenState extends State<LockScreen> {
           constraints: const BoxConstraints(maxWidth: 200),
           child: AccessCodeField(
               controller: codeController,
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.text,
               hintText: 'Введите код',
               width: size.width - 100),
         ),
