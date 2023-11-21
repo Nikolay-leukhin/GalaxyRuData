@@ -1,6 +1,7 @@
 import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
+import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -14,6 +15,7 @@ class LandsRepository {
   String? approve;
 
   List<LandModel> freeLandsList = [];
+  List<String> availableClustersNames = [];
   List<LandModel> userLandsList = [];
 
   BehaviorSubject<LoadingStateEnum> freeLandsStream =
@@ -48,6 +50,11 @@ class LandsRepository {
       freeLandsList.clear();
       for (var json in response) {
         freeLandsList.add(LandModel.fromJson(json));
+        try {
+          if (!availableClustersNames.contains(json['type'])) {
+            availableClustersNames.add(json['type']);
+          }
+        } catch (e) {}
       }
       freeLandsStream.add(LoadingStateEnum.success);
     } catch (e, st) {
