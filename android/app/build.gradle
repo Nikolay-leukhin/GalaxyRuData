@@ -30,6 +30,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.rosreestr.kadastr"
+//    namespace "com.kadastr.rosreestr"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -48,12 +49,14 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+//        applicationId "com.kadastr.rosreestr"
         applicationId "com.rosreestr.kadastr"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 3
+//        versionCode 4  // for old version
+        versionCode 1 // for new version
         versionName flutterVersionName
     }
 

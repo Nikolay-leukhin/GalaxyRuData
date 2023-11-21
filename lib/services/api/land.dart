@@ -1,15 +1,8 @@
 part of 'api_service.dart';
 
 class Land with ApiHandler {
-  Land(
-      {required Dio dio_,
-      required PreferencesService preferences,
-        required BehaviorSubject apiExceptions,
-      required Token token}) {
-    preferencesService = preferences;
-    exceptionsStream = apiExceptions;
-    dio = dio_;
-    currentToken = token;
+  Land({required ServiceData apiServiceData}) {
+    serviceData = apiServiceData;
   }
 
   Future<void> updateWalletAddress(String walletAddress) async {
@@ -35,8 +28,7 @@ class Land with ApiHandler {
   Future getApprove(String code) =>
       post(ApiEndpoints.getApprove, data: {'code': code});
 
-  Future<void> verifyLandCode(String code, String approveCode) async {
-    await post(ApiEndpoints.verifyLandCode,
-        data: {'code': code, 'approve': approveCode});
-  }
+  Future<void> verifyLandCode(String code, String approveCode) =>
+      post(ApiEndpoints.verifyLandCode,
+          data: {'code': code, 'approve': approveCode});
 }
