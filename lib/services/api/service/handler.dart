@@ -51,6 +51,7 @@ mixin class ApiHandler {
       } else {
         log('headers: ${serviceData.dio.options.headers}');
         log('error by calling ${requestData.url}');
+        log(requestData.toString());
         rethrow;
       }
     } catch (e) {

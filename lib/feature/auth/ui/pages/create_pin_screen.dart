@@ -2,42 +2,71 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/widgets/pin_code_indicator.dart';
 import 'package:galaxy_rudata/feature/auth/ui/widgets/pin_num_tab.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
-import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 
-class PinEnterScreen extends StatefulWidget {
-  const PinEnterScreen({super.key});
+import '../../../../widgets/popup/custom_popup.dart';
+
+class PinCreateFirstScreen extends StatefulWidget {
+  const PinCreateFirstScreen({super.key});
 
   @override
-  State<PinEnterScreen> createState() => _PinEnterScreenState();
+  State<PinCreateFirstScreen> createState() => _PinCreateFirstScreenState();
 }
 
-class _PinEnterScreenState extends State<PinEnterScreen> {
+class _PinCreateFirstScreenState extends State<PinCreateFirstScreen> {
   VoidCallback? confirmation;
 
+  final String createMessage =  "Придумайте пин-код\nдля своего цифрового кошелька";
+  final String repeatMessage =  "Введите пин-код\nещё раз";
+
+  List<int> pinData = [];
+  List<int> savedPin = [];
+
   final pinKeyboard = [1, 2, 3, 4, 5, 6, 7, 8, 9, "", 0, "del"];
-  final pinCode = [];
 
   void onNumTabTap(int index) async {
-    if (pinCode.length < 4) {
-      pinCode.add(index);
+    if (pinData.length < 4) {
+      pinData.add(index);
     }
 
-    if (pinCode.length >= 4) {
-      print(pinCode);
-      await context.read<PinCodeCubit>().checkUserPinCode(pinCode.join(""));
+    if (pinData.length == 4) {
+      if (savedPin.length == 4) {
+        if (pinData.toString() == savedPin.toString()) {
+          // Navigator.pushNamed(context, RouteNames.walletCardCreated);
+          BlocProvider.of<PinCodeCubit>(context).savePin(pinData);
+          if (confirmation != null) confirmation!();
+        } else {
+          savedPin.clear();
+          pinData.clear();
+          showNotMatchedPinCodesMessage();
+        }
+      }
+
+      savedPin.addAll(pinData);
+      pinData.clear();
+      setState(() {});
     }
 
     setState(() {});
   }
 
-  @override
-  void initState() {
-    super.initState();
+  showNotMatchedPinCodesMessage() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return CustomPopup(
+              label:
+              "Пин-коды не совпадают, пожалуйста, попробуйте еще раз",
+              onTap: () {
+                Navigator.pop(context);
+              });
+        });
   }
 
   @override
@@ -45,26 +74,8 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
     final size = MediaQuery.sizeOf(context);
     confirmation = ((ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map)['confirmation'] as VoidCallback?;
-    return BlocListener<PinCodeCubit, PinCodeState>(
-      listener: (context, state) {
-        if (state is PinCodeEnterSuccess) {
-          // Navigator.pushReplacementNamed(context, RouteNames.landsUserList);
-          if (confirmation != null) confirmation!();
-        } else if (state is PinCodeEnterFailure) {
-          showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (context) {
-                return CustomPopup(
-                    label: "Пин-код неверный!\nПопробуйте еще раз 🥲",
-                    onTap: () {
-                      pinCode.clear();
-                      setState(() {});
-                      Navigator.pop(context);
-                    });
-              });
-        }
-      },
+    return WillPopScope(
+      onWillPop: () async => false,
       child: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -74,7 +85,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: MainAppBar.back(
+            appBar: MainAppBar.onlyLogo(
               context,
             ),
             body: Container(
@@ -87,7 +98,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
                   SizedBox(
                     width: 260,
                     child: Text(
-                      "Введите пин-код",
+                      savedPin.length == 4 ? repeatMessage : createMessage,
                       textAlign: TextAlign.center,
                       style: AppTypography.font16w400
                           .copyWith(color: Colors.white),
@@ -105,7 +116,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
                         children: List.generate(
                           4,
                           (index) => PinCodeIndicatorItem(
-                            isActive: index < pinCode.length,
+                            isActive: index < pinData.length,
                           ),
                         )),
                   ),
@@ -219,7 +230,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              constraints: BoxConstraints(maxWidth: 125),
+                              constraints: const BoxConstraints(maxWidth: 125),
                               width: size.width * 0.189,
                             ),
                             PinNumTab(
@@ -232,8 +243,8 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
                             ),
                             PinNumTab(
                               onTap: () {
-                                if (pinCode.isNotEmpty) {
-                                  pinCode.removeLast();
+                                if (pinData.isNotEmpty) {
+                                  pinData.removeLast();
                                 }
                                 setState(() {});
                               },

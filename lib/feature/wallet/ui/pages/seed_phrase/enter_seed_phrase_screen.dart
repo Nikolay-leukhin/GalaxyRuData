@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -62,7 +63,16 @@ class WalletEnterSeedPhraseScreenState
               builder: (context) => CustomPopup(
                     label: "Блокчейн-кошелек успешно создан!",
                     onTap: () {
-                      Navigator.pushNamed(context, RouteNames.accessCodeLock);
+                      Navigator.pushNamed(context, RouteNames.authPinCreate,
+                          arguments: {
+                            'confirmation': () {
+                              Navigator.pushNamed(
+                                  context, RouteNames.walletCardCreated);
+                              RepositoryProvider.of<AuthRepository>(context)
+                                  .appState
+                                  .add(AppStateEnum.auth);
+                            }
+                          });
                     },
                   ));
         }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/app.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_repeat_screen.dart';
-import 'package:galaxy_rudata/feature/auth/ui/pages/pin_screen.dart';
+import 'package:galaxy_rudata/feature/auth/ui/pages/create_pin_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/land_choose_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';

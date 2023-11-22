@@ -61,8 +61,12 @@ class AuthRepository {
     appState.add(AppStateEnum.unAuth);
   }
 
-  Future<void> savePinCode() async {
-    await prefs.setPinCode(typedUserPinCode.join(""));
+  // Future<void> savePinCode() async {
+  //   await prefs.setPinCode(typedUserPinCode.join(""));
+  //   appState.add(AppStateEnum.auth);
+  // }
+  Future<void> savePinCode(List<int> pin) async {
+    await prefs.setPinCode(pin.join(""));
     appState.add(AppStateEnum.auth);
   }
 

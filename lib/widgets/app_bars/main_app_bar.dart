@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
+import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/back_wallet.dart';
@@ -62,7 +63,21 @@ class MainAppBar extends PreferredSize {
                       iconName: 'back.svg'),
                   AppBarButton(
                       onTap: () {
-                        Navigator.pushNamed(context, RouteNames.authPinEnter);
+                        RepositoryProvider.of<WalletRepository>(context)
+                            .pinCreated
+                            .then((value) {
+                          Navigator.pushNamed(
+                              context,
+                              value
+                                  ? RouteNames.authPinEnter
+                                  : RouteNames.authPinCreate,
+                              arguments: {
+                                'confirmation': () {
+                                  Navigator.pushReplacementNamed(
+                                      context, RouteNames.landsUserList);
+                                }
+                              });
+                        });
                       },
                       iconName: 'wallet.svg'),
                 ]),
@@ -95,7 +110,21 @@ class MainAppBar extends PreferredSize {
                       iconName: 'logout.svg'),
                   AppBarButton(
                       onTap: () {
-                        Navigator.pushNamed(context, RouteNames.authPinEnter);
+                        RepositoryProvider.of<WalletRepository>(context)
+                            .pinCreated
+                            .then((value) {
+                          Navigator.pushNamed(
+                              context,
+                              value
+                                  ? RouteNames.authPinEnter
+                                  : RouteNames.authPinCreate,
+                              arguments: {
+                                'confirmation': () {
+                                  Navigator.pushReplacementNamed(
+                                      context, RouteNames.landsUserList);
+                                }
+                              });
+                        });
                       },
                       iconName: 'wallet.svg'),
                 ]),

@@ -188,7 +188,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Росреестор',
+      title: 'Вселенная Большого Росреестра',
       theme: ThemeData(
         fontFamily: 'Nunito',
       ),
