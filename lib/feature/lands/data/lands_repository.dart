@@ -63,6 +63,7 @@ class LandsRepository {
     try {
       final response = (await apiService.land.getFreeLands())['lands'];
       freeLandsList.clear();
+      availableClustersNames.clear();
       for (var json in response) {
         freeLandsList.add(LandModel.fromJson(json));
         try {

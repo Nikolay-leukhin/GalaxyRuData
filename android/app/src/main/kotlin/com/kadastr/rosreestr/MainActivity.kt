@@ -1,5 +1,5 @@
-package com.rosreestr.kadastr
-//package com.kadastr.rosreestr
+//package com.rosreestr.kadastr
+package com.kadastr.rosreestr
 
 import io.flutter.embedding.android.FlutterActivity
 

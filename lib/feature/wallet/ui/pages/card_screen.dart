@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
+import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -17,7 +19,6 @@ class WalletCreateScreen extends StatefulWidget {
 class _WalletCreateScreenState extends State<WalletCreateScreen> {
   @override
   void initState() {
-   
     super.initState();
   }
 
@@ -74,7 +75,17 @@ class _WalletCreateScreenState extends State<WalletCreateScreen> {
                           .read<WalletRepository>()
                           .createWallet()
                           .then((value) => Navigator.pushNamed(
-                              context, RouteNames.authPinCreate));
+                                  context, RouteNames.authPinCreate,
+                                  arguments: {
+                                    'confirmation': () {
+                                      Navigator.pushNamed(context,
+                                          RouteNames.walletCardCreated);
+                                      RepositoryProvider.of<AuthRepository>(
+                                              context)
+                                          .appState
+                                          .add(AppStateEnum.auth);
+                                    }
+                                  }));
                     },
                     width: double.infinity),
                 const SizedBox(

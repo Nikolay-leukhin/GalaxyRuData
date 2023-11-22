@@ -15,11 +15,13 @@ class PinCodeCubit extends Cubit<PinCodeState> {
       String pinCode, String repeatedPinCode) async {
     if (pinCode == repeatedPinCode) {
       emit(PinCodeRepeatSuccess());
-      await authRepository.savePinCode();
+      // await authRepository.savePinCode();
     } else {
       emit(PinCodeRepeatFailure());
     }
   }
+
+  Future savePin (List<int> pin) => authRepository.savePinCode(pin);
 
   Future<void> checkUserPinCode(String currentPinCode) async {
     final chachedPin = await authRepository.prefs.getPinCode();
