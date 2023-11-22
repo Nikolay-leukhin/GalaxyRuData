@@ -25,6 +25,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
   @override
   Widget build(BuildContext context) {
     final repository = RepositoryProvider.of<LandsRepository>(context);
+    final size = MediaQuery.sizeOf(context);
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -50,7 +51,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 40),
                       child: Text(
-                        "Нажмите на планету,\nчто бы выбрать район",
+                        "Нажмите на планету,\nчтобы выбрать район",
                         textAlign: TextAlign.center,
 
                         style:
@@ -93,6 +94,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                                 barrierColor: Colors.transparent,
                                 context: context,
                                 builder: (context) => Container(
+                                    height: size.height * 0.53,
                                     padding: const EdgeInsets.symmetric(
                                             vertical: 0, horizontal: 24)
                                         .copyWith(bottom: 0),
