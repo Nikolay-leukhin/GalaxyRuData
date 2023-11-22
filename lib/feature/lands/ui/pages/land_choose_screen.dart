@@ -35,7 +35,7 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
       onWillPop: () async => false,
       child: MainScaffold(
           appBar: MainAppBar.backWallet(context),
-          body: Container(
+          body: SizedBox(
             width: sizeOf.width,
             height: sizeOf.height,
             child: Stack(

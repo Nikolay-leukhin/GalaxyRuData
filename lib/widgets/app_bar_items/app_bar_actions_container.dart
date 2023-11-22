@@ -32,7 +32,7 @@ class AppBarActions extends StatelessWidget {
               topRight: radius, topLeft: radius, bottomRight: radius)),
       height: maxHeight,
       padding: EdgeInsets.symmetric(
-          horizontal: maxHeight / 2.5, vertical: maxHeight / 4.2),
+          horizontal: maxHeight / 2.4, vertical: maxHeight / 4),
       child: Row(mainAxisSize: MainAxisSize.min, children: children),
     );
   }

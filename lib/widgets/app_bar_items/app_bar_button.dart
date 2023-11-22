@@ -19,13 +19,10 @@ class AppBarButton extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      child: Ink(
-        padding: const EdgeInsets.all(4),
-        child: SvgPicture.asset(
-          'assets/icons/$iconName',
-          width: maxHeight / 1.87,
-          height: maxHeight / 1.87,
-        ),
+      child: SvgPicture.asset(
+        'assets/icons/$iconName',
+        width: maxHeight / 1.87,
+        height: maxHeight / 1.87,
       ),
     );
   }
