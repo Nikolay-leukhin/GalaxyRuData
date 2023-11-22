@@ -16,6 +16,12 @@ class WalletCreateScreen extends StatefulWidget {
 
 class _WalletCreateScreenState extends State<WalletCreateScreen> {
   @override
+  void initState() {
+   
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 

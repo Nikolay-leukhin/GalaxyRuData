@@ -73,7 +73,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                   Positioned(
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(left: 32, top: 21, bottom: 21),
+                          const EdgeInsets.only(left: 28, top: 21, bottom: 21),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: List.generate(

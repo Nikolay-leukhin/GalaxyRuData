@@ -18,7 +18,7 @@ class SeedPhraseWordWidget extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.center,
-            width: 20,
+            width: 28,
             child: Text(
               "$index. ",
               style: AppTypography.font16w400.copyWith(color: Colors.white),

@@ -39,19 +39,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void processTimerStart() async {
-    while (currentRemainingTime > 1) {
-      if (mounted) {
-        currentRemainingTime -= 1;
-
-        setState(() {});
-        await Future.delayed(const Duration(seconds: 1));
-      }
-    }
-
-    if (currentRemainingTime == 1 && mounted) {
-      currentRemainingTime -= 1;
-
-      setState(() {});
+    while (currentRemainingTime > 0) {
+      await Future.delayed(const Duration(seconds: 1), () {
+        if (mounted) {
+          setState(() {
+            currentRemainingTime -= 1;
+          });
+        }
+      });
     }
   }
 
@@ -90,25 +85,25 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthFailState) {
-          Dialogs.hide(context);
-          Dialogs.showModal(
-              context,
-              CustomPopup(
-                label: "Некорректный код, пожалуйста, попробуйте еще раз",
-                onTap: () {
-                  Dialogs.hide(context);
-                },
-              ));
+          // Dialogs.hide(context);
+          // Dialogs.showModal(
+          //     context,
+          //     CustomPopup(
+          //       label: "Некорректный код, пожалуйста, попробуйте еще раз",
+          //       onTap: () {
+          //         Dialogs.hide(context);
+          //       },
+          //     ));
         } else if (state is AuthSuccessState) {
-          Dialogs.hide(context);
+          // Dialogs.hide(context);
 
           // Navigator.pushNamed(context, RouteNames.walletCard);
         } else if (state is AuthLoadingState) {
-          Dialogs.showModal(
-              context,
-              const Center(
-                child: CircularProgressIndicator.adaptive(),
-              ));
+          // Dialogs.showModal(
+          //     context,
+          //     const Center(
+          //       child: CircularProgressIndicator.adaptive(),
+          //     ));
         }
       },
       child: GestureDetector(

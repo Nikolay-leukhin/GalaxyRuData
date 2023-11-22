@@ -32,6 +32,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
         decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
+                filterQuality: FilterQuality.low,
                 image: AssetImage("assets/images/galaxy.jpg"))),
         child: SafeArea(
           child: Scaffold(
@@ -144,16 +145,20 @@ class ClusterWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: AppColors.darkBlue3,
+          gradient: AppGradients.space,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              name,
-              style: AppTypography.font16w600.copyWith(color: Colors.white),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width - 105,
+              child: Text(
+                name,
+                overflow: TextOverflow.ellipsis,
+                style: AppTypography.font16w600.copyWith(color: Colors.white),
+              ),
             ),
             InkWell(
               onTap: () {},
