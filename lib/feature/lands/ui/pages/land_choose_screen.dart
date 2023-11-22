@@ -52,54 +52,79 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                 Positioned(
                   bottom: 0,
                   top: sizeOf.height * 0.4,
-                  child: Stack(children: [
-                    SvgPicture.asset(
-                      'assets/icons/bottom_bcg.svg',
-                      width: sizeOf.width,
-                      height: sizeOf.width,
-                      fit: BoxFit.fill,
+                  child: Stack(alignment: Alignment.bottomCenter, children: [
+                    Positioned(
+                      bottom: 0,
+                      top: 0,
+                      child: SvgPicture.asset(
+                        'assets/icons/bottom_bcg.svg',
+                        width: sizeOf.width,
+                        height: sizeOf.width,
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                    Container(
-                      width: sizeOf.width,
-                      height: sizeOf.height,
-                      padding: const EdgeInsets.symmetric(horizontal: 43),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            clusters[clusterType]!.name.toUpperCase(),
-                            style: AppTypography.font20w600,
-                          ),
-                          Text(
-                            clusters[clusterType]!.description,
-                            style: AppTypography.font12w400,
-                            textAlign: TextAlign.center,
-                          ),
-                          CustomButton(
-                              content: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: FittedBox(
-                                    child: Text(
-                                  'Забронировать жилье'.toUpperCase(),
-                                  style: AppTypography.font16w600,
-                                )),
-                              ),
-                              onTap: () {
-                                context
-                                    .read<LandsRepository>()
-                                    .connectRandomFromClusterLandToCurrentCode(clusterType)
-                                    .then((value) =>
-                                        RepositoryProvider.of<AuthRepository>(
-                                                context)
-                                            .appState
-                                            .add(AppStateEnum.auth)).then((value) => null);
-                                Future.delayed(const Duration(milliseconds: 500)).then((value) =>  Navigator.popUntil(context,
-                                    ModalRoute.withName(RouteNames.root)));
-
-                              },
-                              width: double.infinity)
-                        ],
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: sizeOf.width,
+                        height: sizeOf.height,
+                        padding: const EdgeInsets.symmetric(horizontal: 43),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Spacer(
+                              flex: 2,
+                            ),
+                            Text(
+                              clusters[clusterType]!.name.toUpperCase(),
+                              style: AppTypography.font20w600,
+                              textAlign: TextAlign.center,
+                            ),
+                            Spacer(
+                              flex: 1,
+                            ),
+                            Text(
+                              clusters[clusterType]!.description,
+                              style: AppTypography.font12w400,
+                              textAlign: TextAlign.center,
+                            ),
+                            Spacer(
+                              flex: 2,
+                            ),
+                            CustomButton(
+                                content: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: FittedBox(
+                                      child: Text(
+                                    'Забронировать жилье'.toUpperCase(),
+                                    style: AppTypography.font16w600,
+                                  )),
+                                ),
+                                onTap: () {
+                                  context
+                                      .read<LandsRepository>()
+                                      .connectRandomFromClusterLandToCurrentCode(
+                                          clusterType)
+                                      .then((value) =>
+                                          RepositoryProvider.of<AuthRepository>(
+                                                  context)
+                                              .appState
+                                              .add(AppStateEnum.auth))
+                                      .then((value) => null);
+                                  Future.delayed(
+                                          const Duration(milliseconds: 500))
+                                      .then((value) => Navigator.popUntil(
+                                          context,
+                                          ModalRoute.withName(
+                                              RouteNames.root)));
+                                },
+                                width: double.infinity),
+                            Spacer(
+                              flex: 2,
+                            )
+                          ],
+                        ),
                       ),
                     )
                   ]),

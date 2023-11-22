@@ -145,8 +145,8 @@ class WalletEnterSeedPhraseScreenState
                                 final copyData =
                                     await Clipboard.getData('text/plain');
                                 setState(() {
-                                  controller.text =
-                                      copyData?.text?.toLowerCase() ?? "";
+                                  controller.text = controller.text +
+                                      (copyData?.text?.toLowerCase() ?? "");
                                 });
                                 checkFieldWordsCount(controller.text);
                               },
