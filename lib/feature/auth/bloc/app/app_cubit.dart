@@ -31,12 +31,27 @@ class AppCubit extends Cubit<AppState> {
 
     if (walletCreated) {
       await _walletRepository.getWalletInstance();
-      _handleCode();
+      _checkWalletStateAndHandleCode();
 
     } else {
       emit(AppAuthState(state: StatesEnum.createWalletScreen));
     }
   }
+
+  void _checkWalletStateAndHandleCode() async {
+    final walletState = await _authRepository.walletState();
+
+    if (walletState != null) {
+      if (walletState == WalletCreationState.created) {
+        emit(AppAuthState(state: StatesEnum.walletCreatedScreen));
+      } else if (walletState == WalletCreationState.watchSeed) {
+        emit(AppAuthState(state: StatesEnum.seedPhraseScreen));
+      } else {
+        _handleCode();
+      }
+    }
+  }
+
 
   void _handleCode() async {
     final currentCode = await _authRepository.currentInviteCode();

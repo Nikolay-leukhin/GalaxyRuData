@@ -73,10 +73,6 @@ class AuthRepository {
     appState.add(AppStateEnum.auth);
   }
 
-  Future<String?> getPinCode() async {
-    return await prefs.getPinCode();
-  }
-
   Future<void> sendEmailCode(String email) async {
     await apiService.auth.sendCode(email);
   }
@@ -91,6 +87,8 @@ class AuthRepository {
     }
     return null;
   }
+
+  Future<WalletCreationState?> walletState() => prefs.getWalletState(currentEmail!);
 }
 
 class InviteCode {
