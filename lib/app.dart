@@ -17,10 +17,13 @@ import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/card_screen.dart';
+import 'package:galaxy_rudata/feature/wallet/ui/pages/seed_phrase/seed_phrase_screen.dart';
+import 'package:galaxy_rudata/feature/wallet/ui/pages/wallet_created_screen.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:just_audio/just_audio.dart';
 
 final PreferencesService prefs = PreferencesService();
@@ -228,6 +231,10 @@ class _AppStateWidgetState extends State<AppStateWidget> {
                 return const WalletCreateScreen();
               } else if (state.state == StatesEnum.landChoseScreen) {
                 return const ArPlanetViewScreen();
+              } else if (state.state == StatesEnum.seedPhraseScreen) {
+                return const WalletSeedPhraseScreen(withContinueButton: true);
+              } else if (state.state == StatesEnum.walletCreatedScreen) {
+                return const WalletCreatedScreen();
               } else {
                 // == questsScreen
                 return const QuestsScreen();

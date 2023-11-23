@@ -1,5 +1,6 @@
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_ffi.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart';
 
@@ -45,6 +46,9 @@ class WalletRepository {
 
     await prefs.setSeedPhrase(
         seedPhrase: wallet.mnemonic(), email: (await prefs.getEmail())!);
+
+    await prefs.setWalletState(
+        WalletCreationState.confirmed, (await prefs.getEmail())!);
   }
 
   Future<void> createWallet() async {
@@ -54,7 +58,13 @@ class WalletRepository {
 
     await prefs.setSeedPhrase(
         seedPhrase: wallet.mnemonic(), email: (await prefs.getEmail())!);
+
+    await prefs.setWalletState(
+        WalletCreationState.created, (await prefs.getEmail())!);
   }
+
+  Future setWalletSeedWatchState() async => prefs.setWalletState(
+      WalletCreationState.watchSeed, (await prefs.getEmail())!);
 
   Future<void> updateWalletAddress() async {
     await apiService.wallet.updateWalletAddress(

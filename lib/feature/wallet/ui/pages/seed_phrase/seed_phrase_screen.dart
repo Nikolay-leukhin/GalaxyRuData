@@ -37,7 +37,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
         context.read<WalletRepository>().wallet.mnemonic().split(" ");
 
     return MainScaffold(
-      appBar: MainAppBar.back(context),
+      // appBar: MainAppBar.back(context),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
