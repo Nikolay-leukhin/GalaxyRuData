@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
@@ -8,10 +9,14 @@ import 'package:galaxy_rudata/utils/utils.dart';
 class AuthRepository {
   final ApiService apiService;
   final PreferencesService prefs;
+  final WalletRepository walletRepository;
 
   String? currentEmail;
 
-  AuthRepository({required this.apiService, required this.prefs}) {
+  AuthRepository(
+      {required this.apiService,
+      required this.prefs,
+      required this.walletRepository}) {
     checkUserAuth();
     apiService.apiExceptions.stream.listen((event) {
       print(event);
@@ -44,8 +49,10 @@ class AuthRepository {
     authState.add(LoadingStateEnum.loading);
     try {
       await apiService.auth.verifyCode(email, code);
-      prefs.setEmail(email);
+      await prefs.setEmail(email);
       currentEmail = email;
+
+      print(await prefs.getSeedPhrase());
 
       authState.add(LoadingStateEnum.success);
       appState.add(AppStateEnum.auth);
@@ -61,10 +68,6 @@ class AuthRepository {
     appState.add(AppStateEnum.unAuth);
   }
 
-  // Future<void> savePinCode() async {
-  //   await prefs.setPinCode(typedUserPinCode.join(""));
-  //   appState.add(AppStateEnum.auth);
-  // }
   Future<void> savePinCode(List<int> pin) async {
     await prefs.setPinCode(pin.join(""));
     appState.add(AppStateEnum.auth);
