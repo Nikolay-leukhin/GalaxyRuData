@@ -106,7 +106,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                                   ClipboardData(text: seedPhrase.join(" ")));
                               
                               ScaffoldMessenger.of(context)
-                                  .showSnackBar(AppSnackBar.successSnackBar);
+                                  .showSnackBar(AppSnackBar.successCopyWallet);
                             },
                             child: Container(
                                 alignment: Alignment.center,
