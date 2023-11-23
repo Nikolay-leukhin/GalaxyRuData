@@ -5,6 +5,7 @@ import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
+import 'package:galaxy_rudata/feature/lands/bloc/connect_land/connect_land_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/user_lands/lands_user_cubit.dart';
@@ -30,7 +31,7 @@ final PreferencesService prefs = PreferencesService();
 final ApiService apiService = ApiService(preferencesService: prefs);
 
 class MyRepositoryProvider extends StatelessWidget {
-   MyRepositoryProvider({Key? key}) : super(key: key);
+  MyRepositoryProvider({Key? key}) : super(key: key);
 
   WalletRepository walletRepository =
       WalletRepository(apiService: apiService, prefs: prefs);
@@ -40,7 +41,10 @@ class MyRepositoryProvider extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (_) => AuthRepository(apiService: apiService, prefs: prefs, walletRepository: walletRepository),
+          create: (_) => AuthRepository(
+              apiService: apiService,
+              prefs: prefs,
+              walletRepository: walletRepository),
           lazy: false,
         ),
         RepositoryProvider(
@@ -100,6 +104,13 @@ class MyBlocProviders extends StatelessWidget {
         ),
         BlocProvider<LandsUserCubit>(
           create: (_) => LandsUserCubit(context.read<LandsRepository>()),
+          lazy: false,
+        ),
+        BlocProvider<ConnectLandCubit>(
+          create: (_) => ConnectLandCubit(
+            authRepository: RepositoryProvider.of<AuthRepository>(context),
+            landsRepository: RepositoryProvider.of<LandsRepository>(context),
+          ),
           lazy: false,
         ),
       ],
@@ -220,9 +231,7 @@ class _AppStateWidgetState extends State<AppStateWidget> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: BlocConsumer<AppCubit, AppState>(
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             if (state is AppAuthState) {
               if (state.state == StatesEnum.lockScreen) {
