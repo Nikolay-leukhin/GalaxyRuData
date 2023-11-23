@@ -118,7 +118,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                                       ),
                                     )),
                               ),
-                          width: 100, height: 100,)),
+                          width: size.width * 0.8, height:size.width * 0.8,)),
                 ),
 
               ],

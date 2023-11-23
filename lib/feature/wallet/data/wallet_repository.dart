@@ -26,6 +26,7 @@ class WalletRepository {
     print('1--------------');
     print(seedStorage);
     print(email);
+    print(seedStorage?[email]);
     return seedStorage?[email] != null;
   }
 

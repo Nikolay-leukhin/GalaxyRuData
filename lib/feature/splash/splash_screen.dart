@@ -57,31 +57,13 @@ class _SplashScreenState extends State<SplashScreen>
               Container(),
               Column(
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ScaleTransition(
-                        scale: _animation,
-                        child: Image.asset(
-                          "assets/images/gerb.png",
-                          fit: BoxFit.contain,
-                          width: 70,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 50,
-                      ),
-                      ScaleTransition(
-                        scale: _animation,
-                        child: Image.asset(
-                          "assets/images/roscad_log.png",
-                          fit: BoxFit.contain,
-                          width: 70,
-                        ),
-                      ),
-                    ],
+                  ScaleTransition(
+                    scale: _animation,
+                    child: Image.asset(
+                      "assets/images/group.png",
+                      fit: BoxFit.contain,
+                      width: size.width * 0.5,
+                    ),
                   ),
                   const SizedBox(
                     height: 28,
@@ -97,9 +79,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ScaleTransition(
                     scale: _animation,
                     child: Container(
-                      constraints: const BoxConstraints(
-                        maxWidth: 500
-                      ),
+                      constraints: const BoxConstraints(maxWidth: 500),
                       child: Image.asset(
                         "assets/images/planet.png",
                         fit: BoxFit.contain,
