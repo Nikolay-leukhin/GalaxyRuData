@@ -20,7 +20,7 @@ class LandChooseScreen extends StatefulWidget {
 class _LandChooseScreenState extends State<LandChooseScreen> {
   @override
   void initState() {
-    context.read<LandsRepository>().loadFreeLands();
+    // context.read<LandsRepository>().loadFreeLands();
     super.initState();
   }
 
@@ -43,9 +43,9 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                 Container(
                   width: sizeOf.width * 4,
                   height: sizeOf.width * 1.1,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                       image: DecorationImage(
-                    image: AssetImage('assets/images/klaster.png'),
+                    image: AssetImage(clusters[clusterType]!.asset),
                     fit: BoxFit.fitWidth,
                   )),
                 ),
@@ -109,8 +109,7 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                                       .then((value) =>
                                           RepositoryProvider.of<AuthRepository>(
                                                   context)
-                                              .appState
-                                              .add(AppStateEnum.auth))
+                                              .refreshAuthState())
                                       .then((value) => null);
                                   Future.delayed(
                                           const Duration(milliseconds: 500))

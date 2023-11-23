@@ -67,6 +67,9 @@ class WalletRepository {
   Future setWalletSeedWatchState() async => prefs.setWalletState(
       WalletCreationState.watchSeed, (await prefs.getEmail())!);
 
+  Future setWalletConfirmState() async => prefs.setWalletState(
+      WalletCreationState.confirmed, (await prefs.getEmail())!);
+
   Future<void> updateWalletAddress() async {
     await apiService.wallet.updateWalletAddress(
         wallet.getAddressForCoin(TWCoinType.TWCoinTypePolygon));

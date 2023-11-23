@@ -29,7 +29,7 @@ class PinCodeCubit extends Cubit<PinCodeState> {
     if (chachedPin != currentPinCode) {
       emit(PinCodeEnterFailure());
     } else {
-      authRepository.appState.add(AppStateEnum.auth);
+      authRepository.refreshAuthState();
       emit(PinCodeEnterSuccess());
     }
   }

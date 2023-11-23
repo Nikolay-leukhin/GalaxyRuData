@@ -61,4 +61,5 @@ flutter:
     - assets/images/
     - assets/musics/
     - assets/images/lock/
+    - assets/images/clusters/
     - .env

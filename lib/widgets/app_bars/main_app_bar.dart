@@ -74,7 +74,7 @@ class MainAppBar extends PreferredSize {
                                   : RouteNames.authPinCreate,
                               arguments: {
                                 'confirmation': () {
-                                  Navigator.pushNamed(
+                                  Navigator.pushReplacementNamed(
                                       context, RouteNames.landsUserList);
                                 }
                               });
@@ -121,7 +121,7 @@ class MainAppBar extends PreferredSize {
                                   : RouteNames.authPinCreate,
                               arguments: {
                                 'confirmation': () {
-                                  Navigator.pushNamed(
+                                  Navigator.pushReplacementNamed(
                                       context, RouteNames.landsUserList);
                                 }
                               });

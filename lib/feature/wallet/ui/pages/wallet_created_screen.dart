@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -82,6 +83,8 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
                         style: AppTypography.font16w600,
                       ),
                       onTap: () {
+                        RepositoryProvider.of<WalletRepository>(context).setWalletConfirmState();
+                        RepositoryProvider.of<AuthRepository>(context).refreshAuthState();
                         Navigator.popUntil(
                             context, ModalRoute.withName(RouteNames.root));
                       },
