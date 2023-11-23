@@ -90,13 +90,14 @@ class _SplashScreenState extends State<SplashScreen>
                 ],
               ),
               Container(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    "assets/images/water_ball.png",
-                    width: 205,
-                    fit: BoxFit.fitWidth,
-                  ))
+                padding: const EdgeInsets.only(bottom: 20),
+                alignment: Alignment.center,
+                child: Image.asset(
+                  'assets/gifts/govnoi1-2.gif',
+                  width: 70,
+                  height: 70,
+                ),
+              )
             ],
           ),
         ),

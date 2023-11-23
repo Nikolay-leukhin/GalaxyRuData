@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -18,7 +20,7 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
     final size = MediaQuery.sizeOf(context);
 
     return WillPopScope(
-      onWillPop: () =>  Future.value(false),
+      onWillPop: () => Future.value(false),
       child: MainScaffold(
         appBar: MainAppBar.logout(context),
         body: Padding(
@@ -60,11 +62,15 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
                 children: [
                   CustomButton(
                       content: Text(
+
                         'Посмотреть сид-фразу'.toUpperCase(),
                         style: AppTypography.font16w600,
                       ),
                       onTap: () {
-                        Navigator.pushNamed(context, RouteNames.walletSeedPhrase);
+                        RepositoryProvider.of<WalletRepository>(context)
+                            .setWalletSeedWatchState();
+                        Navigator.pushNamed(
+                            context, RouteNames.walletSeedPhrase);
                       },
                       width: double.infinity),
                   const SizedBox(
@@ -76,7 +82,8 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
                         style: AppTypography.font16w600,
                       ),
                       onTap: () {
-                        Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
+                        Navigator.popUntil(
+                            context, ModalRoute.withName(RouteNames.root));
                       },
                       width: double.infinity),
                 ],

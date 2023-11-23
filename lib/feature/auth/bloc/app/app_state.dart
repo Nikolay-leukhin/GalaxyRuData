@@ -1,7 +1,5 @@
 part of 'app_cubit.dart';
 
-enum StatesEnum { createWalletScreen, lockScreen, landChoseScreen, questsScreen }
-
 @immutable
 abstract class AppState {}
 

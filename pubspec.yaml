@@ -57,6 +57,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/gifts/
     - assets/images/
     - assets/musics/
     - assets/images/lock/

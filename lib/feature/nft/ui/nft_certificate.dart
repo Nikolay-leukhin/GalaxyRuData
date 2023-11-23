@@ -79,7 +79,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                                 : RouteNames.authPinCreate,
                             arguments: {
                               'confirmation': () {
-                                Navigator.pushReplacementNamed(
+                                Navigator.pushNamed(
                                     context, RouteNames.landsUserList);
                               }
                             });
