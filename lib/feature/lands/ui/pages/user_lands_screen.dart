@@ -43,8 +43,8 @@ class _UserLandsScreenState extends State<UserLandsScreen> {
                   if (landsList.isEmpty) {
                     return Center(
                       child: Text(
-                        "В вашем кошельке пока нет NFT.",
-                        style: AppTypography.font24w700
+                        "В вашем кошельке пока нет NFT",
+                        style: AppTypography.font16w700
                             .copyWith(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),  

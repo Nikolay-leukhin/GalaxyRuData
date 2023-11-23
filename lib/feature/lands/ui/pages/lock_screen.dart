@@ -89,6 +89,7 @@ class _LockScreenState extends State<LockScreen> {
       child: WillPopScope(
         onWillPop: () => Future.value(false),
         child: MainScaffold(
+          bottomResize: true,
           isBottomImage: true,
           appBar: MainAppBar.logoutWallet(
             context,

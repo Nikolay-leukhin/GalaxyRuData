@@ -7,12 +7,14 @@ class MainScaffold extends StatelessWidget {
       this.isBottomImage = false,
       required this.body,
       this.appBar,
+        this.bottomResize = false,
       this.floatingActionButton});
 
   final bool isBottomImage;
   final Widget body;
   final Widget? floatingActionButton;
   final PreferredSizeWidget? appBar;
+  final bool bottomResize;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class MainScaffold extends StatelessWidget {
                 : Container(),
             SafeArea(
               child: Scaffold(
-                resizeToAvoidBottomInset: false,
+                resizeToAvoidBottomInset: bottomResize,
                 backgroundColor: Colors.transparent,
                 appBar: appBar,
                 body: body,

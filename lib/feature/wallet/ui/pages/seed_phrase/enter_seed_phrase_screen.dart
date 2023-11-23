@@ -66,8 +66,9 @@ class WalletEnterSeedPhraseScreenState
                       Navigator.pushNamed(context, RouteNames.authPinCreate,
                           arguments: {
                             'confirmation': () {
-                              Navigator.pushNamed(
-                                  context, RouteNames.walletCardCreated);
+                              // Navigator.pushNamed(
+                              //     context, RouteNames.walletCardCreated);
+                              Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
                               RepositoryProvider.of<AuthRepository>(context)
                                   .appState
                                   .add(AppStateEnum.auth);
