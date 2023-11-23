@@ -19,17 +19,23 @@ class WalletRepository {
   Future<bool> walletPinCode() async => await prefs.getPinCode() != null;
 
   Future<bool> checkWalletAuth() async {
-    final cachedSeed = await prefs.getSeedPhrase();
+    final seedStorage = await prefs.getSeedPhrase();
+    final email = await prefs.getEmail();
+
     print('1--------------');
-    print(cachedSeed);
-    return cachedSeed != null;
+    print(seedStorage);
+    print(email);
+    return seedStorage?[email] != null;
   }
 
   Future<void> getWalletInstance() async {
-    final cachedSeed = await prefs.getSeedPhrase();
+    final seedStorage = await prefs.getSeedPhrase();
+    final currentEmail = await prefs.getEmail();
+    final currentAccountSeed = seedStorage![currentEmail];
+
     print('2--------------');
-    print(cachedSeed);
-    wallet = HDWallet.createWithMnemonic(cachedSeed!);
+    print(seedStorage);
+    wallet = HDWallet.createWithMnemonic(currentAccountSeed!);
   }
 
   Future<void> enterWalletBySeedPhrase(String seedPhrase) async {
@@ -37,7 +43,8 @@ class WalletRepository {
 
     await updateWalletAddress();
 
-    await prefs.setSeedPhrase(wallet.mnemonic());
+    await prefs.setSeedPhrase(
+        seedPhrase: wallet.mnemonic(), email: (await prefs.getEmail())!);
   }
 
   Future<void> createWallet() async {
@@ -45,7 +52,8 @@ class WalletRepository {
 
     await updateWalletAddress();
 
-    await prefs.setSeedPhrase(wallet.mnemonic());
+    await prefs.setSeedPhrase(
+        seedPhrase: wallet.mnemonic(), email: (await prefs.getEmail())!);
   }
 
   Future<void> updateWalletAddress() async {

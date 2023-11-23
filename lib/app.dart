@@ -27,14 +27,17 @@ final PreferencesService prefs = PreferencesService();
 final ApiService apiService = ApiService(preferencesService: prefs);
 
 class MyRepositoryProvider extends StatelessWidget {
-  const MyRepositoryProvider({Key? key}) : super(key: key);
+   MyRepositoryProvider({Key? key}) : super(key: key);
+
+  WalletRepository walletRepository =
+      WalletRepository(apiService: apiService, prefs: prefs);
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-          create: (_) => AuthRepository(apiService: apiService, prefs: prefs),
+          create: (_) => AuthRepository(apiService: apiService, prefs: prefs, walletRepository: walletRepository),
           lazy: false,
         ),
         RepositoryProvider(
@@ -42,7 +45,7 @@ class MyRepositoryProvider extends StatelessWidget {
           lazy: false,
         ),
         RepositoryProvider(
-          create: (_) => WalletRepository(apiService: apiService, prefs: prefs),
+          create: (_) => walletRepository,
           lazy: false,
         ),
       ],
@@ -102,14 +105,14 @@ class MyBlocProviders extends StatelessWidget {
   }
 }
 
-class MyApp extends StatefulWidget{
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late AudioPlayer player;
 
   @override
@@ -207,7 +210,6 @@ class AppStateWidget extends StatefulWidget {
 }
 
 class _AppStateWidgetState extends State<AppStateWidget> {
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

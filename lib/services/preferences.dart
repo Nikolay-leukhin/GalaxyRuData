@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:galaxy_rudata/services/api/service/models/token_model.dart';
 
@@ -37,14 +38,27 @@ class PreferencesService {
     return prefs.getString(_pinCodeKey);
   }
 
-  Future<void> setSeedPhrase(String seedPhrase) async {
+  Future<void> setSeedPhrase(
+      {required String seedPhrase, required String email}) async {
     final prefs = await _prefs;
-    await prefs.setString(_seedPhraseKey, seedPhrase);
+
+    Map<String, dynamic> seedStorage = await getSeedPhrase() ?? {};
+    seedStorage[email] = seedPhrase;
+
+    String encodedSeed = jsonEncode(seedStorage);
+
+    await prefs.setString(_seedPhraseKey, encodedSeed);
   }
 
-  Future<String?> getSeedPhrase() async {
+  Future<Map<String, dynamic>?> getSeedPhrase() async {
     final prefs = await _prefs;
-    return prefs.getString(_seedPhraseKey);
+    final String? encodedSeedStorage = prefs.getString(_seedPhraseKey);
+    if (encodedSeedStorage == null) {
+      return null;
+    }
+
+    Map<String, dynamic> seedStorage = jsonDecode(encodedSeedStorage);
+    return seedStorage;
   }
 
   Future<void> setEmail(String email) async {
@@ -61,20 +75,31 @@ class PreferencesService {
     final prefs = await _prefs;
     prefs.setString(_inviteCodeKey, code);
   }
+
   Future<String?> getInviteCode() async {
     final prefs = await _prefs;
     final code = prefs.getString(_inviteCodeKey);
     return code;
   }
+
   Future<void> setPlaceId(String code) async {
     final prefs = await _prefs;
     prefs.setString(_placeIdKey, code);
   }
+
   Future<String?> getPlaceId() async {
     final prefs = await _prefs;
     final code = prefs.getString(_inviteCodeKey);
     return code;
   }
 
-  Future logout() async => _prefs.then((value) => value.clear());
+  Future logout() async {
+    final prefs = await _prefs;
+
+    await prefs.remove(_emailKey);
+    await prefs.remove(_pinCodeKey);
+    await prefs.remove(_inviteCodeKey);
+    await prefs.remove(_placeIdKey);
+    await prefs.remove(_tokenKey);
+  }
 }
