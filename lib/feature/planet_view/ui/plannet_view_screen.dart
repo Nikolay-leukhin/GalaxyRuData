@@ -66,6 +66,8 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                     constraints: const BoxConstraints(maxWidth: 500),
                     alignment: Alignment.center,
                     child: ModelViewer(
+                      interactionPrompt: InteractionPrompt.none,
+                      interactionPromptThreshold: 0,
                       loading: Loading.eager,
                       touchAction: TouchAction.none,
                       onWebViewCreated: (controller) {},
