@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/utils/validators.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -84,12 +83,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthFailState) {
+         if (state is AuthFailState) {
           Dialogs.hide(context);
           Dialogs.showModal(
               context,
               CustomPopup(
-                label: "Некорректный код, пожалуйста, попробуйте еще раз",
+                label: "Неверный код",
                 onTap: () {
                   Dialogs.hide(context);
                 },
@@ -115,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   filterQuality: FilterQuality.low,
-                  image: AssetImage("assets/images/auth_background.png"))),
+                  image: AssetImage("assets/images/bg.png"))),
           child: SafeArea(
             child: Scaffold(
               backgroundColor: Colors.transparent,
@@ -293,4 +292,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

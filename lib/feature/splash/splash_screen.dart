@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
-import 'package:trust_wallet_core_lib/protobuf/EOS.pb.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

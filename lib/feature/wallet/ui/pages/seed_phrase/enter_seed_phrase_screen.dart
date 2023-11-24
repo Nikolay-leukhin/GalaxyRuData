@@ -51,7 +51,7 @@ class WalletEnterSeedPhraseScreenState
               context: context,
               builder: (context) => CustomPopup(
                     label:
-                        "Такой кошелек не найден в сети Polygon. Попробуйте еще раз.",
+                        state.errorText,
                     onTap: () {
                       Navigator.of(context).pop();
                     },

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -44,26 +46,23 @@ class WalletRepository {
 
   Future<void> enterWalletBySeedPhrase(String seedPhrase) async {
     wallet = HDWallet.createWithMnemonic(seedPhrase);
+  }
 
+  Future<void> createWallet() async {
+    wallet = HDWallet();
+    log('try to create wallet');
+    print(10000);
     await updateWalletAddress();
 
+    cacheWalletSeed();
+  }
+
+  Future cacheWalletSeed() async {
     await prefs.setSeedPhrase(
         seedPhrase: wallet.mnemonic(), email: (await prefs.getEmail())!);
 
     await prefs.setWalletState(
         WalletCreationState.confirmed, (await prefs.getEmail())!);
-  }
-
-  Future<void> createWallet() async {
-    wallet = HDWallet();
-
-    await updateWalletAddress();
-
-    await prefs.setSeedPhrase(
-        seedPhrase: wallet.mnemonic(), email: (await prefs.getEmail())!);
-
-    await prefs.setWalletState(
-        WalletCreationState.created, (await prefs.getEmail())!);
   }
 
   Future setWalletSeedWatchState() async => prefs.setWalletState(

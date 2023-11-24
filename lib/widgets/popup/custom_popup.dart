@@ -39,7 +39,7 @@ class CustomPopup extends StatelessWidget {
                 height: 32,
               ),
               CustomButton(
-                  content: Text("Подтвердить".toUpperCase(),
+                  content: Text("OK".toUpperCase(),
                       style: AppTypography.font16w600
                           .copyWith(color: Colors.white)),
                   onTap: () {

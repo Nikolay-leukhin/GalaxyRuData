@@ -14,11 +14,23 @@ class EnterSeedCubit extends Cubit<EnterSeedState> {
 
     try {
       await walletRepository.enterWalletBySeedPhrase(seedPhrase);
-      emit(EnterSeedSuccess());
     } catch (e, st) {
       print(e);
       print(st);
-      emit(EnterSeedFailure());
+      emit(EnterSeedFailure(
+          errorText:
+              "Такой кошелек не найден в сети Polygon. Попробуйте еще раз."));
+      return;
+    }
+
+    try {
+      await walletRepository.updateWalletAddress();
+      await walletRepository.cacheWalletSeed();
+      emit(EnterSeedSuccess());
+    } catch (ex) {
+      emit(EnterSeedFailure(
+          errorText:
+              "Извините, данный кошелек уже привязан к другому аккаунту"));
     }
   }
 }
