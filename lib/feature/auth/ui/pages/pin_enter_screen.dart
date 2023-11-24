@@ -56,7 +56,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
               context: context,
               builder: (context) {
                 return CustomPopup(
-                    label: "Пин-код неверный!\nПопробуйте еще раз 🥲",
+                    label: "Некорректный пин-код, пожайлуста, попробуйте еще раз",
                     onTap: () {
                       pinCode.clear();
                       setState(() {});

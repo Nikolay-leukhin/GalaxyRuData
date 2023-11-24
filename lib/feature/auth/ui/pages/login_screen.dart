@@ -83,22 +83,26 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthFailState) {
-          // Dialogs.showModal(
-          //     context,
-          //     CustomPopup(
-          //       label: "Некорректный код, пожалуйста, попробуйте еще раз",
-          //       onTap: () {
-          //       },
-          //     ));
+         if (state is AuthFailState) {
+          Dialogs.hide(context);
+          Dialogs.showModal(
+              context,
+              CustomPopup(
+                label: "Неверный код",
+                onTap: () {
+                  Dialogs.hide(context);
+                },
+              ));
+        } else if (state is AuthSuccessState) {
+          Dialogs.hide(context);
+
+          // Navigator.pushNamed(context, RouteNames.walletCard);
         } else if (state is AuthLoadingState) {
-          // Dialogs.showModal(
-          //     context,
-          //     const Center(
-          //       child: CircularProgressIndicator.adaptive(),
-          //     ));
-        } else {
-          // Dialogs.hide(context);
+          Dialogs.showModal(
+              context,
+              const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ));
         }
       },
       child: GestureDetector(
@@ -288,4 +292,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
