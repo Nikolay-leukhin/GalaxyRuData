@@ -92,7 +92,8 @@ class AuthRepository {
     return null;
   }
 
-  Future<WalletCreationState?> walletState() => prefs.getWalletState(currentEmail!);
+  Future<WalletCreationState?> walletState() =>
+      prefs.getWalletState(currentEmail!);
 }
 
 class InviteCode {
