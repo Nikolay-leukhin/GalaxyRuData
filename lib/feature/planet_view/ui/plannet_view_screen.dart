@@ -74,7 +74,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                       disableTap: true,
                       backgroundColor: Colors.transparent,
                       src: 'assets/planet.glb',
-                      alt: 'A 3D model of an planet',
+                      alt: 'A 3D model of a planet',
                       ar: false,
                       autoRotate: true,
                       iosSrc: 'assets/Planet.usdc',
