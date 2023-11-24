@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
               image: DecorationImage(
                   fit: BoxFit.cover,
                   filterQuality: FilterQuality.low,
-                  image: AssetImage("assets/images/auth_background.png"))),
+                  image: AssetImage("assets/images/bg.png"))),
           child: SafeArea(
             child: Scaffold(
               backgroundColor: Colors.transparent,

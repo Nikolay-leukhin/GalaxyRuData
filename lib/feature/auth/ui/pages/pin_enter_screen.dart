@@ -70,7 +70,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
             image: DecorationImage(
                 fit: BoxFit.cover,
                 filterQuality: FilterQuality.low,
-                image: AssetImage("assets/images/auth_background.png"))),
+                image: AssetImage("assets/images/bg.png"))),
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
