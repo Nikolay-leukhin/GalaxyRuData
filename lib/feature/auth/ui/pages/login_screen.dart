@@ -275,8 +275,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           if (permission) {
                             context.read<AuthCubit>().auth(
-                                email: emailController.text,
-                                password: codeController.text);
+                                email: emailController.text.trim(),
+                                password: codeController.text.trim());
                           }
                         },
                         width: double.infinity),
