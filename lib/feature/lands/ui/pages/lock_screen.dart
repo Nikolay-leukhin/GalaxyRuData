@@ -86,93 +86,91 @@ class _LockScreenState extends State<LockScreen> {
               ));
         }
       },
-      child: WillPopScope(
-        onWillPop: () => Future.value(false),
-        child: MainScaffold(
-          bottomResize: true,
-          isBottomImage: true,
-          appBar: MainAppBar.logoutWallet(
-            context,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: size.width * 0.69,
-                    constraints: const BoxConstraints(maxWidth: 500),
-                    child: Text(
-                      _lockMessage,
-                      style: size.width < 300
-                          ? AppTypography.font16w400
-                          : AppTypography.font14w400,
-                      textAlign: TextAlign.center,
-                    ),
+      child: MainScaffold(
+        canPop: false,
+        bottomResize: true,
+        isBottomImage: true,
+        appBar: MainAppBar.logoutWallet(
+          context,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MediaQuery.of(context).viewInsets.bottom == 0 ? Container(
+                  width: size.width * 0.69,
+                  constraints: const BoxConstraints(maxWidth: 500),
+                  child: Text(
+                    _lockMessage,
+                    style: size.width < 300
+                        ? AppTypography.font16w400
+                        : AppTypography.font14w400,
+                    textAlign: TextAlign.center,
                   ),
-                  Container(
-                    width: size.width * 0.725,
-                    height: size.width,
-                    constraints:
-                        const BoxConstraints(maxWidth: 330, maxHeight: 450),
-                    child: Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Image.asset(
-                            'assets/images/lock/back.png',
-                          ),
+                ) : Container(),
+                Container(
+                  width: size.width * 0.725,
+                  height: size.width,
+                  constraints:
+                      const BoxConstraints(maxWidth: 330, maxHeight: 450),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Image.asset(
+                          'assets/images/lock/back.png',
                         ),
-                        AnimatedPositioned(
-                          top: top,
-                          left: size.width * 0.725 < 300
-                              ? size.width * 0.108
-                              : 50,
-                          duration: moveDuration,
-                          child: AnimatedRotation(
-                            alignment: const Alignment(0.2, 0.3),
-                            curve: Curves.decelerate,
-                            turns: turn,
-                            duration: rotationDuration,
-                            child: Container(
-                              constraints: const BoxConstraints(
-                                  maxWidth: 230, maxHeight: 250),
-                              height: size.width * 0.48,
-                              width: size.width * 0.51,
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/lock/lock.png'),
-                                      fit: BoxFit.fitWidth)),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Image.asset(
-                            'assets/images/lock/front.png',
-                          ),
-                        ),
-                        field
-                      ],
-                    ),
-                  ),
-                  CustomButton(
-                      content: Text(
-                        'Отправить код'.toUpperCase(),
-                        style: AppTypography.font16w600,
                       ),
-                      onTap: () {
-                        if (codeController.text.isNotEmpty) {
-                          context
-                              .read<UseInviteCodeCubit>()
-                              .useInviteCode(codeController.text.trim());
-                        }
-                      },
-                      width: double.infinity),
-                ],
-              ),
+                      AnimatedPositioned(
+                        top: top,
+                        left: size.width * 0.725 < 300
+                            ? size.width * 0.108
+                            : 50,
+                        duration: moveDuration,
+                        child: AnimatedRotation(
+                          alignment: const Alignment(0.2, 0.3),
+                          curve: Curves.decelerate,
+                          turns: turn,
+                          duration: rotationDuration,
+                          child: Container(
+                            constraints: const BoxConstraints(
+                                maxWidth: 230, maxHeight: 250),
+                            height: size.width * 0.48,
+                            width: size.width * 0.51,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        'assets/images/lock/lock.png'),
+                                    fit: BoxFit.fitWidth)),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Image.asset(
+                          'assets/images/lock/front.png',
+                        ),
+                      ),
+                      field
+                    ],
+                  ),
+                ),
+                CustomButton(
+                    content: Text(
+                      'Отправить код'.toUpperCase(),
+                      style: AppTypography.font16w600,
+                    ),
+                    onTap: () {
+                      if (codeController.text.isNotEmpty) {
+                        context
+                            .read<UseInviteCodeCubit>()
+                            .useInviteCode(codeController.text.trim());
+                      }
+                    },
+                    width: double.infinity),
+              ],
             ),
           ),
         ),

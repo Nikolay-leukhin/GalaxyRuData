@@ -8,6 +8,7 @@ import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
+import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 
 class PinEnterScreen extends StatefulWidget {
   const PinEnterScreen({super.key});
@@ -56,7 +57,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
               context: context,
               builder: (context) {
                 return CustomPopup(
-                    label: "Некорректный пин-код, пожайлуста, попробуйте еще раз",
+                    label: "Пин-код неверный!\nПопробуйте еще раз 🥲",
                     onTap: () {
                       pinCode.clear();
                       setState(() {});
@@ -65,195 +66,185 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
               });
         }
       },
-      child: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                filterQuality: FilterQuality.low,
-                image: AssetImage("assets/images/bg.png"))),
-        child: SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: MainAppBar.back(
-              context,
-            ),
-            body: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 260,
-                    child: Text(
-                      "Введите пин-код",
-                      textAlign: TextAlign.center,
-                      style: AppTypography.font16w400
-                          .copyWith(color: Colors.white),
-                    ),
-                  ),
-                  Container(
-                    height: size.height * 0.078,
-                    constraints: const BoxConstraints(maxHeight: 63),
-                  ),
-                  SizedBox(
-                    width: 216,
-                    child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: List.generate(
-                          4,
-                          (index) => PinCodeIndicatorItem(
-                            isActive: index < pinCode.length,
-                          ),
-                        )),
-                  ),
-                  Container(
-                    height: size.height * 0.089,
-                    constraints: const BoxConstraints(maxHeight: 90),
-                  ),
-                  Container(
-                    width: size.width * 0.73,
-                    constraints: const BoxConstraints(maxWidth: 500),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: MainScaffold(
+        appBar: MainAppBar.back(
+          context,
+        ),
+        body: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 260,
+                child: Text(
+                  "Введите пин-код",
+                  textAlign: TextAlign.center,
+                  style: AppTypography.font16w400
+                      .copyWith(color: Colors.white),
+                ),
+              ),
+              Container(
+                height: size.height * 0.078,
+                constraints: const BoxConstraints(maxHeight: 63),
+              ),
+              SizedBox(
+                width: 216,
+                child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      4,
+                      (index) => PinCodeIndicatorItem(
+                        isActive: index < pinCode.length,
+                      ),
+                    )),
+              ),
+              Container(
+                height: size.height * 0.089,
+                constraints: const BoxConstraints(maxHeight: 90),
+              ),
+              Container(
+                width: size.width * 0.73,
+                constraints: const BoxConstraints(maxWidth: 500),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            PinNumTab(
-                              content: Text(
-                                1.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(1),
-                            ),
-                            PinNumTab(
-                              content: Text(
-                                2.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(2),
-                            ),
-                            PinNumTab(
-                              content: Text(
-                                3.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(3),
-                            )
-                          ],
+                        PinNumTab(
+                          content: Text(
+                            1.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(1),
                         ),
-                        const SizedBox(
-                          height: 16,
+                        PinNumTab(
+                          content: Text(
+                            2.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(2),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            PinNumTab(
-                              content: Text(
-                                4.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(4),
-                            ),
-                            PinNumTab(
-                              content: Text(
-                                5.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(5),
-                            ),
-                            PinNumTab(
-                              content: Text(
-                                6.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(6),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            PinNumTab(
-                              content: Text(
-                                7.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(7),
-                            ),
-                            PinNumTab(
-                              content: Text(
-                                8.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(8),
-                            ),
-                            PinNumTab(
-                              content: Text(
-                                9.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(9),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              constraints: BoxConstraints(maxWidth: 125),
-                              width: size.width * 0.189,
-                            ),
-                            PinNumTab(
-                              content: Text(
-                                0.toString(),
-                                style: AppTypography.font24w700
-                                    .copyWith(color: Colors.white),
-                              ),
-                              onTap: () => onNumTabTap(0),
-                            ),
-                            PinNumTab(
-                              onTap: () {
-                                if (pinCode.isNotEmpty) {
-                                  pinCode.removeLast();
-                                }
-                                setState(() {});
-                              },
-                              content: SvgPicture.asset(
-                                'assets/icons/delete.svg',
-                                width: 24,
-                                color: Colors.white,
-                              ),
-                            )
-                          ],
+                        PinNumTab(
+                          content: Text(
+                            3.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(3),
                         )
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        PinNumTab(
+                          content: Text(
+                            4.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(4),
+                        ),
+                        PinNumTab(
+                          content: Text(
+                            5.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(5),
+                        ),
+                        PinNumTab(
+                          content: Text(
+                            6.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(6),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        PinNumTab(
+                          content: Text(
+                            7.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(7),
+                        ),
+                        PinNumTab(
+                          content: Text(
+                            8.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(8),
+                        ),
+                        PinNumTab(
+                          content: Text(
+                            9.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(9),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          constraints: BoxConstraints(maxWidth: 125),
+                          width: size.width * 0.189,
+                        ),
+                        PinNumTab(
+                          content: Text(
+                            0.toString(),
+                            style: AppTypography.font24w700
+                                .copyWith(color: Colors.white),
+                          ),
+                          onTap: () => onNumTabTap(0),
+                        ),
+                        PinNumTab(
+                          onTap: () {
+                            if (pinCode.isNotEmpty) {
+                              pinCode.removeLast();
+                            }
+                            setState(() {});
+                          },
+                          content: SvgPicture.asset(
+                            'assets/icons/delete.svg',
+                            width: 24,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
+              const SizedBox(
+                height: 40,
+              ),
+            ],
           ),
         ),
       ),

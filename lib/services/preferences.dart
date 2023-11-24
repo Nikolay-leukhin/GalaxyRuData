@@ -31,38 +31,16 @@ class PreferencesService {
     return token;
   }
 
-  // Future<void> setPinCode(String pinCode) async {
-  //   final prefs = await _prefs;
-  //   await prefs.setString(_pinCodeKey, pinCode);
-  // }
-
-  Future<void> setPinCode(
-      {required String pinCode, required String email}) async {
-    final prefs = await _prefs;
-    final Map<String, dynamic> updatedPinStorage = (await getPinCode()) ?? {};
-
-    updatedPinStorage[email] = pinCode;
-    final String encodedUpdatedPinStorage = jsonEncode(updatedPinStorage);
-    print('-' * 20);
-    print(updatedPinStorage);
-    await prefs.setString(_pinCodeKey, encodedUpdatedPinStorage);
+  Future<void> setPinCode(String pinCode, String email) async {
+    final storage = await _getPinStorage();
+    storage[email] = pinCode;
+    await _setPinStorage(storage);
   }
 
-  Future<Map<String, dynamic>?> getPinCode() async {
-    final prefs = await _prefs;
-    final pinStorage = prefs.getString(_pinCodeKey);
-    print("${pinStorage} storage pin");
-    if (pinStorage == null) {
-      return null;
-    }
-
-    return jsonDecode(pinStorage);
+  Future<String?> getPinCode(String email) async {
+    final json = await _getPinStorage();
+    return json[email];
   }
-
-  // Future<String?> getPinCode() async {
-  //   final prefs = await _prefs;
-  //   return prefs.getString(_pinCodeKey);
-  // }
 
   Future setWalletState(WalletCreationState state, String email) async {
     String stateForPref;
@@ -96,18 +74,6 @@ class PreferencesService {
         return WalletCreationState.confirmed;
     }
     return null;
-  }
-
-  Future _saveWalletStates(Map<String, dynamic> wallets) async {
-    final prefs = await _prefs;
-    await prefs.setString(_walletStates, jsonEncode(wallets));
-  }
-
-  Future<Map<String, dynamic>> _getWalletStateMap() async {
-    final prefs = await _prefs;
-    final res = prefs.getString(_walletStates);
-    if (res == null) return {};
-    return jsonDecode(res);
   }
 
   Future<void> setSeedPhrase(
@@ -172,5 +138,32 @@ class PreferencesService {
     await prefs.remove(_inviteCodeKey);
     await prefs.remove(_placeIdKey);
     await prefs.remove(_tokenKey);
+  }
+
+  // ---------------------------------------------------------------
+
+  Future<Map<String, dynamic>> _getPinStorage() async {
+    final prefs = await _prefs;
+    final res = prefs.getString(_pinCodeKey) ?? '{}';
+    final Map<String, dynamic> json = jsonDecode(res);
+    return json;
+  }
+
+  Future<void> _setPinStorage(Map<String, dynamic> storage) async {
+    final prefs = await _prefs;
+    final json = jsonEncode(storage);
+    prefs.setString(_pinCodeKey, json);
+  }
+
+  Future _saveWalletStates(Map<String, dynamic> wallets) async {
+    final prefs = await _prefs;
+    await prefs.setString(_walletStates, jsonEncode(wallets));
+  }
+
+  Future<Map<String, dynamic>> _getWalletStateMap() async {
+    final prefs = await _prefs;
+    final res = prefs.getString(_walletStates);
+    if (res == null) return {};
+    return jsonDecode(res);
   }
 }
