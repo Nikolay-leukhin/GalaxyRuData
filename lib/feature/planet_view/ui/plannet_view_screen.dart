@@ -145,23 +145,23 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                                         ),
                                       ),
                                     ),
-                                    Positioned(
+                                    isActiveBottomButton ? Positioned(
                                         bottom: 0,
                                         child: Container(
                                           width: size.width,
                                           height: 90,
-                                          padding: EdgeInsets.only(bottom: 40),
+                                          padding: const EdgeInsets.only(bottom: 40),
                                           decoration: BoxDecoration(
                                             boxShadow: [
                                               BoxShadow(
                                                   color: Colors.black38
                                                       .withOpacity(0.5),
                                                   spreadRadius: 10,
+                                                  offset: const Offset(0,3),
                                                   blurRadius: 100),
                                             ],
                                           ),
-                                          child: isActiveBottomButton
-                                              ? IconButton(
+                                          child: IconButton(
                                                   icon: const Icon(
                                                     Icons.arrow_downward_sharp,
                                                     size: 50,
@@ -179,8 +179,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                                                     );
                                                   },
                                                 )
-                                              : Container(),
-                                        )),
+                                        )) : const SizedBox(height: 1,),
                                   ]);
                                 }),
                               );
