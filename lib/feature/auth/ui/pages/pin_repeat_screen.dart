@@ -58,7 +58,7 @@ class _PinRepeatScreenState extends State<PinRepeatScreen> {
               builder: (context) {
                 return CustomPopup(
                     label:
-                        "Пин-коды не совпадают, пожалуйста, попробуйте еще раз",
+                        "Коды не совпадают. Пожалуйста, попробуйте еще раз",
                     onTap: () {
                       Navigator.popUntil(context,
                           ModalRoute.withName(RouteNames.authPinCreate));

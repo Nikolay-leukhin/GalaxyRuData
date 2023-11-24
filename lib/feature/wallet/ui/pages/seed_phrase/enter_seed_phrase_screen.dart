@@ -51,7 +51,7 @@ class WalletEnterSeedPhraseScreenState
               context: context,
               builder: (context) => CustomPopup(
                     label:
-                        "Такой кошелек не найден в сети Polygon. Попробуйте еще раз.",
+                        "Такой кошелек не найден в сети Polygon. Пожалуйста попробуйте еще раз.",
                     onTap: () {
                       Navigator.of(context).pop();
                     },
@@ -61,7 +61,7 @@ class WalletEnterSeedPhraseScreenState
           showDialog(
               context: context,
               builder: (context) => CustomPopup(
-                    label: "Блокчейн-кошелек успешно создан!",
+                    label: "Блокчейн-кошелек успешно подключен!",
                     onTap: () {
                       Navigator.pushNamed(context, RouteNames.authPinCreate,
                           arguments: {
