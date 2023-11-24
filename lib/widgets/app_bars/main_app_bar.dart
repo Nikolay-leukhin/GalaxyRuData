@@ -103,7 +103,6 @@ class MainAppBar extends PreferredSize {
                             context: context,
                             builder: (context) => CustomLogOutPopup(onTap: () {
                                   context.read<AuthRepository>().logout();
-                                  Navigator.pop(context);
                                   Navigator.popUntil(context,
                                       ModalRoute.withName(RouteNames.root));
                                 }));
@@ -150,7 +149,6 @@ class MainAppBar extends PreferredSize {
                             context: context,
                             builder: (context) => CustomLogOutPopup(onTap: () {
                                   context.read<AuthRepository>().logout();
-                                  Navigator.pop(context);
                                   Navigator.popUntil(context,
                                       ModalRoute.withName(RouteNames.root));
                                 }));

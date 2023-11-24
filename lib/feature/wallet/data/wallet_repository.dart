@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -54,7 +56,8 @@ class WalletRepository {
 
   Future<void> createWallet() async {
     wallet = HDWallet();
-
+    log('try to create wallet');
+    print(10000);
     await updateWalletAddress();
 
     await prefs.setSeedPhrase(

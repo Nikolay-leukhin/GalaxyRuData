@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:galaxy_rudata/services/api/service/models/token_model.dart';

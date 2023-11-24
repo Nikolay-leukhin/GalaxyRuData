@@ -16,9 +16,13 @@ class ArPlanetViewScreen extends StatefulWidget {
 }
 
 class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
+  final controller = ScrollController();
+  bool isActiveBottomButton = true;
+
   @override
   void initState() {
     context.read<LandsRepository>().loadFreeLands();
+
     super.initState();
   }
 
@@ -53,9 +57,8 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                       child: Text(
                         "Нажмите на планету,\nчтобы выбрать район",
                         textAlign: TextAlign.center,
-
-                        style:
-                            AppTypography.font18w400.copyWith(color: Colors.white),
+                        style: AppTypography.font18w400
+                            .copyWith(color: Colors.white),
                       ),
                     )),
                 Center(
@@ -65,17 +68,14 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                     child: ModelViewer(
                       loading: Loading.eager,
                       touchAction: TouchAction.none,
-                      onWebViewCreated: (controller) {
-
-                      },
-
+                      onWebViewCreated: (controller) {},
                       disableTap: true,
                       backgroundColor: Colors.transparent,
                       src: 'assets/planet.glb',
                       alt: 'A 3D model of an planet',
                       ar: false,
                       autoRotate: true,
-                      iosSrc: 'assets/planet.glb',
+                      iosSrc: 'assets/Planet.usdc',
                       disableZoom: true,
                       disablePan: true,
                     ),
@@ -83,44 +83,108 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                 ),
                 Center(
                   child: Opacity(
-                      opacity: 0,
-                      child: CustomButton(
-                          content: Text('shit'),
-                          onTap: () => showModalBottomSheet(
-                                useSafeArea: true,
-                                elevation: 0,
-                                backgroundColor: Colors.transparent,
-                                isScrollControlled: true,
-                                barrierColor: Colors.transparent,
-                                context: context,
-                                builder: (context) => Container(
-                                    height: size.height * 0.53,
-                                    padding: const EdgeInsets.symmetric(
-                                            vertical: 0, horizontal: 24)
-                                        .copyWith(bottom: 0),
-                                    color: Colors.transparent,
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: List.generate(
-                                            repository
-                                                .availableClustersNames.length,
-                                            (index) => ClusterWidget(
-                                                  name: clusters[repository
-                                                                  .availableClustersNames[
-                                                              index]]
-                                                          ?.name ??
-                                                      "КЛАСТЕР ДИМЫ СУХОВА",
-                                                  type: repository
-                                                          .availableClustersNames[
-                                                      index],
-                                                )),
-                                      ),
-                                    )),
-                              ),
-                          width: size.width * 0.8, height:size.width * 0.8,)),
-                ),
+                    opacity: 0,
+                    child: CustomButton(
+                        content: const Text('shit'),
+                        width: size.width,
+                        height: size.width,
+                        onTap: () => showModalBottomSheet(
+                            useSafeArea: true,
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                            isScrollControlled: true,
+                            barrierColor: Colors.transparent,
+                            context: context,
+                            builder: (context) {
+                              return Container(
+                                height: size.height * 0.53,
+                                color: Colors.transparent,
+                                child: StatefulBuilder(
+                                    builder: (context, setState) {
+                                  controller.addListener(() {
+                                    double maxScroll =
+                                        controller.position.maxScrollExtent;
+                                    double currentScroll =
+                                        controller.position.pixels;
 
+                                    if (currentScroll >= maxScroll * 0.8) {
+                                      setState(() {
+                                        isActiveBottomButton = false;
+                                      });
+                                    } else if (currentScroll <=
+                                        maxScroll * 0.3) {
+                                      setState(() {
+                                        isActiveBottomButton = true;
+                                      });
+                                    }
+                                  });
+                                  return Stack(children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                              vertical: 0, horizontal: 24)
+                                          .copyWith(bottom: 0),
+                                      child: SingleChildScrollView(
+                                        controller: controller,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: List.generate(
+                                              repository.availableClustersNames
+                                                  .length,
+                                              (index) => ClusterWidget(
+                                                    name: clusters[repository
+                                                                    .availableClustersNames[
+                                                                index]]
+                                                            ?.name ??
+                                                        "КЛАСТЕР ДИМЫ СУХОВА",
+                                                    type: repository
+                                                            .availableClustersNames[
+                                                        index],
+                                                  )),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        bottom: 0,
+                                        child: Container(
+                                          width: size.width,
+                                          height: 90,
+                                          padding: EdgeInsets.only(bottom: 40),
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.black38
+                                                      .withOpacity(0.5),
+                                                  spreadRadius: 10,
+                                                  blurRadius: 100),
+                                            ],
+                                          ),
+                                          child: isActiveBottomButton
+                                              ? IconButton(
+                                                  icon: const Icon(
+                                                    Icons.arrow_downward_sharp,
+                                                    size: 50,
+                                                    color: Colors.white,
+                                                  ),
+                                                  onPressed: () {
+                                                    controller.animateTo(
+                                                      controller
+                                                              .position.pixels +
+                                                          78,
+                                                      duration:
+                                                          const Duration(seconds: 1),
+                                                      curve:
+                                                          Curves.fastOutSlowIn,
+                                                    );
+                                                  },
+                                                )
+                                              : Container(),
+                                        )),
+                                  ]);
+                                }),
+                              );
+                            })),
+                  ),
+                )
               ],
             ),
           ),

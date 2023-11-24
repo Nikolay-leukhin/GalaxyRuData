@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/utils/validators.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -85,25 +84,21 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthFailState) {
-          Dialogs.hide(context);
-          Dialogs.showModal(
-              context,
-              CustomPopup(
-                label: "Некорректный код, пожалуйста, попробуйте еще раз",
-                onTap: () {
-                  Dialogs.hide(context);
-                },
-              ));
-        } else if (state is AuthSuccessState) {
-          Dialogs.hide(context);
-
-          // Navigator.pushNamed(context, RouteNames.walletCard);
+          // Dialogs.showModal(
+          //     context,
+          //     CustomPopup(
+          //       label: "Некорректный код, пожалуйста, попробуйте еще раз",
+          //       onTap: () {
+          //       },
+          //     ));
         } else if (state is AuthLoadingState) {
-          Dialogs.showModal(
-              context,
-              const Center(
-                child: CircularProgressIndicator.adaptive(),
-              ));
+          // Dialogs.showModal(
+          //     context,
+          //     const Center(
+          //       child: CircularProgressIndicator.adaptive(),
+          //     ));
+        } else {
+          // Dialogs.hide(context);
         }
       },
       child: GestureDetector(
