@@ -31,14 +31,15 @@ class PreferencesService {
     return token;
   }
 
-  Future<void> setPinCode(String pinCode) async {
-    final prefs = await _prefs;
-    await prefs.setString(_pinCodeKey, pinCode);
+  Future<void> setPinCode(String pinCode, String email) async {
+    final storage = await _getPinStorage();
+    storage[email] = pinCode;
+    await _setPinStorage(storage);
   }
 
-  Future<String?> getPinCode() async {
-    final prefs = await _prefs;
-    return prefs.getString(_pinCodeKey);
+  Future<String?> getPinCode(String email) async {
+    final json = await _getPinStorage();
+    return json[email];
   }
 
   Future setWalletState(WalletCreationState state, String email) async {
@@ -73,18 +74,6 @@ class PreferencesService {
         return WalletCreationState.confirmed;
     }
     return null;
-  }
-
-  Future _saveWalletStates(Map<String, dynamic> wallets) async {
-    final prefs = await _prefs;
-    await prefs.setString(_walletStates, jsonEncode(wallets));
-  }
-
-  Future<Map<String, dynamic>> _getWalletStateMap() async {
-    final prefs = await _prefs;
-    final res = prefs.getString(_walletStates);
-    if (res == null) return {};
-    return jsonDecode(res);
   }
 
   Future<void> setSeedPhrase(
@@ -146,9 +135,35 @@ class PreferencesService {
     final prefs = await _prefs;
 
     await prefs.remove(_emailKey);
-    await prefs.remove(_pinCodeKey);
     await prefs.remove(_inviteCodeKey);
     await prefs.remove(_placeIdKey);
     await prefs.remove(_tokenKey);
+  }
+
+  // ---------------------------------------------------------------
+
+  Future<Map<String, dynamic>> _getPinStorage() async {
+    final prefs = await _prefs;
+    final res = prefs.getString(_pinCodeKey) ?? '{}';
+    final Map<String, dynamic> json = jsonDecode(res);
+    return json;
+  }
+
+  Future<void> _setPinStorage(Map<String, dynamic> storage) async {
+    final prefs = await _prefs;
+    final json = jsonEncode(storage);
+    prefs.setString(_pinCodeKey, json);
+  }
+
+  Future _saveWalletStates(Map<String, dynamic> wallets) async {
+    final prefs = await _prefs;
+    await prefs.setString(_walletStates, jsonEncode(wallets));
+  }
+
+  Future<Map<String, dynamic>> _getWalletStateMap() async {
+    final prefs = await _prefs;
+    final res = prefs.getString(_walletStates);
+    if (res == null) return {};
+    return jsonDecode(res);
   }
 }

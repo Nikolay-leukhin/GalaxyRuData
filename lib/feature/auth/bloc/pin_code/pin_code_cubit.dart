@@ -24,9 +24,9 @@ class PinCodeCubit extends Cubit<PinCodeState> {
   Future savePin (List<int> pin) => authRepository.savePinCode(pin);
 
   Future<void> checkUserPinCode(String currentPinCode) async {
-    final chachedPin = await authRepository.prefs.getPinCode();
-    print(chachedPin);
-    if (chachedPin != currentPinCode) {
+    final cachedPin = await authRepository.getPinCode();
+    print(cachedPin);
+    if (cachedPin != currentPinCode) {
       emit(PinCodeEnterFailure());
     } else {
       authRepository.refreshAuthState();

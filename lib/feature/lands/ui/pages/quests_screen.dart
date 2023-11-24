@@ -35,6 +35,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
     print('-' * 40);
     print(context.read<LandsRepository>().code);
     return MainScaffold(
+      canPop: false,
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(24, 50, 24, 0),

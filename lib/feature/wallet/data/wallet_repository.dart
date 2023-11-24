@@ -14,12 +14,14 @@ class WalletRepository {
 
   WalletRepository({required this.apiService, required this.prefs});
 
+  Future<String?> get email => prefs.getEmail();
+
   Future<bool> get pinCreated async {
-    final code = await prefs.getPinCode();
+    final code = await prefs.getPinCode((await email)!);
     return code != null;
   }
 
-  Future<bool> walletPinCode() async => await prefs.getPinCode() != null;
+  Future<bool> walletPinCode() async => await prefs.getPinCode((await email)!) != null;
 
   Future<bool> checkWalletAuth() async {
     final seedStorage = await prefs.getSeedPhrase();
@@ -44,14 +46,6 @@ class WalletRepository {
 
   Future<void> enterWalletBySeedPhrase(String seedPhrase) async {
     wallet = HDWallet.createWithMnemonic(seedPhrase);
-
-    await updateWalletAddress();
-
-    await prefs.setSeedPhrase(
-        seedPhrase: wallet.mnemonic(), email: (await prefs.getEmail())!);
-
-    await prefs.setWalletState(
-        WalletCreationState.confirmed, (await prefs.getEmail())!);
   }
 
   Future<void> createWallet() async {
@@ -60,11 +54,15 @@ class WalletRepository {
     print(10000);
     await updateWalletAddress();
 
+    cacheWalletSeed();
+  }
+
+  Future cacheWalletSeed() async {
     await prefs.setSeedPhrase(
         seedPhrase: wallet.mnemonic(), email: (await prefs.getEmail())!);
 
     await prefs.setWalletState(
-        WalletCreationState.created, (await prefs.getEmail())!);
+        WalletCreationState.confirmed, (await prefs.getEmail())!);
   }
 
   Future setWalletSeedWatchState() async => prefs.setWalletState(

@@ -68,8 +68,10 @@ class AuthRepository {
     appState.add(AppStateEnum.unAuth);
   }
 
+  Future<String?> getPinCode() => prefs.getPinCode(currentEmail!);
+
   Future<void> savePinCode(List<int> pin) async {
-    await prefs.setPinCode(pin.join(""));
+    await prefs.setPinCode(pin.join(""), currentEmail!);
     appState.add(AppStateEnum.auth);
   }
 
@@ -90,7 +92,8 @@ class AuthRepository {
     return null;
   }
 
-  Future<WalletCreationState?> walletState() => prefs.getWalletState(currentEmail!);
+  Future<WalletCreationState?> walletState() =>
+      prefs.getWalletState(currentEmail!);
 }
 
 class InviteCode {

@@ -66,13 +66,15 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                     constraints: const BoxConstraints(maxWidth: 500),
                     alignment: Alignment.center,
                     child: ModelViewer(
+                      interactionPrompt: InteractionPrompt.none,
+                      interactionPromptThreshold: 0,
                       loading: Loading.eager,
                       touchAction: TouchAction.none,
                       onWebViewCreated: (controller) {},
                       disableTap: true,
                       backgroundColor: Colors.transparent,
                       src: 'assets/planet.glb',
-                      alt: 'A 3D model of an planet',
+                      alt: 'A 3D model of a planet',
                       ar: false,
                       autoRotate: true,
                       iosSrc: 'assets/Planet.usdc',
@@ -143,23 +145,23 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                                         ),
                                       ),
                                     ),
-                                    Positioned(
+                                    isActiveBottomButton ? Positioned(
                                         bottom: 0,
                                         child: Container(
                                           width: size.width,
                                           height: 90,
-                                          padding: EdgeInsets.only(bottom: 40),
+                                          padding: const EdgeInsets.only(bottom: 40),
                                           decoration: BoxDecoration(
                                             boxShadow: [
                                               BoxShadow(
                                                   color: Colors.black38
                                                       .withOpacity(0.5),
                                                   spreadRadius: 10,
+                                                  offset: const Offset(0,3),
                                                   blurRadius: 100),
                                             ],
                                           ),
-                                          child: isActiveBottomButton
-                                              ? IconButton(
+                                          child: IconButton(
                                                   icon: const Icon(
                                                     Icons.arrow_downward_sharp,
                                                     size: 50,
@@ -177,8 +179,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                                                     );
                                                   },
                                                 )
-                                              : Container(),
-                                        )),
+                                        )) : const SizedBox(height: 1,),
                                   ]);
                                 }),
                               );

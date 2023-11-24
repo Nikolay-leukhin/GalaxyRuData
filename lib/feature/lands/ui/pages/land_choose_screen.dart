@@ -33,126 +33,120 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
     final clusterType = ((ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map)['cluster'] as String;
 
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: BlocListener<ConnectLandCubit, ConnectLandState>(
-        listener: (context, state) {
-          if (state is ConnectLandFailure) {
-            Dialogs.hide(context);
-            Dialogs.showModal(
-                context,
-                CustomPopup(
-                  label: "Что-то пошло не так. Попробуйте позже",
-                  onTap: () {
-                    Dialogs.hide(context);
-                  },
-                ));
-          } else if (state is ConnectLandSuccess) {
-            Dialogs.hide(context);
+    return BlocListener<ConnectLandCubit, ConnectLandState>(
+      listener: (context, state) {
+        if (state is ConnectLandFailure) {
+          Dialogs.hide(context);
+          Dialogs.showModal(
+              context,
+              CustomPopup(
+                label: "Что-то пошло не так. Попробуйте позже",
+                onTap: () {
+                  Dialogs.hide(context);
+                },
+              ));
+        } else if (state is ConnectLandSuccess) {
+          Dialogs.hide(context);
 
+          Future.delayed(Duration(milliseconds: 500)).then((value) {
             Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
-          } else if (state is ConnectLandLoading) {
-            Dialogs.showModal(
-                context,
-                const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                ));
-          }
-        },
-        child: MainScaffold(
-            appBar: MainAppBar.backWallet(context),
-            body: SizedBox(
-              width: sizeOf.width,
-              height: sizeOf.height,
-              child: Stack(
-                children: [
-                  Container(
-                    width: sizeOf.width * 4,
-                    height: sizeOf.width * 1.1,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(clusters[clusterType]!.asset),
-                          fit: BoxFit.fitWidth,
-                        )),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    top: sizeOf.height * 0.4,
-                    child: Stack(alignment: Alignment.bottomCenter, children: [
-                      Positioned(
-                        bottom: 0,
-                        top: 0,
-                        child: SvgPicture.asset(
-                          'assets/icons/bottom_bcg.svg',
-                          width: sizeOf.width,
-                          height: sizeOf.width,
-                          fit: BoxFit.fill,
+          });
+        } else if (state is ConnectLandLoading) {
+          Dialogs.showModal(
+              context,
+              const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ));
+        }
+      },
+      child: MainScaffold(
+          canPop: false,
+          appBar: MainAppBar.backWallet(context),
+          body: SizedBox(
+            width: sizeOf.width,
+            height: sizeOf.height,
+            child: Stack(
+              children: [
+                Container(
+                  width: sizeOf.width,
+                  height: sizeOf.width,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    image: AssetImage(clusters[clusterType]!.asset),
+                    fit: BoxFit.fitWidth,
+                  )),
+                ),
+                Positioned(
+                  bottom: 0,
+                  top: sizeOf.height * 0.4,
+                  child: Stack(alignment: Alignment.bottomCenter, children: [
+                    Positioned(
+                      bottom: 0,
+                      top: 0,
+                      child: SvgPicture.asset(
+                        'assets/icons/bottom_bcg.svg',
+                        width: sizeOf.width,
+                        height: sizeOf.width,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: sizeOf.width,
+                        height: sizeOf.height,
+                        padding: const EdgeInsets.symmetric(horizontal: 43),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Spacer(
+                              flex: 2,
+                            ),
+                            Text(
+                              clusters[clusterType]!.name.toUpperCase(),
+                              style: AppTypography.font20w600,
+                              textAlign: TextAlign.center,
+                            ),
+                            const Spacer(
+                              flex: 1,
+                            ),
+                            Text(
+                              clusters[clusterType]!.description,
+                              style: AppTypography.font12w400,
+                              textAlign: TextAlign.center,
+                            ),
+                            const Spacer(
+                              flex: 2,
+                            ),
+                            CustomButton(
+                                content: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: FittedBox(
+                                      child: Text(
+                                    'Забронировать жилье'.toUpperCase(),
+                                    style: AppTypography.font16w600,
+                                  )),
+                                ),
+                                onTap: () async {
+                                  context
+                                      .read<ConnectLandCubit>()
+                                      .connectRandomFromClusterLandToCurrentCode(
+                                          clusterType);
+                                },
+                                width: double.infinity),
+                            const Spacer(
+                              flex: 2,
+                            )
+                          ],
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: sizeOf.width,
-                          height: sizeOf.height,
-                          padding: const EdgeInsets.symmetric(horizontal: 43),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Spacer(
-                                flex: 2,
-                              ),
-                              Text(
-                                clusters[clusterType]!.name.toUpperCase(),
-                                style: AppTypography.font20w600,
-                                textAlign: TextAlign.center,
-                              ),
-                              Spacer(
-                                flex: 1,
-                              ),
-                              Text(
-                                clusters[clusterType]!.description,
-                                style: AppTypography.font12w400,
-                                textAlign: TextAlign.center,
-                              ),
-                              Spacer(
-                                flex: 2,
-                              ),
-                              CustomButton(
-                                  content: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: FittedBox(
-                                        child: Text(
-                                      'Забронировать жилье'.toUpperCase(),
-                                      style: AppTypography.font16w600,
-                                    )),
-                                  ),
-                                  onTap: () async {
-                                    context
-                                        .read<ConnectLandCubit>()
-                                        .connectRandomFromClusterLandToCurrentCode(
-                                            clusterType);
-                                  },
-                                  width: double.infinity),
-                              Spacer(
-                                flex: 2,
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ]),
-                  ),
-                ],
-              ),
-            )),
-      ),
+                    )
+                  ]),
+                ),
+              ],
+            ),
+          )),
     );
   }
 }
-//
-// class ClusterType {
-//   final String title;
-//   final String description;
-//   final String asset;
-// }

@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(seconds: 3),
     );
 
-    _animation = Tween<double>(begin: 1, end: 1.4).animate(
+    _animation = Tween<double>(begin: 1, end: 1.38).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.fastOutSlowIn,
@@ -53,23 +53,28 @@ class _SplashScreenState extends State<SplashScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(),
               Column(
                 children: [
-                  ScaleTransition(
-                    scale: _animation,
-                    child: Image.asset(
-                      "assets/images/group.png",
-                      fit: BoxFit.contain,
-                      width: size.width * 0.5,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 60),
+                    child: SizedBox(
+                      height: 100,
+                      child: ScaleTransition(
+                        scale: _animation,
+                        child: Image.asset(
+                          "assets/images/group.png",
+                          fit: BoxFit.contain,
+                          width: size.width * 0.5,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(
-                    height: 28,
+                    height: 38,
                   ),
                   Text(
                     "Вселенная Большого Росреестра",
-                    style: AppTypography.font28w700,
+                    style: AppTypography.font28w600,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
@@ -78,6 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ScaleTransition(
                     scale: _animation,
                     child: Container(
+                      width: size.width * 0.8,
                       constraints: const BoxConstraints(maxWidth: 500),
                       child: Image.asset(
                         "assets/images/planet.png",
@@ -88,14 +94,33 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ],
               ),
-              Container(
-                padding: const EdgeInsets.only(bottom: 20),
-                alignment: Alignment.center,
-                child: Image.asset(
-                  'assets/gifts/govnoi1-2.gif',
-                  width: 70,
-                  height: 70,
-                ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      'assets/gifts/govnoi1-2.gif',
+                      width: 70,
+                      height: 70,
+                    ),
+                  ),
+                  Text(
+                    'Переносимся во Вселенной',
+                    textAlign: TextAlign.center,
+                    style: AppTypography.font14w400.copyWith(
+                      shadows: [
+                        const BoxShadow(
+                          offset: Offset.zero,
+                          blurRadius: 10,
+                          color: Colors.white
+                        )
+                      ]
+                    )
+                  ),
+                  const SizedBox(height: 20,)
+                ],
               )
             ],
           ),
