@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -57,7 +58,8 @@ class _LockScreenState extends State<LockScreen> {
       });
 
       Future.delayed(rotationDuration + moveDuration, () {
-        Navigator.of(context).pushNamed(RouteNames.arPlanetView);
+        RepositoryProvider.of<AuthRepository>(context).refreshAuthState();
+        // Navigator.of(context).pushNamed(RouteNames.arPlanetView);
       });
     }
 

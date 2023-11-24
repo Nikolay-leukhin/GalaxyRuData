@@ -48,7 +48,9 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
         } else if (state is ConnectLandSuccess) {
           Dialogs.hide(context);
 
-          Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
+          Future.delayed(Duration(milliseconds: 500)).then((value) {
+            Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
+          });
         } else if (state is ConnectLandLoading) {
           Dialogs.showModal(
               context,
@@ -58,7 +60,7 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
         }
       },
       child: MainScaffold(
-        canPop: false,
+          canPop: false,
           appBar: MainAppBar.backWallet(context),
           body: SizedBox(
             width: sizeOf.width,
@@ -70,9 +72,9 @@ class _LandChooseScreenState extends State<LandChooseScreen> {
                   height: sizeOf.width,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(clusters[clusterType]!.asset),
-                        fit: BoxFit.fitWidth,
-                      )),
+                    image: AssetImage(clusters[clusterType]!.asset),
+                    fit: BoxFit.fitWidth,
+                  )),
                 ),
                 Positioned(
                   bottom: 0,
