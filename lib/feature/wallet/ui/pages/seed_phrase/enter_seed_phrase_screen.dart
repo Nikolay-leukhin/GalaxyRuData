@@ -70,8 +70,7 @@ class WalletEnterSeedPhraseScreenState
                               //     context, RouteNames.walletCardCreated);
                               Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
                               RepositoryProvider.of<AuthRepository>(context)
-                                  .appState
-                                  .add(AppStateEnum.auth);
+                                  .refreshAuthState();
                             }
                           });
                     },

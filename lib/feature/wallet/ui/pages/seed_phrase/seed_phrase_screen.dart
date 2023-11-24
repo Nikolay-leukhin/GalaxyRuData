@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/widgets/seed_phrase_word.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
@@ -37,7 +38,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
         context.read<WalletRepository>().wallet.mnemonic().split(" ");
 
     return MainScaffold(
-      // appBar: MainAppBar.back(context),
+      appBar: !widget.withContinueButton ? MainAppBar.back(context) : null,
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -104,7 +105,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                             onTap: () async {
                               await Clipboard.setData(
                                   ClipboardData(text: seedPhrase.join(" ")));
-                              
+
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(AppSnackBar.successCopyWallet);
                             },
@@ -157,7 +158,12 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                         style: AppTypography.font16w600,
                       ),
                       onTap: () {
-                        Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
+                        RepositoryProvider.of<WalletRepository>(context)
+                            .setWalletConfirmState();
+                        RepositoryProvider.of<AuthRepository>(context)
+                            .refreshAuthState();
+                        Navigator.popUntil(
+                            context, ModalRoute.withName(RouteNames.root));
                       },
                       width: double.infinity),
                 )

@@ -167,7 +167,7 @@ class _LockScreenState extends State<LockScreen> {
                         if (codeController.text.isNotEmpty) {
                           context
                               .read<UseInviteCodeCubit>()
-                              .useInviteCode(codeController.text);
+                              .useInviteCode(codeController.text.trim());
                         }
                       },
                       width: double.infinity),

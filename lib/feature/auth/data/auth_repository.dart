@@ -77,6 +77,8 @@ class AuthRepository {
     await apiService.auth.sendCode(email);
   }
 
+  void refreshAuthState() => appState.add(AppStateEnum.auth);
+
   Future<InviteCode?> currentInviteCode() async {
     final res = await apiService.auth.getUser();
     for (var i in res['user']['inviteCodes']) {

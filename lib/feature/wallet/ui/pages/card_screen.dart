@@ -82,8 +82,7 @@ class _WalletCreateScreenState extends State<WalletCreateScreen> {
                                           RouteNames.walletCardCreated);
                                       RepositoryProvider.of<AuthRepository>(
                                               context)
-                                          .appState
-                                          .add(AppStateEnum.auth);
+                                          .refreshAuthState();
                                     }
                                   }));
                     },
