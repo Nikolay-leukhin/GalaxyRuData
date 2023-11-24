@@ -15,11 +15,15 @@ class WalletRepository {
   WalletRepository({required this.apiService, required this.prefs});
 
   Future<bool> get pinCreated async {
-    final code = await prefs.getPinCode();
-    return code != null;
+    final pinStorage = await prefs.getPinCode();
+
+    final email = await prefs.getEmail();
+    final pinCode = pinStorage?[email];
+
+    return pinCode != null;
   }
 
-  Future<bool> walletPinCode() async => await prefs.getPinCode() != null;
+  // Future<bool> walletPinCode() async => await prefs.getPinCode() != null;
 
   Future<bool> checkWalletAuth() async {
     final seedStorage = await prefs.getSeedPhrase();
