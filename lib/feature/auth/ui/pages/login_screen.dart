@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               right: 0,
                               child: CustomButton(
                                   content: Text(
-                                      "${currentRemainingTime} СЕКУНД"
+                                      "$currentRemainingTime СЕКУНД"
                                           .toUpperCase(),
                                       style: AppTypography.font16w600
                                           .copyWith(color: Colors.white)),

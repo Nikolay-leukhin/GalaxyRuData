@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 android {
 //    namespace "com.rosreestr.kadastr"
     namespace "com.kadastr.rosreestr"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -55,8 +55,8 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
-//        versionCode 5  // for old version
-        versionCode 2 // for new version
+//        versionCode 7  // for old version
+        versionCode 4 // for new version
         versionName flutterVersionName
     }
 
@@ -71,6 +71,9 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            ndk {
+                abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
+            }
         }
     }
 }
