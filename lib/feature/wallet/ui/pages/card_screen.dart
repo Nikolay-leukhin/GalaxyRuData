@@ -48,8 +48,9 @@ class _WalletCreateScreenState extends State<WalletCreateScreen> {
                 ),
                 Container(
                   width: size.width * 0.86,
-                  constraints: const BoxConstraints(maxWidth: 350),
-                  clipBehavior: Clip.hardEdge,
+                  height: size.width * 0.65,
+                  constraints: const BoxConstraints(maxWidth: 350, maxHeight: 240),
+                  // clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                   ),
