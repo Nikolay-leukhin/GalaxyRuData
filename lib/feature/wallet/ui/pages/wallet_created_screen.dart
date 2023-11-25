@@ -43,8 +43,10 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
                 ),
                 Container(
                   width: size.width * 0.86,
-                  constraints: const BoxConstraints(maxWidth: 350),
-                  clipBehavior: Clip.hardEdge,
+                  height: size.width * 0.65,
+
+                  constraints: const BoxConstraints(maxWidth: 350, maxHeight: 240),
+                  // clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -62,15 +64,13 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
               children: [
                 CustomButton(
                     content: Text(
-
                       'Посмотреть сид-фразу'.toUpperCase(),
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
                       RepositoryProvider.of<WalletRepository>(context)
                           .setWalletSeedWatchState();
-                      Navigator.pushNamed(
-                          context, RouteNames.walletSeedPhrase);
+                      Navigator.pushNamed(context, RouteNames.walletSeedPhrase);
                     },
                     width: double.infinity),
                 const SizedBox(
@@ -82,8 +82,10 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
                       style: AppTypography.font16w600,
                     ),
                     onTap: () {
-                      RepositoryProvider.of<WalletRepository>(context).setWalletConfirmState();
-                      RepositoryProvider.of<AuthRepository>(context).refreshAuthState();
+                      RepositoryProvider.of<WalletRepository>(context)
+                          .setWalletConfirmState();
+                      RepositoryProvider.of<AuthRepository>(context)
+                          .refreshAuthState();
                       Navigator.popUntil(
                           context, ModalRoute.withName(RouteNames.root));
                     },
