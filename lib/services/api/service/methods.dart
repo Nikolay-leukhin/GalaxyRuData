@@ -1,6 +1,5 @@
 part of '../api_service.dart';
 
-
 enum MethodsEnum { get, post, delete, update, put }
 
 const Map methods = {

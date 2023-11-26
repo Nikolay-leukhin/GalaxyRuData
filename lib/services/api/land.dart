@@ -5,13 +5,11 @@ class Land with ApiHandler {
     serviceData = apiServiceData;
   }
 
-  Future<void> updateWalletAddress(String walletAddress) async {
-    await post(ApiEndpoints.userWalletUpdate, data: {'Land': walletAddress});
-  }
+  Future<void> updateWalletAddress(String walletAddress) =>
+      post(ApiEndpoints.userWalletUpdate, data: {'Land': walletAddress});
 
-  Future<void> useInviteCode(String code) async {
-    await post(ApiEndpoints.useLandCode, data: {'code': code});
-  }
+  Future<void> useInviteCode(String code) =>
+      post(ApiEndpoints.useLandCode, data: {'code': code});
 
   Future<Map<String, dynamic>> getFreeLands() async {
     return await post(ApiEndpoints.freeLands);

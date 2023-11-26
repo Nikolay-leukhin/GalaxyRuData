@@ -11,56 +11,64 @@ import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'service/handler.dart';
+
 part 'service/methods.dart';
+
+part 'service/constants.dart';
+
 part 'service/models/request_model.dart';
+
 part 'auth.dart';
+
 part 'wallet.dart';
+
 part 'land.dart';
-
-const Map<String, dynamic> _authHeaders = {
-  'Content-Type': 'application/json',
-};
-
-BaseOptions _dioOptions = BaseOptions(
-  baseUrl: dotenv.get('BASE_SERVER_URL'),
-  headers: _authHeaders,
-  connectTimeout: const Duration(seconds: 15),
-  receiveTimeout: const Duration(seconds: 20),
-  sendTimeout: const Duration(seconds: 15),
-);
 
 class ApiService {
   late final ServiceData _apiData;
 
+  /// показывает готов ли сервис к работе, если [Future] объект завершен, то сервис готов
+  late Future initialized;
   BehaviorSubject<Exception> apiExceptions = BehaviorSubject();
+
+  /// При добавлении новых сервисов необходимо инциализировать их в [_initialServices]
   late final Auth auth;
   late final Wallet wallet;
   late final Land land;
 
-  late Future initialized;
-
-  ApiService({required PreferencesService preferencesService})  {
-    initialized = initialServices(preferencesService);
-  }
-
-  Future initialServices(PreferencesService preferencesService) async {
-    final token = await preferencesService.getToken();
-    final dio = Dio(_dioOptions)..interceptors.add(PrettyDioLogger());
-    _apiData = ServiceData(token, dio, preferencesService, apiExceptions);
-    _apiData.requiredFuture = initialized;
-
-    log("JWT Token: ${token.jwt}");
-
-    auth = Auth(apiServiceData: _apiData);
-    wallet = Wallet(apiServiceData: _apiData);
-    land = Land(apiServiceData: _apiData);
-
-    await auth.refreshToken(token);
+  ApiService({required PreferencesService preferencesService}) {
+    initialized = _init(preferencesService);
   }
 
   void logout() {
     _apiData.prefs.logout();
     _apiData.token.setJwt('');
-    _apiData.dio.options.headers = _authHeaders;
+    _apiData.dio.options.headers = defaultHeaders;
+  }
+
+  /// инициализирует все сервисы
+  Future _initialServices() async {
+    auth = Auth(apiServiceData: _apiData);
+    wallet = Wallet(apiServiceData: _apiData);
+    land = Land(apiServiceData: _apiData);
+  }
+
+  // -----------------------------------------------------
+
+  /// Вызывает [_initializeServiceData], [_initialServices], устанавливает токен
+  Future _init(PreferencesService preferencesService) async {
+    await _initializeServiceData(preferencesService);
+    await _initialServices();
+    await auth.refreshToken(_apiData.token);
+  }
+
+  /// Инициализирует классы, необходимые для работы по типу [Dio], [PreferencesService]
+  Future _initializeServiceData(PreferencesService preferencesService) async {
+    final token = await preferencesService.getToken();
+    final dio = Dio(defaultDioOptions)..interceptors.add(PrettyDioLogger());
+    _apiData = ServiceData(token, dio, preferencesService, apiExceptions);
+    _apiData.requiredFuture = initialized;
+
+    log("JWT Token: ${token.jwt}");
   }
 }
