@@ -24,10 +24,11 @@ mixin class ApiHandler {
 
   Future<void> refreshToken(Token token) async {
     await serviceData.prefs.saveToken(token);
-
     serviceData.token.setJwt(token.jwt);
+
     log('token refreshed on ${serviceData.token.jwt}');
     log("________________________");
+
     serviceData.dio.options.headers = _getHeadersWithCurrentToken();
     serviceData.prefs.getToken();
   }

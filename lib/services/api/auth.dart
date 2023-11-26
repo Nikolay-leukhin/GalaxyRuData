@@ -1,7 +1,7 @@
 part of 'api_service.dart';
 
 class Auth with ApiHandler {
-  Auth({required ServiceData apiServiceData}) {
+  Auth(ServiceData apiServiceData) {
     serviceData = apiServiceData;
   }
 

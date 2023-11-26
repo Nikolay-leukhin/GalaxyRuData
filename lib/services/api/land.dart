@@ -1,7 +1,7 @@
 part of 'api_service.dart';
 
 class Land with ApiHandler {
-  Land({required ServiceData apiServiceData}) {
+  Land(ServiceData apiServiceData) {
     serviceData = apiServiceData;
   }
 

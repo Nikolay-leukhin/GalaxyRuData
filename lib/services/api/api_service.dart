@@ -48,9 +48,9 @@ class ApiService {
 
   /// инициализирует все сервисы
   Future _initialServices() async {
-    auth = Auth(apiServiceData: _apiData);
-    wallet = Wallet(apiServiceData: _apiData);
-    land = Land(apiServiceData: _apiData);
+    auth = Auth(_apiData);
+    wallet = Wallet(_apiData);
+    land = Land(_apiData);
   }
 
   // -----------------------------------------------------

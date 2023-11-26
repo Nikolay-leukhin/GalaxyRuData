@@ -1,7 +1,7 @@
 part of 'api_service.dart';
 
 class Wallet with ApiHandler {
-  Wallet({required ServiceData apiServiceData}) {
+  Wallet(ServiceData apiServiceData) {
     serviceData = apiServiceData;
   }
 
