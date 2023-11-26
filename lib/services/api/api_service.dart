@@ -27,7 +27,6 @@ part 'land.dart';
 class ApiService {
   late final ServiceData _apiData;
 
-  /// показывает готов ли сервис к работе, если [Future] объект завершен, то сервис готов
   late Future initialized;
   BehaviorSubject<Exception> apiExceptions = BehaviorSubject();
 
@@ -46,7 +45,6 @@ class ApiService {
     _apiData.dio.options.headers = defaultHeaders;
   }
 
-  /// инициализирует все сервисы
   Future _initialServices() async {
     auth = Auth(_apiData);
     wallet = Wallet(_apiData);
@@ -55,7 +53,6 @@ class ApiService {
 
   // -----------------------------------------------------
 
-  /// Вызывает [_initializeServiceData], [_initialServices], устанавливает токен
   Future _init(PreferencesService preferencesService) async {
     await _initializeServiceData(preferencesService);
     await _initialServices();

@@ -17,7 +17,7 @@ import 'package:galaxy_rudata/feature/planet_view/ui/plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
-import 'package:galaxy_rudata/feature/wallet/ui/pages/card_screen.dart';
+import 'package:galaxy_rudata/feature/wallet/ui/pages/wallet_create_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/seed_phrase/seed_phrase_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/wallet_created_screen.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
@@ -30,8 +30,8 @@ import 'package:just_audio/just_audio.dart';
 final PreferencesService prefs = PreferencesService();
 final ApiService apiService = ApiService(preferencesService: prefs);
 
-class MyRepositoryProvider extends StatelessWidget {
-  MyRepositoryProvider({Key? key}) : super(key: key);
+class MyRepositoryProviders extends StatelessWidget {
+  MyRepositoryProviders({Key? key}) : super(key: key);
 
   WalletRepository walletRepository =
       WalletRepository(apiService: apiService, prefs: prefs);
@@ -114,7 +114,7 @@ class MyBlocProviders extends StatelessWidget {
           lazy: false,
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
@@ -132,36 +132,26 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void dispose() {
     super.dispose();
-
     player.dispose();
-
     WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initBackgroundMusic();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
 
-    switch (state) {
-      case AppLifecycleState.resumed:
-        await player.play();
-        print("app in resumed");
-        break;
-      case AppLifecycleState.inactive:
-        await player.stop();
-        print("app in resumed");
-        break;
-      case AppLifecycleState.paused:
-        await player.stop();
-        print("app in paused");
-        break;
-      case AppLifecycleState.detached:
-        await player.stop();
-        print("app in detached");
-        break;
-      case AppLifecycleState.hidden:
-        await player.stop();
-        print("app in hidden");
+    if (state == AppLifecycleState.resumed) {
+      await player.play();
+    } else {
+      await player.stop();
+      print('AppState changed to $state');
     }
   }
 
@@ -174,10 +164,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       print(event.processingState);
 
       if (event.processingState == ProcessingState.completed) {
-          await player.setAsset("assets/musics/loop_background.wav");
-          await player.play();
+        await player.setAsset("assets/musics/loop_background.wav");
+        await player.play();
       }
-
     });
   }
 
@@ -186,26 +175,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    initBackgroundMusic();
-
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Вселенная Большого Росреестра',
       theme: ThemeData(
         fontFamily: 'Nunito',
-        pageTransitionsTheme: const PageTransitionsTheme(
-            builders: {
-              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-              TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
-            }
-        ),
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+        }),
       ),
       debugShowCheckedModeBanner: false,
       routes: appRoutes,

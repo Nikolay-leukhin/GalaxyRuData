@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/app.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/pin_enter_screen.dart';
-import 'package:galaxy_rudata/feature/auth/ui/pages/pin_repeat_screen.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/create_pin_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/land_choose_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
@@ -11,7 +10,7 @@ import 'package:galaxy_rudata/feature/nft/ui/nft_certificate.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/lands_list_screen.dart';
 import 'package:galaxy_rudata/feature/planet_view/ui/plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/safe/ui/safe_screen.dart';
-import 'package:galaxy_rudata/feature/wallet/ui/pages/card_screen.dart';
+import 'package:galaxy_rudata/feature/wallet/ui/pages/wallet_create_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/seed_phrase/enter_seed_phrase_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/seed_phrase/seed_phrase_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/wallet_created_screen.dart';
@@ -31,7 +30,6 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
   RouteNames.safe: (context) => const SafeScreen(),
 
   RouteNames.authPinCreate: (context) => const PinCreateFirstScreen(),
-  RouteNames.authPinRepeat: (context) => const PinRepeatScreen(),
   RouteNames.authPinEnter: (context) => const PinEnterScreen(),
 
 
