@@ -14,12 +14,17 @@ class AppCubit extends Cubit<AppState> {
   final LandsRepository _landsRepository;
 
   AppCubit(
-      {required AuthRepository authRepository, required LandsRepository landsRepository,
+      {required AuthRepository authRepository,
+      required LandsRepository landsRepository,
       required WalletRepository walletRepository})
       : _authRepository = authRepository,
         _walletRepository = walletRepository,
         _landsRepository = landsRepository,
         super(AppInitial()) {
+    _subscribeAuth();
+  }
+
+  void _subscribeAuth() {
     _authRepository.appState.stream.listen((event) async {
       if (event == AppStateEnum.auth) _handleAuthEvent();
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
@@ -32,7 +37,6 @@ class AppCubit extends Cubit<AppState> {
     if (walletCreated) {
       await _walletRepository.getWalletInstance();
       _checkWalletStateAndHandleCode();
-
     } else {
       emit(AppAuthState(state: StatesEnum.createWalletScreen));
     }
@@ -52,12 +56,11 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-
   void _handleCode() async {
     final currentCode = await _authRepository.currentInviteCode();
     if (currentCode == null) {
       emit(AppAuthState(state: StatesEnum.lockScreen));
-    } else{
+    } else {
       _landsRepository.code = currentCode.code;
       if (currentCode.forLandId == null) {
         emit(AppAuthState(state: StatesEnum.landChoseScreen));

@@ -173,19 +173,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     player.playerStateStream.listen((event) async {
       print(event.processingState);
 
-      switch (event.processingState) {
-        case ProcessingState.completed:
+      if (event.processingState == ProcessingState.completed) {
           await player.setAsset("assets/musics/loop_background.wav");
           await player.play();
-        case ProcessingState.idle:
-        // TODO: Handle this case.
-        case ProcessingState.loading:
-        // TODO: Handle this case.
-        case ProcessingState.buffering:
-        // TODO: Handle this case.
-        case ProcessingState.ready:
-        // TODO: Handle this case.
       }
+
     });
   }
 
@@ -208,6 +200,12 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       title: 'Вселенная Большого Росреестра',
       theme: ThemeData(
         fontFamily: 'Nunito',
+        pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {
+              TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+              TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+            }
+        ),
       ),
       debugShowCheckedModeBanner: false,
       routes: appRoutes,

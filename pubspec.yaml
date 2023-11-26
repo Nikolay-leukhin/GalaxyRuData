@@ -49,7 +49,7 @@ flutter_launcher_icons:
   image_path: "assets/app_sources/icon.jpg"
   min_sdk_android: 21
   adaptive_icon_background: "assets/app_sources/icon_bcg.png"
-  adaptive_icon_foreground: "assets/app_sources/icon.jpg"
+  adaptive_icon_foreground: "assets/app_sources/111114555.jpg"
 
 
 flutter:

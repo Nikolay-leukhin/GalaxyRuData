@@ -98,7 +98,7 @@ class WalletAddressBottomSheet extends StatelessWidget {
                                   TWCoinType.TWCoinTypePolygon)));
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context)
-                          .showSnackBar(AppSnackBar.successSnackBar);
+                          .showSnackBar(AppSnackBar.successCopyWallet);
                     },
                     width: size.width - 56),
                 seperator16

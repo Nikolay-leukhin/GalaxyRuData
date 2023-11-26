@@ -64,15 +64,24 @@ class LandsRepository {
       final response = (await apiService.land.getFreeLands())['lands'];
       freeLandsList.clear();
       availableClustersNames.clear();
+
+      List<String> defaultClusters = clusters.keys.toList();
+      final List existsClusters = [];
+
       for (var json in response) {
         freeLandsList.add(LandModel.fromJson(json));
         try {
-          if (!availableClustersNames.contains(json['type'])) {
-            availableClustersNames.add(json['type']);
+          if (!existsClusters.contains(json['type'])) {
+            existsClusters.add(json['type']);
           }
         } catch (e) {}
       }
-      print(availableClustersNames);
+
+      for (var i = 0; i < defaultClusters.length; i++) {
+        String name = defaultClusters[i];
+        if (!existsClusters.contains(name)) defaultClusters.remove(name);
+      }
+      availableClustersNames.addAll(defaultClusters);
       freeLandsStream.add(LoadingStateEnum.success);
     } catch (e, st) {
       print(e);

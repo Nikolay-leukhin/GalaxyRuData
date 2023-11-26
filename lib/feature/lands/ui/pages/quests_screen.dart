@@ -11,13 +11,13 @@ import 'package:permission_handler/permission_handler.dart';
 //     'Чтобы получить NFT-сертификат, пройдите квесты на космической базе Большого Росреестра в метавселенной Spatial. Вы можете сделать это как с телефона, так и на компьютере.';
 
 const String _inDevelopingMessage =
-    'Поздравляем, вы забронировали жилье во Вселенной Большого Росреестра! Скоро вы сможете пройти квесты в метавселенной Spatial и получить NFT-сертификат. Мы сообщим вам сразу, как это станет доступно.';
+    'Вы сделали первый шаг в оформлении жилья на планете НСПД во Вселенной Большого Росреестра! Скоро вы сможете пройти квесты в метавселенной Spatial и получить NFT-cертификат. Мы сообщим вам сразу, как это станет доступно.';
 
 const String _doNotDisableNotifications =
     'Пожалуйста, не отключайте уведомления!';
 
 const String _pleaseGrantTheAccess =
-    'Разрешите нам отправлять уведомления чтобы не пропустить';
+    'Пожалуйста, подключите уведомления, чтобы не пропустить самое интересное!';
 
 class QuestsScreen extends StatefulWidget {
   const QuestsScreen({super.key});
@@ -66,7 +66,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                 width: size.width * 0.6,
                 constraints: const BoxConstraints(maxWidth: 350),
                 child: Text(
-                  'Поздравляем, вы забронировали жилье!',
+                  'Поздравляем!',
                   textAlign: TextAlign.center,
                   style: size.width > 300
                       ? AppTypography.font24w700
@@ -89,13 +89,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                     const SizedBox(height: 16,),
                     if (fieldPermissionStatusInitialized) ...[
                       notificationsPermissionIsGranted
-                          ? Text(
-                              _doNotDisableNotifications,
-                              style: size.width > 300
-                                  ? AppTypography.font16w400
-                                  : AppTypography.font14w400,
-                              textAlign: TextAlign.center,
-                            )
+                          ? Container()
                           : Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -111,7 +105,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                                 ),
                                 CustomButton(
                                     content: Text(
-                                      'Разрешить',
+                                      'УВЕДОМЛЕНИЯ',
                                       style: AppTypography.font16w400,
                                     ),
                                     onTap: () async {

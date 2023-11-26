@@ -10,8 +10,10 @@ import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:galaxy_rudata/widgets/text_fields/access_code_field.dart';
 
+// const String _lockMessage =
+//     'Введите персональный код доступа, чтобы забронировать себе жилье во Вселенной Большого Росреестра. Один код дает возможность бронирования одного жилья.';
 const String _lockMessage =
-    'Введите персональный код доступа, чтобы забронировать себе жилье во Вселенной Большого Росреестра. Один код дает возможность бронирования одного жилья.';
+    'Введите код доступа «Росреестр» (без кавычек), чтобы оформить себе жилье во Вселенной Большого Росреестра.';
 
 class LockScreen extends StatefulWidget {
   const LockScreen({super.key});
