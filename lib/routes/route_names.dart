@@ -20,7 +20,7 @@ class RouteNames {
 
   static const String landsList = '/lands/list';
   static const String landsUserList = '/lands/list/screen';
-  static const String landsChoose = '/lands/choose';
+  static const String cluster = '/lands/cluster';
 
   static const String arPlanetView = '/ar/planet';
 }
