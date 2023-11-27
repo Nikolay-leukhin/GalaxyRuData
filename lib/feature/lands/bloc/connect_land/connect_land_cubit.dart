@@ -20,8 +20,7 @@ class ConnectLandCubit extends Cubit<ConnectLandState> {
     try {
       await landsRepository
           .connectRandomFromClusterLandToCurrentCode(clusterType);
-
-      authRepository.appState.add(AppStateEnum.auth);
+      authRepository.refreshAuthState();
 
       emit(ConnectLandSuccess());
     } catch (ex) {

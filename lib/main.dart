@@ -19,5 +19,5 @@ void main() async {
   await dotenv.load();
   TrustWalletCoreLib.init();
 
-  runApp( MyRepositoryProvider());
+  runApp( MyRepositoryProviders());
 }

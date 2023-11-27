@@ -205,7 +205,7 @@ class ClusterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteNames.landsChoose,
+        Navigator.pushNamed(context, RouteNames.cluster,
             arguments: {'cluster': type});
       },
       child: Container(

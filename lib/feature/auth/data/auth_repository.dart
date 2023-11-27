@@ -17,9 +17,8 @@ class AuthRepository {
       {required this.apiService,
       required this.prefs,
       required this.walletRepository}) {
-    checkUserAuth();
+    checkUserAuthWithDelay();
     apiService.apiExceptions.stream.listen((event) {
-      print(event);
       if (event is UnAuthorizedException) logout();
     });
   }
@@ -30,17 +29,18 @@ class AuthRepository {
   BehaviorSubject<AppStateEnum> appState =
       BehaviorSubject.seeded(AppStateEnum.wait);
 
-  List<int> typedUserPinCode = [];
+  Future<void> checkUserAuthWithDelay() async {
+    final delay = Future.delayed(const Duration(seconds: 3, milliseconds: 200));
+    final check = _checkUserAuth();
+    await Future.wait([delay, check]);
+  }
 
-  Future<void> checkUserAuth() async {
+  Future _checkUserAuth() async {
     final token = await prefs.getToken();
-    await Future.delayed(Duration(seconds: 3, milliseconds: 200));
-
     if (token.jwt.isEmpty) {
       appState.add(AppStateEnum.unAuth);
     } else {
       currentEmail = await prefs.getEmail();
-
       appState.add(AppStateEnum.auth);
     }
   }
@@ -56,9 +56,7 @@ class AuthRepository {
 
       authState.add(LoadingStateEnum.success);
       appState.add(AppStateEnum.auth);
-    } catch (e, st) {
-      print(e);
-      print(st);
+    } catch (e) {
       authState.add(LoadingStateEnum.fail);
     }
   }
@@ -75,13 +73,11 @@ class AuthRepository {
     appState.add(AppStateEnum.auth);
   }
 
-  Future<void> sendEmailCode(String email) async {
-    await apiService.auth.sendCode(email);
-  }
+  Future<void> sendEmailCode(String email) => apiService.auth.sendCode(email);
 
   void refreshAuthState() => appState.add(AppStateEnum.auth);
 
-  Future<InviteCode?> currentInviteCode() async {
+  Future<InviteCode?> getCurrentInviteCode() async {
     final res = await apiService.auth.getUser();
     for (var i in res['user']['inviteCodes']) {
       if (i['isClaimed'] == false) {

@@ -57,7 +57,7 @@ class AppCubit extends Cubit<AppState> {
   }
 
   void _handleCode() async {
-    final currentCode = await _authRepository.currentInviteCode();
+    final currentCode = await _authRepository.getCurrentInviteCode();
     if (currentCode == null) {
       emit(AppAuthState(state: StatesEnum.lockScreen));
     } else {
