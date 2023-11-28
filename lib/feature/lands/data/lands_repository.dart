@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
-import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -20,8 +17,6 @@ class LandsRepository {
   List<String> availableClustersNames = [];
   List<LandModel> userLandsList = [];
 
-  BehaviorSubject<LoadingStateEnum> freeLandsStream =
-      BehaviorSubject.seeded(LoadingStateEnum.wait);
   BehaviorSubject<LoadingStateEnum> userLandsStream =
       BehaviorSubject.seeded(LoadingStateEnum.wait);
 
@@ -32,21 +27,8 @@ class LandsRepository {
     code = usedCode;
   }
 
-  Future<void> connectLandToCurrentCode(int landId) async {
-    await apiService.land.connectLandAndCode(code: code!, landId: landId);
-  }
-
-  Future<void> connectRandomFromClusterLandToCurrentCode(String clusterType) async {
-    List<LandModel> lands = [];
-    for (var i in freeLandsList) {
-      if (i.type == clusterType) {
-        lands.add(i);
-      }
-    }
-    final random =  Random();
-
-    final land = lands[random.nextInt(lands.length)];
-    await connectLandToCurrentCode(land.id);
+  Future<void> connectLandFromClusterToCurrentCode(String cluster) async {
+    await apiService.land.connectLandAndCode(code: code!, cluster: cluster);
   }
 
   Future getApprove() async {
@@ -56,38 +38,6 @@ class LandsRepository {
 
   Future<void> verifyInviteCode(String approveCode) async {
     await apiService.land.verifyLandCode(code!, approveCode);
-  }
-
-  Future<void> loadFreeLands() async {
-    freeLandsStream.add(LoadingStateEnum.loading);
-    try {
-      final response = (await apiService.land.getFreeLands())['lands'];
-      freeLandsList.clear();
-      availableClustersNames.clear();
-
-      List<String> defaultClusters = clusters.keys.toList();
-      final List existsClusters = [];
-
-      for (var json in response) {
-        freeLandsList.add(LandModel.fromJson(json));
-        try {
-          if (!existsClusters.contains(json['type'])) {
-            existsClusters.add(json['type']);
-          }
-        } catch (e) {}
-      }
-
-      for (var i = 0; i < defaultClusters.length; i++) {
-        String name = defaultClusters[i];
-        if (!existsClusters.contains(name)) defaultClusters.remove(name);
-      }
-      availableClustersNames.addAll(defaultClusters);
-      freeLandsStream.add(LoadingStateEnum.success);
-    } catch (e, st) {
-      print(e);
-      print(st);
-      freeLandsStream.add(LoadingStateEnum.fail);
-    }
   }
 
   Future loadUserLands() async {

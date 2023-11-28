@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/feature/lands/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/connect_land/connect_land_cubit.dart';
-import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/user_lands/lands_user_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
-import 'package:galaxy_rudata/feature/lands/ui/pages/lands_list_screen.dart';
-import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
-import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
 import 'package:galaxy_rudata/feature/planet_view/ui/plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
@@ -33,7 +30,7 @@ final ApiService apiService = ApiService(preferencesService: prefs);
 class MyRepositoryProviders extends StatelessWidget {
   MyRepositoryProviders({Key? key}) : super(key: key);
 
-  WalletRepository walletRepository =
+  final WalletRepository walletRepository =
       WalletRepository(apiService: apiService, prefs: prefs);
 
   @override
@@ -96,10 +93,6 @@ class MyBlocProviders extends StatelessWidget {
         ),
         BlocProvider<EnterSeedCubit>(
           create: (_) => EnterSeedCubit(context.read<WalletRepository>()),
-          lazy: false,
-        ),
-        BlocProvider<LandsFreeCubit>(
-          create: (_) => LandsFreeCubit(context.read<LandsRepository>()),
           lazy: false,
         ),
         BlocProvider<LandsUserCubit>(

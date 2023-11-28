@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
-import 'package:galaxy_rudata/utils/utils.dart';
-import 'package:meta/meta.dart';
-
 part 'connect_land_state.dart';
 
 class ConnectLandCubit extends Cubit<ConnectLandState> {
@@ -18,8 +16,7 @@ class ConnectLandCubit extends Cubit<ConnectLandState> {
     emit(ConnectLandLoading());
 
     try {
-      await landsRepository
-          .connectRandomFromClusterLandToCurrentCode(clusterType);
+      await landsRepository.connectLandFromClusterToCurrentCode(clusterType);
       authRepository.refreshAuthState();
 
       emit(ConnectLandSuccess());

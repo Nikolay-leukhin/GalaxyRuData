@@ -3,30 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/route_names.dart';
-import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/app_bar_actions_container.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/app_bar_button.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
-import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
-import 'package:galaxy_rudata/widgets/dialogs/wallet_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/popup/choose_popup.dart';
 
 class MainAppBar extends PreferredSize {
-  // MainAppBar(BuildContext context, {super.key, bool isAction = true})
-  //     : super(
-  //         preferredSize: Size(MediaQuery.sizeOf(context).width, 100),
-  //         child: Padding(
-  //           padding: const EdgeInsets.symmetric(horizontal: 20),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: [
-  //               isAction ? const AppBarActions() : Container(),
-  //               const RfContainer()
-  //             ],
-  //           ),
-  //         ),
-  //       );
-
   MainAppBar.back(BuildContext context, {super.key})
       : super(
           preferredSize: Size(MediaQuery.sizeOf(context).width, 100),
