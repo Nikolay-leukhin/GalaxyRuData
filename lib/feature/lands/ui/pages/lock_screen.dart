@@ -57,11 +57,6 @@ class _LockScreenState extends State<LockScreen> {
           turn = 0.13;
         });
       });
-
-      Future.delayed(rotationDuration + moveDuration, () {
-        RepositoryProvider.of<AuthRepository>(context).refreshAuthState();
-        // Navigator.of(context).pushNamed(RouteNames.arPlanetView);
-      });
     }
 
     return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
@@ -102,17 +97,19 @@ class _LockScreenState extends State<LockScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                MediaQuery.of(context).viewInsets.bottom == 0 ? Container(
-                  width: size.width * 0.69,
-                  constraints: const BoxConstraints(maxWidth: 500),
-                  child: Text(
-                    _lockMessage,
-                    style: size.width < 300
-                        ? AppTypography.font16w400
-                        : AppTypography.font14w400,
-                    textAlign: TextAlign.center,
-                  ),
-                ) : Container(),
+                MediaQuery.of(context).viewInsets.bottom == 0
+                    ? Container(
+                        width: size.width * 0.69,
+                        constraints: const BoxConstraints(maxWidth: 500),
+                        child: Text(
+                          _lockMessage,
+                          style: size.width < 300
+                              ? AppTypography.font16w400
+                              : AppTypography.font14w400,
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    : Container(),
                 Container(
                   width: size.width * 0.725,
                   height: size.width,
@@ -128,9 +125,8 @@ class _LockScreenState extends State<LockScreen> {
                       ),
                       AnimatedPositioned(
                         top: top,
-                        left: size.width * 0.725 < 300
-                            ? size.width * 0.108
-                            : 50,
+                        left:
+                            size.width * 0.725 < 300 ? size.width * 0.108 : 50,
                         duration: moveDuration,
                         child: AnimatedRotation(
                           alignment: const Alignment(0.2, 0.3),
@@ -167,9 +163,9 @@ class _LockScreenState extends State<LockScreen> {
                     ),
                     onTap: () {
                       if (codeController.text.isNotEmpty) {
-                        context
-                            .read<UseInviteCodeCubit>()
-                            .useInviteCode(codeController.text.trim());
+                        context.read<UseInviteCodeCubit>().useInviteCode(
+                            codeController.text.trim(),
+                            moveDuration + rotationDuration);
                       }
                     },
                     width: double.infinity),

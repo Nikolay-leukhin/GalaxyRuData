@@ -4,47 +4,58 @@ import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
+enum CodeStates { lock, choose, quests }
+
 class LandsRepository {
-  final ApiService apiService;
-  final PreferencesService prefs;
+  final ApiService _apiService;
+  final PreferencesService _prefs;
 
   String? code;
 
   /// снести потом
   String? approve;
 
-  List<LandModel> freeLandsList = [];
-  List<String> availableClustersNames = [];
   List<LandModel> userLandsList = [];
 
   BehaviorSubject<LoadingStateEnum> userLandsStream =
       BehaviorSubject.seeded(LoadingStateEnum.wait);
 
-  LandsRepository({required this.apiService, required this.prefs});
+  BehaviorSubject<CodeStates> codeStates = BehaviorSubject();
 
-  Future<void> useInviteCode(String usedCode) async {
-    await apiService.land.useInviteCode(usedCode);
+  LandsRepository(
+      {required ApiService apiService, required PreferencesService prefs})
+      : _prefs = prefs,
+        _apiService = apiService;
+
+  Future<void> useInviteCode(
+      String usedCode) async {
+    await _apiService.land.useInviteCode(usedCode);
     code = usedCode;
   }
 
+  void codeUsed() =>
+    codeStates.add(CodeStates.choose);
+
+
   Future<void> connectLandFromClusterToCurrentCode(String cluster) async {
-    await apiService.land.connectLandAndCode(code: code!, cluster: cluster);
+    await _apiService.land.connectLandAndCode(code: code!, cluster: cluster);
+    codeStates.add(CodeStates.quests);
   }
 
   Future getApprove() async {
-    final res = await apiService.land.getApprove(code!);
+    final res = await _apiService.land.getApprove(code!);
     approve = res['data'];
   }
 
   Future<void> verifyInviteCode(String approveCode) async {
-    await apiService.land.verifyLandCode(code!, approveCode);
+    await _apiService.land.verifyLandCode(code!, approveCode);
   }
 
   Future loadUserLands() async {
     userLandsStream.add(LoadingStateEnum.loading);
 
     try {
-      final response = (await apiService.land.getUserLands())['lands'];
+      final response = (await _apiService.land.getUserLands())['lands'];
       userLandsList.clear();
       for (var json in response) {
         userLandsList.add(LandModel.fromJson(json));

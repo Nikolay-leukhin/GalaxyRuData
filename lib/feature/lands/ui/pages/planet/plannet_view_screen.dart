@@ -5,7 +5,7 @@ import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 
-import '../../lands/ui/widgets/cluster_button.dart';
+import '../../widgets/cluster_button.dart';
 
 class ArPlanetViewScreen extends StatefulWidget {
   const ArPlanetViewScreen({super.key});

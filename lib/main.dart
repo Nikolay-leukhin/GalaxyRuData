@@ -6,6 +6,8 @@ import 'package:galaxy_rudata/app.dart';
 import 'package:galaxy_rudata/services/custom_bloc_observer.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_lib.dart';
 
+import 'providers.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

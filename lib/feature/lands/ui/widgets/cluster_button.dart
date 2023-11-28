@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
+import 'package:galaxy_rudata/routes/routes.dart';
 
 import '../../../../utils/utils.dart';
 

@@ -1,3 +1,5 @@
+part of 'routes.dart';
+
 class RouteNames {
   static const String root = '/';
 

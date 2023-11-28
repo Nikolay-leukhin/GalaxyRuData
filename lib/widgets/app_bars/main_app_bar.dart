@@ -2,13 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
+import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/app_bar_actions_container.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/app_bar_button.dart';
 import 'package:galaxy_rudata/widgets/app_bar_items/rf_container.dart';
 import 'package:galaxy_rudata/widgets/popup/choose_popup.dart';
 
 class MainAppBar extends PreferredSize {
+  static void _walletFunction(context) {
+    RepositoryProvider.of<WalletRepository>(context)
+        .pinCreated
+        .then((value) {
+      Navigator.pushNamed(
+          context,
+          value
+              ? RouteNames.authPinEnter
+              : RouteNames.authPinCreate,
+          arguments: {
+            'confirmation': () {
+              Navigator.pushReplacementNamed(
+                  context, RouteNames.landsUserList);
+            }
+          });
+    });
+  }
+
   MainAppBar.back(BuildContext context, {super.key})
       : super(
           preferredSize: Size(MediaQuery.sizeOf(context).width, 100),
@@ -46,21 +64,7 @@ class MainAppBar extends PreferredSize {
                       iconName: 'back.svg'),
                   AppBarButton(
                       onTap: () {
-                        RepositoryProvider.of<WalletRepository>(context)
-                            .pinCreated
-                            .then((value) {
-                          Navigator.pushNamed(
-                              context,
-                              value
-                                  ? RouteNames.authPinEnter
-                                  : RouteNames.authPinCreate,
-                              arguments: {
-                                'confirmation': () {
-                                  Navigator.pushReplacementNamed(
-                                      context, RouteNames.landsUserList);
-                                }
-                              });
-                        });
+                        _walletFunction(context);
                       },
                       iconName: 'wallet.svg'),
                 ]),
@@ -92,21 +96,7 @@ class MainAppBar extends PreferredSize {
                       iconName: 'logout.svg'),
                   AppBarButton(
                       onTap: () {
-                        RepositoryProvider.of<WalletRepository>(context)
-                            .pinCreated
-                            .then((value) {
-                          Navigator.pushNamed(
-                              context,
-                              value
-                                  ? RouteNames.authPinEnter
-                                  : RouteNames.authPinCreate,
-                              arguments: {
-                                'confirmation': () {
-                                  Navigator.pushReplacementNamed(
-                                      context, RouteNames.landsUserList);
-                                }
-                              });
-                        });
+                        _walletFunction(context);
                       },
                       iconName: 'wallet.svg'),
                 ]),

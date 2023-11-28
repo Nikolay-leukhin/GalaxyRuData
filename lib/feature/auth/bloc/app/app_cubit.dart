@@ -22,6 +22,7 @@ class AppCubit extends Cubit<AppState> {
         _landsRepository = landsRepository,
         super(AppInitial()) {
     _subscribeAuth();
+    _subscribeCode();
   }
 
   void _subscribeAuth() {
@@ -31,18 +32,26 @@ class AppCubit extends Cubit<AppState> {
     });
   }
 
+  void _subscribeCode() {
+    _landsRepository.codeStates.stream.listen((event) {
+      if (event == CodeStates.lock) emit(AppAuthState(state: StatesEnum.lockScreen));
+      if (event == CodeStates.choose) emit(AppAuthState(state: StatesEnum.landChoseScreen));
+      if (event == CodeStates.quests) emit(AppAuthState(state: StatesEnum.questsScreen));
+    });
+  }
+
   void _handleAuthEvent() async {
     final walletCreated = await _walletRepository.checkWalletAuth();
 
     if (walletCreated) {
       await _walletRepository.getWalletInstance();
-      _checkWalletStateAndHandleCode();
+      _checkWalletStateAndCode();
     } else {
       emit(AppAuthState(state: StatesEnum.createWalletScreen));
     }
   }
 
-  void _checkWalletStateAndHandleCode() async {
+  void _checkWalletStateAndCode() async {
     final walletState = await _authRepository.walletState();
 
     if (walletState != null) {
@@ -51,12 +60,12 @@ class AppCubit extends Cubit<AppState> {
       } else if (walletState == WalletCreationState.watchSeed) {
         emit(AppAuthState(state: StatesEnum.seedPhraseScreen));
       } else {
-        _handleCode();
+        _checkCodeState();
       }
     }
   }
 
-  void _handleCode() async {
+  void _checkCodeState() async {
     final currentCode = await _authRepository.getCurrentInviteCode();
     if (currentCode == null) {
       emit(AppAuthState(state: StatesEnum.lockScreen));

@@ -51,6 +51,10 @@ mixin class ApiHandler {
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         serviceData.exceptionsStream.add(UnAuthorizedException());
+      } else if (e.response?.statusCode == 400 &&
+          e.response?.data['error'] == 'User not found.' &&
+          requestData.url == ApiEndpoints.user) {
+        serviceData.exceptionsStream.add(UnAuthorizedException());
       } else {
         log('headers: ${serviceData.dio.options.headers}');
         log('error by calling ${requestData.url}');

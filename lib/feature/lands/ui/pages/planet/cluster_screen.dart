@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/connect_land/connect_land_cubit.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
+import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -19,16 +19,8 @@ class ClusterScreen extends StatefulWidget {
 
 class _ClusterScreenState extends State<ClusterScreen> {
   @override
-  void initState() {
-    // context.read<LandsRepository>().loadFreeLands();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final sizeOf = MediaQuery.sizeOf(context);
-
-    print(sizeOf.width);
 
     final clusterType = ((ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map)['cluster'] as String;
