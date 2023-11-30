@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/blocks.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
@@ -38,6 +39,10 @@ class MyRepositoryProviders extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (_) => walletRepository,
+          lazy: false,
+        ),
+        RepositoryProvider(
+          create: (_) => MusicRepository(),
           lazy: false,
         ),
       ],

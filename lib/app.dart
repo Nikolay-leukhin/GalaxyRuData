@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
+import 'package:galaxy_rudata/utils/path_musics.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 import 'package:in_app_update/in_app_update.dart';
@@ -24,7 +26,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void dispose() {
     super.dispose();
+
     player.dispose();
+
     WidgetsBinding.instance.removeObserver(this);
   }
 
@@ -51,16 +55,37 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Future<void> initBackgroundMusic() async {
     player = AudioPlayer();
 
-    await player.setAsset("assets/musics/fist_background.wav");
+    await player.setAsset(AppPathMusic.backgroundFirstMusic);
     await player.play();
     player.playerStateStream.listen((event) async {
       print(event.processingState);
 
       if (event.processingState == ProcessingState.completed) {
-        await player.setAsset("assets/musics/loop_background.wav");
+        await player.setAsset(AppPathMusic.backgroundLoopMusic);
         await player.play();
       }
     });
+  }
+
+  Future<void> initActionMusic() async {
+    List<AudioPlayer> players =
+        RepositoryProvider.of<MusicRepository>(context).players();
+
+    for (var player in players) {
+      print(1);
+      await player
+          .setVolume(0)
+          .then(
+              (value) async => await player.setSpeed(10000000000000000000000.0))
+          .then((value) async => await player.play())
+          .then((value) async => await player.stop())
+          .then((value) async => await player.setSpeed(1))
+          .then((value) async => await player.setVolume(1));
+    }
+
+    print('---------------------');
+    print('finish loading misic');
+    print('---------------------');
   }
 
   Future<void> stopPlayer() async {
@@ -81,7 +106,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
               label: 'необходимо обновление',
               onTap: update,
             ));
-
   }
 
   Future update() async {

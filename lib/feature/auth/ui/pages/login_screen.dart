@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -82,6 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
          if (state is AuthFailState) {
@@ -155,16 +158,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       currentRemainingTime == 0
                           ? Positioned(
-                              right: 0,
-                              child: CustomButton(
-                                  content: Text("Отправить".toUpperCase(),
-                                      style: AppTypography.font16w600
-                                          .copyWith(color: Colors.white)),
-                                  onTap: () {
-                                    sendAuthCode();
-                                  },
-                                  width: 120),
-                            )
+                        right: 0,
+                        child: CustomButton(
+                            content: Text("Отправить".toUpperCase(),
+                                style: AppTypography.font16w600
+                                    .copyWith(color: Colors.white)),
+                            onTap: () {
+                              sendAuthCode();
+                            },
+                            width: 120),
+                      )
                           : Positioned(
                               right: 0,
                               child: CustomButton(
@@ -204,16 +207,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         scale: 25 / Checkbox.width,
                         child: Checkbox(
                           value: isConditionsAccepted,
-                          onChanged: (v) {
+                          onChanged: (v) async {
+                            await musicRepository.bigButton.play().then((
+                                value) async {
+                              await musicRepository
+                                  .bigButton
+                                  .seek(const Duration(seconds: 0));
+                            });
+
                             changeCheckboxValue(v ?? false);
                           },
                           splashRadius: 0,
                           fillColor:
-                              MaterialStateProperty.all(AppColors.primary),
+                          MaterialStateProperty.all(AppColors.primary),
                           side: const BorderSide(
                               width: 0, color: Colors.transparent),
                           materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
+                          MaterialTapTargetSize.shrinkWrap,
                         ),
                       ),
                     ),
