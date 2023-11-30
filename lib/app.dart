@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
@@ -24,6 +25,7 @@ import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
+import 'package:galaxy_rudata/utils/path_musics.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -53,6 +55,10 @@ class MyRepositoryProvider extends StatelessWidget {
         ),
         RepositoryProvider(
           create: (_) => walletRepository,
+          lazy: false,
+        ),
+        RepositoryProvider(
+          create: (_) => MusicRepository(),
           lazy: false,
         ),
       ],
@@ -168,14 +174,14 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Future<void> initBackgroundMusic() async {
     player = AudioPlayer();
 
-    await player.setAsset("assets/musics/fist_background.wav");
+    await player.setAsset(AppPathMusic.backgroundFirstMusic);
     await player.play();
     player.playerStateStream.listen((event) async {
       print(event.processingState);
 
       switch (event.processingState) {
         case ProcessingState.completed:
-          await player.setAsset("assets/musics/loop_background.wav");
+          await player.setAsset(AppPathMusic.backgroundLoopMusic);
           await player.play();
         case ProcessingState.idle:
         // TODO: Handle this case.
@@ -189,6 +195,29 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     });
   }
 
+  Future<void> initActionMusic() async {
+    List<AudioPlayer> players =
+        RepositoryProvider.of<MusicRepository>(context).players();
+
+
+
+    for (var player in players) {
+      print(1);
+      await player
+          .setVolume(0)
+          .then(
+              (value) async => await player.setSpeed(10000000000000000000000.0))
+          .then((value) async => await player.play())
+          .then((value) async => await player.stop())
+          .then((value) async => await player.setSpeed(1))
+          .then((value) async => await player.setVolume(1));
+    }
+
+    print('---------------------');
+    print('finish loading misic');
+    print('---------------------');
+  }
+
   Future<void> stopPlayer() async {
     await player.dispose();
   }
@@ -197,7 +226,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
 
-    initBackgroundMusic();
+    // initBackgroundMusic();
+    initActionMusic();
 
     WidgetsBinding.instance.addObserver(this);
   }

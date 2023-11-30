@@ -58,7 +58,8 @@ flutter:
     - assets/icons/
     - assets/gifts/
     - assets/images/
-    - assets/musics/
+    - assets/musics/actions/
+    - assets/musics/background/
     - assets/images/lock/
     - assets/images/clusters/
     - .env
