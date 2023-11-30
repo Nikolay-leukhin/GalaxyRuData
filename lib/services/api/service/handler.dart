@@ -24,29 +24,36 @@ mixin class ApiHandler {
 
   Future<void> refreshToken(Token token) async {
     await serviceData.prefs.saveToken(token);
-
     serviceData.token.setJwt(token.jwt);
+
     log('token refreshed on ${serviceData.token.jwt}');
     log("________________________");
-    serviceData.dio.options.headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${serviceData.token.jwt}'
-    };
+
+    serviceData.dio.options.headers = _getHeadersWithCurrentToken();
     serviceData.prefs.getToken();
   }
 
+  // -----------------------------------------------------------------
+
+  Map<String, dynamic> _getHeadersWithCurrentToken() {
+    final Map<String, dynamic> newHeaders = Map.from(defaultHeaders);
+    newHeaders['Authorization'] = 'Bearer ${serviceData.token.jwt}';
+    return newHeaders;
+  }
+
   Future _handleErrors(
-      {required MethodsEnum method,
-      required RequestData requestData}) async {
+      {required MethodsEnum method, required RequestData requestData}) async {
     try {
       Response res;
-
       res = await _executeMethod(method, requestData);
 
       return res.data;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
-        print('add exception to stream');
+        serviceData.exceptionsStream.add(UnAuthorizedException());
+      } else if (e.response?.statusCode == 400 &&
+          e.response?.data['error'] == 'User not found.' &&
+          requestData.url == ApiEndpoints.user) {
         serviceData.exceptionsStream.add(UnAuthorizedException());
       } else {
         log('headers: ${serviceData.dio.options.headers}');
@@ -61,12 +68,11 @@ mixin class ApiHandler {
 
   /// не трогать используется только внутри [_handleErrors]
   Future<Response<dynamic>> _executeMethod(
-          MethodsEnum method, RequestData requestData) async {
+      MethodsEnum method, RequestData requestData) async {
     await serviceData.requiredFuture;
     return serviceData.dio.request(requestData.url,
         options: Options(method: methods[method]!),
         queryParameters: requestData.queryParams,
         data: requestData.data);
   }
-
 }

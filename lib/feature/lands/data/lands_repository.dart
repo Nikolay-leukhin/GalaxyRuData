@@ -1,91 +1,59 @@
-import 'dart:math';
-
 import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
-import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
-class LandsRepository {
-  final ApiService apiService;
-  final PreferencesService prefs;
+enum CodeStates { lock, choose, quests }
 
+class LandsRepository {
+  final ApiService _apiService;
   String? code;
 
   /// снести потом
   String? approve;
 
-  List<LandModel> freeLandsList = [];
-  List<String> availableClustersNames = [];
   List<LandModel> userLandsList = [];
 
-  BehaviorSubject<LoadingStateEnum> freeLandsStream =
-      BehaviorSubject.seeded(LoadingStateEnum.wait);
   BehaviorSubject<LoadingStateEnum> userLandsStream =
       BehaviorSubject.seeded(LoadingStateEnum.wait);
 
-  LandsRepository({required this.apiService, required this.prefs});
+  BehaviorSubject<CodeStates> codeStates = BehaviorSubject();
 
-  Future<void> useInviteCode(String usedCode) async {
-    await apiService.land.useInviteCode(usedCode);
+  LandsRepository(
+      {required ApiService apiService})
+      :
+        _apiService = apiService;
+
+  Future<void> useInviteCode(
+      String usedCode) async {
+    await _apiService.land.useInviteCode(usedCode);
     code = usedCode;
   }
 
-  Future<void> connectLandToCurrentCode(int landId) async {
-    await apiService.land.connectLandAndCode(code: code!, landId: landId);
-  }
+  void codeUsed() =>
+    codeStates.add(CodeStates.choose);
 
-  Future<void> connectRandomFromClusterLandToCurrentCode(String clusterType) async {
-    List<LandModel> lands = [];
-    for (var i in freeLandsList) {
-      if (i.type == clusterType) {
-        lands.add(i);
-      }
-    }
-    final random =  Random();
 
-    final land = lands[random.nextInt(lands.length)];
-    await connectLandToCurrentCode(land.id);
+  Future<void> connectLandFromClusterToCurrentCode(String cluster) async {
+    await _apiService.land.connectLandAndCode(code: code!, cluster: cluster);
+    codeStates.add(CodeStates.quests);
   }
 
   Future getApprove() async {
-    final res = await apiService.land.getApprove(code!);
+    final res = await _apiService.land.getApprove(code!);
     approve = res['data'];
   }
 
   Future<void> verifyInviteCode(String approveCode) async {
-    await apiService.land.verifyLandCode(code!, approveCode);
-  }
-
-  Future<void> loadFreeLands() async {
-    freeLandsStream.add(LoadingStateEnum.loading);
-    try {
-      final response = (await apiService.land.getFreeLands())['lands'];
-      freeLandsList.clear();
-      availableClustersNames.clear();
-      for (var json in response) {
-        freeLandsList.add(LandModel.fromJson(json));
-        try {
-          if (!availableClustersNames.contains(json['type'])) {
-            availableClustersNames.add(json['type']);
-          }
-        } catch (e) {}
-      }
-      print(availableClustersNames);
-      freeLandsStream.add(LoadingStateEnum.success);
-    } catch (e, st) {
-      print(e);
-      print(st);
-      freeLandsStream.add(LoadingStateEnum.fail);
-    }
+    await _apiService.land.verifyLandCode(code!, approveCode);
   }
 
   Future loadUserLands() async {
     userLandsStream.add(LoadingStateEnum.loading);
 
     try {
-      final response = (await apiService.land.getUserLands())['lands'];
+      final response = (await _apiService.land.getUserLands())['lands'];
       userLandsList.clear();
       for (var json in response) {
         userLandsList.add(LandModel.fromJson(json));

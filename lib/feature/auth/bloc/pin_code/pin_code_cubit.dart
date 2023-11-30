@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
-import 'package:galaxy_rudata/utils/utils.dart';
-import 'package:meta/meta.dart';
 
 part 'pin_code_state.dart';
 

@@ -8,6 +8,5 @@ class RequestData {
   final Map<String, dynamic>? data;
 
   @override
-  String toString() =>
-      '$url\nquery: $queryParams\ndata: $data';
+  String toString() => '$url\nquery: $queryParams\ndata: $data';
 }

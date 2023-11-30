@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
+import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/dialogs/wallet_bottom_sheet.dart';

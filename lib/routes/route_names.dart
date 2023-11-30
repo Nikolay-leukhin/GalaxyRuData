@@ -1,9 +1,10 @@
+part of 'routes.dart';
+
 class RouteNames {
   static const String root = '/';
 
   static const String authEnterEmail = '/enter_email';
   static const String authPinCreate = '/pin/create';
-  static const String authPinRepeat = '/pin/repeat';
   static const String authPinEnter = '/pin/enter';
 
   static const String nftCertificate = '/nft_certificate';
@@ -21,7 +22,7 @@ class RouteNames {
 
   static const String landsList = '/lands/list';
   static const String landsUserList = '/lands/list/screen';
-  static const String landsChoose = '/lands/choose';
+  static const String cluster = '/lands/cluster';
 
   static const String arPlanetView = '/ar/planet';
 }

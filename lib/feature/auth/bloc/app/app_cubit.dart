@@ -14,15 +14,29 @@ class AppCubit extends Cubit<AppState> {
   final LandsRepository _landsRepository;
 
   AppCubit(
-      {required AuthRepository authRepository, required LandsRepository landsRepository,
+      {required AuthRepository authRepository,
+      required LandsRepository landsRepository,
       required WalletRepository walletRepository})
       : _authRepository = authRepository,
         _walletRepository = walletRepository,
         _landsRepository = landsRepository,
         super(AppInitial()) {
+    _subscribeAuth();
+    _subscribeCode();
+  }
+
+  void _subscribeAuth() {
     _authRepository.appState.stream.listen((event) async {
       if (event == AppStateEnum.auth) _handleAuthEvent();
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
+    });
+  }
+
+  void _subscribeCode() {
+    _landsRepository.codeStates.stream.listen((event) {
+      if (event == CodeStates.lock) emit(AppAuthState(state: StatesEnum.lockScreen));
+      if (event == CodeStates.choose) emit(AppAuthState(state: StatesEnum.landChoseScreen));
+      if (event == CodeStates.quests) emit(AppAuthState(state: StatesEnum.questsScreen));
     });
   }
 
@@ -31,14 +45,13 @@ class AppCubit extends Cubit<AppState> {
 
     if (walletCreated) {
       await _walletRepository.getWalletInstance();
-      _checkWalletStateAndHandleCode();
-
+      _checkWalletStateAndCode();
     } else {
       emit(AppAuthState(state: StatesEnum.createWalletScreen));
     }
   }
 
-  void _checkWalletStateAndHandleCode() async {
+  void _checkWalletStateAndCode() async {
     final walletState = await _authRepository.walletState();
 
     if (walletState != null) {
@@ -47,17 +60,16 @@ class AppCubit extends Cubit<AppState> {
       } else if (walletState == WalletCreationState.watchSeed) {
         emit(AppAuthState(state: StatesEnum.seedPhraseScreen));
       } else {
-        _handleCode();
+        _checkCodeState();
       }
     }
   }
 
-
-  void _handleCode() async {
-    final currentCode = await _authRepository.currentInviteCode();
+  void _checkCodeState() async {
+    final currentCode = await _authRepository.getCurrentInviteCode();
     if (currentCode == null) {
       emit(AppAuthState(state: StatesEnum.lockScreen));
-    } else{
+    } else {
       _landsRepository.code = currentCode.code;
       if (currentCode.forLandId == null) {
         emit(AppAuthState(state: StatesEnum.landChoseScreen));

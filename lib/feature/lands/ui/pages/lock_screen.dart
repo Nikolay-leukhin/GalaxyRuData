@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -10,8 +9,10 @@ import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:galaxy_rudata/widgets/text_fields/access_code_field.dart';
 
+// const String _lockMessage =
+//     'Введите персональный код доступа, чтобы забронировать себе жилье во Вселенной Большого Росреестра. Один код дает возможность бронирования одного жилья.';
 const String _lockMessage =
-    'Введите персональный код доступа, чтобы забронировать себе жилье во Вселенной Большого Росреестра. Один код дает возможность бронирования одного жилья.';
+    'Введите код доступа «Росреестр» (без кавычек), чтобы оформить себе жилье во Вселенной Большого Росреестра.';
 
 class LockScreen extends StatefulWidget {
   const LockScreen({super.key});
@@ -56,11 +57,6 @@ class _LockScreenState extends State<LockScreen> {
           turn = 0.13;
         });
       });
-
-      Future.delayed(rotationDuration + moveDuration, () {
-        RepositoryProvider.of<AuthRepository>(context).refreshAuthState();
-        // Navigator.of(context).pushNamed(RouteNames.arPlanetView);
-      });
     }
 
     return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
@@ -101,17 +97,19 @@ class _LockScreenState extends State<LockScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                MediaQuery.of(context).viewInsets.bottom == 0 ? Container(
-                  width: size.width * 0.69,
-                  constraints: const BoxConstraints(maxWidth: 500),
-                  child: Text(
-                    _lockMessage,
-                    style: size.width < 300
-                        ? AppTypography.font16w400
-                        : AppTypography.font14w400,
-                    textAlign: TextAlign.center,
-                  ),
-                ) : Container(),
+                MediaQuery.of(context).viewInsets.bottom == 0
+                    ? Container(
+                        width: size.width * 0.69,
+                        constraints: const BoxConstraints(maxWidth: 500),
+                        child: Text(
+                          _lockMessage,
+                          style: size.width < 300
+                              ? AppTypography.font16w400
+                              : AppTypography.font14w400,
+                          textAlign: TextAlign.center,
+                        ),
+                      )
+                    : Container(),
                 Container(
                   width: size.width * 0.725,
                   height: size.width,
@@ -127,9 +125,8 @@ class _LockScreenState extends State<LockScreen> {
                       ),
                       AnimatedPositioned(
                         top: top,
-                        left: size.width * 0.725 < 300
-                            ? size.width * 0.108
-                            : 50,
+                        left:
+                            size.width * 0.725 < 300 ? size.width * 0.108 : 50,
                         duration: moveDuration,
                         child: AnimatedRotation(
                           alignment: const Alignment(0.2, 0.3),
@@ -166,9 +163,9 @@ class _LockScreenState extends State<LockScreen> {
                     ),
                     onTap: () {
                       if (codeController.text.isNotEmpty) {
-                        context
-                            .read<UseInviteCodeCubit>()
-                            .useInviteCode(codeController.text.trim());
+                        context.read<UseInviteCodeCubit>().useInviteCode(
+                            codeController.text.trim(),
+                            moveDuration + rotationDuration);
                       }
                     },
                     width: double.infinity),

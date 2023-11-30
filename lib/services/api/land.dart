@@ -1,17 +1,15 @@
 part of 'api_service.dart';
 
 class Land with ApiHandler {
-  Land({required ServiceData apiServiceData}) {
+  Land(ServiceData apiServiceData) {
     serviceData = apiServiceData;
   }
 
-  Future<void> updateWalletAddress(String walletAddress) async {
-    await post(ApiEndpoints.userWalletUpdate, data: {'Land': walletAddress});
-  }
+  Future<void> updateWalletAddress(String walletAddress) =>
+      post(ApiEndpoints.userWalletUpdate, data: {'Land': walletAddress});
 
-  Future<void> useInviteCode(String code) async {
-    await post(ApiEndpoints.useLandCode, data: {'code': code});
-  }
+  Future<void> useInviteCode(String code) =>
+      post(ApiEndpoints.useLandCode, data: {'code': code});
 
   Future<Map<String, dynamic>> getFreeLands() async {
     return await post(ApiEndpoints.freeLands);
@@ -21,9 +19,9 @@ class Land with ApiHandler {
     return await post(ApiEndpoints.userLands);
   }
 
-  Future connectLandAndCode({required String code, required int landId}) =>
+  Future connectLandAndCode({required String code, required String cluster}) =>
       post(ApiEndpoints.connectCodeAndLand,
-          data: {"code": code, "landId": landId});
+          data: {"code": code, "cluster": cluster});
 
   Future getApprove(String code) =>
       post(ApiEndpoints.getApprove, data: {'code': code});

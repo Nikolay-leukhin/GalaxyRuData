@@ -83,11 +83,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
-
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is AuthFailState) {
+         if (state is AuthFailState) {
           Dialogs.hide(context);
           Dialogs.showModal(
               context,
@@ -125,7 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Text(
                   "Авторизация",
-                  style: AppTypography.font24w700.copyWith(color: Colors.white),
+                  style: AppTypography.font24w700
+                      .copyWith(color: Colors.white),
                 ),
                 Container(
                   height: size.height * 0.059,
@@ -148,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: BaseTextFormField(
                           withError: errorCodeField,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 22)
+                                  horizontal: 16, vertical: 22)
                               .copyWith(right: 120),
                           controller: codeController,
                           keyboardType: TextInputType.number,
@@ -168,18 +167,18 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 120),
                       )
                           : Positioned(
-                        right: 0,
-                        child: CustomButton(
-                            content: Text(
-                                "${currentRemainingTime} СЕКУНД"
-                                    .toUpperCase(),
-                                style: AppTypography.font16w600
-                                    .copyWith(color: Colors.white)),
-                            onTap: () {
-                              sendAuthCode();
-                            },
-                            width: 120),
-                      )
+                              right: 0,
+                              child: CustomButton(
+                                  content: Text(
+                                      "$currentRemainingTime СЕКУНД"
+                                          .toUpperCase(),
+                                      style: AppTypography.font16w600
+                                          .copyWith(color: Colors.white)),
+                                  onTap: () {
+                                    sendAuthCode();
+                                  },
+                                  width: 120),
+                            )
                     ],
                   ),
                 ),
@@ -232,34 +231,32 @@ class _LoginScreenState extends State<LoginScreen> {
                     Flexible(
                       child: RichText(
                           text: TextSpan(children: [
-                            TextSpan(
-                                text: "Я согласен с ",
-                                style: AppTypography.font12w400),
-                            TextSpan(
-                                text: "Пользовательским Соглашением",
-                                style: AppTypography.font12w400
-                                    .copyWith(
-                                    decoration: TextDecoration.underline),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () async {
-                                    await launchUrl(Uri.parse(
-                                        'https://docs.google.com/document/d/15zGuCD50uoIJdmAC9_T8tpzzG9NDN26wRNye2Spy160/edit?usp=share_link'));
-                                  }),
-                            TextSpan(
-                                text: " и ",
-                                style: AppTypography.font12w400.copyWith(
-                                    decoration: TextDecoration.underline)),
-                            TextSpan(
-                                text: "Политикой Конфиденциальности",
-                                style: AppTypography.font12w400
-                                    .copyWith(
-                                    decoration: TextDecoration.underline),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () async {
-                                    await launchUrl(Uri.parse(
-                                        'https://docs.google.com/document/d/1c6zaEfcPYEUsjOpBVnVyzt2Gb3ryIZVBX3O0id4JKik/edit?usp=share_link'));
-                                  }),
-                          ])),
+                        TextSpan(
+                            text: "Я согласен с ",
+                            style: AppTypography.font12w400),
+                        TextSpan(
+                            text: "Пользовательским Соглашением",
+                            style: AppTypography.font12w400.copyWith(
+                                decoration: TextDecoration.underline),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () async {
+                                await launchUrl(Uri.parse(
+                                    'https://docs.google.com/document/d/15zGuCD50uoIJdmAC9_T8tpzzG9NDN26wRNye2Spy160/edit?usp=share_link'));
+                              }),
+                        TextSpan(
+                            text: " и ",
+                            style: AppTypography.font12w400.copyWith(
+                                decoration: TextDecoration.underline)),
+                        TextSpan(
+                            text: "Политикой Конфиденциальности",
+                            style: AppTypography.font12w400.copyWith(
+                                decoration: TextDecoration.underline),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () async {
+                                await launchUrl(Uri.parse(
+                                    'https://docs.google.com/document/d/1c6zaEfcPYEUsjOpBVnVyzt2Gb3ryIZVBX3O0id4JKik/edit?usp=share_link'));
+                              }),
+                      ])),
                     ),
                   ],
                 ),

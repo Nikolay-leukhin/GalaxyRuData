@@ -1,129 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:galaxy_rudata/audio_repository.dart';
+import 'package:galaxy_rudata/feature/lands/ui/pages/pages.dart';
+import 'package:galaxy_rudata/feature/wallet/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
-import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
-import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
-import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
-import 'package:galaxy_rudata/feature/lands/bloc/connect_land/connect_land_cubit.dart';
-import 'package:galaxy_rudata/feature/lands/bloc/lands_free/lands_free_cubit.dart';
-import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
-import 'package:galaxy_rudata/feature/lands/bloc/user_lands/lands_user_cubit.dart';
-import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
-import 'package:galaxy_rudata/feature/lands/ui/pages/lands_list_screen.dart';
-import 'package:galaxy_rudata/feature/lands/ui/pages/lock_screen.dart';
-import 'package:galaxy_rudata/feature/lands/ui/pages/quests_screen.dart';
-import 'package:galaxy_rudata/feature/planet_view/ui/plannet_view_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
-import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
-import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
-import 'package:galaxy_rudata/feature/wallet/ui/pages/card_screen.dart';
-import 'package:galaxy_rudata/feature/wallet/ui/pages/seed_phrase/seed_phrase_screen.dart';
-import 'package:galaxy_rudata/feature/wallet/ui/pages/wallet_created_screen.dart';
-import 'package:galaxy_rudata/routes/route_names.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:galaxy_rudata/utils/path_musics.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:just_audio/just_audio.dart';
-
-final PreferencesService prefs = PreferencesService();
-final ApiService apiService = ApiService(preferencesService: prefs);
-
-class MyRepositoryProvider extends StatelessWidget {
-  MyRepositoryProvider({Key? key}) : super(key: key);
-
-  WalletRepository walletRepository =
-      WalletRepository(apiService: apiService, prefs: prefs);
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider(
-          create: (_) => AuthRepository(
-              apiService: apiService,
-              prefs: prefs,
-              walletRepository: walletRepository),
-          lazy: false,
-        ),
-        RepositoryProvider(
-          create: (_) => LandsRepository(apiService: apiService, prefs: prefs),
-          lazy: false,
-        ),
-        RepositoryProvider(
-          create: (_) => walletRepository,
-          lazy: false,
-        ),
-        RepositoryProvider(
-          create: (_) => MusicRepository(),
-          lazy: false,
-        ),
-      ],
-      child: const MyBlocProviders(),
-    );
-  }
-}
-
-class MyBlocProviders extends StatelessWidget {
-  const MyBlocProviders({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<AppCubit>(
-          create: (_) => AppCubit(
-            authRepository: RepositoryProvider.of<AuthRepository>(context),
-            landsRepository: RepositoryProvider.of<LandsRepository>(context),
-            walletRepository: RepositoryProvider.of<WalletRepository>(context),
-          ),
-          lazy: false,
-        ),
-        BlocProvider<AuthCubit>(
-          create: (_) => AuthCubit(
-            authRepository: RepositoryProvider.of<AuthRepository>(context),
-          ),
-          lazy: false,
-        ),
-        BlocProvider<PinCodeCubit>(
-          create: (_) => PinCodeCubit(
-            RepositoryProvider.of<AuthRepository>(context),
-          ),
-          lazy: false,
-        ),
-        BlocProvider<UseInviteCodeCubit>(
-          create: (_) => UseInviteCodeCubit(
-            RepositoryProvider.of<LandsRepository>(context),
-          ),
-          lazy: false,
-        ),
-        BlocProvider<EnterSeedCubit>(
-          create: (_) => EnterSeedCubit(context.read<WalletRepository>()),
-          lazy: false,
-        ),
-        BlocProvider<LandsFreeCubit>(
-          create: (_) => LandsFreeCubit(context.read<LandsRepository>()),
-          lazy: false,
-        ),
-        BlocProvider<LandsUserCubit>(
-          create: (_) => LandsUserCubit(context.read<LandsRepository>()),
-          lazy: false,
-        ),
-        BlocProvider<ConnectLandCubit>(
-          create: (_) => ConnectLandCubit(
-            authRepository: RepositoryProvider.of<AuthRepository>(context),
-            landsRepository: RepositoryProvider.of<LandsRepository>(context),
-          ),
-          lazy: false,
-        ),
-      ],
-      child: MyApp(),
-    );
-  }
-}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -145,29 +34,22 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   @override
+  void initState() {
+    super.initState();
+    checkUpdate();
+    initBackgroundMusic();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
 
-    switch (state) {
-      case AppLifecycleState.resumed:
-        await player.play();
-        print("app in resumed");
-        break;
-      case AppLifecycleState.inactive:
-        await player.stop();
-        print("app in resumed");
-        break;
-      case AppLifecycleState.paused:
-        await player.stop();
-        print("app in paused");
-        break;
-      case AppLifecycleState.detached:
-        await player.stop();
-        print("app in detached");
-        break;
-      case AppLifecycleState.hidden:
-        await player.stop();
-        print("app in hidden");
+    if (state == AppLifecycleState.resumed) {
+      await player.play();
+    } else {
+      await player.stop();
+      print('AppState changed to $state');
     }
   }
 
@@ -191,6 +73,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         // TODO: Handle this case.
         case ProcessingState.ready:
         // TODO: Handle this case.
+      if (event.processingState == ProcessingState.completed) {
+        await player.setAsset(AppPathMusic.backgroundLoopMusic);
+        await player.play();
       }
     });
   }
@@ -222,22 +107,40 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     await player.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
 
-    // initBackgroundMusic();
-    initActionMusic();
+  Future checkUpdate() async {
+    final AppUpdateInfo updateInfo = await InAppUpdate.checkForUpdate();
+    if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+      showUpdateSnack();
+    }
+  }
+  void showUpdateSnack() {
+    showDialog(
+        context: context,
+        builder: (context) => CustomPopup(
+              label: 'необходимо обновление',
+              onTap: update,
+            ));
+  }
 
-    WidgetsBinding.instance.addObserver(this);
+  Future update() async {
+    await InAppUpdate.performImmediateUpdate();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Вселенная Большого Росреестра',
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: child!,
+      ),
       theme: ThemeData(
         fontFamily: 'Nunito',
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+          TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+        }),
       ),
       debugShowCheckedModeBanner: false,
       routes: appRoutes,

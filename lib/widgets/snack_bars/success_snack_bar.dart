@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
 class AppSnackBar {
-  static final SnackBar successSnackBar = SnackBar(
+  static final SnackBar successSeedPhrase = SnackBar(
     backgroundColor: Colors.transparent,
     elevation: 0,
     content: Container(

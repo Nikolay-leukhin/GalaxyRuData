@@ -9,12 +9,13 @@ class UseInviteCodeCubit extends Cubit<UseInviteCodeState> {
 
   UseInviteCodeCubit(this.landsRepository) : super(UseInviteCodeInitial());
 
-  void useInviteCode(String code) async {
+  void useInviteCode(String code, Duration animationDuration) async {
     emit(UseInviteCodeLoading());
     try {
       await landsRepository.useInviteCode(code);
-
       emit(UseInviteCodeSuccess());
+      await Future.delayed(animationDuration);
+      landsRepository.codeUsed();
     } catch (e) {
       emit(UseInviteCodeFailure());
     }

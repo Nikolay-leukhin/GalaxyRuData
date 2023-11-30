@@ -1,16 +1,13 @@
 class Token {
   String jwt;
 
-  void setJwt(String newJwt) => jwt = newJwt;
-
   Token({required this.jwt});
 
-  Token.fromJson(Map<String, dynamic> json)
-      : jwt = json['jwt'];
+  void setJwt(String newJwt) => jwt = newJwt;
 
-  Token.zero()
-      : jwt = "";
+  Token.fromJson(Map<String, dynamic> json) : jwt = json['jwt'];
 
-  Map<String, String> toJson() =>
-      {'jwt': jwt};
+  Token.zero() : jwt = "";
+
+  Map<String, String> toJson() => {'jwt': jwt};
 }

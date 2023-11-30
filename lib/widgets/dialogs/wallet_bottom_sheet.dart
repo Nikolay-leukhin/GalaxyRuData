@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -14,9 +13,7 @@ class WalletAddressBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const seperator16 = SizedBox(
-      height: 16,
-    );
+    const separator16 = SizedBox(height: 16);
 
     final size = MediaQuery.sizeOf(context);
 
@@ -47,7 +44,7 @@ class WalletAddressBottomSheet extends StatelessWidget {
                   height: 2,
                   color: AppColors.lightBlue,
                 ),
-                seperator16,
+                separator16,
                 Container(
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
@@ -64,14 +61,14 @@ class WalletAddressBottomSheet extends StatelessWidget {
                     gapless: false,
                   ),
                 ),
-                seperator16,
+                separator16,
                 Text(
                   'Адрес вашего кошелька в сети Polygon:',
                   style: AppTypography.font14w400
                       .copyWith(color: AppColors.sadGrey),
                   textAlign: TextAlign.center,
                 ),
-                seperator16,
+                separator16,
                 Text(
                   context
                       .read<WalletRepository>()
@@ -81,7 +78,7 @@ class WalletAddressBottomSheet extends StatelessWidget {
                       .copyWith(color: AppColors.blueAccent),
                   textAlign: TextAlign.center,
                 ),
-                seperator16,
+                separator16,
                 CustomButton(
                     gradient: AppGradients.lightBlue,
                     content: Text(
@@ -98,10 +95,10 @@ class WalletAddressBottomSheet extends StatelessWidget {
                                   TWCoinType.TWCoinTypePolygon)));
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context)
-                          .showSnackBar(AppSnackBar.successSnackBar);
+                          .showSnackBar(AppSnackBar.successCopyWallet);
                     },
                     width: size.width - 56),
-                seperator16
+                separator16
               ],
             ),
           ),
