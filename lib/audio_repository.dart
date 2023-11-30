@@ -31,33 +31,33 @@ class MusicRepository {
   AudioPlayer openingLocker = AudioPlayer();
 
   Future<void> initActionMusic() async {
-    bigButton = AudioPlayer()..setAsset(AppPathMusic.bigButton);
+    bigButton = AudioPlayer()..setAsset(AppPathMusic.bigButton, preload: true);
 
-    littleButton = AudioPlayer()..setAsset(AppPathMusic.littleButton);
+    littleButton = AudioPlayer()..setAsset(AppPathMusic.littleButton, preload: true);
 
-    pinButton = AudioPlayer()..setAsset(AppPathMusic.pinButton);
+    pinButton = AudioPlayer()..setAsset(AppPathMusic.pinButton, preload: true);
 
-    popUp = AudioPlayer()..setAsset(AppPathMusic.popUp);
+    popUp = AudioPlayer()..setAsset(AppPathMusic.popUp, preload: true);
 
-    popDown = AudioPlayer()..setAsset(AppPathMusic.popDown);
+    popDown = AudioPlayer()..setAsset(AppPathMusic.popDown, preload: true);
 
-    checkBox = AudioPlayer()..setAsset(AppPathMusic.checkBox);
+    checkBox = AudioPlayer()..setAsset(AppPathMusic.checkBox, preload: true);
 
-    copiedSingUp = AudioPlayer()..setAsset(AppPathMusic.copiedSingUp);
+    copiedSingUp = AudioPlayer()..setAsset(AppPathMusic.copiedSingUp, preload: true);
 
-    copiedSingDown = AudioPlayer()..setAsset(AppPathMusic.copiedSingDown);
+    copiedSingDown = AudioPlayer()..setAsset(AppPathMusic.copiedSingDown, preload: true);
 
-    screenChangeSlide = AudioPlayer()..setAsset(AppPathMusic.screenChangeSlide);
+    screenChangeSlide = AudioPlayer()..setAsset(AppPathMusic.screenChangeSlide, preload: true);
 
-    dialogueAppear = AudioPlayer()..setAsset(AppPathMusic.dialogueAppear);
+    dialogueAppear = AudioPlayer()..setAsset(AppPathMusic.dialogueAppear, preload: true);
 
-    dialogueDisappear = AudioPlayer()..setAsset(AppPathMusic.dialogueDisappear);
+    dialogueDisappear = AudioPlayer()..setAsset(AppPathMusic.dialogueDisappear, preload: true);
 
-    mediumButton = AudioPlayer()..setAsset(AppPathMusic.mediumButton);
+    mediumButton = AudioPlayer()..setAsset(AppPathMusic.mediumButton, preload: true);
 
-    eyeButton = AudioPlayer()..setAsset(AppPathMusic.eyeButton);
+    eyeButton = AudioPlayer()..setAsset(AppPathMusic.eyeButton, preload: true);
 
-    openingLocker = AudioPlayer()..setAsset(AppPathMusic.openingLocker);
+    openingLocker = AudioPlayer()..setAsset(AppPathMusic.openingLocker, preload: true);
   }
 
   List<AudioPlayer> players() => [

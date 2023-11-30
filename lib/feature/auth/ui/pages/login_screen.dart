@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-         if (state is AuthFailState) {
+        if (state is AuthFailState) {
           Dialogs.hide(context);
           Dialogs.showModal(
               context,
@@ -125,8 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Text(
                   "Авторизация",
-                  style: AppTypography.font24w700
-                      .copyWith(color: Colors.white),
+                  style: AppTypography.font24w700.copyWith(color: Colors.white),
                 ),
                 Container(
                   height: size.height * 0.059,
@@ -158,16 +157,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       currentRemainingTime == 0
                           ? Positioned(
-                        right: 0,
-                        child: CustomButton(
-                            content: Text("Отправить".toUpperCase(),
-                                style: AppTypography.font16w600
-                                    .copyWith(color: Colors.white)),
-                            onTap: () {
-                              sendAuthCode();
-                            },
-                            width: 120),
-                      )
+                              right: 0,
+                              child: CustomButton(
+                                  content: Text("Отправить".toUpperCase(),
+                                      style: AppTypography.font16w600
+                                          .copyWith(color: Colors.white)),
+                                  onTap: () {
+                                    sendAuthCode();
+                                  },
+                                  width: 120),
+                            )
                           : Positioned(
                               right: 0,
                               child: CustomButton(
@@ -208,22 +207,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Checkbox(
                           value: isConditionsAccepted,
                           onChanged: (v) async {
-                            await musicRepository.bigButton.play().then((
-                                value) async {
-                              await musicRepository
-                                  .bigButton
-                                  .seek(const Duration(seconds: 0));
-                            });
+                            musicRepository.bigButton
+                                .seek(const Duration(seconds: 0))
+                                .then((value) =>
+                                    musicRepository.bigButton.play());
 
                             changeCheckboxValue(v ?? false);
                           },
                           splashRadius: 0,
                           fillColor:
-                          MaterialStateProperty.all(AppColors.primary),
+                              MaterialStateProperty.all(AppColors.primary),
                           side: const BorderSide(
                               width: 0, color: Colors.transparent),
                           materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
+                              MaterialTapTargetSize.shrinkWrap,
                         ),
                       ),
                     ),
@@ -238,8 +235,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: AppTypography.font12w400),
                         TextSpan(
                             text: "Пользовательским Соглашением",
-                            style: AppTypography.font12w400.copyWith(
-                                decoration: TextDecoration.underline),
+                            style: AppTypography.font12w400
+                                .copyWith(decoration: TextDecoration.underline),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () async {
                                 await launchUrl(Uri.parse(
@@ -251,8 +248,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: TextDecoration.underline)),
                         TextSpan(
                             text: "Политикой Конфиденциальности",
-                            style: AppTypography.font12w400.copyWith(
-                                decoration: TextDecoration.underline),
+                            style: AppTypography.font12w400
+                                .copyWith(decoration: TextDecoration.underline),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () async {
                                 await launchUrl(Uri.parse(

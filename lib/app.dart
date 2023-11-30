@@ -37,6 +37,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
     checkUpdate();
     initBackgroundMusic();
+    initActionMusic();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -68,24 +69,23 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   Future<void> initActionMusic() async {
-    List<AudioPlayer> players =
-        RepositoryProvider.of<MusicRepository>(context).players();
+    RepositoryProvider.of<MusicRepository>(context).initActionMusic();
 
-    for (var player in players) {
-      print(1);
-      await player
-          .setVolume(0)
-          .then(
-              (value) async => await player.setSpeed(10000000000000000000000.0))
-          .then((value) async => await player.play())
-          .then((value) async => await player.stop())
-          .then((value) async => await player.setSpeed(1))
-          .then((value) async => await player.setVolume(1));
-    }
+    // for (var player in players) {
+    //   print(1);
+    //   await player
+    //       .setVolume(0)
+    //       .then(
+    //           (value) async => await player.setSpeed(10000000000000000000000.0))
+    //       .then((value) async => await player.play())
+    //       .then((value) async => await player.stop())
+    //       .then((value) async => await player.setSpeed(1))
+    //       .then((value) async => await player.setVolume(1));
+    // }
 
-    print('---------------------');
-    print('finish loading misic');
-    print('---------------------');
+    // print('---------------------');
+    // print('finish loading misic');
+    // print('---------------------');
   }
 
   Future<void> stopPlayer() async {
