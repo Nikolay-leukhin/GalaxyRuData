@@ -83,6 +83,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
          if (state is AuthFailState) {

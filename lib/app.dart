@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
-import 'package:galaxy_rudata/services/api/api_service.dart';
-import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:galaxy_rudata/utils/path_musics.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
@@ -61,18 +60,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     player.playerStateStream.listen((event) async {
       print(event.processingState);
 
-      switch (event.processingState) {
-        case ProcessingState.completed:
-          await player.setAsset(AppPathMusic.backgroundLoopMusic);
-          await player.play();
-        case ProcessingState.idle:
-        // TODO: Handle this case.
-        case ProcessingState.loading:
-        // TODO: Handle this case.
-        case ProcessingState.buffering:
-        // TODO: Handle this case.
-        case ProcessingState.ready:
-        // TODO: Handle this case.
       if (event.processingState == ProcessingState.completed) {
         await player.setAsset(AppPathMusic.backgroundLoopMusic);
         await player.play();
@@ -83,8 +70,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   Future<void> initActionMusic() async {
     List<AudioPlayer> players =
         RepositoryProvider.of<MusicRepository>(context).players();
-
-
 
     for (var player in players) {
       print(1);
@@ -107,13 +92,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     await player.dispose();
   }
 
-
   Future checkUpdate() async {
     final AppUpdateInfo updateInfo = await InAppUpdate.checkForUpdate();
     if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
       showUpdateSnack();
     }
   }
+
   void showUpdateSnack() {
     showDialog(
         context: context,
