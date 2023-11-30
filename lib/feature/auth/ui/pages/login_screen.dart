@@ -206,12 +206,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         scale: 25 / Checkbox.width,
                         child: Checkbox(
                           value: isConditionsAccepted,
-                          onChanged: (v) async {
-                            musicRepository.bigButton
-                                .seek(const Duration(seconds: 0))
-                                .then((value) =>
-                                    musicRepository.bigButton.play());
-
+                          onChanged: (v) {
+                            musicRepository.play(musicRepository.checkBox);
                             changeCheckboxValue(v ?? false);
                           },
                           splashRadius: 0,

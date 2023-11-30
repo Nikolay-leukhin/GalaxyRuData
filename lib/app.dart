@@ -21,13 +21,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  late AudioPlayer player;
-
   @override
   void dispose() {
     super.dispose();
-
-    player.dispose();
+    stopPlayer();
 
     WidgetsBinding.instance.removeObserver(this);
   }
@@ -36,60 +33,20 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     checkUpdate();
-    initBackgroundMusic();
-    initActionMusic();
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
-
-    if (state == AppLifecycleState.resumed) {
-      await player.play();
-    } else {
-      await player.stop();
-      print('AppState changed to $state');
-    }
-  }
-
-  Future<void> initBackgroundMusic() async {
-    player = AudioPlayer();
-
-    await player.setAsset(AppPathMusic.backgroundFirstMusic);
-    await player.play();
-    player.playerStateStream.listen((event) async {
-      print(event.processingState);
-
-      if (event.processingState == ProcessingState.completed) {
-        await player.setAsset(AppPathMusic.backgroundLoopMusic);
-        await player.play();
-      }
-    });
-  }
-
-  Future<void> initActionMusic() async {
-    RepositoryProvider.of<MusicRepository>(context).initActionMusic();
-
-    // for (var player in players) {
-    //   print(1);
-    //   await player
-    //       .setVolume(0)
-    //       .then(
-    //           (value) async => await player.setSpeed(10000000000000000000000.0))
-    //       .then((value) async => await player.play())
-    //       .then((value) async => await player.stop())
-    //       .then((value) async => await player.setSpeed(1))
-    //       .then((value) async => await player.setVolume(1));
-    // }
-
-    // print('---------------------');
-    // print('finish loading misic');
-    // print('---------------------');
+    RepositoryProvider.of<MusicRepository>(context)
+        .handleAppLifecycleStateChanges(state);
   }
 
   Future<void> stopPlayer() async {
-    await player.dispose();
+    await RepositoryProvider.of<MusicRepository>(context)
+        .backgroundPlayer
+        .dispose();
   }
 
   Future checkUpdate() async {
