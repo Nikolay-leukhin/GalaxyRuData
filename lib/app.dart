@@ -7,8 +7,9 @@ import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:just_audio/just_audio.dart';
-
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    checkUpdate();
     initBackgroundMusic();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -65,14 +67,34 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     await player.dispose();
   }
 
+  Future checkUpdate() async {
+    final AppUpdateInfo updateInfo = await InAppUpdate.checkForUpdate();
+    if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
+      showUpdateSnack();
+    }
+  }
+
+  void showUpdateSnack() {
+    showDialog(
+        context: context,
+        builder: (context) => CustomPopup(
+              label: 'необходимо обновление',
+              onTap: update,
+            ));
+  }
+
+  Future update() async {
+    await InAppUpdate.performImmediateUpdate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Вселенная Большого Росреестра',
       builder: (context, child) => MediaQuery(
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child: child!,
-        ),
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: child!,
+      ),
       theme: ThemeData(
         fontFamily: 'Nunito',
         pageTransitionsTheme: const PageTransitionsTheme(builders: {

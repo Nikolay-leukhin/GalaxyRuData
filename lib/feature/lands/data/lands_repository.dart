@@ -8,8 +8,6 @@ enum CodeStates { lock, choose, quests }
 
 class LandsRepository {
   final ApiService _apiService;
-  final PreferencesService _prefs;
-
   String? code;
 
   /// снести потом
@@ -23,8 +21,8 @@ class LandsRepository {
   BehaviorSubject<CodeStates> codeStates = BehaviorSubject();
 
   LandsRepository(
-      {required ApiService apiService, required PreferencesService prefs})
-      : _prefs = prefs,
+      {required ApiService apiService})
+      :
         _apiService = apiService;
 
   Future<void> useInviteCode(

@@ -33,7 +33,7 @@ class MyRepositoryProviders extends StatelessWidget {
           lazy: false,
         ),
         RepositoryProvider(
-          create: (_) => LandsRepository(apiService: apiService, prefs: prefs),
+          create: (_) => LandsRepository(apiService: apiService),
           lazy: false,
         ),
         RepositoryProvider(
