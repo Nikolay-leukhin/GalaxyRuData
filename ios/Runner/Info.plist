@@ -16,6 +16,8 @@
     <true/>
     <key>NSMicrophoneUsageDescription</key>
     <string>We use a microphone to play music in the background.</string>
+    <key>PermissionGroupNotification</key>
+    <string>Пожалуйста, подключите уведомления, чтобы не пропустить самое интересное!</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
