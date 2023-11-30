@@ -4,7 +4,7 @@ import 'package:just_audio/just_audio.dart';
 
 class MusicRepository {
   MusicRepository() {
-    // _initialBackground();
+    _initialBackground(); // TODO вернуть перд билдом
   }
 
   void play(AudioPlayer player) async {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
@@ -38,6 +39,8 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () {
+                        final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+                        musicRepository.play(musicRepository.screenChangeSlide);
                         Navigator.pop(context);
                       },
                       iconName: 'back.svg')
@@ -59,6 +62,8 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () {
+                        final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+                        musicRepository.play(musicRepository.screenChangeSlide);
                         Navigator.pop(context);
                       },
                       iconName: 'back.svg'),

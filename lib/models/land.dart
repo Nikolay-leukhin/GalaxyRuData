@@ -1,3 +1,5 @@
+import 'package:galaxy_rudata/utils/clusters.dart';
+
 class LandModel {
   int id;
   String name;
@@ -20,7 +22,7 @@ class LandModel {
   factory LandModel.fromJson(Map<String, dynamic> json) {
     return LandModel(
       id: json['id'] as int,
-      name: json['name'] as String,
+      name: clusters[json['type']]!.name,
       description: json['description'],
       avatar: "https://roskadastr.danya-vecher.ru/photo/",
       isMinted: json['isMinted'] as bool,
