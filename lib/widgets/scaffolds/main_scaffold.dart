@@ -41,11 +41,10 @@ class _MainScaffoldState extends State<MainScaffold> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
-
     return WillPopScope(
       onWillPop: () async {
         if (widget.canPop) {
+          final musicRepository = RepositoryProvider.of<MusicRepository>(context);
           musicRepository.play(musicRepository.screenChangeSlide);
         }
 
