@@ -7,11 +7,9 @@ import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
-import 'package:galaxy_rudata/utils/path_musics.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 import 'package:in_app_update/in_app_update.dart';
-import 'package:just_audio/just_audio.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

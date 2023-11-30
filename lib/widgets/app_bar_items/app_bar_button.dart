@@ -1,8 +1,9 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 
 class AppBarButton extends StatelessWidget {
   const AppBarButton({super.key, required this.onTap, required this.iconName});
@@ -17,8 +18,14 @@ class AppBarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final maxHeight = min(MediaQuery.sizeOf(context).width / 6, 60).toDouble();
 
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        onTap();
+
+        musicRepository.play(musicRepository.littleButton);
+      },
       child: SvgPicture.asset(
         'assets/icons/$iconName',
         width: maxHeight / 1.87,

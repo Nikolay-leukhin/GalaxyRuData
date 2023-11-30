@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -59,6 +60,8 @@ class _LockScreenState extends State<LockScreen> {
       });
     }
 
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
       listener: (context, state) {
         if (state is UseInviteCodeLoading) {
@@ -70,6 +73,7 @@ class _LockScreenState extends State<LockScreen> {
         } else if (state is UseInviteCodeSuccess) {
           Dialogs.hide(context);
 
+          musicRepository.play(musicRepository.openingLocker);
           openLock();
         } else if (state is UseInviteCodeFailure) {
           Dialogs.hide(context);
@@ -168,7 +172,7 @@ class _LockScreenState extends State<LockScreen> {
                             moveDuration + rotationDuration);
                       }
                     },
-                    width: double.infinity),
+                    width: double.infinity, audioPlayer: musicRepository.bigButton,),
               ],
             ),
           ),

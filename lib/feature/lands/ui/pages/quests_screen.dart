@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -52,8 +53,9 @@ class _QuestsScreenState extends State<QuestsScreen> {
       height: size.height * 0.05,
       constraints: const BoxConstraints(maxHeight: 60),
     );
-    print('-' * 40);
-    print(context.read<LandsRepository>().code);
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return MainScaffold(
         canPop: false,
         appBar: MainAppBar.logoutWallet(context),
@@ -112,7 +114,8 @@ class _QuestsScreenState extends State<QuestsScreen> {
                                       await Permission.notification.request();
                                       getPermissionState();
                                     },
-                                    width: double.infinity)
+                                    width: double.infinity,
+                                  audioPlayer: musicRepository.bigButton,)
                               ],
                             )
                     ]

@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -73,7 +74,10 @@ class _SafeScreenState extends State<SafeScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+
     final repository = RepositoryProvider.of<LandsRepository>(context);
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
     return MainScaffold(
       isBottomImage: true,
       body: Padding(
@@ -144,7 +148,8 @@ class _SafeScreenState extends State<SafeScreen> {
                       Navigator.pushNamed(context, RouteNames.nftCertificate);
                     });
                   },
-                  width: size.width * 0.528),
+                  width: size.width * 0.528,
+              audioPlayer: musicRepository.bigButton,),
             ],
           ),
         ),

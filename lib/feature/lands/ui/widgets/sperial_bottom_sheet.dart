@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 
@@ -10,6 +12,8 @@ class BottomSheetSpatial extends StatelessWidget {
     const seperator16 = SizedBox(
       height: 16,
     );
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return Container(
       width: double.infinity,
@@ -51,6 +55,7 @@ class BottomSheetSpatial extends StatelessWidget {
                   onTap: () {},
                   width: double.infinity,
                   gradient: AppGradients.lightBlue,
+                  audioPlayer: musicRepository.bigButton,
                 ),
                 seperator16,
               ],

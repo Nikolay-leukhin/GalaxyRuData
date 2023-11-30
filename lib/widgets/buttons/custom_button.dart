@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:just_audio/just_audio.dart';
 
 class CustomButton extends StatefulWidget {
   final Widget content;
@@ -15,16 +18,17 @@ class CustomButton extends StatefulWidget {
   final double radius;
 
   final Color color;
-
   final Gradient? gradient;
-
   final Color borderColor;
+
+  final AudioPlayer audioPlayer;
 
   const CustomButton(
       {super.key,
       required this.content,
       required this.onTap,
       required this.width,
+      required this.audioPlayer,
       this.borderColor = Colors.white,
       this.isActive = true,
       this.height = 60,
@@ -40,11 +44,15 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return Material(
       color: Colors.transparent,
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
+          musicRepository.play(widget.audioPlayer);
+
           widget.onTap();
         },
         child: Ink(
@@ -56,7 +64,8 @@ class _CustomButtonState extends State<CustomButton> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
                   width: 1.6,
-                  color: widget.isActive ? widget.borderColor : AppColors.grey)),
+                  color:
+                      widget.isActive ? widget.borderColor : AppColors.grey)),
           child: Padding(
             padding: widget.padding,
             child: Center(child: widget.content),

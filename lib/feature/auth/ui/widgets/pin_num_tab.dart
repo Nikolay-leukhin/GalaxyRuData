@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 
 class PinNumTab extends StatelessWidget {
@@ -15,6 +17,7 @@ class PinNumTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return Container(
       constraints: const BoxConstraints(
@@ -23,6 +26,8 @@ class PinNumTab extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
+          musicRepository.play(musicRepository.pinButton);
+
           onTap();
         },
         child: Ink(

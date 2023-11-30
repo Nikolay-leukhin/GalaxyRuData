@@ -4,7 +4,7 @@ import 'package:just_audio/just_audio.dart';
 
 class MusicRepository {
   MusicRepository() {
-    _initialBackground();
+    // _initialBackground();
   }
 
   void play(AudioPlayer player) async {

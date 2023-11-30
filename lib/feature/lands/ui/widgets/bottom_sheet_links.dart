@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 
@@ -13,6 +15,8 @@ class BottomSheetLinks extends StatelessWidget {
     );
 
     final size = MediaQuery.sizeOf(context);
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return Container(
       width: double.infinity,
@@ -94,7 +98,7 @@ class BottomSheetLinks extends StatelessWidget {
                     ),
                     height: 36,
                     onTap: () {},
-                    width: size.width - 56),
+                    width: size.width - 56, audioPlayer: musicRepository.bigButton,),
                 seperator16,
                 CustomButton(
                   gradient: AppGradients.lightBlue,
@@ -117,7 +121,7 @@ class BottomSheetLinks extends StatelessWidget {
                     ),
                     height: 36,
                     onTap: () {},
-                    width: size.width - 56),
+                    width: size.width - 56, audioPlayer: musicRepository.bigButton,),
                 seperator16
               ],
             ),

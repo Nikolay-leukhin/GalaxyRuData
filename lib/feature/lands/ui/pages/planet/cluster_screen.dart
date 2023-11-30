@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/connect_land/connect_land_cubit.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/clusters.dart';
@@ -24,6 +25,8 @@ class _ClusterScreenState extends State<ClusterScreen> {
 
     final clusterType = ((ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map)['cluster'] as String;
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return BlocListener<ConnectLandCubit, ConnectLandState>(
       listener: (context, state) {
@@ -135,7 +138,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
                                         .connectRandomFromClusterLandToCurrentCode(
                                             clusterType);
                                   },
-                                  width: double.infinity),
+                                  width: double.infinity, audioPlayer: musicRepository.bigButton,),
                               const Spacer(
                                 flex: 2,
                               )

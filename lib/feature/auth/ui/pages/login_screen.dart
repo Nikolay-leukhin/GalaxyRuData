@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         child: MainScaffold(
           canPop: false,
-          // bottomResize: true,
+          playAudio: false,
           appBar: MainAppBar.onlyLogo(
             context,
           ),
@@ -159,26 +159,30 @@ class _LoginScreenState extends State<LoginScreen> {
                           ? Positioned(
                               right: 0,
                               child: CustomButton(
-                                  content: Text("Отправить".toUpperCase(),
-                                      style: AppTypography.font16w600
-                                          .copyWith(color: Colors.white)),
-                                  onTap: () {
-                                    sendAuthCode();
-                                  },
-                                  width: 120),
+                                content: Text("Отправить".toUpperCase(),
+                                    style: AppTypography.font16w600
+                                        .copyWith(color: Colors.white)),
+                                onTap: () {
+                                  sendAuthCode();
+                                },
+                                width: 120,
+                                audioPlayer: musicRepository.mediumButton,
+                              ),
                             )
                           : Positioned(
                               right: 0,
                               child: CustomButton(
-                                  content: Text(
-                                      "$currentRemainingTime СЕКУНД"
-                                          .toUpperCase(),
-                                      style: AppTypography.font16w600
-                                          .copyWith(color: Colors.white)),
-                                  onTap: () {
-                                    sendAuthCode();
-                                  },
-                                  width: 120),
+                                content: Text(
+                                    "$currentRemainingTime СЕКУНД"
+                                        .toUpperCase(),
+                                    style: AppTypography.font16w600
+                                        .copyWith(color: Colors.white)),
+                                onTap: () {
+                                  sendAuthCode();
+                                },
+                                width: 120,
+                                audioPlayer: musicRepository.mediumButton,
+                              ),
                             )
                     ],
                   ),
@@ -206,8 +210,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         scale: 25 / Checkbox.width,
                         child: Checkbox(
                           value: isConditionsAccepted,
-                          onChanged: (v) {
+                          onChanged: (v) async {
                             musicRepository.play(musicRepository.checkBox);
+
                             changeCheckboxValue(v ?? false);
                           },
                           splashRadius: 0,
@@ -273,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             password: codeController.text.trim());
                       }
                     },
-                    width: double.infinity),
+                    width: double.infinity,audioPlayer: musicRepository.bigButton,),
                 SizedBox(
                   height: size.height * 0.2,
                 )

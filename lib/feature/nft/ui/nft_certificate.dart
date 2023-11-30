@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
@@ -19,6 +20,8 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return MainScaffold(
       appBar: MainAppBar.logoutWallet(context),
@@ -85,7 +88,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                             });
                       });
                     },
-                    width: double.infinity),
+                    width: double.infinity, audioPlayer: musicRepository.bigButton,),
                 const SizedBox(
                   height: 15,
                 ),
@@ -98,7 +101,8 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                       BlocProvider.of<AppCubit>(context).clearCodeState();
                       Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
                     },
-                    width: double.infinity),
+                    width: double.infinity,
+                audioPlayer: musicRepository.bigButton,),
               ],
             ),
           ],

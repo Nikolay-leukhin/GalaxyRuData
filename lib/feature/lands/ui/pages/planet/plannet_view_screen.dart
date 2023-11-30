@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -37,6 +39,8 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
       disableZoom: true,
       disablePan: true,
     );
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -81,7 +85,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                         content: const Text('shit'),
                         width: size.width,
                         height: size.width,
-                        onTap: showClusters),
+                        onTap: showClusters, audioPlayer: musicRepository.bigButton,),
                   ),
                 )
               ],

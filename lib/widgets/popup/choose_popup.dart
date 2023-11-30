@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
-
 
 class CustomLogOutPopup extends StatelessWidget {
   final VoidCallback onTap;
@@ -14,6 +14,8 @@ class CustomLogOutPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
       child: Dialog(
@@ -31,20 +33,17 @@ class CustomLogOutPopup extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-               Text.rich(
+              Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Вы уверены, что хотите выйти из аккаунта ',
-                      style: AppTypography.font16w400
-                    ),
+                        text: 'Вы уверены, что хотите выйти из аккаунта ',
+                        style: AppTypography.font16w400),
                     TextSpan(
-                      text: '${RepositoryProvider.of<AuthRepository>(context).currentEmail}',
-                      style: AppTypography.font16w500
-                    ),
-                    TextSpan(
-                      text: '?',
-                      style: AppTypography.font16w400)
+                        text:
+                            '${RepositoryProvider.of<AuthRepository>(context).currentEmail}',
+                        style: AppTypography.font16w500),
+                    TextSpan(text: '?', style: AppTypography.font16w400)
                   ],
                 ),
                 textAlign: TextAlign.center,
@@ -56,13 +55,17 @@ class CustomLogOutPopup extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CustomButton(
-                        content: Text("Выйти".toUpperCase(),
-                            style: AppTypography.font16w600
-                                .copyWith(color: Colors.white)),
-                        onTap: onTap,
-                        width: double.infinity),
+                      content: Text("Выйти".toUpperCase(),
+                          style: AppTypography.font16w600
+                              .copyWith(color: Colors.white)),
+                      onTap: onTap,
+                      width: double.infinity,
+                      audioPlayer: musicRepository.mediumButton,
+                    ),
                   ),
-                  const SizedBox(width: 32,),
+                  const SizedBox(
+                    width: 32,
+                  ),
                   Expanded(
                     child: CustomButton(
                         content: Text("Отмена".toUpperCase(),
@@ -71,7 +74,8 @@ class CustomLogOutPopup extends StatelessWidget {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        width: double.infinity),
+                        width: double.infinity,
+                        audioPlayer: musicRepository.mediumButton),
                   ),
                 ],
               )

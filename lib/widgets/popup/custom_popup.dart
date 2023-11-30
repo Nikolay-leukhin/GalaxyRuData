@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 
@@ -13,6 +15,8 @@ class CustomPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
       child: Dialog(
@@ -45,7 +49,8 @@ class CustomPopup extends StatelessWidget {
                   onTap: () {
                     onTap();
                   },
-                  width: double.infinity)
+                  width: double.infinity,
+                  audioPlayer: musicRepository.mediumButton)
             ],
           ),
         ),

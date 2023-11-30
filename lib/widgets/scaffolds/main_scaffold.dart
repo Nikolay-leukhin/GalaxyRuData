@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 
-class MainScaffold extends StatelessWidget {
+class MainScaffold extends StatefulWidget {
   const MainScaffold(
       {super.key,
       this.isBottomImage = false,
       required this.body,
       this.appBar,
       this.canPop = true,
-        this.bottomResize = false,
-      this.floatingActionButton});
+      this.bottomResize = false,
+      this.floatingActionButton,
+      this.playAudio = true});
 
   final bool isBottomImage;
   final Widget body;
@@ -17,13 +20,37 @@ class MainScaffold extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final bool bottomResize;
   final bool canPop;
+  final bool playAudio;
+
+  @override
+  State<MainScaffold> createState() => _MainScaffoldState();
+}
+
+class _MainScaffoldState extends State<MainScaffold> {
+  @override
+  void initState() {
+    super.initState();
+    if (widget.playAudio) {
+      final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
+      musicRepository.play(musicRepository.screenChangeSlide);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return WillPopScope(
-      onWillPop: () async => canPop,
+      onWillPop: () async {
+        if (widget.canPop) {
+          musicRepository.play(musicRepository.screenChangeSlide);
+        }
+
+        return widget.canPop;
+      },
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -36,7 +63,7 @@ class MainScaffold extends StatelessWidget {
                   image: AssetImage("assets/gifts/background.gif"))),
           child: Stack(
             children: [
-              isBottomImage
+              widget.isBottomImage
                   ? Positioned(
                       bottom: 0,
                       right: 0,
@@ -51,11 +78,11 @@ class MainScaffold extends StatelessWidget {
                   : Container(),
               SafeArea(
                 child: Scaffold(
-                  resizeToAvoidBottomInset: bottomResize,
+                  resizeToAvoidBottomInset: widget.bottomResize,
                   backgroundColor: Colors.transparent,
-                  appBar: appBar,
-                  body: body,
-                  floatingActionButton: floatingActionButton,
+                  appBar: widget.appBar,
+                  body: widget.body,
+                  floatingActionButton: widget.floatingActionButton,
                 ),
               )
             ],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/dialogs/show_snack_bar.dart';
 import 'package:galaxy_rudata/widgets/snack_bars/success_snack_bar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:trust_wallet_core_lib/trust_wallet_core_ffi.dart';
@@ -16,6 +18,8 @@ class WalletAddressBottomSheet extends StatelessWidget {
     const separator16 = SizedBox(height: 16);
 
     final size = MediaQuery.sizeOf(context);
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -94,10 +98,11 @@ class WalletAddressBottomSheet extends StatelessWidget {
                               .getAddressForCoin(
                                   TWCoinType.TWCoinTypePolygon)));
                       Navigator.pop(context);
-                      ScaffoldMessenger.of(context)
-                          .showSnackBar(AppSnackBar.successCopyWallet);
+
+                      CustomScaffoldMessenger.show(AppSnackBar.successCopyWallet, context);
                     },
-                    width: size.width - 56),
+                    width: size.width - 56,
+                  audioPlayer: musicRepository.bigButton,),
                 separator16
               ],
             ),

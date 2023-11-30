@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/widgets/seed_phrase_word.dart';
@@ -9,6 +10,7 @@ import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/dialogs/show_snack_bar.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:galaxy_rudata/widgets/snack_bars/success_snack_bar.dart';
 
@@ -35,6 +37,8 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
     final size = MediaQuery.sizeOf(context);
     final seedPhrase =
         context.read<WalletRepository>().wallet.mnemonic().split(" ");
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return MainScaffold(
       appBar: !widget.withContinueButton ? MainAppBar.back(context) : null,
@@ -105,8 +109,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                               await Clipboard.setData(
                                   ClipboardData(text: seedPhrase.join(" ")));
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(AppSnackBar.successSeedPhrase);
+                              CustomScaffoldMessenger.show(AppSnackBar.successSeedPhrase,context);
                             },
                             child: Container(
                                 alignment: Alignment.center,
@@ -133,6 +136,9 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
                                 borderRadius: BorderRadius.circular(10000),
                                 onTap: () {
                                   changeSeedState();
+
+                                  musicRepository
+                                      .play(musicRepository.eyeButton);
                                 },
                                 child: Ink(
                                     padding: const EdgeInsets.all(19),
@@ -152,19 +158,21 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
               ? Opacity(
                   opacity: isSeedHidden ? 0 : 1,
                   child: CustomButton(
-                      content: Text(
-                        "ДАЛЕЕ",
-                        style: AppTypography.font16w600,
-                      ),
-                      onTap: () {
-                        RepositoryProvider.of<WalletRepository>(context)
-                            .setWalletConfirmState();
-                        RepositoryProvider.of<AuthRepository>(context)
-                            .refreshAuthState();
-                        Navigator.popUntil(
-                            context, ModalRoute.withName(RouteNames.root));
-                      },
-                      width: double.infinity),
+                    content: Text(
+                      "ДАЛЕЕ",
+                      style: AppTypography.font16w600,
+                    ),
+                    onTap: () {
+                      RepositoryProvider.of<WalletRepository>(context)
+                          .setWalletConfirmState();
+                      RepositoryProvider.of<AuthRepository>(context)
+                          .refreshAuthState();
+                      Navigator.popUntil(
+                          context, ModalRoute.withName(RouteNames.root));
+                    },
+                    width: double.infinity,
+                    audioPlayer: musicRepository.bigButton,
+                  ),
                 )
               : Container()
         ]),

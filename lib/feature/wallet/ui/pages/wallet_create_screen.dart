@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
@@ -24,6 +25,8 @@ class _WalletCreateScreenState extends State<WalletCreateScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
 
     return MainScaffold(
       appBar: MainAppBar.logout(context),
@@ -86,7 +89,7 @@ class _WalletCreateScreenState extends State<WalletCreateScreen> {
                                     }
                                   }));
                     },
-                    width: double.infinity),
+                    width: double.infinity, audioPlayer: musicRepository.bigButton,),
                 const SizedBox(
                   height: 15,
                 ),
@@ -99,7 +102,7 @@ class _WalletCreateScreenState extends State<WalletCreateScreen> {
                       Navigator.pushNamed(
                           context, RouteNames.walletEnterSeedPhrase);
                     },
-                    width: double.infinity),
+                    width: double.infinity, audioPlayer: musicRepository.bigButton,),
               ],
             ),
           ],

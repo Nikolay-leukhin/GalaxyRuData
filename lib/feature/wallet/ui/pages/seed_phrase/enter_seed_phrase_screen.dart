@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/bloc/enter_seed/enter_seed_cubit.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
@@ -35,6 +36,8 @@ class WalletEnterSeedPhraseScreenState
 
   @override
   Widget build(BuildContext context) {
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return BlocListener<EnterSeedCubit, EnterSeedState>(
       listener: (context, state) {
         if (state is EnterSeedLoading) {
@@ -151,6 +154,7 @@ class WalletEnterSeedPhraseScreenState
                                 checkFieldWordsCount(controller.text);
                               },
                               width: 141,
+                              audioPlayer: musicRepository.littleButton,
                             ))
                       ],
                     ),
@@ -171,7 +175,7 @@ class WalletEnterSeedPhraseScreenState
                   onTap: () {
                     context.read<EnterSeedCubit>().enterSeed(controller.text);
                   },
-                  width: double.infinity),
+                  width: double.infinity, audioPlayer: musicRepository.bigButton,),
               const Spacer(
                 flex: 2,
               ),
