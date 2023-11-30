@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 
 import '../../../../utils/utils.dart';
@@ -11,8 +13,12 @@ class ClusterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     return InkWell(
       onTap: () {
+        musicRepository.play(musicRepository.bigButton);
+
         Navigator.pushNamed(context, RouteNames.cluster,
             arguments: {'cluster': type});
       },

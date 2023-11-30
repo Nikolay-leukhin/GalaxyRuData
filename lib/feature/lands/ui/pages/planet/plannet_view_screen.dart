@@ -82,10 +82,14 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                   child: Opacity(
                     opacity: 0,
                     child: CustomButton(
-                        content: const Text('shit'),
-                        width: size.width,
-                        height: size.width,
-                        onTap: showClusters, audioPlayer: musicRepository.bigButton,),
+                      content: const Text('shit'),
+                      width: size.width,
+                      height: size.width,
+                      onTap: () {
+                        showClusters(context);
+                      },
+                      audioPlayer: musicRepository.bigButton,
+                    ),
                   ),
                 )
               ],
@@ -96,7 +100,9 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
     );
   }
 
-  showClusters() {
+  showClusters(BuildContext context) {
+    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+
     final size = MediaQuery.sizeOf(context);
     final List clustersTypes = clusters.keys.toList();
     final clustersList = List.generate(
@@ -137,6 +143,8 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                   },
                 )))
         : const SizedBox();
+
+    musicRepository.play(musicRepository.popUp);
 
     showModalBottomSheet(
         useSafeArea: true,
@@ -179,6 +187,6 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
               ]);
             }),
           );
-        });
+        }).then((value) => musicRepository.play(musicRepository.popDown));
   }
 }
