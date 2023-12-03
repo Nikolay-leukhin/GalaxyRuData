@@ -1,6 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/feature/games/bullet.dart';
 import 'package:galaxy_rudata/feature/games/game.dart';
 
@@ -35,7 +36,6 @@ class Enemy extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    // TODO: implement onCollision
     super.onCollision(intersectionPoints, other);
     if (other is Bullet) {
       removeFromParent();
