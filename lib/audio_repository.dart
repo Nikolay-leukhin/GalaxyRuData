@@ -6,7 +6,7 @@ import 'package:just_audio/just_audio.dart';
 
 class AudioRepository {
   AudioRepository() {
-    // _initialPlayers();
+    _initialPlayers();
     // _initialBackground(); // TODO вернуть перд билдом
   }
 
