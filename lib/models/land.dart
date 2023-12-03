@@ -22,12 +22,12 @@ class LandModel {
   factory LandModel.fromJson(Map<String, dynamic> json) {
     return LandModel(
       id: json['id'] as int,
-      name: clusters[json['type']]!.name,
+      name: clusters[json['cluster']]!.name,
       description: json['description'],
       avatar: "https://roskadastr.danya-vecher.ru/photo/",
       isMinted: json['isMinted'] as bool,
       tokenId: json['tokenId'] as int?,
-      type: json['type'] as String,
+      type: json['cluster'] as String,
     );
   }
 

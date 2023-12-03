@@ -1,3 +1,5 @@
+// import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
@@ -8,8 +10,6 @@ import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
-import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
-import 'package:in_app_update/in_app_update.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -37,44 +37,56 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
-    RepositoryProvider.of<MusicRepository>(context)
+    RepositoryProvider.of<AudioRepository>(context)
         .handleAppLifecycleStateChanges(state);
   }
 
   Future<void> stopPlayer() async {
-    await RepositoryProvider.of<MusicRepository>(context)
+    await RepositoryProvider
+        .of<AudioRepository>(context)
         .backgroundPlayer
         .dispose();
   }
 
   Future checkUpdate() async {
-    final AppUpdateInfo updateInfo = await InAppUpdate.checkForUpdate();
-    if (updateInfo.updateAvailability == UpdateAvailability.updateAvailable) {
-      showUpdateSnack();
-    }
+    // print('check update starting');
+    //
+    // final newVersion = NewVersion();
+    // final status = await newVersion.getVersionStatus();
+    // if (status != null && status.canUpdate) {
+    //   showUpdateDialog(newVersion, status);
+    // } else if (status != null) {
+    //   print('local version: ${status.localVersion}; store version: ${status.localVersion}');
+    // } else {
+    //   print('Update status: $status');
+    // }
   }
 
-  void showUpdateSnack() {
-    showDialog(
-        context: context,
-        builder: (context) => CustomPopup(
-              label: 'необходимо обновление',
-              onTap: update,
-            ));
-  }
+  // void showUpdateDialog(NewVersion newVersion, VersionStatus status) {
+  //   newVersion.showUpdateDialog(
+  //     context: context,
+  //     versionStatus: status,
+  //     dialogTitle: 'Новая версия!',
+  //     dialogText: 'Для продолжения работы необходимо обновление',
+  //     updateButtonText: 'Обновить',
+  //     dismissButtonText: 'Выйти',
+  //     dismissAction: () {},
+  //   );
+  // }
 
-  Future update() async {
-    await InAppUpdate.performImmediateUpdate();
-  }
+  // Future update() async {
+  //   await InAppUpdate.performImmediateUpdate();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Вселенная Большого Росреестра',
-      builder: (context, child) => MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-        child: child!,
-      ),
+      builder: (context, child) =>
+          MediaQuery(
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: child!,
+          ),
       theme: ThemeData(
         fontFamily: 'Nunito',
         pageTransitionsTheme: const PageTransitionsTheme(builders: {

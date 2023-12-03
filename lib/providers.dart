@@ -42,7 +42,7 @@ class MyRepositoryProviders extends StatelessWidget {
           lazy: false,
         ),
         RepositoryProvider(
-          create: (_) => MusicRepository(),
+          create: (_) => AudioRepository(),
           lazy: false,
         ),
       ],
@@ -63,6 +63,7 @@ class MyBlocProviders extends StatelessWidget {
             authRepository: RepositoryProvider.of<AuthRepository>(context),
             landsRepository: RepositoryProvider.of<LandsRepository>(context),
             walletRepository: RepositoryProvider.of<WalletRepository>(context),
+            audioRepository: RepositoryProvider.of<AudioRepository>(context),
           ),
           lazy: false,
         ),

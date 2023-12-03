@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
@@ -264,21 +264,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 32,
                 ),
                 CustomButton(
-                    content: Text(
-                      "Войти / Регистрация".toUpperCase(),
-                      style: AppTypography.font16w600
-                          .copyWith(color: Colors.white),
-                    ),
-                    onTap: () {
-                      final permission = checkFieldsState();
+                  content: Text(
+                    "Войти / Регистрация".toUpperCase(),
+                    style:
+                        AppTypography.font16w600.copyWith(color: Colors.white),
+                  ),
+                  onTap: () {
+                    final permission = checkFieldsState();
 
-                      if (permission) {
-                        context.read<AuthCubit>().auth(
-                            email: emailController.text.trim(),
-                            password: codeController.text.trim());
-                      }
-                    },
-                    width: double.infinity,audioPlayer: musicRepository.bigButton,),
+                    if (permission) {
+                      context.read<AuthCubit>().auth(
+                          email: emailController.text.trim(),
+                          password: codeController.text.trim());
+                    }
+                  },
+                  width: double.infinity,
+                  audioPlayer: musicRepository.bigButton,
+                ),
                 SizedBox(
                   height: size.height * 0.2,
                 )

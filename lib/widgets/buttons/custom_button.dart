@@ -44,7 +44,7 @@ class CustomButton extends StatefulWidget {
 class _CustomButtonState extends State<CustomButton> {
   @override
   Widget build(BuildContext context) {
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return Material(
       color: Colors.transparent,

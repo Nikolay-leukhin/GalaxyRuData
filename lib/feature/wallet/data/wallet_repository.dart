@@ -27,10 +27,10 @@ class WalletRepository {
     final seedStorage = await prefs.getSeedPhrase();
     final email = await prefs.getEmail();
 
-    print('1--------------');
-    print(seedStorage);
-    print(email);
-    print(seedStorage?[email]);
+    log('1--------------');
+    log(seedStorage.toString());
+    log(email.toString());
+    log('${seedStorage?[email]}');
     return seedStorage?[email] != null;
   }
 
@@ -39,8 +39,8 @@ class WalletRepository {
     final currentEmail = await prefs.getEmail();
     final currentAccountSeed = seedStorage![currentEmail];
 
-    print('2--------------');
-    print(seedStorage);
+    log('2--------------');
+    log(seedStorage.toString());
     wallet = HDWallet.createWithMnemonic(currentAccountSeed!);
   }
 
@@ -51,7 +51,6 @@ class WalletRepository {
   Future<void> createWallet() async {
     wallet = HDWallet();
     log('try to create wallet');
-    print(10000);
     await updateWalletAddress();
 
     cacheWalletSeed();

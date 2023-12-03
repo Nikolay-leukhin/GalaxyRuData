@@ -18,7 +18,7 @@ class AppBarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final maxHeight = min(MediaQuery.sizeOf(context).width / 6, 60).toDouble();
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return InkWell(
       onTap: () {

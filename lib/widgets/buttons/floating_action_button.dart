@@ -11,7 +11,7 @@ class DoubleFloatingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final musicRepository =RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository =RepositoryProvider.of<AudioRepository>(context);
     
     return Column(
       mainAxisSize: MainAxisSize.min,

@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/ui/widgets/pin_code_indicator.dart';
 import 'package:galaxy_rudata/feature/auth/ui/widgets/pin_num_tab.dart';
@@ -28,7 +31,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
     }
 
     if (pinCode.length >= 4) {
-      print(pinCode);
+      log('pinCode: $pinCode');
       await context.read<PinCodeCubit>().checkUserPinCode(pinCode.join(""));
     }
 
@@ -51,12 +54,15 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
           // Navigator.pushReplacementNamed(context, RouteNames.landsUserList);
           if (confirmation != null) confirmation!();
         } else if (state is PinCodeEnterFailure) {
+          final repository = RepositoryProvider.of<AudioRepository>(context);
+          repository.play(repository.popUp);
           showDialog(
               barrierDismissible: false,
               context: context,
               builder: (context) {
                 return CustomPopup(
-                    label: "Пин-код неверный!\nПопробуйте еще раз 🥲",
+                    label:
+                        "Некорректный пин-код, пожалуйста, попробуйте еще раз",
                     onTap: () {
                       pinCode.clear();
                       setState(() {});
@@ -81,8 +87,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
                 child: Text(
                   "Введите пин-код",
                   textAlign: TextAlign.center,
-                  style: AppTypography.font16w400
-                      .copyWith(color: Colors.white),
+                  style: AppTypography.font16w400.copyWith(color: Colors.white),
                 ),
               ),
               Container(

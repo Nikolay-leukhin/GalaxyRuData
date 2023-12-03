@@ -4,7 +4,7 @@ import 'package:galaxy_rudata/audio_repository.dart';
 
 class CustomScaffoldMessenger{
   static void show(SnackBar snackBar, BuildContext context){
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     musicRepository.play(musicRepository.copiedSingUp);
 

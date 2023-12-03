@@ -77,7 +77,7 @@ class _SafeScreenState extends State<SafeScreen> {
 
     final repository = RepositoryProvider.of<LandsRepository>(context);
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
     return MainScaffold(
       isBottomImage: true,
       body: Padding(

@@ -21,7 +21,7 @@ class _WalletCreatedScreenState extends State<WalletCreatedScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return MainScaffold(
       canPop: false,

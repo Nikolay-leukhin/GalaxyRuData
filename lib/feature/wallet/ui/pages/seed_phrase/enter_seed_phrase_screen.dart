@@ -36,7 +36,7 @@ class WalletEnterSeedPhraseScreenState
 
   @override
   Widget build(BuildContext context) {
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return BlocListener<EnterSeedCubit, EnterSeedState>(
       listener: (context, state) {

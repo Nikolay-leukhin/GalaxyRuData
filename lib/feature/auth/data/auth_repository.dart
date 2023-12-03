@@ -30,18 +30,18 @@ class AuthRepository {
       BehaviorSubject.seeded(AppStateEnum.wait);
 
   Future<void> checkUserAuthWithDelay() async {
-    final delay = Future.delayed(const Duration(seconds: 3, milliseconds: 200));
+    final delay = Future.delayed(const Duration(seconds: 3, milliseconds: 400));
     final check = _checkUserAuth();
-    await Future.wait([delay, check]);
+    await Future.wait([delay, check]).then((value) => appState.add(value[1]));
   }
 
-  Future _checkUserAuth() async {
+  Future<AppStateEnum> _checkUserAuth() async {
     final token = await prefs.getToken();
     if (token.jwt.isEmpty) {
-      appState.add(AppStateEnum.unAuth);
+      return AppStateEnum.unAuth;
     } else {
       currentEmail = await prefs.getEmail();
-      appState.add(AppStateEnum.auth);
+      return AppStateEnum.auth;
     }
   }
 
@@ -52,7 +52,7 @@ class AuthRepository {
       await prefs.setEmail(email);
       currentEmail = email;
 
-      print(await prefs.getSeedPhrase());
+      log('saved seed: ${await prefs.getSeedPhrase()}');
 
       authState.add(LoadingStateEnum.success);
       appState.add(AppStateEnum.auth);

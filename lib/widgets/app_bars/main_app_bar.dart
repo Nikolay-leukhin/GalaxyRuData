@@ -39,7 +39,7 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () {
-                        final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+                        final musicRepository = RepositoryProvider.of<AudioRepository>(context);
                         musicRepository.play(musicRepository.screenChangeSlide);
                         Navigator.pop(context);
                       },
@@ -62,7 +62,7 @@ class MainAppBar extends PreferredSize {
                 AppBarActions(actions: [
                   AppBarButton(
                       onTap: () {
-                        final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+                        final musicRepository = RepositoryProvider.of<AudioRepository>(context);
                         musicRepository.play(musicRepository.screenChangeSlide);
                         Navigator.pop(context);
                       },

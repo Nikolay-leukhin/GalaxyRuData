@@ -101,7 +101,7 @@ class _SplashScreenState extends State<SplashScreen>
                     padding: const EdgeInsets.only(bottom: 10),
                     alignment: Alignment.center,
                     child: Image.asset(
-                      'assets/gifts/govnoi1-2.gif',
+                      'assets/gifs/govnoi1-2.gif',
                       width: 70,
                       height: 70,
                     ),

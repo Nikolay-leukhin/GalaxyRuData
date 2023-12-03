@@ -40,7 +40,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
       disablePan: true,
     );
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return WillPopScope(
       onWillPop: () async => false,
@@ -101,7 +101,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
   }
 
   showClusters(BuildContext context) {
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     final size = MediaQuery.sizeOf(context);
     final List clustersTypes = clusters.keys.toList();

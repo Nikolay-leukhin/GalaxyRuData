@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:meta/meta.dart';
@@ -12,13 +13,16 @@ class AppCubit extends Cubit<AppState> {
   final AuthRepository _authRepository;
   final WalletRepository _walletRepository;
   final LandsRepository _landsRepository;
+  final AudioRepository _audioRepository;
 
   AppCubit(
       {required AuthRepository authRepository,
       required LandsRepository landsRepository,
+      required AudioRepository audioRepository,
       required WalletRepository walletRepository})
       : _authRepository = authRepository,
         _walletRepository = walletRepository,
+        _audioRepository = audioRepository,
         _landsRepository = landsRepository,
         super(AppInitial()) {
     _subscribeAuth();
@@ -27,6 +31,7 @@ class AppCubit extends Cubit<AppState> {
 
   void _subscribeAuth() {
     _authRepository.appState.stream.listen((event) async {
+      await _audioRepository.initialized; // TODO вернуть перед билдом
       if (event == AppStateEnum.auth) _handleAuthEvent();
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
     });
@@ -42,7 +47,6 @@ class AppCubit extends Cubit<AppState> {
 
   void _handleAuthEvent() async {
     final walletCreated = await _walletRepository.checkWalletAuth();
-
     if (walletCreated) {
       await _walletRepository.getWalletInstance();
       _checkWalletStateAndCode();

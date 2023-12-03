@@ -15,7 +15,7 @@ class CustomPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),

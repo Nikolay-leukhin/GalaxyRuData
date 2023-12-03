@@ -19,7 +19,7 @@ class WalletAddressBottomSheet extends StatelessWidget {
 
     final size = MediaQuery.sizeOf(context);
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return Container(
       clipBehavior: Clip.hardEdge,

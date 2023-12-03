@@ -31,7 +31,7 @@ class _MainScaffoldState extends State<MainScaffold> {
   void initState() {
     super.initState();
     if (widget.playAudio) {
-      final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+      final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
       musicRepository.play(musicRepository.screenChangeSlide);
     }
@@ -44,7 +44,7 @@ class _MainScaffoldState extends State<MainScaffold> {
     return WillPopScope(
       onWillPop: () async {
         if (widget.canPop) {
-          final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+          final musicRepository = RepositoryProvider.of<AudioRepository>(context);
           musicRepository.play(musicRepository.screenChangeSlide);
         }
 
@@ -59,7 +59,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/gifts/background.gif"))),
+                  image: AssetImage("assets/images/app_background.png"))),
           child: Stack(
             children: [
               widget.isBottomImage

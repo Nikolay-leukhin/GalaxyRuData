@@ -16,7 +16,7 @@ class BottomSheetLinks extends StatelessWidget {
 
     final size = MediaQuery.sizeOf(context);
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return Container(
       width: double.infinity,

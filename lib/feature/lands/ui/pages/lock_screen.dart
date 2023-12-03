@@ -60,7 +60,7 @@ class _LockScreenState extends State<LockScreen> {
       });
     }
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
       listener: (context, state) {

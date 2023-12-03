@@ -1,14 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/utils/path_musics.dart';
 import 'package:just_audio/just_audio.dart';
 
-class MusicRepository {
-  MusicRepository() {
-    _initialBackground(); // TODO вернуть перд билдом
+class AudioRepository {
+  AudioRepository() {
+    // _initialPlayers();
+    // _initialBackground(); // TODO вернуть перд билдом
   }
 
+  late Future initialized;
+
   void play(AudioPlayer player) async {
-    await player.seek(Duration.zero);
+    if (player.position != Duration.zero) await player.seek(Duration.zero);
     player.play();
   }
 
@@ -22,44 +27,92 @@ class MusicRepository {
 
   AudioPlayer backgroundPlayer = AudioPlayer();
 
-  AudioPlayer bigButton = AudioPlayer()..setAsset(AppPathMusic.bigButton, preload: true);
+  AudioPlayer bigButton = AudioPlayer();
 
-  AudioPlayer littleButton = AudioPlayer()..setAsset(AppPathMusic.littleButton, preload: true);
+  AudioPlayer littleButton = AudioPlayer();
 
-  AudioPlayer pinButton = AudioPlayer()..setAsset(AppPathMusic.pinButton, preload: true);
+  AudioPlayer pinButton = AudioPlayer();
 
-  AudioPlayer popUp = AudioPlayer()..setAsset(AppPathMusic.popUp, preload: true);
+  AudioPlayer popUp = AudioPlayer();
 
-  AudioPlayer popDown = AudioPlayer()..setAsset(AppPathMusic.popDown, preload: true);
+  AudioPlayer popDown = AudioPlayer();
 
-  AudioPlayer checkBox = AudioPlayer()..setAsset(AppPathMusic.checkBox, preload: true);
+  AudioPlayer checkBox = AudioPlayer();
 
-  AudioPlayer copiedSingUp = AudioPlayer()..setAsset(AppPathMusic.copiedSingUp, preload: true);
+  AudioPlayer copiedSingUp = AudioPlayer();
 
-  AudioPlayer copiedSingDown = AudioPlayer()..setAsset(AppPathMusic.copiedSingDown, preload: true);
+  AudioPlayer copiedSingDown = AudioPlayer();
 
-  AudioPlayer screenChangeSlide = AudioPlayer()..setAsset(AppPathMusic.screenChangeSlide, preload: true);
+  AudioPlayer screenChangeSlide = AudioPlayer();
 
-  AudioPlayer dialogueAppear = AudioPlayer()..setAsset(AppPathMusic.dialogueAppear, preload: true);
+  AudioPlayer dialogueAppear = AudioPlayer();
 
-  AudioPlayer dialogueDisappear = AudioPlayer()..setAsset(AppPathMusic.dialogueDisappear, preload: true);
+  AudioPlayer dialogueDisappear = AudioPlayer();
 
-  AudioPlayer mediumButton = AudioPlayer()..setAsset(AppPathMusic.mediumButton, preload: true);
+  AudioPlayer mediumButton = AudioPlayer();
 
-  AudioPlayer eyeButton = AudioPlayer()..setAsset(AppPathMusic.eyeButton, preload: true);
+  AudioPlayer eyeButton = AudioPlayer();
 
-  AudioPlayer openingLocker = AudioPlayer()..setAsset(AppPathMusic.openingLocker, preload: true);
+  AudioPlayer openingLocker = AudioPlayer();
 
-  void _initialBackground() async{
+  List<AudioPlayer> get players => [
+        bigButton,
+        littleButton,
+        pinButton,
+        popUp,
+        popDown,
+        checkBox,
+        copiedSingUp,
+        copiedSingDown,
+        screenChangeSlide,
+        dialogueAppear,
+        dialogueDisappear,
+        mediumButton,
+      ];
+
+  void _initialBackground() async {
     await backgroundPlayer.setAsset(AppPathMusic.backgroundFirstMusic);
     await backgroundPlayer.play();
     backgroundPlayer.playerStateStream.listen((event) async {
-      print(event.processingState);
+      log(event.processingState.toString());
 
       if (event.processingState == ProcessingState.completed) {
         await backgroundPlayer.setAsset(AppPathMusic.backgroundLoopMusic);
         await backgroundPlayer.play();
       }
     });
+  }
+
+  void _initialPlayers() async {
+    bigButton.setAsset(AppPathMusic.bigButton, preload: true);
+    littleButton.setAsset(AppPathMusic.littleButton, preload: true);
+    pinButton.setAsset(AppPathMusic.pinButton, preload: true);
+    popUp.setAsset(AppPathMusic.popUp, preload: true);
+    popDown.setAsset(AppPathMusic.popDown, preload: true);
+    checkBox.setAsset(AppPathMusic.checkBox, preload: true);
+    copiedSingUp.setAsset(AppPathMusic.copiedSingUp, preload: true);
+    copiedSingDown.setAsset(AppPathMusic.copiedSingDown, preload: true);
+    screenChangeSlide.setAsset(AppPathMusic.screenChangeSlide, preload: true);
+    screenChangeSlide.setAsset(AppPathMusic.screenChangeSlide, preload: true);
+    dialogueAppear.setAsset(AppPathMusic.dialogueAppear, preload: true);
+    dialogueDisappear.setAsset(AppPathMusic.dialogueDisappear, preload: true);
+    mediumButton.setAsset(AppPathMusic.mediumButton, preload: true);
+
+    List<Future> futures = [];
+
+    for (AudioPlayer player in players) {
+      futures.add(_startPlayer(player));
+    }
+
+    initialized = Future.wait(futures);
+  }
+
+  Future _startPlayer(AudioPlayer player) async {
+    await player.setVolume(0);
+    await player.setSpeed(100000000);
+    await player.play();
+    await player.stop();
+    await player.setSpeed(1);
+    await player.setVolume(1);
   }
 }

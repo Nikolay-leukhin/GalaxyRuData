@@ -13,7 +13,7 @@ class ClusterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return InkWell(
       onTap: () {

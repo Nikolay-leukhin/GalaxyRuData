@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
@@ -23,7 +25,7 @@ class PinCodeCubit extends Cubit<PinCodeState> {
 
   Future<void> checkUserPinCode(String currentPinCode) async {
     final cachedPin = await authRepository.getPinCode();
-    print(cachedPin);
+    log('cachedPin: $cachedPin');
     if (cachedPin != currentPinCode) {
       emit(PinCodeEnterFailure());
     } else {

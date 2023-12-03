@@ -54,7 +54,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
       constraints: const BoxConstraints(maxHeight: 60),
     );
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return MainScaffold(
         canPop: false,

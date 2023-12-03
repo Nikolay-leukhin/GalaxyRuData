@@ -26,7 +26,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
     final clusterType = ((ModalRoute.of(context)?.settings.arguments ??
         <String, dynamic>{}) as Map)['cluster'] as String;
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return BlocListener<ConnectLandCubit, ConnectLandState>(
       listener: (context, state) {

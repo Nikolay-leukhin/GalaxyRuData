@@ -13,7 +13,7 @@ class BottomSheetSpatial extends StatelessWidget {
       height: 16,
     );
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return Container(
       width: double.infinity,

@@ -38,7 +38,7 @@ class _WalletSeedPhraseScreenState extends State<WalletSeedPhraseScreen> {
     final seedPhrase =
         context.read<WalletRepository>().wallet.mnemonic().split(" ");
 
-    final musicRepository = RepositoryProvider.of<MusicRepository>(context);
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return MainScaffold(
       appBar: !widget.withContinueButton ? MainAppBar.back(context) : null,
