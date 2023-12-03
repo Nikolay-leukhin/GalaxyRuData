@@ -1,8 +1,10 @@
 // import 'dart:io';
 
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
+import 'package:galaxy_rudata/feature/games/games_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
@@ -134,7 +136,7 @@ class _AppStateWidgetState extends State<AppStateWidget> {
                 return const QuestsScreen();
               }
             } else if (state is AppUnAuthState) {
-              return const LoginScreen();
+              return GamesScreen();
             } else {
               return const SplashScreen();
             }
