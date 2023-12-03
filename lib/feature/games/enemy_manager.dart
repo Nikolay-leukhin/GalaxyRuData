@@ -5,7 +5,6 @@ import 'package:flame/experimental.dart';
 import 'package:galaxy_rudata/feature/games/enemy.dart';
 import 'package:galaxy_rudata/feature/games/game.dart';
 
-
 class EnemyManager extends Component with HasGameReference<SpaceShooter> {
   EnemyManager({required Sprite this.enemySprite}) : super() {
     timer = Timer(1, onTick: _spawnEnemy, repeat: true);

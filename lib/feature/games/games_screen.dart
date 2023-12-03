@@ -12,6 +12,13 @@ class GamesScreen extends StatefulWidget {
 class _GamesScreenState extends State<GamesScreen> {
   @override
   Widget build(BuildContext context) {
-    return GameWidget(game: SpaceShooter());
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage("assets/images/galaxy.jpg")
+        )
+      ),
+      child: GameWidget(game: SpaceShooter()));
   }
 }

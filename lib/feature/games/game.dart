@@ -8,7 +8,6 @@ import 'package:galaxy_rudata/feature/games/bullet.dart';
 import 'package:galaxy_rudata/feature/games/enemy_manager.dart';
 import 'package:galaxy_rudata/feature/games/player.dart';
 
-
 class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
   Offset? _pointerStartPosition;
   Offset? _pointerCurrentPosition;
@@ -18,6 +17,9 @@ class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
   late Player player;
   late EnemyManager _enemyManager;
   late BulletShooter _bulletShooter;
+
+  @override
+  Color backgroundColor() => Colors.transparent;
 
   @override
   Future<void> onLoad() async {
@@ -46,25 +48,8 @@ class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
     return super.onLoad();
   }
 
-  // @override
-  // void update(double dt) {
-  //   // TODO: implement update
-  //   super.update(dt);
-  //   final bullets = _bulletShooter.children.whereType<Bullet>();
-  //   for (final enemy in _enemyManager.children.whereType<Enemy>()) {
-  //     for (final bullet in bullets) {
-  //       if (enemy.containsPoint(bullet.position)) {
-  //         bullet.removeFromParent();
-  //         enemy.removeFromParent();
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
-
   @override
   void handlePanStart(DragStartDetails details) {
-    // TODO: implement handlePanStart
     super.handlePanStart(details);
     _pointerStartPosition = details.globalPosition;
     _pointerCurrentPosition = details.globalPosition;

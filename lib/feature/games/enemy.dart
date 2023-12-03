@@ -4,7 +4,6 @@ import 'package:flame/experimental.dart';
 import 'package:galaxy_rudata/feature/games/bullet.dart';
 import 'package:galaxy_rudata/feature/games/game.dart';
 
-
 class Enemy extends SpriteComponent
     with HasGameReference<SpaceShooter>, CollisionCallbacks {
   Enemy({Sprite? sprite, Vector2? position, Vector2? size})
