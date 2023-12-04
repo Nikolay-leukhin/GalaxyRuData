@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
@@ -38,8 +40,12 @@ class _QuestsScreenState extends State<QuestsScreen> {
   }
 
   void getPermissionState() async {
-    final permissionStatus = await Permission.notification.status;
+    late PermissionStatus permissionStatus;
+
+    permissionStatus = await Permission.notification.status;
+
     notificationsPermissionIsGranted = permissionStatus.isGranted;
+    print(notificationsPermissionIsGranted);
 
     fieldPermissionStatusInitialized = true;
     setState(() {});
@@ -88,7 +94,9 @@ class _QuestsScreenState extends State<QuestsScreen> {
                           : AppTypography.font14w400,
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 16,),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     if (fieldPermissionStatusInitialized) ...[
                       notificationsPermissionIsGranted
                           ? Container()
@@ -106,21 +114,26 @@ class _QuestsScreenState extends State<QuestsScreen> {
                                   height: 16,
                                 ),
                                 CustomButton(
-                                    content: Text(
-                                      'УВЕДОМЛЕНИЯ',
-                                      style: AppTypography.font16w400,
-                                    ),
-                                    onTap: () async {
-                                      await Permission.notification.request();
-                                      getPermissionState();
-                                    },
-                                    width: double.infinity,
-                                  audioPlayer: musicRepository.bigButton,)
+                                  content: Text(
+                                    'УВЕДОМЛЕНИЯ',
+                                    style: AppTypography.font16w400,
+                                  ),
+                                  onTap: () async {
+                                    await Permission.notification.request();
+
+                                    getPermissionState();
+                                  },
+                                  width: double.infinity,
+                                  audioPlayer: musicRepository.bigButton,
+                                )
                               ],
                             )
-                    ]
-                    else...[
-                      const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(),)
+                    ] else ...[
+                      const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(),
+                      )
                     ]
                   ],
                 ),

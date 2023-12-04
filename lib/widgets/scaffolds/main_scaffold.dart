@@ -4,15 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
 
 class MainScaffold extends StatefulWidget {
-  const MainScaffold(
-      {super.key,
-      this.isBottomImage = false,
-      required this.body,
-      this.appBar,
-      this.canPop = true,
-      this.bottomResize = false,
-      this.floatingActionButton,
-      this.playAudio = true});
+  const MainScaffold({
+    super.key,
+    this.isBottomImage = false,
+    required this.body,
+    this.appBar,
+    this.canPop = true,
+    this.bottomResize = false,
+    this.floatingActionButton,
+    this.playAudio = true,
+    this.isSafeArea = true,
+  });
 
   final bool isBottomImage;
   final Widget body;
@@ -21,6 +23,7 @@ class MainScaffold extends StatefulWidget {
   final bool bottomResize;
   final bool canPop;
   final bool playAudio;
+  final bool isSafeArea;
 
   @override
   State<MainScaffold> createState() => _MainScaffoldState();
@@ -44,7 +47,8 @@ class _MainScaffoldState extends State<MainScaffold> {
     return WillPopScope(
       onWillPop: () async {
         if (widget.canPop) {
-          final musicRepository = RepositoryProvider.of<AudioRepository>(context);
+          final musicRepository =
+              RepositoryProvider.of<AudioRepository>(context);
           musicRepository.play(musicRepository.screenChangeSlide);
         }
 
@@ -75,15 +79,23 @@ class _MainScaffoldState extends State<MainScaffold> {
                         fit: BoxFit.fill,
                       ))
                   : Container(),
-              SafeArea(
-                child: Scaffold(
-                  resizeToAvoidBottomInset: widget.bottomResize,
-                  backgroundColor: Colors.transparent,
-                  appBar: widget.appBar,
-                  body: widget.body,
-                  floatingActionButton: widget.floatingActionButton,
-                ),
-              )
+              widget.isSafeArea
+                  ? SafeArea(
+                      child: Scaffold(
+                        resizeToAvoidBottomInset: widget.bottomResize,
+                        backgroundColor: Colors.transparent,
+                        appBar: widget.appBar,
+                        body: widget.body,
+                        floatingActionButton: widget.floatingActionButton,
+                      ),
+                    )
+                  : Scaffold(
+                      resizeToAvoidBottomInset: widget.bottomResize,
+                      backgroundColor: Colors.transparent,
+                      appBar: widget.appBar,
+                      body: widget.body,
+                      floatingActionButton: widget.floatingActionButton,
+                    ),
             ],
           ),
         ),
