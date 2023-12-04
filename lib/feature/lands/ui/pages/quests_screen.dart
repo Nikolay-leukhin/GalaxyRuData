@@ -96,6 +96,17 @@ class _QuestsScreenState extends State<QuestsScreen> {
                           : AppTypography.font14w400,
                       textAlign: TextAlign.center,
                     ),
+                    separate,
+                    CustomButton(
+                        content: Text(
+                          'Квесты на телефоне'.toUpperCase(),
+                          style: AppTypography.font16w400,
+                        ),
+                        audioPlayer: musicRepository.bigButton,
+                        onTap: () {
+                          Navigator.of(context).pushNamed(RouteNames.game);
+                        },
+                        width: double.infinity),
                     const SizedBox(
                       height: 16,
                     ),
@@ -140,6 +151,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                   ],
                 ),
               ),
+
               // separate,
               // CustomButton(
               //     content: Text(
@@ -153,17 +165,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
               //       );
               //     },
               //     width: double.infinity),
-              // separate,
-              CustomButton(
-                  content: Text(
-                    'Квесты на телефоне'.toUpperCase(),
-                    style: AppTypography.font16w400,
-                  ),
-                  audioPlayer: musicRepository.bigButton,
-                  onTap: () {
-                    Navigator.of(context).pushNamed(RouteNames.game);
-                  },
-                  width: double.infinity),
+
               // separate,
               // CustomButton(
               //     content: Text(

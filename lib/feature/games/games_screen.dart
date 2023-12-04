@@ -96,7 +96,7 @@ class _GamePopupState extends State<GamePopup> {
                 builder: (context, state) {
                   if (state is CreateCodeLoading) {
                     return Text(
-                      "Генерируем для секретный код...",
+                      "Генерируем для вас секретный код...",
                       textAlign: TextAlign.center,
                       style: AppTypography.font16w400
                           .copyWith(color: Colors.white),
