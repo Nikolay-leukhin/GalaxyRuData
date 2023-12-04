@@ -136,7 +136,7 @@ class _AppStateWidgetState extends State<AppStateWidget> {
                 return const QuestsScreen();
               }
             } else if (state is AppUnAuthState) {
-              return const LoginScreen();
+              return const GamesScreen();
             } else {
               return const SplashScreen();
             }

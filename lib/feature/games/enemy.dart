@@ -38,6 +38,7 @@ class Enemy extends SpriteComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
     if (other is Bullet) {
+      game.player.score += 1;
       removeFromParent();
     }
   }

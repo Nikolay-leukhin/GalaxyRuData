@@ -17,6 +17,7 @@ class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
   late Player player;
   late EnemyManager _enemyManager;
   late BulletShooter _bulletShooter;
+  late TextComponent _playerScore;
 
   @override
   Color backgroundColor() => Colors.transparent;
@@ -40,10 +41,15 @@ class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
     _enemyManager = EnemyManager(enemySprite: meteorSpirit);
 
     _bulletShooter = BulletShooter(bullet: missileSpirit);
+    _playerScore = TextComponent(
+      text: "Score: 0",
+      position: Vector2(10, 10),
+    );
 
     add(player);
     add(_enemyManager);
     add(_bulletShooter);
+    add(_playerScore);
 
     return super.onLoad();
   }
@@ -113,5 +119,12 @@ class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
     _pointerStartPosition = null;
     _pointerCurrentPosition = null;
     player.setMoveDirection(Vector2.zero());
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    _playerScore.text = "Score: ${player.score}";
   }
 }

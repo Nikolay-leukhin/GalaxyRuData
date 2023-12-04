@@ -11,6 +11,8 @@ class Player extends SpriteComponent with HasGameReference<SpaceShooter> {
   Vector2 _moveDirection = Vector2.zero();
   static const double _speed = 300;
 
+  int score = 0;
+
   @override
   void update(double dt) {
     // TODO: implement update
@@ -25,4 +27,5 @@ class Player extends SpriteComponent with HasGameReference<SpaceShooter> {
   void setMoveDirection(Vector2 newMoveDirection) {
     _moveDirection = newMoveDirection;
   }
+  
 }
