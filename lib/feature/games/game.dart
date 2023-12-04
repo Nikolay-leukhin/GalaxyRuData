@@ -124,7 +124,7 @@ class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
   @override
   void update(double dt) {
     super.update(dt);
-    _playerScore.text = "Score: ${player.score}";
+    _playerScore.text = "Score: ${player.score} / 50";
 
   }
 

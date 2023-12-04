@@ -103,7 +103,7 @@ class _GamePopupState extends State<GamePopup> {
                     );
                   } else if (state is CreateCodeSuccess) {
                     return Text(
-                      "Вот ваш код: ${context.read<LandsRepository>().approve}",
+                      "Ваш код: ${context.read<LandsRepository>().approve}\nКод вставится автоматически.",
                       textAlign: TextAlign.center,
                       style: AppTypography.font16w400
                           .copyWith(color: Colors.white),
