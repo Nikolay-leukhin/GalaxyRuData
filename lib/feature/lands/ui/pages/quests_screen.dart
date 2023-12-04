@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
+import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
+import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -152,18 +154,16 @@ class _QuestsScreenState extends State<QuestsScreen> {
               //     },
               //     width: double.infinity),
               // separate,
-              // CustomButton(
-              //     content: Text(
-              //       'Квесты на телефоне'.toUpperCase(),
-              //       style: AppTypography.font16w400,
-              //     ),
-              //     onTap: () {
-              //       ShowBottomSheet.show(
-              //         context,
-              //         const BottomSheetSpatial(),
-              //       );
-              //     },
-              //     width: double.infinity),
+              CustomButton(
+                  content: Text(
+                    'Квесты на телефоне'.toUpperCase(),
+                    style: AppTypography.font16w400,
+                  ),
+                  audioPlayer: musicRepository.bigButton,
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RouteNames.game);
+                  },
+                  width: double.infinity),
               // separate,
               // CustomButton(
               //     content: Text(

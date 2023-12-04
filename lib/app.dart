@@ -129,11 +129,10 @@ class _AppStateWidgetState extends State<AppStateWidget> {
               } else if (state.state == StatesEnum.walletCreatedScreen) {
                 return const WalletCreatedScreen();
               } else {
-                // == questsScreen
                 return const QuestsScreen();
               }
             } else if (state is AppUnAuthState) {
-              return const GamesScreen();
+              return const LoginScreen();
             } else {
               return const SplashScreen();
             }

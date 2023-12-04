@@ -40,6 +40,11 @@ class Enemy extends SpriteComponent
     if (other is Bullet) {
       game.player.score += 1;
       removeFromParent();
+
+      if (game.player.score == 50) {
+        game.pauseEngine();
+        game.overlays.add("MENU");
+      }
     }
   }
 }

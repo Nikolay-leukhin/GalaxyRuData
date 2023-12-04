@@ -120,11 +120,13 @@ class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
     _pointerCurrentPosition = null;
     player.setMoveDirection(Vector2.zero());
   }
-
+  
   @override
   void update(double dt) {
     super.update(dt);
-
     _playerScore.text = "Score: ${player.score}";
+
   }
+
+
 }
