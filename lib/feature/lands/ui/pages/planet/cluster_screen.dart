@@ -28,6 +28,59 @@ class _ClusterScreenState extends State<ClusterScreen> {
 
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
+    final content = Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: sizeOf.width,
+        height: sizeOf.height,
+        padding: const EdgeInsets.symmetric(horizontal: 43),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            const Spacer(
+              flex: 2,
+            ),
+            Text(
+              clusters[clusterType]!.name.toUpperCase(),
+              style: AppTypography.font20w600,
+              textAlign: TextAlign.center,
+            ),
+            const Spacer(
+              flex: 1,
+            ),
+            Text(
+              clusters[clusterType]!.description,
+              style: AppTypography.font12w400,
+              textAlign: TextAlign.center,
+            ),
+            const Spacer(
+              flex: 2,
+            ),
+            CustomButton(
+              content: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 20),
+                child: FittedBox(
+                    child: Text(
+                      'Забронировать жилье'.toUpperCase(),
+                      style: AppTypography.font16w600,
+                    )),
+              ),
+              onTap: () async {
+                context
+                    .read<ConnectLandCubit>()
+                    .connectRandomFromClusterLandToCurrentCode(
+                    clusterType);
+              },
+              width: double.infinity, audioPlayer: musicRepository.bigButton,),
+            const Spacer(
+              flex: 2,
+            )
+          ],
+        ),
+      ),
+    );
+
     return BlocListener<ConnectLandCubit, ConnectLandState>(
       listener: (context, state) {
         if (state is ConnectLandFailure) {
@@ -94,58 +147,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          width: sizeOf.width,
-                          height: sizeOf.height,
-                          padding: const EdgeInsets.symmetric(horizontal: 43),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              const Spacer(
-                                flex: 2,
-                              ),
-                              Text(
-                                clusters[clusterType]!.name.toUpperCase(),
-                                style: AppTypography.font20w600,
-                                textAlign: TextAlign.center,
-                              ),
-                              const Spacer(
-                                flex: 1,
-                              ),
-                              Text(
-                                clusters[clusterType]!.description,
-                                style: AppTypography.font12w400,
-                                textAlign: TextAlign.center,
-                              ),
-                              const Spacer(
-                                flex: 2,
-                              ),
-                              CustomButton(
-                                  content: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: FittedBox(
-                                        child: Text(
-                                      'Забронировать жилье'.toUpperCase(),
-                                      style: AppTypography.font16w600,
-                                    )),
-                                  ),
-                                  onTap: () async {
-                                    context
-                                        .read<ConnectLandCubit>()
-                                        .connectRandomFromClusterLandToCurrentCode(
-                                            clusterType);
-                                  },
-                                  width: double.infinity, audioPlayer: musicRepository.bigButton,),
-                              const Spacer(
-                                flex: 2,
-                              )
-                            ],
-                          ),
-                        ),
-                      )
+                      content
                     ]),
                   ),
                 ),

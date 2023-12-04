@@ -27,8 +27,8 @@ class LandsRepository {
 
   Future<void> useInviteCode(
       String usedCode) async {
-    await _apiService.land.useInviteCode(usedCode);
-    code = usedCode;
+    final res = await _apiService.land.useInviteCode(usedCode);
+    code = res['data']['code']!;
   }
 
   void codeUsed() =>

@@ -11,7 +11,6 @@ import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
-import 'package:galaxy_rudata/widgets/popup/custom_popup.dart';
 
 class GamesScreen extends StatefulWidget {
   const GamesScreen({super.key});
@@ -24,7 +23,7 @@ class _GamesScreenState extends State<GamesScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage("assets/images/galaxy.jpg"))),
@@ -34,7 +33,7 @@ class _GamesScreenState extends State<GamesScreen> {
                 child: GameWidget(
               game: SpaceShooter(),
               overlayBuilderMap: {
-                "MENU": (context, game) => GamePopup()
+                "MENU": (context, game) => const GamePopup()
               },
             )),
             Align(
