@@ -51,7 +51,8 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
     return BlocListener<PinCodeCubit, PinCodeState>(
       listener: (context, state) {
         if (state is PinCodeEnterSuccess) {
-          // Navigator.pushReplacementNamed(context, RouteNames.landsUserList);
+          pinCode.clear();
+          Navigator.pop(context);
           if (confirmation != null) confirmation!();
         } else if (state is PinCodeEnterFailure) {
           final repository = RepositoryProvider.of<AudioRepository>(context);
