@@ -113,7 +113,7 @@ class _GamePopupState extends State<GamePopup> {
                               //     context, RouteNames.safe);
                             },
                             width: double.infinity,
-                            audioPlayer: musicRepository.mediumButton)
+                            audioPlayer: musicRepository.bigButton)
                       ],
                     );
                   } else if (state is CreateCodeSuccess) {
@@ -137,7 +137,7 @@ class _GamePopupState extends State<GamePopup> {
                                   context, RouteNames.safe);
                             },
                             width: double.infinity,
-                            audioPlayer: musicRepository.mediumButton)
+                            audioPlayer: musicRepository.bigButton)
                       ],
                     );
                   }
