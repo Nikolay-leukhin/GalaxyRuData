@@ -32,9 +32,7 @@ class _GamesScreenState extends State<GamesScreen> {
             Positioned.fill(
                 child: GameWidget(
               game: SpaceShooter(),
-              overlayBuilderMap: {
-                "MENU": (context, game) => const GamePopup()
-              },
+              overlayBuilderMap: {"MENU": (context, game) => const GamePopup()},
             )),
             Align(
               alignment: Alignment.topRight,
@@ -94,35 +92,58 @@ class _GamePopupState extends State<GamePopup> {
               BlocBuilder<CreateCodeCubit, CreateCodeState>(
                 builder: (context, state) {
                   if (state is CreateCodeLoading) {
-                    return Text(
-                      "Генерируем для вас секретный код...",
-                      textAlign: TextAlign.center,
-                      style: AppTypography.font16w400
-                          .copyWith(color: Colors.white),
+                    return Column(
+                      children: [
+                        Text(
+                          "Генерируем для вас секретный код...",
+                          textAlign: TextAlign.center,
+                          style: AppTypography.font16w400
+                              .copyWith(color: Colors.white),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        CustomButton(
+                          isActive: false,
+                            content: Text("OK".toUpperCase(),
+                                style: AppTypography.font16w600
+                                    .copyWith(color: Colors.white)),
+                            onTap: () {
+                              // Navigator.pushReplacementNamed(
+                              //     context, RouteNames.safe);
+                            },
+                            width: double.infinity,
+                            audioPlayer: musicRepository.mediumButton)
+                      ],
                     );
                   } else if (state is CreateCodeSuccess) {
-                    return Text(
-                      "Ваш код: ${context.read<LandsRepository>().approve}\nКод вставится автоматически.",
-                      textAlign: TextAlign.center,
-                      style: AppTypography.font16w400
-                          .copyWith(color: Colors.white),
+                    return Column(
+                      children: [
+                        Text(
+                          "Ваш код: ${context.read<LandsRepository>().approve}\nКод вставится автоматически.",
+                          textAlign: TextAlign.center,
+                          style: AppTypography.font16w400
+                              .copyWith(color: Colors.white),
+                        ),
+                        const SizedBox(
+                          height: 32,
+                        ),
+                        CustomButton(
+                            content: Text("OK".toUpperCase(),
+                                style: AppTypography.font16w600
+                                    .copyWith(color: Colors.white)),
+                            onTap: () {
+                              Navigator.pushReplacementNamed(
+                                  context, RouteNames.safe);
+                            },
+                            width: double.infinity,
+                            audioPlayer: musicRepository.mediumButton)
+                      ],
                     );
                   }
                   return Container();
                 },
               ),
-              const SizedBox(
-                height: 32,
-              ),
-              CustomButton(
-                  content: Text("OK".toUpperCase(),
-                      style: AppTypography.font16w600
-                          .copyWith(color: Colors.white)),
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, RouteNames.safe);
-                  },
-                  width: double.infinity,
-                  audioPlayer: musicRepository.mediumButton)
             ],
           ),
         ),
