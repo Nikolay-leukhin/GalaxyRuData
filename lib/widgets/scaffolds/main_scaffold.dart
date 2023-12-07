@@ -63,7 +63,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/images/app_background.png"))),
+                  image: AssetImage("assets/gifs/bg.gif"))),
           child: Stack(
             children: [
               widget.isBottomImage

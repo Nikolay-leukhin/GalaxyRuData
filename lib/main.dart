@@ -1,4 +1,3 @@
-import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +19,5 @@ void main() async {
 
   await dotenv.load();
   TrustWalletCoreLib.init();
-  await Flame.device.fullScreen();
   runApp( MyRepositoryProviders());
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
-import 'package:galaxy_rudata/feature/games/cubit/game_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/blocks.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
@@ -101,10 +100,7 @@ class MyBlocProviders extends StatelessWidget {
           ),
           lazy: false,
         ),
-        BlocProvider<GameCubit>(
-          create: (_) => GameCubit(),
-          lazy: false,
-        ),
+
       ],
       child: const MyApp(),
     );
