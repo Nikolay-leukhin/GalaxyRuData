@@ -7,10 +7,18 @@ import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 
-class CustomLogOutPopup extends StatelessWidget {
+class CustomChoosePopup extends StatelessWidget {
   final VoidCallback onTap;
+  final Text message;
+  final String confirmText;
+  final VoidCallback? onDismiss;
 
-  const CustomLogOutPopup({super.key, required this.onTap});
+  const CustomChoosePopup(
+      {super.key,
+      required this.onTap,
+      required this.message,
+      this.confirmText = 'ОК',
+      this.onDismiss});
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +41,7 @@ class CustomLogOutPopup extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                        text: 'Вы уверены, что хотите выйти из аккаунта ',
-                        style: AppTypography.font16w400),
-                    TextSpan(
-                        text:
-                            '${RepositoryProvider.of<AuthRepository>(context).currentEmail}',
-                        style: AppTypography.font16w500),
-                    TextSpan(text: '?', style: AppTypography.font16w400)
-                  ],
-                ),
-                textAlign: TextAlign.center,
-              ),
+              message,
               const SizedBox(
                 height: 32,
               ),
@@ -55,7 +49,7 @@ class CustomLogOutPopup extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CustomButton(
-                      content: Text("Выйти".toUpperCase(),
+                      content: Text(confirmText.toUpperCase(),
                           style: AppTypography.font16w600
                               .copyWith(color: Colors.white)),
                       onTap: onTap,
@@ -71,9 +65,10 @@ class CustomLogOutPopup extends StatelessWidget {
                         content: Text("Отмена".toUpperCase(),
                             style: AppTypography.font16w600
                                 .copyWith(color: Colors.white)),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
+                        onTap: onDismiss ??
+                            () {
+                              Navigator.pop(context);
+                            },
                         width: double.infinity,
                         audioPlayer: musicRepository.mediumButton),
                   ),

@@ -100,7 +100,6 @@ class MyBlocProviders extends StatelessWidget {
           ),
           lazy: false,
         ),
-
       ],
       child: const MyApp(),
     );

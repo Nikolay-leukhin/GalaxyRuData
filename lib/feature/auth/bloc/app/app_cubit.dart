@@ -3,9 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
+import 'package:galaxy_rudata/providers.dart';
+import 'package:galaxy_rudata/services/notifications.dart';
 import 'package:meta/meta.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 part 'app_state.dart';
 
@@ -14,6 +17,8 @@ class AppCubit extends Cubit<AppState> {
   final WalletRepository _walletRepository;
   final LandsRepository _landsRepository;
   final AudioRepository _audioRepository;
+
+  final NotificationsService _notificationsService = NotificationsService();
 
   AppCubit(
       {required AuthRepository authRepository,
@@ -29,9 +34,26 @@ class AppCubit extends Cubit<AppState> {
     _subscribeCode();
   }
 
+  Future<bool> updateAvailable() async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final res = await apiService.auth.getAppVersion();
+
+    final lastVersion = res['appVersion'];
+    final localVersion = packageInfo.version;
+
+    for (int i = 0; i < 3; i++) {
+      int lastVersionCode = int.parse(lastVersion.split('.')[i]);
+      int localVersionCode = int.parse(localVersion.split('.')[i]);
+
+      if (lastVersionCode < localVersionCode) return false;
+      if (lastVersionCode > localVersionCode) return true;
+    }
+    return false;
+  }
+
   void _subscribeAuth() {
     _authRepository.appState.stream.listen((event) async {
-      await _audioRepository.initialized; // TODO вернуть перед билдом
+      // await _audioRepository.initialized; // TODO вернуть перед билдом
       if (event == AppStateEnum.auth) _handleAuthEvent();
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
     });
@@ -39,9 +61,15 @@ class AppCubit extends Cubit<AppState> {
 
   void _subscribeCode() {
     _landsRepository.codeStates.stream.listen((event) {
-      if (event == CodeStates.lock) emit(AppAuthState(state: StatesEnum.lockScreen));
-      if (event == CodeStates.choose) emit(AppAuthState(state: StatesEnum.landChoseScreen));
-      if (event == CodeStates.quests) emit(AppAuthState(state: StatesEnum.questsScreen));
+      if (event == CodeStates.lock) {
+        emit(AppAuthState(state: StatesEnum.lockScreen));
+      }
+      if (event == CodeStates.choose) {
+        emit(AppAuthState(state: StatesEnum.landChoseScreen));
+      }
+      if (event == CodeStates.quests) {
+        emit(AppAuthState(state: StatesEnum.questsScreen));
+      }
     });
   }
 

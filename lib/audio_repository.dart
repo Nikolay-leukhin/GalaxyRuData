@@ -6,8 +6,8 @@ import 'package:just_audio/just_audio.dart';
 
 class AudioRepository {
   AudioRepository() {
-    _initialPlayers();
-    _initialBackground(); // TODO вернуть перд билдом
+    // _initialPlayers();
+    // _initialBackground(); // TODO вернуть перд билдом
   }
 
   late Future initialized;

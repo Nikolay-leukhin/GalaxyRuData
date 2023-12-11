@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/pages.dart';
@@ -8,6 +11,8 @@ import 'package:galaxy_rudata/feature/auth/ui/pages/login_screen.dart';
 import 'package:galaxy_rudata/feature/splash/splash_screen.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
+import 'package:galaxy_rudata/widgets/popup/choose_popup.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,7 +33,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    checkUpdate();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -40,51 +44,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   Future<void> stopPlayer() async {
-    await RepositoryProvider
-        .of<AudioRepository>(context)
+    await RepositoryProvider.of<AudioRepository>(context)
         .backgroundPlayer
         .dispose();
   }
-
-  Future checkUpdate() async {
-    // print('check update starting');
-    //
-    // final newVersion = NewVersion();
-    // final status = await newVersion.getVersionStatus();
-    // if (status != null && status.canUpdate) {
-    //   showUpdateDialog(newVersion, status);
-    // } else if (status != null) {
-    //   print('local version: ${status.localVersion}; store version: ${status.localVersion}');
-    // } else {
-    //   print('Update status: $status');
-    // }
-  }
-
-  // void showUpdateDialog(NewVersion newVersion, VersionStatus status) {
-  //   newVersion.showUpdateDialog(
-  //     context: context,
-  //     versionStatus: status,
-  //     dialogTitle: 'Новая версия!',
-  //     dialogText: 'Для продолжения работы необходимо обновление',
-  //     updateButtonText: 'Обновить',
-  //     dismissButtonText: 'Выйти',
-  //     dismissAction: () {},
-  //   );
-  // }
-
-  // Future update() async {
-  //   await InAppUpdate.performImmediateUpdate();
-  // }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Вселенная Большого Росреестра',
-      builder: (context, child) =>
-          MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: child!,
-          ),
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+        child: child!,
+      ),
       theme: ThemeData(
         fontFamily: 'Nunito',
         pageTransitionsTheme: const PageTransitionsTheme(builders: {
@@ -107,6 +79,49 @@ class AppStateWidget extends StatefulWidget {
 }
 
 class _AppStateWidgetState extends State<AppStateWidget> {
+  @override
+  void initState() {
+    checkUpdate();
+    super.initState();
+  }
+
+  Future checkUpdate() async {
+    final canUpdate =
+        await RepositoryProvider.of<AppCubit>(context).updateAvailable();
+
+    if (canUpdate) showUpdateDialog();
+  }
+
+  void showUpdateDialog() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) => CustomChoosePopup(
+              message: Text(
+                'Вышла новая версия! Для продолжения работы необходимо обновление!',
+                style: AppTypography.font16w400,
+              ),
+              onTap: update,
+              confirmText: 'обновить',
+              onDismiss: () {
+                if (Platform.isAndroid) {
+                  SystemNavigator.pop();
+                } else {
+                  exit(0);
+                }
+              },
+            ));
+  }
+
+  Future update() async {
+    if (Platform.isAndroid) {
+      launchUrl(Uri.parse("market://details?id=com.kadastr.rosreestr"),
+          mode: LaunchMode.externalApplication);
+    } else {
+      // launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=com.rosreestr.kadastr'))
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
