@@ -30,7 +30,7 @@ dependencies:
   permission_handler: any
   flutter_local_notifications: ^16.2.0
   package_info_plus: any
-  workmanager: any
+  workmanager: ^0.5.2
 
 
   qr_flutter: ^4.1.0
