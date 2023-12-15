@@ -23,5 +23,5 @@ class NotificationModel {
 
 
   @override
-  String toString() => 'Notification id: \n$id message: $message \nisRead: $isRead';
+  String toString() => 'Notification id: $id\n message: $message \nisRead: $isRead';
 }

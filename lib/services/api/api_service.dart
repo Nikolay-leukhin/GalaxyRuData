@@ -39,22 +39,6 @@ class ApiService {
     initialized = _init(preferencesService);
   }
 
-  /// uses only for background
-  static Future getNotificationInBackground() async {
-    final prefs = PreferencesService();
-    final token = await prefs.getToken();
-    final dio = Dio(defaultDioOptions);
-    dio.options.headers = Map.from(defaultHeaders)..addAll({'Authorization': 'Bearer: ${token.jwt}'});
-
-    try {
-      final res = await dio.get(ApiEndpoints.notifications);
-      return res.data['notifications'];
-    } catch (e) {
-      return [];
-    }
-
-  }
-
   void logout() {
     _apiData.prefs.logout();
     _apiData.token.setJwt('');

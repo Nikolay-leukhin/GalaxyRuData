@@ -12,24 +12,19 @@ import 'providers.dart';
 const gettingNotifications = "gettingNotifications";
 final Workmanager wm = Workmanager();
 
-
-
-
+@pragma('vm:entry-point')
 void callbackDispatcher() {
   print('start callback');
-  try {
-    Workmanager().executeTask((task, inputData) async {
-      await BackgroundNotificationsService.backgroundNotificationsTask();
-      return Future.value(true);
-    });
-  } catch (e) {
-    print(e);
-    print('execution error');
-    rethrow;
-  }
+  Workmanager().executeTask((task, inputData) async {
+    await BackgroundNotificationsService.backgroundNotificationsTask();
+    // print('Execution successful');
+    return Future.value(true);
+  });
 }
 
 void main() async {
+
+
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations([
@@ -38,22 +33,18 @@ void main() async {
   ]);
 
   Bloc.observer = CustomBlocObserver();
-
   await dotenv.load();
   TrustWalletCoreLib.init();
-  await wm.initialize(callbackDispatcher, isInDebugMode: true);
-  try {
-    await wm.registerPeriodicTask(
-        "gettingNotifications", gettingNotifications,
-        frequency: const Duration(minutes: 15),
-        constraints: Constraints(
-          networkType: NetworkType.connected,
-        ));
-    print('callbackDispatcher registered');
 
-  } catch (e) {
-    rethrow;
-  }
+  await wm.initialize(callbackDispatcher, isInDebugMode: true);
+  print('workmanager initialized');
+  await wm.registerPeriodicTask(
+      "rosreestrGettingNotifications", gettingNotifications,
+      constraints: Constraints(
+        networkType: NetworkType.connected,
+      ));
+  print('callbackDispatcher registered');
+  // await BackgroundNotificationsService.backgroundNotificationsTask();
 
   runApp(MyRepositoryProviders());
 }

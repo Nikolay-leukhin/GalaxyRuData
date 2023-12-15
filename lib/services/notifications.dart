@@ -17,7 +17,7 @@ class NotificationsService {
     await _flutterLocalNotificationsPlugin.initialize(settings);
   }
 
-  Future showNotification({required String title, required String body}) async {
+  Future showNotification({required String title, required String body, int id = 0}) async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max, priority: Priority.high);
@@ -25,6 +25,6 @@ class NotificationsService {
     const NotificationDetails details =
         NotificationDetails(android: androidDetails);
 
-    await _flutterLocalNotificationsPlugin.show(0, title, body, details);
+    await _flutterLocalNotificationsPlugin.show(id, title, body, details);
   }
 }
