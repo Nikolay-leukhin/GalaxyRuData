@@ -27,4 +27,5 @@ class ApiEndpoints {
   static const user = '$_user/self';
   static const userWalletUpdate = '$_user/update/wallet';
   static const notifications = '$_user/notifications';
+  static const readNotification = '$_user/notifications/read';
 }

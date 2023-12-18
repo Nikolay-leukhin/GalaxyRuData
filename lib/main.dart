@@ -9,22 +9,18 @@ import 'package:workmanager/workmanager.dart';
 
 import 'providers.dart';
 
-const gettingNotifications = "gettingNotifications";
-final Workmanager wm = Workmanager();
+const simplePeriodicTask =
+    "be.tramckrijte.workmanagerExample.simplePeriodicTask";
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
-  print('start callback');
   Workmanager().executeTask((task, inputData) async {
     await BackgroundNotificationsService.backgroundNotificationsTask();
-    // print('Execution successful');
     return Future.value(true);
   });
 }
 
 void main() async {
-
-
   WidgetsFlutterBinding.ensureInitialized();
 
   SystemChrome.setPreferredOrientations([
@@ -36,15 +32,14 @@ void main() async {
   await dotenv.load();
   TrustWalletCoreLib.init();
 
-  await wm.initialize(callbackDispatcher, isInDebugMode: true);
-  print('workmanager initialized');
-  await wm.registerPeriodicTask(
-      "rosreestrGettingNotifications", gettingNotifications,
+  BackgroundNotificationsService.markNotificationsAsRead();
+
+  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  Workmanager().registerPeriodicTask(simplePeriodicTask, simplePeriodicTask,
+      initialDelay: const Duration(seconds: 15),
       constraints: Constraints(
         networkType: NetworkType.connected,
       ));
-  print('callbackDispatcher registered');
-  // await BackgroundNotificationsService.backgroundNotificationsTask();
 
   runApp(MyRepositoryProviders());
 }
