@@ -10,7 +10,7 @@ import 'package:workmanager/workmanager.dart';
 import 'providers.dart';
 
 const simplePeriodicTask =
-    "be.tramckrijte.workmanagerExample.simplePeriodicTask";
+    "be.tramckrijte.workmanagerExample.simplePeriodicTask6";
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
@@ -18,6 +18,16 @@ void callbackDispatcher() {
     await BackgroundNotificationsService.backgroundNotificationsTask();
     return Future.value(true);
   });
+}
+
+void initializeWorkmanager() async {
+  Workmanager().cancelAll();
+  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  Workmanager().registerPeriodicTask(simplePeriodicTask, simplePeriodicTask,
+      initialDelay: const Duration(seconds: 15),
+      constraints: Constraints(
+        networkType: NetworkType.connected,
+      ));
 }
 
 void main() async {
@@ -32,14 +42,8 @@ void main() async {
   await dotenv.load();
   TrustWalletCoreLib.init();
 
-  BackgroundNotificationsService.markNotificationsAsRead();
-
-  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  Workmanager().registerPeriodicTask(simplePeriodicTask, simplePeriodicTask,
-      initialDelay: const Duration(seconds: 15),
-      constraints: Constraints(
-        networkType: NetworkType.connected,
-      ));
+  initializeWorkmanager();
+  // BackgroundNotificationsService.markNotificationsAsRead();
 
   runApp(MyRepositoryProviders());
 }

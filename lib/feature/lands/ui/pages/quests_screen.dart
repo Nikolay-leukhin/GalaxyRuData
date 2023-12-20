@@ -31,6 +31,7 @@ class QuestsScreen extends StatefulWidget {
 
 class _QuestsScreenState extends State<QuestsScreen> {
   bool notificationsPermissionIsGranted = false;
+  bool schedulePermissionIsGranted = false;
   bool fieldPermissionStatusInitialized = false;
 
   @override
@@ -40,15 +41,23 @@ class _QuestsScreenState extends State<QuestsScreen> {
   }
 
   void getPermissionState() async {
-    late PermissionStatus permissionStatus;
+    final notificationPermissionStatus = await Permission.notification.status;
+    final schedulePermissionStatus = await Permission.scheduleExactAlarm.status;
 
-    permissionStatus = await Permission.notification.status;
-
-    notificationsPermissionIsGranted = permissionStatus.isGranted;
-    print(notificationsPermissionIsGranted);
+    notificationsPermissionIsGranted = notificationPermissionStatus.isGranted;
+    schedulePermissionIsGranted = schedulePermissionStatus.isGranted;
 
     fieldPermissionStatusInitialized = true;
     setState(() {});
+  }
+
+  Future<void> requestPermission() async {
+    if (!notificationsPermissionIsGranted) {
+      await Permission.notification.request();
+    }
+    if (!schedulePermissionIsGranted) {
+      await Permission.scheduleExactAlarm.request();
+    }
   }
 
   @override
@@ -98,7 +107,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                       height: 16,
                     ),
                     if (fieldPermissionStatusInitialized) ...[
-                      notificationsPermissionIsGranted
+                      notificationsPermissionIsGranted && schedulePermissionIsGranted
                           ? Container()
                           : Column(
                               mainAxisSize: MainAxisSize.min,
@@ -119,7 +128,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                                     style: AppTypography.font16w400,
                                   ),
                                   onTap: () async {
-                                    await Permission.notification.request();
+                                    await requestPermission();
 
                                     getPermissionState();
                                   },

@@ -26,7 +26,7 @@ mixin class ApiHandler {
     await serviceData.prefs.saveToken(token);
     serviceData.token.setJwt(token.jwt);
 
-    log('token refreshed on ${serviceData.token.jwt}');
+    log('token refreshed on ${serviceData.token}');
     log("________________________");
 
     serviceData.dio.options.headers = _getHeadersWithCurrentToken();
@@ -37,7 +37,7 @@ mixin class ApiHandler {
 
   Map<String, dynamic> _getHeadersWithCurrentToken() {
     final Map<String, dynamic> newHeaders = Map.from(defaultHeaders);
-    newHeaders['Authorization'] = 'Bearer ${serviceData.token.jwt}';
+    newHeaders['Authorization'] = serviceData.token.bearer;
     return newHeaders;
   }
 

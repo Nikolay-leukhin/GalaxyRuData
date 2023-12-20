@@ -40,9 +40,7 @@ android {
     }
 
     kotlinOptions {
-        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-            kotlinOptions.jvmTarget = "1.8"
-        }
+        kotlinOptions.jvmTarget = "1.8"
     }
 
     sourceSets {
@@ -52,10 +50,8 @@ android {
 
     defaultConfig {
         applicationId "com.kadastr.rosreestr"
-//        applicationId "com.rosreestr.kadastr"
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
-//        versionCode 7  // for old version
         versionCode 12 // for new version
         versionName flutterVersionName
         multiDexEnabled true
@@ -87,7 +83,4 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
     implementation "androidx.window:window:1.0.0-rc01"
     implementation "androidx.window:window-java:1.0.0-rc01"
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

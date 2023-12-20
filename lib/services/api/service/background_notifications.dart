@@ -8,6 +8,7 @@ import '../api_service.dart';
 import '../endpoints.dart';
 
 class BackgroundNotificationsService {
+
   static Future backgroundNotificationsTask() async {
     final notifications = await _getAvailableNotifications();
     if (notifications.isNotEmpty) _showNotifications(notifications);
@@ -57,7 +58,7 @@ class BackgroundNotificationsService {
     await dotenv.load();
     final dio = Dio(defaultDioOptions);
     dio.options.headers = Map.from(defaultHeaders)
-      ..addAll({'Authorization': 'Bearer ${token.jwt}'});
+      ..addAll({'Authorization': token.bearer});
 
     return dio;
   }
