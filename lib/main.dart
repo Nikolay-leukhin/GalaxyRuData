@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,22 +10,22 @@ import 'package:workmanager/workmanager.dart';
 
 import 'providers.dart';
 
-const simplePeriodicTask =
-    "be.tramckrijte.workmanagerExample.simplePeriodicTask6";
-
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
-    await BackgroundNotificationsService.backgroundNotificationsTask();
-    return Future.value(true);
+   final bool result = await  BackgroundNotificationsService.backgroundNotificationsTask();
+    return Future.value(result);
   });
 }
 
 void initializeWorkmanager() async {
   Workmanager().cancelAll();
-  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  Workmanager().registerPeriodicTask(simplePeriodicTask, simplePeriodicTask,
+  await Workmanager().initialize(callbackDispatcher, isInDebugMode: kDebugMode);
+  Workmanager().registerPeriodicTask(
+      BackgroundNotificationsService.simplePeriodicTaskKey,
+      BackgroundNotificationsService.simplePeriodicTaskKey,
       initialDelay: const Duration(seconds: 15),
+      frequency: const Duration(minutes: 30),
       constraints: Constraints(
         networkType: NetworkType.connected,
       ));
@@ -43,7 +44,7 @@ void main() async {
   TrustWalletCoreLib.init();
 
   initializeWorkmanager();
-  // BackgroundNotificationsService.markNotificationsAsRead();
+  BackgroundNotificationsService.markNotificationsAsRead();
 
   runApp(MyRepositoryProviders());
 }

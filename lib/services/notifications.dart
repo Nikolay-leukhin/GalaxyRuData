@@ -1,8 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationsService {
+  static const String _channelId = 'rosreestr.notification.channel';
+  static const String _channelName = 'rosreestr.notification.channel';
+
 
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -19,7 +20,7 @@ class NotificationsService {
 
   Future showNotification({required String title, required String body, int id = 0}) async {
     const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails('channelId', 'channelName',
+        AndroidNotificationDetails(_channelId, _channelName,
             importance: Importance.max, priority: Priority.high);
 
     const NotificationDetails details =

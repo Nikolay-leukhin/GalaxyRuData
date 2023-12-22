@@ -1,17 +1,27 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/notification.dart';
+import '../../../models/notifications_history.dart';
 import '../../notifications.dart';
 import '../api_service.dart';
 import '../endpoints.dart';
 
 class BackgroundNotificationsService {
+  static const String simplePeriodicTaskKey =
+      "be.tramckrijte.workmanagerExample.simplePeriodicTask";
 
-  static Future backgroundNotificationsTask() async {
+  static const String _historyKey = 'notifications_history_key';
+
+  static Future<bool> backgroundNotificationsTask() async {
+    print('start notification task');
     final notifications = await _getAvailableNotifications();
-    if (notifications.isNotEmpty) _showNotifications(notifications);
+    if (notifications.isNotEmpty) await _showNotifications(notifications);
+    return true;
   }
 
   static Future<void> markNotificationsAsRead() async {
@@ -22,14 +32,21 @@ class BackgroundNotificationsService {
     }
   }
 
-  static _showNotifications(List<NotificationModel> notifications) async {
+  static Future _showNotifications(
+      List<NotificationModel> notifications) async {
+    print('trying to show notifications');
     final notificationsService = NotificationsService();
     await notificationsService.initializeNotification();
     for (var notification in notifications) {
-      await notificationsService.showNotification(
-          title: 'Новое событие',
-          body: notification.message,
-          id: notification.id);
+      try {
+        await notificationsService.showNotification(
+            title: 'Новое событие',
+            body: notification.message,
+            id: notification.id);
+        print('notification ${notification.id} showed');
+      } catch (e) {
+        print('error $e on showing notification ${notification.id}');
+      }
     }
   }
 
@@ -43,7 +60,27 @@ class BackgroundNotificationsService {
         notifications.add(notification);
       }
     }
-    return notifications;
+    print('trying to sort with history');
+
+    final sorted = await _sortNotificationsWithHistory(notifications);
+    return sorted;
+  }
+
+  static Future<List<NotificationModel>> _sortNotificationsWithHistory(
+      List<NotificationModel> notifications) async {
+    final prefs = await SharedPreferences.getInstance();
+    final res = prefs.getString(_historyKey) ?? '{"notifications": []}';
+    print('preferences response: $res');
+    print('parsing');
+    final history = NotificationsHistory.fromJson(jsonDecode(res));
+
+    print('sorting');
+    final sorted = history.sortNotifications(notifications);
+    print('sorted list: $sorted');
+    final a = history.toJson();
+    print('new history json: $a');
+    prefs.setString(_historyKey, jsonEncode(a));
+    return sorted;
   }
 
   static Future _requestNotificationInBackground() async {
