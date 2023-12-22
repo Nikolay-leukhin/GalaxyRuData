@@ -42,8 +42,8 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
 
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -108,7 +108,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
     final clustersList = List.generate(
         clustersTypes.length,
         (index) => ClusterButton(
-              name: clusters[clustersTypes[index]]!.name,
+              name: clusters[clustersTypes[index]]!.name != 'АДМИНИСТРАТИВНЫЙ КЛАСТЕР' ? clusters[clustersTypes[index]]!.name : 'АДМИНИ. КЛАСТЕР',
               type: clustersTypes[index],
             ));
 

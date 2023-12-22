@@ -17,7 +17,7 @@ class UseInviteCodeCubit extends Cubit<UseInviteCodeState> {
       await Future.delayed(animationDuration);
       landsRepository.codeUsed();
     } catch (e) {
-      emit(UseInviteCodeFailure());
+      emit(UseInviteCodeFailure(e as Exception));
     }
   }
 }

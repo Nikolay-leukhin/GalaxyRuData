@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -13,12 +14,12 @@ import '../endpoints.dart';
 
 class BackgroundNotificationsService {
   static const String simplePeriodicTaskKey =
-      "be.tramckrijte.workmanagerExample.simplePeriodicTask";
+      "com.kadastr.rosreestr.periodicNotificationTask";
 
   static const String _historyKey = 'notifications_history_key';
 
   static Future<bool> backgroundNotificationsTask() async {
-    print('start notification task');
+    log('start notification task');
     final notifications = await _getAvailableNotifications();
     if (notifications.isNotEmpty) await _showNotifications(notifications);
     return true;
@@ -34,7 +35,7 @@ class BackgroundNotificationsService {
 
   static Future _showNotifications(
       List<NotificationModel> notifications) async {
-    print('trying to show notifications');
+    log('trying to show notifications');
     final notificationsService = NotificationsService();
     await notificationsService.initializeNotification();
     for (var notification in notifications) {
@@ -43,9 +44,9 @@ class BackgroundNotificationsService {
             title: 'Новое событие',
             body: notification.message,
             id: notification.id);
-        print('notification ${notification.id} showed');
+        log('notification ${notification.id} showed');
       } catch (e) {
-        print('error $e on showing notification ${notification.id}');
+        log('error $e on showing notification ${notification.id}');
       }
     }
   }
@@ -60,7 +61,7 @@ class BackgroundNotificationsService {
         notifications.add(notification);
       }
     }
-    print('trying to sort with history');
+    log('trying to sort with history');
 
     final sorted = await _sortNotificationsWithHistory(notifications);
     return sorted;
@@ -70,15 +71,15 @@ class BackgroundNotificationsService {
       List<NotificationModel> notifications) async {
     final prefs = await SharedPreferences.getInstance();
     final res = prefs.getString(_historyKey) ?? '{"notifications": []}';
-    print('preferences response: $res');
-    print('parsing');
+    log('preferences response: $res');
+    log('parsing');
     final history = NotificationsHistory.fromJson(jsonDecode(res));
 
-    print('sorting');
+    log('sorting');
     final sorted = history.sortNotifications(notifications);
-    print('sorted list: $sorted');
+    log('sorted list: $sorted');
     final a = history.toJson();
-    print('new history json: $a');
+    log('new history json: $a');
     prefs.setString(_historyKey, jsonEncode(a));
     return sorted;
   }

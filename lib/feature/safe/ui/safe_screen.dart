@@ -86,14 +86,19 @@ class _SafeScreenState extends State<SafeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              SizedBox(
-                width: 320,
-                child: Text(
-                  'Чтобы забрать ваш NFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
-                  style: AppTypography.font16w400,
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              MediaQuery.of(context).viewInsets.bottom == 0
+                  ? Container(
+                      width: size.width * 0.69,
+                      constraints: const BoxConstraints(maxWidth: 500),
+                      child: Text(
+                        'Чтобы забрать ваш NFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
+                        style: size.width < 300
+                            ? AppTypography.font16w400
+                            : AppTypography.font14w400,
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  : Container(),
               Container(
                   width: size.width * 0.82,
                   height: size.width * 0.86,
@@ -138,18 +143,19 @@ class _SafeScreenState extends State<SafeScreen> {
                     ],
                   )),
               CustomButton(
-                  content: Text(
-                    'Отправить код'.toUpperCase(),
-                    style: AppTypography.font16w600,
-                  ),
-                  onTap: () async {
-                    startAnimation((n) => getRandomList(n)).then((value) async {
-                      await repository.verifyInviteCode(codeController.text);
-                      Navigator.pushNamed(context, RouteNames.nftCertificate);
-                    });
-                  },
-                  width: size.width * 0.528,
-              audioPlayer: musicRepository.bigButton,),
+                content: Text(
+                  'Отправить код'.toUpperCase(),
+                  style: AppTypography.font16w600,
+                ),
+                onTap: () async {
+                  startAnimation((n) => getRandomList(n)).then((value) async {
+                    await repository.verifyInviteCode(codeController.text);
+                    Navigator.pushNamed(context, RouteNames.nftCertificate);
+                  });
+                },
+                width: size.width * 0.528,
+                audioPlayer: musicRepository.bigButton,
+              ),
             ],
           ),
         ),

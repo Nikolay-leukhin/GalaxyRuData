@@ -55,6 +55,12 @@ mixin class ApiHandler {
           e.response?.data['error'] == 'User not found.' &&
           requestData.url == ApiEndpoints.user) {
         serviceData.exceptionsStream.add(UnAuthorizedException());
+      } else if (requestData.url == ApiEndpoints.useLandCode &&
+          e.response?.data['error'] == 'Not owner.') {
+        throw CodeWasUsedException();
+      } else if (requestData.url == ApiEndpoints.useLandCode &&
+          e.response?.data['error'] == 'Invalid code.') {
+        throw InvalidCodeException();
       } else {
         log('headers: ${serviceData.dio.options.headers}');
         log('error by calling ${requestData.url}');

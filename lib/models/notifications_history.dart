@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:galaxy_rudata/models/notification.dart';
 
 class NotificationsHistory {
@@ -8,7 +10,7 @@ class NotificationsHistory {
     for (var i in json['notifications']) {
       notifications.add(NotificationModel.fromJson(i));
     }
-    print('notifications history: $notifications');
+    log('notifications history: $notifications');
   }
 
   Map<String, dynamic> toJson() => {

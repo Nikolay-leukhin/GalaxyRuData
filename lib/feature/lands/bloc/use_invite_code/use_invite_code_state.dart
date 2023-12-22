@@ -8,7 +8,10 @@ final class UseInviteCodeInitial extends UseInviteCodeState {}
 final class UseInviteCodeLoading extends UseInviteCodeState {}
 
 
-final class UseInviteCodeFailure extends UseInviteCodeState {}
+final class UseInviteCodeFailure extends UseInviteCodeState {
+  final Exception e;
+  UseInviteCodeFailure(this.e);
+}
 
 final class UseInviteCodeSuccess extends UseInviteCodeState {}
 

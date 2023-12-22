@@ -241,12 +241,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             recognizer: TapGestureRecognizer()
                               ..onTap = () async {
                                 await launchUrl(Uri.parse(
-                                    'https://docs.google.com/document/d/15zGuCD50uoIJdmAC9_T8tpzzG9NDN26wRNye2Spy160/edit?usp=share_link'));
+                                    'https://docs.google.com/document/d/15zGuCD50uoIJdmAC9_T8tpzzG9NDNццццццццццццццццццццццццц26wRNye2Spy160/edit?usp=share_link'));
                               }),
                         TextSpan(
                             text: " и ",
-                            style: AppTypography.font12w400.copyWith(
-                                decoration: TextDecoration.underline)),
+                            style: AppTypography.font12w400),
                         TextSpan(
                             text: "Политикой Конфиденциальности",
                             style: AppTypography.font12w400

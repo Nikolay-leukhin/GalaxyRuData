@@ -44,15 +44,16 @@ class _MainScaffoldState extends State<MainScaffold> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: widget.canPop,
+      onPopInvoked: (bool didPop)  {
         if (widget.canPop) {
           final musicRepository =
               RepositoryProvider.of<AudioRepository>(context);
           musicRepository.play(musicRepository.screenChangeSlide);
         }
 
-        return widget.canPop;
+        return;
       },
       child: GestureDetector(
         onTap: () {
