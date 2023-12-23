@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
-import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
+import 'package:galaxy_rudata/feature/lands/bloc/invite_codes/invite_codes_cubit.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -61,9 +61,9 @@ class _LockScreenState extends State<LockScreen> {
       });
     }
 
-    return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
+    return BlocListener<InviteCodesCubit, InviteCodesState>(
       listener: (context, state) {
-        if (state is UseInviteCodeLoading) {
+        if (state is LoadingState) {
           Dialogs.showModal(
               context,
               const Center(
@@ -74,7 +74,7 @@ class _LockScreenState extends State<LockScreen> {
 
           musicRepository.play(musicRepository.openingLocker);
           openLock();
-        } else if (state is UseInviteCodeFailure) {
+        } else if (state is UseInviteCodeFail) {
           Dialogs.hide(context);
 
           String wasUsedMessage = "Извините, данный код уже был использован";
@@ -112,7 +112,7 @@ class _LockScreenState extends State<LockScreen> {
                         constraints: const BoxConstraints(maxWidth: 500),
                         child: Text(
                           _lockMessage,
-                          style: size.width < 300
+                          style: size.width > 300
                               ? AppTypography.font16w400
                               : AppTypography.font14w400,
                           textAlign: TextAlign.center,
@@ -172,7 +172,7 @@ class _LockScreenState extends State<LockScreen> {
                   ),
                   onTap: () {
                     if (codeController.text.isNotEmpty) {
-                      context.read<UseInviteCodeCubit>().useInviteCode(
+                      context.read<InviteCodesCubit>().useInviteCode(
                           codeController.text.trim(),
                           moveDuration + rotationDuration);
                     }

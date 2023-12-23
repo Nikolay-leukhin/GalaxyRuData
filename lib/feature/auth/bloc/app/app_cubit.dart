@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
@@ -17,8 +18,6 @@ class AppCubit extends Cubit<AppState> {
   final WalletRepository _walletRepository;
   final LandsRepository _landsRepository;
   final AudioRepository _audioRepository;
-
-  final NotificationsService _notificationsService = NotificationsService();
 
   AppCubit(
       {required AuthRepository authRepository,
@@ -53,7 +52,7 @@ class AppCubit extends Cubit<AppState> {
 
   void _subscribeAuth() {
     _authRepository.appState.stream.listen((event) async {
-      // await _audioRepository.initialized; // TODO вернуть перед билдом
+      if (!kDebugMode) await _audioRepository.initialized;
       if (event == AppStateEnum.auth) _handleAuthEvent();
       if (event == AppStateEnum.unAuth) emit(AppUnAuthState());
     });

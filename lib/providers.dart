@@ -79,8 +79,8 @@ class MyBlocProviders extends StatelessWidget {
           ),
           lazy: false,
         ),
-        BlocProvider<UseInviteCodeCubit>(
-          create: (_) => UseInviteCodeCubit(
+        BlocProvider<InviteCodesCubit>(
+          create: (_) => InviteCodesCubit(
             RepositoryProvider.of<LandsRepository>(context),
           ),
           lazy: false,
@@ -91,13 +91,6 @@ class MyBlocProviders extends StatelessWidget {
         ),
         BlocProvider<LandsUserCubit>(
           create: (_) => LandsUserCubit(context.read<LandsRepository>()),
-          lazy: false,
-        ),
-        BlocProvider<ConnectLandCubit>(
-          create: (_) => ConnectLandCubit(
-            authRepository: RepositoryProvider.of<AuthRepository>(context),
-            landsRepository: RepositoryProvider.of<LandsRepository>(context),
-          ),
           lazy: false,
         ),
       ],
