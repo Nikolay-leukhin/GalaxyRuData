@@ -22,7 +22,8 @@ class BackgroundNotificationsService {
   static Future<bool> backgroundNotificationsTask() async {
     log('start notification task');
     final notifications = await _getAvailableNotifications();
-    if (notifications.isNotEmpty) await _showNotifications(notifications);
+    final sorted = await _sortNotificationsWithHistory(notifications);
+    if (sorted.isNotEmpty) await _showNotifications(sorted);
     return true;
   }
 
@@ -68,8 +69,7 @@ class BackgroundNotificationsService {
     }
     log('trying to sort with history');
 
-    final sorted = await _sortNotificationsWithHistory(notifications);
-    return sorted;
+    return notifications;
   }
 
   static Future<List<NotificationModel>> _sortNotificationsWithHistory(
