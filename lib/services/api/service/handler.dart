@@ -26,7 +26,7 @@ mixin class ApiHandler {
     await serviceData.prefs.saveToken(token);
     serviceData.token.setJwt(token.jwt);
 
-    log('token refreshed on ${serviceData.token.jwt}');
+    log('token refreshed on ${serviceData.token}');
     log("________________________");
 
     serviceData.dio.options.headers = _getHeadersWithCurrentToken();
@@ -37,7 +37,7 @@ mixin class ApiHandler {
 
   Map<String, dynamic> _getHeadersWithCurrentToken() {
     final Map<String, dynamic> newHeaders = Map.from(defaultHeaders);
-    newHeaders['Authorization'] = 'Bearer ${serviceData.token.jwt}';
+    newHeaders['Authorization'] = serviceData.token.bearer;
     return newHeaders;
   }
 
@@ -55,6 +55,12 @@ mixin class ApiHandler {
           e.response?.data['error'] == 'User not found.' &&
           requestData.url == ApiEndpoints.user) {
         serviceData.exceptionsStream.add(UnAuthorizedException());
+      } else if (requestData.url == ApiEndpoints.useLandCode &&
+          e.response?.data['error'] == 'Not owner.') {
+        throw CodeWasUsedException();
+      } else if (requestData.url == ApiEndpoints.useLandCode &&
+          e.response?.data['error'] == 'Invalid code.') {
+        throw InvalidCodeException();
       } else {
         log('headers: ${serviceData.dio.options.headers}');
         log('error by calling ${requestData.url}');

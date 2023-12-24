@@ -16,4 +16,6 @@ class Auth with ApiHandler {
       post(ApiEndpoints.authSendEmailCode, data: {"email": email});
 
   Future getUser() => post(ApiEndpoints.user);
+
+  Future getAppVersion() => get(ApiEndpoints.appVersion);
 }

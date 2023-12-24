@@ -50,7 +50,6 @@ class EnemyManager extends Component with HasGameReference<SpaceShooter> {
     // TODO: implement update
     super.update(dt);
     timer.update(dt);
-
   }
 
   late Timer timer;

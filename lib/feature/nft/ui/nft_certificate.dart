@@ -59,7 +59,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                     ],
                   ),
                   child: const Image(
-                    image: AssetImage('assets/images/certificate.png'),
+                    image: AssetImage('assets/images/new certificate.png'),
                     fit: BoxFit.fitWidth,
                   ),
                 ),

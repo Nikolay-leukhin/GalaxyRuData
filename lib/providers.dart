@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/app/app_cubit.dart';
-import 'package:galaxy_rudata/feature/games/cubit/game_cubit.dart';
 import 'package:galaxy_rudata/feature/lands/bloc/blocks.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/auth/auth_cubit.dart';
 import 'package:galaxy_rudata/feature/auth/bloc/pin_code/pin_code_cubit.dart';
@@ -81,8 +80,8 @@ class MyBlocProviders extends StatelessWidget {
           ),
           lazy: false,
         ),
-        BlocProvider<UseInviteCodeCubit>(
-          create: (_) => UseInviteCodeCubit(
+        BlocProvider<InviteCodesCubit>(
+          create: (_) => InviteCodesCubit(
             RepositoryProvider.of<LandsRepository>(context),
           ),
           lazy: false,
@@ -95,15 +94,8 @@ class MyBlocProviders extends StatelessWidget {
           create: (_) => LandsUserCubit(context.read<LandsRepository>()),
           lazy: false,
         ),
-        BlocProvider<ConnectLandCubit>(
-          create: (_) => ConnectLandCubit(
-            authRepository: RepositoryProvider.of<AuthRepository>(context),
-            landsRepository: RepositoryProvider.of<LandsRepository>(context),
-          ),
-          lazy: false,
-        ),
-        BlocProvider<CreateCodeCubit>(
-          create: (_) => CreateCodeCubit(RepositoryProvider.of<LandsRepository>(context)),
+        BlocProvider<GameCubit>(
+          create: (_) => GameCubit(),
           lazy: false,
         ),
       ],

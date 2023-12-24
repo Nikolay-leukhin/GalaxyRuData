@@ -44,15 +44,16 @@ class _MainScaffoldState extends State<MainScaffold> {
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: widget.canPop,
+      onPopInvoked: (bool didPop)  {
         if (widget.canPop) {
           final musicRepository =
               RepositoryProvider.of<AudioRepository>(context);
           musicRepository.play(musicRepository.screenChangeSlide);
         }
 
-        return widget.canPop;
+        return;
       },
       child: GestureDetector(
         onTap: () {
@@ -63,7 +64,7 @@ class _MainScaffoldState extends State<MainScaffold> {
           decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/gifs/background.gif"))),
+                  image: AssetImage("assets/gifs/bg.gif"))),
           child: Stack(
             children: [
               widget.isBottomImage
