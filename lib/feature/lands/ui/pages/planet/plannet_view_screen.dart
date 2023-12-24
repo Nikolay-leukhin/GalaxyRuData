@@ -17,8 +17,7 @@ class ArPlanetViewScreen extends StatefulWidget {
 }
 
 class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
-  final controller = ScrollController();
-  bool isActiveBottomButton = true;
+  ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +84,12 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                       content: const Text('shit'),
                       width: size.width,
                       height: size.width,
-                      onTap: () {
-                        showClusters(context);
+                      onTap: () async{
+                        controller = ScrollController();
+
+                        await showClusters(context);
+
+                        controller.dispose();
                       },
                       audioPlayer: musicRepository.bigButton,
                     ),
@@ -100,7 +103,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
     );
   }
 
-  showClusters(BuildContext context) {
+  Future<void> showClusters(BuildContext context) async{
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     final size = MediaQuery.sizeOf(context);
@@ -108,11 +111,14 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
     final clustersList = List.generate(
         clustersTypes.length,
         (index) => ClusterButton(
-              name: clusters[clustersTypes[index]]!.name != 'АДМИНИСТРАТИВНЫЙ КЛАСТЕР' ? clusters[clustersTypes[index]]!.name : 'АДМИНИ. КЛАСТЕР',
+              name: clusters[clustersTypes[index]]!.name !=
+                      'АДМИНИСТРАТИВНЫЙ КЛАСТЕР'
+                  ? clusters[clustersTypes[index]]!.name
+                  : 'АДМИНИ. КЛАСТЕР',
               type: clustersTypes[index],
             ));
 
-    final bottomButton = isActiveBottomButton
+    bottomButton(bool isActive) => isActive
         ? Positioned(
             bottom: 0,
             child: Container(
@@ -146,7 +152,9 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
 
     musicRepository.play(musicRepository.popUp);
 
-    showModalBottomSheet(
+    bool isActiveBottomButton = true;
+
+    await showModalBottomSheet(
         useSafeArea: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -158,20 +166,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
             height: size.height * 0.53,
             color: Colors.transparent,
             child: StatefulBuilder(builder: (context, setState) {
-              controller.addListener(() {
-                double maxScroll = controller.position.maxScrollExtent;
-                double currentScroll = controller.position.pixels;
 
-                if (currentScroll >= maxScroll * 0.8) {
-                  setState(() {
-                    isActiveBottomButton = false;
-                  });
-                } else if (currentScroll <= maxScroll * 0.3) {
-                  setState(() {
-                    isActiveBottomButton = true;
-                  });
-                }
-              });
               return Stack(children: [
                 Container(
                   padding:
@@ -183,7 +178,25 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                         mainAxisSize: MainAxisSize.min, children: clustersList),
                   ),
                 ),
-                bottomButton
+                StatefulBuilder(builder: (context, setState){
+                  controller.addListener(() {
+                    double maxScroll = controller.position.maxScrollExtent;
+                    double currentScroll = controller.position.pixels;
+
+                    if (currentScroll >= maxScroll * 0.8) {
+                      setState(() {
+                        isActiveBottomButton = false;
+                      });
+                    } else if (currentScroll <= maxScroll * 0.3) {
+                      setState(() {
+                        isActiveBottomButton = true;
+                      });
+                    }
+                  });
+
+                  print(isActiveBottomButton);
+                  return bottomButton(isActiveBottomButton);
+                })
               ]);
             }),
           );
