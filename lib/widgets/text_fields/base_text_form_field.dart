@@ -13,6 +13,7 @@ class BaseTextFormField extends StatefulWidget {
       this.padding,
       this.obscureText = false,
       this.withError = false,
+      this.withRightPadding = false,
       this.onChanged})
       : super(key: key);
 
@@ -20,6 +21,7 @@ class BaseTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final double height;
   final double width;
+  final bool withRightPadding;
   final int maxLines;
   final String hintText;
   final bool obscureText;
@@ -41,14 +43,18 @@ class _BaseTextFormFieldState extends State<BaseTextFormField> {
         keyboardType: widget.keyboardType,
         autofocus: false,
         obscureText: widget.obscureText,
-        textAlignVertical: TextAlignVertical.top,
+        textAlignVertical: TextAlignVertical.center,
         expands: true,
         decoration: InputDecoration(
+          isDense: true,
           hintStyle: AppTypography.font16w400,
           fillColor: AppColors.textFieldBackground,
           filled: true,
-          contentPadding: widget.padding ?? EdgeInsets.symmetric(
-                  horizontal: 16, vertical: widget.height / 2 - 16),
+          contentPadding: widget.withRightPadding
+              ? EdgeInsets.symmetric(
+                  horizontal: 16, vertical: widget.height / 2 - 16).copyWith(right: 120)
+              : EdgeInsets.symmetric(
+                  horizontal: 16, vertical: widget.height / 2 - 16,),
           hintText: widget.hintText,
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
