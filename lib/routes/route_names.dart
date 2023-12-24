@@ -25,4 +25,5 @@ class RouteNames {
   static const String cluster = '/lands/cluster';
 
   static const String arPlanetView = '/ar/planet';
+  static const String game = '/game';
 }

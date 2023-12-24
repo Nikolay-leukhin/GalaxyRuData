@@ -94,10 +94,6 @@ class MyBlocProviders extends StatelessWidget {
           create: (_) => LandsUserCubit(context.read<LandsRepository>()),
           lazy: false,
         ),
-        BlocProvider<GameCubit>(
-          create: (_) => GameCubit(),
-          lazy: false,
-        ),
       ],
       child: const MyApp(),
     );
