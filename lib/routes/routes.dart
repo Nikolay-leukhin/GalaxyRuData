@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:galaxy_rudata/app.dart';
 import 'package:galaxy_rudata/app_state.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/pages.dart';

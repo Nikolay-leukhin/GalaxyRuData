@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
-import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
-import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -43,10 +39,8 @@ class _QuestsScreenState extends State<QuestsScreen> {
 
   void getPermissionState() async {
     final notificationPermissionStatus = await Permission.notification.status;
-    final schedulePermissionStatus = await Permission.scheduleExactAlarm.status;
 
     notificationsPermissionIsGranted = notificationPermissionStatus.isGranted;
-    // schedulePermissionIsGranted = schedulePermissionStatus.isGranted;
 
     fieldPermissionStatusInitialized = true;
     setState(() {});
@@ -56,9 +50,6 @@ class _QuestsScreenState extends State<QuestsScreen> {
     if (!notificationsPermissionIsGranted) {
       await Permission.notification.request();
     }
-    // if (!schedulePermissionIsGranted) {
-    //   await Permission.scheduleExactAlarm.request();
-    // }
   }
 
   @override

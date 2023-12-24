@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:galaxy_rudata/services/preferences.dart';
+import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/notification.dart';
@@ -26,10 +27,14 @@ class BackgroundNotificationsService {
   }
 
   static Future<void> markNotificationsAsRead() async {
-    final dio = await _getDio();
-    final notifications = await _getAvailableNotifications();
-    for (NotificationModel notification in notifications) {
-      dio.post(ApiEndpoints.readNotification, data: {"id": notification.id});
+    try {
+      final dio = await _getDio();
+      final notifications = await _getAvailableNotifications();
+      for (NotificationModel notification in notifications) {
+        dio.post(ApiEndpoints.readNotification, data: {"id": notification.id});
+      }
+    } on UnAuthorizedException {
+      log('user unAuthorized');
     }
   }
 
@@ -85,14 +90,20 @@ class BackgroundNotificationsService {
   }
 
   static Future _requestNotificationInBackground() async {
-    final dio = await _getDio();
-
-    final res = await dio.post(ApiEndpoints.notifications);
-    return res.data['notifications'];
+    try {
+      final dio = await _getDio();
+      final res = await dio.post(ApiEndpoints.notifications);
+      return res.data['notifications'];
+    } on UnAuthorizedException {
+      return [];
+    } catch (e) {
+      rethrow;
+    }
   }
 
   static Future<Dio> _getDio() async {
     final token = await PreferencesService().getToken();
+    if (token.jwt.isEmpty) throw UnAuthorizedException();
     await dotenv.load();
     final dio = Dio(defaultDioOptions);
     dio.options.headers = Map.from(defaultHeaders)

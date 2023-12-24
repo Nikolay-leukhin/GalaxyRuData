@@ -5,7 +5,6 @@ import 'package:galaxy_rudata/audio_repository.dart';
 import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/feature/wallet/data/wallet_repository.dart';
 import 'package:galaxy_rudata/providers.dart';
-import 'package:galaxy_rudata/services/notifications.dart';
 import 'package:meta/meta.dart';
 import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
