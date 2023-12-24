@@ -147,9 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Positioned(
                         child: BaseTextFormField(
                           withError: errorCodeField,
-                          padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 22)
-                              .copyWith(right: 120),
+                          withRightPadding: true,
                           controller: codeController,
                           keyboardType: TextInputType.number,
                           hintText: "Код",
