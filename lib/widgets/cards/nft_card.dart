@@ -43,7 +43,7 @@ class NFTCard extends StatelessWidget {
                   SizedBox(
                     width: size.width - 80,
                     child: Text(
-                      land.name,
+                      land.clusterName,
                       style: AppTypography.font16w600,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -52,7 +52,7 @@ class NFTCard extends StatelessWidget {
                   SizedBox(
                     width: size.width - 80,
                     child: Text(
-                      land.type,
+                      NFTypes.nftCertificate,
                       style: AppTypography.font12w400,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -61,7 +61,7 @@ class NFTCard extends StatelessWidget {
                   SizedBox(
                     width: size.width - 80,
                     child: Text(
-                      land.description ?? '',
+                      'Жилье во владении № ${land.code}',
                       style: AppTypography.font12w400,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,

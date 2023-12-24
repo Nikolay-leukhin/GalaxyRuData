@@ -5,10 +5,13 @@ class ApiEndpoints {
   static const _invites = '$_version/invite-codes';
   static const _lands = '$_version/lands';
   static const _user = '$_version/user';
+  static const _appSettings = '$_version/app-settings';
 
   // ---------------------------------------
 
   static const refresh = '';
+
+  static const appVersion = '$_appSettings/app-version';
 
   static const authVerifyCode = '$_auth/verify';
   static const authSendEmailCode = "$_auth/login";
@@ -23,4 +26,6 @@ class ApiEndpoints {
 
   static const user = '$_user/self';
   static const userWalletUpdate = '$_user/update/wallet';
+  static const notifications = '$_user/notifications';
+  static const readNotification = '$_user/notifications/read';
 }

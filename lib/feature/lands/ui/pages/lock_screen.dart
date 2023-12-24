@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
-import 'package:galaxy_rudata/feature/auth/data/auth_repository.dart';
-import 'package:galaxy_rudata/feature/lands/bloc/use_invite_code/use_invite_code_cubit.dart';
+import 'package:galaxy_rudata/feature/lands/bloc/invite_codes/invite_codes_cubit.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
@@ -33,6 +32,7 @@ class _LockScreenState extends State<LockScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
     final size = MediaQuery.sizeOf(context);
     final field = Center(
       child: Padding(
@@ -50,6 +50,7 @@ class _LockScreenState extends State<LockScreen> {
     );
 
     openLock() {
+      musicRepository.play(musicRepository.openingLocker);
       setState(() {
         top = 0;
       });
@@ -60,11 +61,9 @@ class _LockScreenState extends State<LockScreen> {
       });
     }
 
-    final musicRepository = RepositoryProvider.of<AudioRepository>(context);
-
-    return BlocListener<UseInviteCodeCubit, UseInviteCodeState>(
+    return BlocListener<InviteCodesCubit, InviteCodesState>(
       listener: (context, state) {
-        if (state is UseInviteCodeLoading) {
+        if (state is LoadingState) {
           Dialogs.showModal(
               context,
               const Center(
@@ -75,13 +74,19 @@ class _LockScreenState extends State<LockScreen> {
 
           musicRepository.play(musicRepository.openingLocker);
           openLock();
-        } else if (state is UseInviteCodeFailure) {
+        } else if (state is UseInviteCodeFail) {
           Dialogs.hide(context);
+
+          String wasUsedMessage = "Извините, данный код уже был использован";
+          String invalidCodeMessage =
+              "Некорректный код, пожалуйста, попробуйте еще раз";
 
           Dialogs.showModal(
               context,
               CustomPopup(
-                label: "Извините, данный код был уже использован.",
+                label: state.e is CodeWasUsedException
+                    ? wasUsedMessage
+                    : invalidCodeMessage,
                 onTap: () {
                   Dialogs.hide(context);
                 },
@@ -107,7 +112,7 @@ class _LockScreenState extends State<LockScreen> {
                         constraints: const BoxConstraints(maxWidth: 500),
                         child: Text(
                           _lockMessage,
-                          style: size.width < 300
+                          style: size.width > 300
                               ? AppTypography.font16w400
                               : AppTypography.font14w400,
                           textAlign: TextAlign.center,
@@ -161,18 +166,20 @@ class _LockScreenState extends State<LockScreen> {
                   ),
                 ),
                 CustomButton(
-                    content: Text(
-                      'Отправить код'.toUpperCase(),
-                      style: AppTypography.font16w600,
-                    ),
-                    onTap: () {
-                      if (codeController.text.isNotEmpty) {
-                        context.read<UseInviteCodeCubit>().useInviteCode(
-                            codeController.text.trim(),
-                            moveDuration + rotationDuration);
-                      }
-                    },
-                    width: double.infinity, audioPlayer: musicRepository.bigButton,),
+                  content: Text(
+                    'Отправить код'.toUpperCase(),
+                    style: AppTypography.font16w600,
+                  ),
+                  onTap: () {
+                    if (codeController.text.isNotEmpty) {
+                      context.read<InviteCodesCubit>().useInviteCode(
+                          codeController.text.trim(),
+                          moveDuration + rotationDuration);
+                    }
+                  },
+                  width: double.infinity,
+                  audioPlayer: musicRepository.bigButton,
+                ),
               ],
             ),
           ),

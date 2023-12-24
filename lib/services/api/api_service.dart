@@ -66,6 +66,6 @@ class ApiService {
     _apiData = ServiceData(token, dio, preferencesService, apiExceptions);
     _apiData.requiredFuture = initialized;
 
-    log("JWT Token: ${token.jwt}");
+    log(token.toString());
   }
 }

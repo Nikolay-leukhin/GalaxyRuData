@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:galaxy_rudata/app.dart';
-import 'package:galaxy_rudata/feature/games/game.dart';
+import 'package:galaxy_rudata/app_state.dart';
 import 'package:galaxy_rudata/feature/games/games_screen.dart';
 import 'package:galaxy_rudata/feature/lands/ui/pages/pages.dart';
 import 'package:galaxy_rudata/feature/wallet/ui/pages/pages.dart';
@@ -25,7 +24,6 @@ Map<String, Widget Function(BuildContext)> appRoutes = {
 
   RouteNames.authPinCreate: (context) => const PinCreateFirstScreen(),
   RouteNames.authPinEnter: (context) => const PinEnterScreen(),
-
 
   RouteNames.walletSeedPhraseView: (context) =>  const WalletSeedPhraseScreen(withContinueButton: false),
   RouteNames.walletSeedPhrase: (context) =>  const WalletSeedPhraseScreen(withContinueButton: true),

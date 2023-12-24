@@ -42,15 +42,18 @@ class _QuestsScreenState extends State<QuestsScreen> {
   }
 
   void getPermissionState() async {
-    late PermissionStatus permissionStatus;
+    final notificationPermissionStatus = await Permission.notification.status;
 
-    permissionStatus = await Permission.notification.status;
-
-    notificationsPermissionIsGranted = permissionStatus.isGranted;
-    print(notificationsPermissionIsGranted);
+    notificationsPermissionIsGranted = notificationPermissionStatus.isGranted;
 
     fieldPermissionStatusInitialized = true;
     setState(() {});
+  }
+
+  Future<void> requestPermission() async {
+    if (!notificationsPermissionIsGranted) {
+      await Permission.notification.request();
+    }
   }
 
   @override
@@ -132,7 +135,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                                     style: AppTypography.font16w400,
                                   ),
                                   onTap: () async {
-                                    await Permission.notification.request();
+                                    await requestPermission();
 
                                     getPermissionState();
                                   },
@@ -165,7 +168,19 @@ class _QuestsScreenState extends State<QuestsScreen> {
               //       );
               //     },
               //     width: double.infinity),
-
+              // separate,
+              // CustomButton(
+              //     content: Text(
+              //       'Квесты на телефоне'.toUpperCase(),
+              //       style: AppTypography.font16w400,
+              //     ),
+              //     onTap: () {
+              //       ShowBottomSheet.show(
+              //         context,
+              //         const BottomSheetSpatial(),
+              //       );
+              //     },
+              //     width: double.infinity),
               // separate,
               // CustomButton(
               //     content: Text(
