@@ -60,7 +60,8 @@ class _AppStateWidgetState extends State<AppStateWidget> {
       launchUrl(Uri.parse("market://details?id=com.kadastr.rosreestr"),
           mode: LaunchMode.externalApplication);
     } else {
-      // launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=com.rosreestr.kadastr'))
+      launchUrl(Uri.parse("https://apps.apple.com/app/id=com.rosreestr.kadastr"),
+          mode: LaunchMode.externalApplication);
     }
   }
 

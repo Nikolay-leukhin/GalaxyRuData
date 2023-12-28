@@ -59,7 +59,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
     final size = MediaQuery.sizeOf(context);
 
     final separate = Container(
-      height: 16,
+      height: 32,
     );
 
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
@@ -68,140 +68,80 @@ class _QuestsScreenState extends State<QuestsScreen> {
         canPop: false,
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: size.width * 0.6,
-                constraints: const BoxConstraints(maxWidth: 350),
-                child: Text(
-                  'Поздравляем!',
-                  textAlign: TextAlign.center,
-                  style: size.width > 300
-                      ? AppTypography.font24w700
-                      : AppTypography.font16w700,
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: size.width * 0.6,
+                  constraints: const BoxConstraints(maxWidth: 350),
+                  child: Text(
+                    'Поздравляем!',
+                    textAlign: TextAlign.center,
+                    style: size.width > 300
+                        ? AppTypography.font24w700
+                        : AppTypography.font16w700,
+                  ),
                 ),
-              ),
-              separate,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      _inDevelopingMessage,
-                      style: size.width > 300
-                          ? AppTypography.font16w400
-                          : AppTypography.font14w400,
-                      textAlign: TextAlign.center,
-                    ),
-                    separate,
-                    CustomButton(
-                      content: Text(
-                        'Квесты на компьютере'.toUpperCase(),
-                        style: AppTypography.font16w400,
+                separate,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        _inDevelopingMessage,
+                        style: size.width > 300
+                            ? AppTypography.font16w400
+                            : AppTypography.font14w400,
+                        textAlign: TextAlign.center,
                       ),
-                      onTap: () async {
-                        await Share.share(
-                            'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=0');
-                      },
-                      width: double.infinity,
-                      audioPlayer: musicRepository.bigButton,
-                    ),
-                    separate,
-                    CustomButton(
+                      separate,
+                      CustomButton(
                         content: Text(
-                          'Квесты на телефоне'.toUpperCase(),
+                          'Квесты на компьютере'.toUpperCase(),
                           style: AppTypography.font16w400,
                         ),
-                        audioPlayer: musicRepository.bigButton,
-                        onTap: () {
-                          launchUrl(Uri.parse(
-                              'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=0'));
+                        onTap: () async {
+                          await Share.share(
+                              'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=0');
                         },
-                        width: double.infinity),
-                    separate,
-                    CustomButton(
-                        content: Text(
-                          'Я уже прошел квесты!'.toUpperCase(),
-                          style: AppTypography.font16w400,
-                        ),
+                        width: double.infinity,
                         audioPlayer: musicRepository.bigButton,
-                        onTap: () {
-                          Navigator.of(context).pushNamed(RouteNames.safe);
-                        },
-                        width: double.infinity),
-                    // if (fieldPermissionStatusInitialized) ...[
-                    //   notificationsPermissionIsGranted
-                    //       ? Container()
-                    //       : Column(
-                    //           mainAxisSize: MainAxisSize.min,
-                    //           children: [
-                    //             Text(
-                    //               _pleaseGrantTheAccess,
-                    //               style: size.width > 300
-                    //                   ? AppTypography.font16w400
-                    //                   : AppTypography.font14w400,
-                    //               textAlign: TextAlign.center,
-                    //             ),
-                    //             const SizedBox(
-                    //               height: 16,
-                    //             ),
-                    //             CustomButton(
-                    //               content: Text(
-                    //                 'УВЕДОМЛЕНИЯ',
-                    //                 style: AppTypography.font16w400,
-                    //               ),
-                    //               onTap: () async {
-                    //                 await requestPermission();
-                    //
-                    //                 getPermissionState();
-                    //               },
-                    //               width: double.infinity,
-                    //               audioPlayer: musicRepository.bigButton,
-                    //             ),
-                    //           ],
-                    //         )
-                    // ] else ...[
-                    //   const SizedBox(
-                    //     width: 16,
-                    //     height: 16,
-                    //     child: CircularProgressIndicator(),
-                    //   )
-                    // ]
-                  ],
+                      ),
+                      separate,
+                      CustomButton(
+                          content: Text(
+                            'Квесты на телефоне'.toUpperCase(),
+                            style: AppTypography.font16w400,
+                          ),
+                          audioPlayer: musicRepository.bigButton,
+                          onTap: () {
+                            launchUrl(Uri.parse(
+                                'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=0'));
+                          },
+                          width: double.infinity),
+                      separate,
+                      CustomButton(
+                          content: Text(
+                            'Я уже прошел квесты!'.toUpperCase(),
+                            style: AppTypography.font16w400,
+                          ),
+                          audioPlayer: musicRepository.bigButton,
+                          onTap: () {
+                            Navigator.of(context).pushNamed(RouteNames.safe);
+                          },
+                          width: double.infinity),
+                    ],
+                  ),
                 ),
-              ),
-              // separate,
-              // CustomButton(
-              //     content: Text(
-              //       'Квесты на телефоне'.toUpperCase(),
-              //       style: AppTypography.font16w400,
-              //     ),
-              //     onTap: () {
-              //       ShowBottomSheet.show(
-              //         context,
-              //         const BottomSheetSpatial(),
-              //       );
-              //     },
-              //     width: double.infinity),
-              // separate,
-              // CustomButton(
-              //     content: Text(
-              //       'Я уже прошел квесты!'.toUpperCase(),
-              //       style: AppTypography.font16w400,
-              //     ),
-              //     onTap: () async {
-              //       RepositoryProvider.of<LandsRepository>(context)
-              //           .getApprove()
-              //           .then((value) =>
-              //               Navigator.pushNamed(context, RouteNames.safe));
-              //     },
-              //     width: double.infinity),
-            ],
+                SizedBox(height: 100,)
+
+              ],
+            ),
           ),
         ));
   }

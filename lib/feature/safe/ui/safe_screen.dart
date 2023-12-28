@@ -110,7 +110,9 @@ class _SafeScreenState extends State<SafeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MediaQuery.of(context).viewInsets.bottom == 0
+                  ? MainAxisAlignment.spaceEvenly
+                  : MainAxisAlignment.start,
               children: [
                 MediaQuery.of(context).viewInsets.bottom == 0
                     ? Container(
