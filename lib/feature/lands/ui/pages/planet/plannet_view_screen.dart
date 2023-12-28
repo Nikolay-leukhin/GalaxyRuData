@@ -114,7 +114,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
               name: clusters[clustersTypes[index]]!.name !=
                       'АДМИНИСТРАТИВНЫЙ КЛАСТЕР'
                   ? clusters[clustersTypes[index]]!.name
-                  : 'АДМИНИ. КЛАСТЕР',
+                  : 'АДМИН. КЛАСТЕР',
               type: clustersTypes[index],
             ));
 
