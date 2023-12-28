@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
+import 'package:galaxy_rudata/feature/lands/ui/widgets/bottom_sheet_links.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
 
 // const String _congratulationsMessage =
 //     'Чтобы получить NFT-сертификат, пройдите квесты на космической базе Большого Росреестра в метавселенной Spatial. Вы можете сделать это как с телефона, так и на компьютере.';
@@ -59,8 +61,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
     final size = MediaQuery.sizeOf(context);
 
     final separate = Container(
-      height: size.height * 0.05,
-      constraints: const BoxConstraints(maxHeight: 60),
+      height: 16,
     );
 
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
@@ -69,8 +70,9 @@ class _QuestsScreenState extends State<QuestsScreen> {
         canPop: false,
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 50, 24, 0),
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
@@ -86,8 +88,9 @@ class _QuestsScreenState extends State<QuestsScreen> {
               ),
               separate,
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
@@ -108,9 +111,20 @@ class _QuestsScreenState extends State<QuestsScreen> {
                           Navigator.of(context).pushNamed(RouteNames.game);
                         },
                         width: double.infinity),
-                    const SizedBox(
-                      height: 16,
+                    separate,
+                    CustomButton(
+                      content: Text(
+                        'Квесты на компьютере'.toUpperCase(),
+                        style: AppTypography.font16w400,
+                      ),
+                      onTap: () async {
+                        await Share.share(
+                            'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=0');
+                      },
+                      width: double.infinity,
+                      audioPlayer: musicRepository.bigButton,
                     ),
+                    separate,
                     if (fieldPermissionStatusInitialized) ...[
                       notificationsPermissionIsGranted
                           ? Container()
@@ -139,7 +153,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                                   },
                                   width: double.infinity,
                                   audioPlayer: musicRepository.bigButton,
-                                )
+                                ),
                               ],
                             )
                     ] else ...[
@@ -152,20 +166,6 @@ class _QuestsScreenState extends State<QuestsScreen> {
                   ],
                 ),
               ),
-
-              // separate,
-              // CustomButton(
-              //     content: Text(
-              //       'Квесты на компьютере'.toUpperCase(),
-              //       style: AppTypography.font16w400,
-              //     ),
-              //     onTap: () {
-              //       ShowBottomSheet.show(
-              //         context,
-              //         const BottomSheetLinks(),
-              //       );
-              //     },
-              //     width: double.infinity),
               // separate,
               // CustomButton(
               //     content: Text(
