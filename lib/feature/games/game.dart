@@ -128,5 +128,4 @@ class SpaceShooter extends FlameGame with PanDetector, HasCollisionDetection {
 
   }
 
-
 }

@@ -16,4 +16,5 @@ class AppPathMusic{
   static String mediumButton = 'assets/musics/actions/012 Medium button dialogue exit and cancel.mp3';
   static String eyeButton = 'assets/musics/actions/013 Eye button.mp3';
   static String openingLocker = 'assets/musics/actions/014 Opening Locker process animation.mp3';
+  static String safe = 'assets/musics/actions/Anim NFT Code.wav';
 }

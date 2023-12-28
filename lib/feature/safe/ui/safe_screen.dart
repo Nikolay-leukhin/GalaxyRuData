@@ -61,7 +61,7 @@ class _SafeScreenState extends State<SafeScreen> {
 
       list.add(temp);
     }
-    print(list);
+
     return list;
   }
 
@@ -177,6 +177,8 @@ class _SafeScreenState extends State<SafeScreen> {
                     style: AppTypography.font16w600,
                   ),
                   onTap: () async {
+                    musicRepository.play(musicRepository.safe);
+
                     startAnimation((n) => getRandomList(n)).then((value) async {
                       BlocProvider.of<InviteCodesCubit>(context)
                           .verifyCurrentCode(codeController.text);
