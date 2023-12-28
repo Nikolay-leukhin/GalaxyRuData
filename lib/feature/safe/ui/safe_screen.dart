@@ -163,8 +163,7 @@ class _SafeScreenState extends State<SafeScreen> {
                         AccessCodeField(
                             // initialValue: repository.approve.toString(),
                             controller: codeController,
-                            keyboardType:
-                                const TextInputType.numberWithOptions(),
+                            keyboardType: TextInputType.emailAddress,
                             hintText: 'Введите код',
                             width: size.width * 0.82 > 350
                                 ? 225

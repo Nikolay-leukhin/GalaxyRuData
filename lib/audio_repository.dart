@@ -74,6 +74,7 @@ class AudioRepository {
         dialogueDisappear,
         mediumButton,
         safe,
+    openingLocker
       ];
 
   void _initialBackground() async {
@@ -104,6 +105,7 @@ class AudioRepository {
     dialogueDisappear.setAsset(AppPathMusic.dialogueDisappear, preload: true);
     mediumButton.setAsset(AppPathMusic.mediumButton, preload: true);
     safe.setAsset(AppPathMusic.safe, preload: true);
+    openingLocker.setAsset(AppPathMusic.openingLocker, preload: true);
 
     List<Future> futures = [];
 

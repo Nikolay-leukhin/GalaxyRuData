@@ -70,7 +70,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
         canPop: false,
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+          padding: const EdgeInsets.fromLTRB(24, 40, 24, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.min,
@@ -90,7 +90,6 @@ class _QuestsScreenState extends State<QuestsScreen> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
