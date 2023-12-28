@@ -67,8 +67,6 @@ class _SafeScreenState extends State<SafeScreen> {
 
   @override
   void initState() {
-    codeController.text =
-        RepositoryProvider.of<LandsRepository>(context).approve.toString();
     super.initState();
   }
 

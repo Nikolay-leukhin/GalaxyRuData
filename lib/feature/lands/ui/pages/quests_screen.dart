@@ -8,6 +8,7 @@ import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // const String _congratulationsMessage =
 //     'Чтобы получить NFT-сертификат, пройдите квесты на космической базе Большого Росреестра в метавселенной Spatial. Вы можете сделать это как с телефона, так и на компьютере.';
@@ -67,7 +68,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
         canPop: false,
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+          padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.min,
@@ -99,17 +100,6 @@ class _QuestsScreenState extends State<QuestsScreen> {
                     ),
                     separate,
                     CustomButton(
-                        content: Text(
-                          'Квесты на телефоне'.toUpperCase(),
-                          style: AppTypography.font16w400,
-                        ),
-                        audioPlayer: musicRepository.bigButton,
-                        onTap: () {
-                          Navigator.of(context).pushNamed(RouteNames.game);
-                        },
-                        width: double.infinity),
-                    separate,
-                    CustomButton(
                       content: Text(
                         'Квесты на компьютере'.toUpperCase(),
                         style: AppTypography.font16w400,
@@ -122,6 +112,28 @@ class _QuestsScreenState extends State<QuestsScreen> {
                       audioPlayer: musicRepository.bigButton,
                     ),
                     separate,
+                    CustomButton(
+                        content: Text(
+                          'Квесты на телефоне'.toUpperCase(),
+                          style: AppTypography.font16w400,
+                        ),
+                        audioPlayer: musicRepository.bigButton,
+                        onTap: () {
+                          launchUrl(Uri.parse(
+                              'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=0'));
+                        },
+                        width: double.infinity),
+                    separate,
+                    CustomButton(
+                        content: Text(
+                          'Я уже прошел квесты!'.toUpperCase(),
+                          style: AppTypography.font16w400,
+                        ),
+                        audioPlayer: musicRepository.bigButton,
+                        onTap: () {
+                          Navigator.of(context).pushNamed(RouteNames.safe);
+                        },
+                        width: double.infinity),
                     // if (fieldPermissionStatusInitialized) ...[
                     //   notificationsPermissionIsGranted
                     //       ? Container()
