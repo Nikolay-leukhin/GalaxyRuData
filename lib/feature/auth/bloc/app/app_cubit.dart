@@ -39,6 +39,10 @@ class AppCubit extends Cubit<AppState> {
     final lastVersion = res['appVersion'];
     final localVersion = packageInfo.version;
 
+    print('local version: $localVersion');
+    print('remote version: $lastVersion');
+
+
     for (int i = 0; i < 3; i++) {
       int lastVersionCode = int.parse(lastVersion.split('.')[i]);
       int localVersionCode = int.parse(localVersion.split('.')[i]);

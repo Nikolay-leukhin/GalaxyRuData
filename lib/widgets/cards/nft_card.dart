@@ -22,8 +22,8 @@ class NFTCard extends StatelessWidget {
         decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(16),
-            image: const DecorationImage(
-                fit: BoxFit.cover, image: AssetImage("assets/images/s.png"))),
+            image: DecorationImage(
+                fit: BoxFit.cover, image: AssetImage("assets/images/nfts/${land.type}.PNG"))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

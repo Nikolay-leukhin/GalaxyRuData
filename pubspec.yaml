@@ -69,7 +69,7 @@ flutter:
 
   assets:
     - assets/planet.glb
-    - assets/Planet.usdc # надо чтобы комментить при сборке а не таскать файлы туда сюда
+#    - assets/Planet.usdc # надо чтобы комментить при сборке а не таскать файлы туда сюда
     - assets/icons/
     - assets/gifs/
     - assets/images/
@@ -77,4 +77,5 @@ flutter:
     - assets/musics/background/
     - assets/images/lock/
     - assets/images/clusters/
+    - assets/images/nfts/
     - .env
