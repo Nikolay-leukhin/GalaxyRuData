@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
-import 'package:galaxy_rudata/feature/lands/ui/widgets/bottom_sheet_links.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
@@ -16,7 +13,7 @@ import 'package:share_plus/share_plus.dart';
 //     'Чтобы получить NFT-сертификат, пройдите квесты на космической базе Большого Росреестра в метавселенной Spatial. Вы можете сделать это как с телефона, так и на компьютере.';
 
 const String _inDevelopingMessage =
-    'Вы сделали первый шаг в оформлении жилья на планете НСПД во Вселенной Большого Росреестра! Скоро вы сможете пройти квесты в метавселенной Spatial и получить NFT-cертификат. Мы сообщим вам сразу, как это станет доступно.';
+    'Чтобы получить NFT-сертификат, пройдите квесты на космической базе Большого Росреестра в метавселенной Spatial. Вы можете сделать это как с телефона, так и на компьютере, открыв ссылку в браузере.';
 
 const String _doNotDisableNotifications =
     'Пожалуйста, не отключайте уведомления!';
@@ -125,44 +122,44 @@ class _QuestsScreenState extends State<QuestsScreen> {
                       audioPlayer: musicRepository.bigButton,
                     ),
                     separate,
-                    if (fieldPermissionStatusInitialized) ...[
-                      notificationsPermissionIsGranted
-                          ? Container()
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  _pleaseGrantTheAccess,
-                                  style: size.width > 300
-                                      ? AppTypography.font16w400
-                                      : AppTypography.font14w400,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                CustomButton(
-                                  content: Text(
-                                    'УВЕДОМЛЕНИЯ',
-                                    style: AppTypography.font16w400,
-                                  ),
-                                  onTap: () async {
-                                    await requestPermission();
-
-                                    getPermissionState();
-                                  },
-                                  width: double.infinity,
-                                  audioPlayer: musicRepository.bigButton,
-                                ),
-                              ],
-                            )
-                    ] else ...[
-                      const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(),
-                      )
-                    ]
+                    // if (fieldPermissionStatusInitialized) ...[
+                    //   notificationsPermissionIsGranted
+                    //       ? Container()
+                    //       : Column(
+                    //           mainAxisSize: MainAxisSize.min,
+                    //           children: [
+                    //             Text(
+                    //               _pleaseGrantTheAccess,
+                    //               style: size.width > 300
+                    //                   ? AppTypography.font16w400
+                    //                   : AppTypography.font14w400,
+                    //               textAlign: TextAlign.center,
+                    //             ),
+                    //             const SizedBox(
+                    //               height: 16,
+                    //             ),
+                    //             CustomButton(
+                    //               content: Text(
+                    //                 'УВЕДОМЛЕНИЯ',
+                    //                 style: AppTypography.font16w400,
+                    //               ),
+                    //               onTap: () async {
+                    //                 await requestPermission();
+                    //
+                    //                 getPermissionState();
+                    //               },
+                    //               width: double.infinity,
+                    //               audioPlayer: musicRepository.bigButton,
+                    //             ),
+                    //           ],
+                    //         )
+                    // ] else ...[
+                    //   const SizedBox(
+                    //     width: 16,
+                    //     height: 16,
+                    //     child: CircularProgressIndicator(),
+                    //   )
+                    // ]
                   ],
                 ),
               ),
