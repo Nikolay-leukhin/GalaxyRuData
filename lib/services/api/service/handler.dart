@@ -61,6 +61,9 @@ mixin class ApiHandler {
       } else if (requestData.url == ApiEndpoints.useLandCode &&
           e.response?.data['error'] == 'Invalid code.') {
         throw InvalidCodeException();
+      } else if (requestData.url == ApiEndpoints.verifyLandCode &&
+          e.response?.data['error'] == 'Error approve.') {
+        throw InvalidCodeException();
       } else {
         log('headers: ${serviceData.dio.options.headers}');
         log('error by calling ${requestData.url}');

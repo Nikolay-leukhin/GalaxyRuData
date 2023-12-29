@@ -99,7 +99,9 @@ class _SafeScreenState extends State<SafeScreen> {
             Dialogs.showModal(
                 context,
                 CustomPopup(
-                  label: invalidCodeMessage,
+                  label: state.e is InvalidCodeException
+                      ? invalidCodeMessage
+                      : errorMessage,
                   onTap: () {
                     Dialogs.hide(context);
                   },

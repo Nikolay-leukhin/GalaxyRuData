@@ -40,7 +40,7 @@ class InviteCodesCubit extends Cubit<InviteCodesState> {
       await landsRepository.verifyInviteCode(approveCode);
       emit(SafeSuccess());
     } catch (e) {
-      emit(SafeFail());
+      emit(SafeFail(e as Exception));
       rethrow;
     }
   }

@@ -22,4 +22,7 @@ final class ConnectLandFail extends InviteCodesState {}
 
 final class SafeSuccess extends InviteCodesState {}
 
-final class SafeFail extends InviteCodesState {}
+final class SafeFail extends InviteCodesState {
+  final Exception e;
+  SafeFail(this.e);
+}
