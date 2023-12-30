@@ -62,6 +62,7 @@ class _MainScaffoldState extends State<MainScaffold> {
         child: Container(
           padding: const EdgeInsets.only(top: 15),
           decoration: const BoxDecoration(
+
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage("assets/gifs/bg.gif"))),
