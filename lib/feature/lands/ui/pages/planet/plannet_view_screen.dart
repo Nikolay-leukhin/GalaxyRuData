@@ -44,6 +44,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
     return PopScope(
       canPop: false,
       child: Container(
+        padding: const EdgeInsets.only(top: 15),
         decoration: const BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
@@ -84,7 +85,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                       content: const Text('shit'),
                       width: size.width,
                       height: size.width,
-                      onTap: () async{
+                      onTap: () async {
                         controller = ScrollController();
 
                         await showClusters(context);
@@ -103,7 +104,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
     );
   }
 
-  Future<void> showClusters(BuildContext context) async{
+  Future<void> showClusters(BuildContext context) async {
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     final size = MediaQuery.sizeOf(context);
@@ -166,7 +167,6 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
             height: size.height * 0.53,
             color: Colors.transparent,
             child: StatefulBuilder(builder: (context, setState) {
-
               return Stack(children: [
                 Container(
                   padding:
@@ -178,7 +178,7 @@ class ArPlanetViewScreenState extends State<ArPlanetViewScreen> {
                         mainAxisSize: MainAxisSize.min, children: clustersList),
                   ),
                 ),
-                StatefulBuilder(builder: (context, setState){
+                StatefulBuilder(builder: (context, setState) {
                   controller.addListener(() {
                     double maxScroll = controller.position.maxScrollExtent;
                     double currentScroll = controller.position.pixels;
