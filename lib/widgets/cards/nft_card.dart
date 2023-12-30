@@ -17,7 +17,7 @@ class NFTCard extends StatelessWidget {
       child: Container(
         width: size.width * 0.872,
         height: size.width * 0.872,
-        constraints: const BoxConstraints(maxWidth: 600),
+        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 600),
         margin: const EdgeInsets.only(top: 16, bottom: 16),
         decoration: BoxDecoration(
             color: AppColors.primary,
