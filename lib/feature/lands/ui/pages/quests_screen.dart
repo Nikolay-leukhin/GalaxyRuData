@@ -22,6 +22,9 @@ const String _doNotDisableNotifications =
 const String _pleaseGrantTheAccess =
     'Пожалуйста, подключите уведомления, чтобы не пропустить самое интересное!';
 
+const String metaverseLink =
+    'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=3933827638070838695';
+
 class QuestsScreen extends StatefulWidget {
   const QuestsScreen({super.key});
 
@@ -106,8 +109,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                           style: AppTypography.font16w400,
                         ),
                         onTap: () async {
-                          await Share.share(
-                              'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=0');
+                          await Share.share(metaverseLink);
                         },
                         width: double.infinity,
                         audioPlayer: musicRepository.bigButton,
@@ -120,8 +122,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
                           ),
                           audioPlayer: musicRepository.bigButton,
                           onTap: () {
-                            launchUrl(Uri.parse(
-                                'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=0'));
+                            launchUrl(Uri.parse(metaverseLink));
                           },
                           width: double.infinity),
                       separate,
@@ -138,8 +139,9 @@ class _QuestsScreenState extends State<QuestsScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 100,)
-
+                SizedBox(
+                  height: 100,
+                )
               ],
             ),
           ),
