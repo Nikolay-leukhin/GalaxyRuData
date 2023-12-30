@@ -15,9 +15,9 @@ class NFTCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: double.infinity,
-        height: size.height * 0.4,
-        constraints: const BoxConstraints(maxHeight: 500),
+        width: size.width * 0.872,
+        height: size.width * 0.872,
+        constraints: const BoxConstraints(maxWidth: 600),
         margin: const EdgeInsets.only(top: 16, bottom: 16),
         decoration: BoxDecoration(
             color: AppColors.primary,

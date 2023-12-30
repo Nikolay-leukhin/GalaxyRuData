@@ -27,7 +27,9 @@ class _UserLandsScreenState extends State<UserLandsScreen> {
     return MainScaffold(
         appBar: MainAppBar.back(context),
         floatingActionButton: const DoubleFloatingButton(),
-        body: Padding(
+        body: Container(
+          width: double.infinity,
+          alignment: Alignment.center,
             padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
             child: BlocBuilder<LandsUserCubit, LandsUserState>(
               builder: (context, state) {
@@ -51,6 +53,7 @@ class _UserLandsScreenState extends State<UserLandsScreen> {
                   } else {
                     return SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: List.generate(landsList.length,
                             (index) => NFTCard(land: landsList[index])),
                       ),
