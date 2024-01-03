@@ -1,7 +1,8 @@
 import 'dart:convert';
+
+import 'package:galaxy_rudata/services/api/service/models/token_model.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:galaxy_rudata/services/api/service/models/token_model.dart';
 
 class PreferencesService {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -13,7 +14,7 @@ class PreferencesService {
   static const String _inviteCodeKey = 'invite_code';
   static const String _placeIdKey = 'place_id';
 
-  static const String _walletStates = 'wallet_state';
+  static const String _walletStatesKey = 'wallet_state';
   static const String _createdWallet = 'CREATED';
   static const String _watchSeed = 'WATCH_SEED';
   static const String _confirmedWallet = 'CONFIRMED';
@@ -43,19 +44,10 @@ class PreferencesService {
   }
 
   Future setWalletState(WalletCreationState state, String email) async {
-    String stateForPref;
-
-    switch (state) {
-      case WalletCreationState.created:
-        stateForPref = _createdWallet;
-      case WalletCreationState.watchSeed:
-        stateForPref = _watchSeed;
-      case WalletCreationState.confirmed:
-        stateForPref = _confirmedWallet;
-    }
+    String stringState = _walletStateToString(state);
 
     final wallets = await _getWalletStateMap();
-    wallets[email] = stateForPref;
+    wallets[email] = stringState;
 
     await _saveWalletStates(wallets);
   }
@@ -65,15 +57,7 @@ class PreferencesService {
 
     if (!wallets.containsKey(email)) return null;
 
-    switch (wallets[email] as String) {
-      case _createdWallet:
-        return WalletCreationState.created;
-      case _watchSeed:
-        return WalletCreationState.watchSeed;
-      case _confirmedWallet:
-        return WalletCreationState.confirmed;
-    }
-    return null;
+    return _walletStringToState(wallets[email] as String);
   }
 
   Future<void> setSeedPhrase(
@@ -131,7 +115,7 @@ class PreferencesService {
     return code;
   }
 
-  Future logout() async {
+  Future logout() async { // TODO проверить все ли нужное удаляется
     final prefs = await _prefs;
 
     await prefs.remove(_emailKey);
@@ -157,13 +141,41 @@ class PreferencesService {
 
   Future _saveWalletStates(Map<String, dynamic> wallets) async {
     final prefs = await _prefs;
-    await prefs.setString(_walletStates, jsonEncode(wallets));
+    await prefs.setString(_walletStatesKey, jsonEncode(wallets));
   }
 
   Future<Map<String, dynamic>> _getWalletStateMap() async {
     final prefs = await _prefs;
-    final res = prefs.getString(_walletStates);
+    final res = prefs.getString(_walletStatesKey);
     if (res == null) return {};
     return jsonDecode(res);
+  }
+
+
+  String _walletStateToString(WalletCreationState state) {
+    String stringState;
+
+    switch (state) {
+      case WalletCreationState.created:
+        stringState = _createdWallet;
+      case WalletCreationState.watchSeed:
+        stringState = _watchSeed;
+      case WalletCreationState.confirmed:
+        stringState = _confirmedWallet;
+    }
+
+    return stringState;
+  }
+
+  WalletCreationState? _walletStringToState(String stringState) {
+    switch (stringState) {
+      case _createdWallet:
+        return WalletCreationState.created;
+      case _watchSeed:
+        return WalletCreationState.watchSeed;
+      case _confirmedWallet:
+        return WalletCreationState.confirmed;
+    }
+    return null;
   }
 }
