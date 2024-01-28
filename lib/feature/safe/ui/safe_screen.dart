@@ -121,7 +121,7 @@ class _SafeScreenState extends State<SafeScreen> {
                         width: size.width * 0.69,
                         constraints: const BoxConstraints(maxWidth: 500),
                         child: Text(
-                          'Чтобы забрать ваш NFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
+                          'Чтобы забрать ваш NFT-сертификат, введите код, полученный вами после прохождения квестов в виртуальном офисе Большого Росреестра',
                           style: size.width > 300
                               ? AppTypography.font16w400
                               : AppTypography.font14w400,
