@@ -89,7 +89,7 @@ class _SafeScreenState extends State<SafeScreen> {
               SizedBox(
                 width: 320,
                 child: Text(
-                  'Чтобы забрать ваш NFT-сертификат, введите код, полученный вами после прохождения квестов на космической базе Большого Росреестр',
+                  'Чтобы забрать ваш NFT-сертификат, введите код, полученный вами после прохождения квестов в виртуальном офисе Большого Росреестра',
                   style: AppTypography.font16w400,
                   textAlign: TextAlign.center,
                 ),
