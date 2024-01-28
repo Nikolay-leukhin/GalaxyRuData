@@ -1,6 +1,5 @@
 import 'package:galaxy_rudata/models/land.dart';
 import 'package:galaxy_rudata/services/api/api_service.dart';
-import 'package:galaxy_rudata/services/preferences.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -20,20 +19,18 @@ class LandsRepository {
 
   BehaviorSubject<CodeStates> codeStates = BehaviorSubject();
 
-  LandsRepository(
-      {required ApiService apiService})
-      :
-        _apiService = apiService;
+  LandsRepository({required ApiService apiService}) : _apiService = apiService;
 
-  Future<void> useInviteCode(
-      String usedCode) async {
-    await _apiService.land.useInviteCode(usedCode);
+  Future<void> useInviteCode(String usedCode) async {
+    final res = await _apiService.land.useInviteCode(usedCode);
+    print(res);
+    if (res['data']['isClaimed'] == true) {
+      throw CodeWasUsedException();
+    }
     code = usedCode;
   }
 
-  void codeUsed() =>
-    codeStates.add(CodeStates.choose);
-
+  void codeUsed() => codeStates.add(CodeStates.choose);
 
   Future<void> connectLandFromClusterToCurrentCode(String cluster) async {
     await _apiService.land.connectLandAndCode(code: code!, cluster: cluster);
@@ -56,7 +53,8 @@ class LandsRepository {
       final response = (await _apiService.land.getUserLands())['lands'];
       userLandsList.clear();
       for (var json in response) {
-        userLandsList.add(LandModel.fromJson(json));
+        final land = LandModel.fromJson(json);
+        if (land.isMinted) userLandsList.add(land);
       }
       userLandsStream.add(LoadingStateEnum.success);
     } catch (e, st) {

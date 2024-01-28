@@ -41,7 +41,7 @@ class Enemy extends SpriteComponent
       game.player.score += 1;
       removeFromParent();
 
-      if (game.player.score == 50) {
+      if (game.player.score == 1) {
         game.pauseEngine();
         game.overlays.add("MENU");
       }

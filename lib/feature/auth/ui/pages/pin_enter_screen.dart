@@ -52,7 +52,6 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
       listener: (context, state) {
         if (state is PinCodeEnterSuccess) {
           pinCode.clear();
-          Navigator.pop(context);
           if (confirmation != null) confirmation!();
         } else if (state is PinCodeEnterFailure) {
           final repository = RepositoryProvider.of<AudioRepository>(context);
@@ -217,7 +216,7 @@ class _PinEnterScreenState extends State<PinEnterScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          constraints: BoxConstraints(maxWidth: 125),
+                          constraints: const BoxConstraints(maxWidth: 125),
                           width: size.width * 0.189,
                         ),
                         PinNumTab(

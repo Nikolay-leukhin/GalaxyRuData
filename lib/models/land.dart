@@ -2,27 +2,29 @@ import 'package:galaxy_rudata/utils/clusters.dart';
 
 class LandModel {
   int id;
-  String name;
+  String clusterName;
   String? description;
   String avatar;
   bool isMinted;
   int? tokenId;
+  String? code;
   String type;
 
   LandModel({
     required this.id,
-    required this.name,
+    required this.clusterName,
     required this.description,
     required this.avatar,
     required this.isMinted,
     required this.tokenId,
-    required this.type,
+    required this.type, required this.code,
   });
 
   factory LandModel.fromJson(Map<String, dynamic> json) {
     return LandModel(
       id: json['id'] as int,
-      name: clusters[json['cluster']]!.name,
+      clusterName: clusters[json['cluster']]!.name,
+      code: json['name'],
       description: json['description'],
       avatar: "https://roskadastr.danya-vecher.ru/photo/",
       isMinted: json['isMinted'] as bool,
@@ -33,6 +35,6 @@ class LandModel {
 
   @override
   String toString() {
-    return 'LandModel{id: $id, name: $name, description: $description, avatar: $avatar, isMinted: $isMinted, tokenId: $tokenId, type: $type}';
+    return 'LandModel{id: $id, name: $clusterName, description: $description, avatar: $avatar, isMinted: $isMinted, tokenId: $tokenId, type: $type}';
   }
 }

@@ -1,28 +1,29 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
-import 'package:galaxy_rudata/feature/lands/data/lands_repository.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
 import 'package:galaxy_rudata/widgets/app_bars/main_app_bar.dart';
 import 'package:galaxy_rudata/widgets/buttons/custom_button.dart';
-import 'package:galaxy_rudata/widgets/dialogs/show_bottom_sheet.dart';
 import 'package:galaxy_rudata/widgets/scaffolds/main_scaffold.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // const String _congratulationsMessage =
 //     'Чтобы получить NFT-сертификат, пройдите квесты на космической базе Большого Росреестра в метавселенной Spatial. Вы можете сделать это как с телефона, так и на компьютере.';
 
 const String _inDevelopingMessage =
-    'Вы сделали первый шаг в оформлении жилья на планете НСПД во Вселенной Большого Росреестра! Скоро вы сможете пройти квесты в метавселенной Spatial и получить NFT-cертификат. Мы сообщим вам сразу, как это станет доступно.';
+    'Чтобы получить NFT-сертификат, пройдите квесты на космической базе Большого Росреестра в метавселенной Spatial. Вы можете сделать это как с телефона, так и на компьютере, открыв ссылку в браузере.';
 
 const String _doNotDisableNotifications =
     'Пожалуйста, не отключайте уведомления!';
 
 const String _pleaseGrantTheAccess =
     'Пожалуйста, подключите уведомления, чтобы не пропустить самое интересное!';
+
+const String metaverseLink =
+    'https://www.spatial.io/s/Vselennaia-Bol-shogo-Rosreestra-658d5cef60c4e4c38b3e243b?share=3933827638070838695';
 
 class QuestsScreen extends StatefulWidget {
   const QuestsScreen({super.key});
@@ -42,15 +43,18 @@ class _QuestsScreenState extends State<QuestsScreen> {
   }
 
   void getPermissionState() async {
-    late PermissionStatus permissionStatus;
+    final notificationPermissionStatus = await Permission.notification.status;
 
-    permissionStatus = await Permission.notification.status;
-
-    notificationsPermissionIsGranted = permissionStatus.isGranted;
-    print(notificationsPermissionIsGranted);
+    notificationsPermissionIsGranted = notificationPermissionStatus.isGranted;
 
     fieldPermissionStatusInitialized = true;
     setState(() {});
+  }
+
+  Future<void> requestPermission() async {
+    if (!notificationsPermissionIsGranted) {
+      await Permission.notification.request();
+    }
   }
 
   @override
@@ -58,8 +62,7 @@ class _QuestsScreenState extends State<QuestsScreen> {
     final size = MediaQuery.sizeOf(context);
 
     final separate = Container(
-      height: size.height * 0.05,
-      constraints: const BoxConstraints(maxHeight: 60),
+      height: 32,
     );
 
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
@@ -68,118 +71,79 @@ class _QuestsScreenState extends State<QuestsScreen> {
         canPop: false,
         appBar: MainAppBar.logoutWallet(context),
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 50, 24, 0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: size.width * 0.6,
-                constraints: const BoxConstraints(maxWidth: 350),
-                child: Text(
-                  'Поздравляем!',
-                  textAlign: TextAlign.center,
-                  style: size.width > 300
-                      ? AppTypography.font24w700
-                      : AppTypography.font16w700,
+          padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: size.width * 0.6,
+                  constraints: const BoxConstraints(maxWidth: 350),
+                  child: Text(
+                    'Поздравляем!',
+                    textAlign: TextAlign.center,
+                    style: size.width > 300
+                        ? AppTypography.font24w700
+                        : AppTypography.font16w700,
+                  ),
                 ),
-              ),
-              separate,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      _inDevelopingMessage,
-                      style: size.width > 300
-                          ? AppTypography.font16w400
-                          : AppTypography.font14w400,
-                      textAlign: TextAlign.center,
-                    ),
-                    separate,
-                    CustomButton(
+                separate,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        _inDevelopingMessage,
+                        style: size.width > 300
+                            ? AppTypography.font16w400
+                            : AppTypography.font14w400,
+                        textAlign: TextAlign.center,
+                      ),
+                      separate,
+                      CustomButton(
                         content: Text(
-                          'Квесты на телефоне'.toUpperCase(),
+                          'Квесты на компьютере'.toUpperCase(),
                           style: AppTypography.font16w400,
                         ),
-                        audioPlayer: musicRepository.bigButton,
-                        onTap: () {
-                          Navigator.of(context).pushNamed(RouteNames.game);
+                        onTap: () async {
+                          await Share.share(metaverseLink);
                         },
-                        width: double.infinity),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    if (fieldPermissionStatusInitialized) ...[
-                      notificationsPermissionIsGranted
-                          ? Container()
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  _pleaseGrantTheAccess,
-                                  style: size.width > 300
-                                      ? AppTypography.font16w400
-                                      : AppTypography.font14w400,
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                CustomButton(
-                                  content: Text(
-                                    'УВЕДОМЛЕНИЯ',
-                                    style: AppTypography.font16w400,
-                                  ),
-                                  onTap: () async {
-                                    await Permission.notification.request();
-
-                                    getPermissionState();
-                                  },
-                                  width: double.infinity,
-                                  audioPlayer: musicRepository.bigButton,
-                                )
-                              ],
-                            )
-                    ] else ...[
-                      const SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(),
-                      )
-                    ]
-                  ],
+                        width: double.infinity,
+                        audioPlayer: musicRepository.bigButton,
+                      ),
+                      separate,
+                      CustomButton(
+                          content: Text(
+                            'Квесты на телефоне'.toUpperCase(),
+                            style: AppTypography.font16w400,
+                          ),
+                          audioPlayer: musicRepository.bigButton,
+                          onTap: () {
+                            launchUrl(Uri.parse(metaverseLink));
+                          },
+                          width: double.infinity),
+                      separate,
+                      CustomButton(
+                          content: Text(
+                            'Я уже прошел квесты!'.toUpperCase(),
+                            style: AppTypography.font16w400,
+                          ),
+                          audioPlayer: musicRepository.bigButton,
+                          onTap: () {
+                            Navigator.of(context).pushNamed(RouteNames.safe);
+                          },
+                          width: double.infinity),
+                    ],
+                  ),
                 ),
-              ),
-
-              // separate,
-              // CustomButton(
-              //     content: Text(
-              //       'Квесты на компьютере'.toUpperCase(),
-              //       style: AppTypography.font16w400,
-              //     ),
-              //     onTap: () {
-              //       ShowBottomSheet.show(
-              //         context,
-              //         const BottomSheetLinks(),
-              //       );
-              //     },
-              //     width: double.infinity),
-
-              // separate,
-              // CustomButton(
-              //     content: Text(
-              //       'Я уже прошел квесты!'.toUpperCase(),
-              //       style: AppTypography.font16w400,
-              //     ),
-              //     onTap: () async {
-              //       RepositoryProvider.of<LandsRepository>(context)
-              //           .getApprove()
-              //           .then((value) =>
-              //               Navigator.pushNamed(context, RouteNames.safe));
-              //     },
-              //     width: double.infinity),
-            ],
+                SizedBox(
+                  height: 100,
+                )
+              ],
+            ),
           ),
         ));
   }

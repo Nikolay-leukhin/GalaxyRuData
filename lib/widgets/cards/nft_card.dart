@@ -15,15 +15,15 @@ class NFTCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: double.infinity,
-        height: size.height * 0.4,
-        constraints: const BoxConstraints(maxHeight: 500),
+        width: size.width * 0.872,
+        height: size.width * 0.872,
+        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 600),
         margin: const EdgeInsets.only(top: 16, bottom: 16),
         decoration: BoxDecoration(
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(16),
-            image: const DecorationImage(
-                fit: BoxFit.cover, image: AssetImage("assets/images/s.png"))),
+            image: DecorationImage(
+                fit: BoxFit.cover, image: AssetImage("assets/images/nfts/${land.type}.PNG"))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -43,7 +43,7 @@ class NFTCard extends StatelessWidget {
                   SizedBox(
                     width: size.width - 80,
                     child: Text(
-                      land.name,
+                      land.clusterName,
                       style: AppTypography.font16w600,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -52,7 +52,7 @@ class NFTCard extends StatelessWidget {
                   SizedBox(
                     width: size.width - 80,
                     child: Text(
-                      land.type,
+                      NFTypes.nftCertificate,
                       style: AppTypography.font12w400,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -61,7 +61,7 @@ class NFTCard extends StatelessWidget {
                   SizedBox(
                     width: size.width - 80,
                     child: Text(
-                      land.description ?? '',
+                      'Жилье во владении № ${land.code}',
                       style: AppTypography.font12w400,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:galaxy_rudata/audio_repository.dart';
-import 'package:galaxy_rudata/feature/lands/bloc/connect_land/connect_land_cubit.dart';
+import 'package:galaxy_rudata/feature/lands/bloc/blocks.dart';
 import 'package:galaxy_rudata/routes/routes.dart';
 import 'package:galaxy_rudata/utils/clusters.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -28,9 +28,9 @@ class _ClusterScreenState extends State<ClusterScreen> {
 
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
-    return BlocListener<ConnectLandCubit, ConnectLandState>(
+    return BlocListener<InviteCodesCubit, InviteCodesState>(
       listener: (context, state) {
-        if (state is ConnectLandFailure) {
+        if (state is ConnectLandFail) {
           Dialogs.hide(context);
           Dialogs.showModal(
               context,
@@ -46,7 +46,7 @@ class _ClusterScreenState extends State<ClusterScreen> {
           Future.delayed(const Duration(milliseconds: 500)).then((value) {
             Navigator.popUntil(context, ModalRoute.withName(RouteNames.root));
           });
-        } else if (state is ConnectLandLoading) {
+        } else if (state is LoadingState) {
           Dialogs.showModal(
               context,
               const Center(
@@ -123,22 +123,23 @@ class _ClusterScreenState extends State<ClusterScreen> {
                                 flex: 2,
                               ),
                               CustomButton(
-                                  content: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: FittedBox(
-                                        child: Text(
-                                      'Забронировать жилье'.toUpperCase(),
-                                      style: AppTypography.font16w600,
-                                    )),
-                                  ),
-                                  onTap: () async {
-                                    context
-                                        .read<ConnectLandCubit>()
-                                        .connectRandomFromClusterLandToCurrentCode(
-                                            clusterType);
-                                  },
-                                  width: double.infinity, audioPlayer: musicRepository.bigButton,),
+                                content: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: FittedBox(
+                                      child: Text(
+                                    'Забронировать жилье'.toUpperCase(),
+                                    style: AppTypography.font16w600,
+                                  )),
+                                ),
+                                onTap: () async {
+                                  context
+                                      .read<InviteCodesCubit>()
+                                      .connectLandToCurrentCode(clusterType);
+                                },
+                                width: double.infinity,
+                                audioPlayer: musicRepository.bigButton,
+                              ),
                               const Spacer(
                                 flex: 2,
                               )

@@ -10,4 +10,9 @@ class Token {
   Token.zero() : jwt = "";
 
   Map<String, String> toJson() => {'jwt': jwt};
+
+  String get bearer => 'Bearer $jwt';
+
+  @override
+  String toString() => 'JWT Token $jwt';
 }

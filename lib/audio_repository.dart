@@ -6,8 +6,10 @@ import 'package:just_audio/just_audio.dart';
 
 class AudioRepository {
   AudioRepository() {
+    // if (!kDebugMode) {
     _initialPlayers();
-    _initialBackground(); // TODO вернуть перд билдом
+    _initialBackground();
+    // }
   }
 
   late Future initialized;
@@ -55,6 +57,8 @@ class AudioRepository {
 
   AudioPlayer openingLocker = AudioPlayer();
 
+  AudioPlayer safe = AudioPlayer();
+
   List<AudioPlayer> get players => [
         bigButton,
         littleButton,
@@ -68,6 +72,8 @@ class AudioRepository {
         dialogueAppear,
         dialogueDisappear,
         mediumButton,
+        safe,
+    openingLocker
       ];
 
   void _initialBackground() async {
@@ -97,6 +103,8 @@ class AudioRepository {
     dialogueAppear.setAsset(AppPathMusic.dialogueAppear, preload: true);
     dialogueDisappear.setAsset(AppPathMusic.dialogueDisappear, preload: true);
     mediumButton.setAsset(AppPathMusic.mediumButton, preload: true);
+    safe.setAsset(AppPathMusic.safe, preload: true);
+    openingLocker.setAsset(AppPathMusic.openingLocker, preload: true);
 
     List<Future> futures = [];
 

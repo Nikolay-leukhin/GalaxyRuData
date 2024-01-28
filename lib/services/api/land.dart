@@ -8,8 +8,14 @@ class Land with ApiHandler {
   Future<void> updateWalletAddress(String walletAddress) =>
       post(ApiEndpoints.userWalletUpdate, data: {'Land': walletAddress});
 
-  Future<void> useInviteCode(String code) =>
-      post(ApiEndpoints.useLandCode, data: {'code': code});
+  Future useInviteCode(String code) =>
+      post(ApiEndpoints.useLandCode, data: {'code': code}, handler: (e) {
+        if (e.response?.data['error'] == 'Not owner.') {
+          throw CodeWasUsedException();
+        } else if (e.response?.data['error'] == 'Invalid code.') {
+          throw InvalidCodeException();
+        }
+      });
 
   Future<Map<String, dynamic>> getFreeLands() async {
     return await post(ApiEndpoints.freeLands);
@@ -28,5 +34,9 @@ class Land with ApiHandler {
 
   Future<void> verifyLandCode(String code, String approveCode) =>
       post(ApiEndpoints.verifyLandCode,
-          data: {'code': code, 'approve': approveCode});
+          data: {'code': code, 'approve': approveCode}, handler: (e) {
+        if (e.response?.data['error'] == 'Error approve.') {
+          throw InvalidCodeException();
+        }
+      });
 }

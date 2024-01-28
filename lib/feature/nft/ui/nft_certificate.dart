@@ -24,6 +24,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
     final musicRepository = RepositoryProvider.of<AudioRepository>(context);
 
     return MainScaffold(
+      canPop: false,
       appBar: MainAppBar.logoutWallet(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -58,7 +59,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                     ],
                   ),
                   child: const Image(
-                    image: AssetImage('assets/images/certificate.png'),
+                    image: AssetImage('assets/images/new certificate.png'),
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -82,7 +83,7 @@ class _NftCertificateScreenState extends State<NftCertificateScreen> {
                                 : RouteNames.authPinCreate,
                             arguments: {
                               'confirmation': () {
-                                Navigator.pushNamed(
+                                Navigator.pushReplacementNamed(
                                     context, RouteNames.landsUserList);
                               }
                             });

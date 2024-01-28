@@ -5,7 +5,8 @@ mixin class ApiHandler {
 
   Future get(String url,
           {Map<String, dynamic>? queryParameters,
-          Map<String, dynamic>? data}) =>
+          Map<String, dynamic>? data,
+          Function(DioException)? handler}) =>
       _handleErrors(
         requestData: RequestData(url, data: data, queryParams: queryParameters),
         method: MethodsEnum.get,
@@ -13,7 +14,8 @@ mixin class ApiHandler {
 
   Future post(String url,
           {Map<String, dynamic>? data,
-          Map<String, dynamic>? queryParameters}) =>
+          Map<String, dynamic>? queryParameters,
+          Function(DioException)? handler}) =>
       _handleErrors(
           requestData:
               RequestData(url, data: data, queryParams: queryParameters),
@@ -26,7 +28,7 @@ mixin class ApiHandler {
     await serviceData.prefs.saveToken(token);
     serviceData.token.setJwt(token.jwt);
 
-    log('token refreshed on ${serviceData.token.jwt}');
+    log('token refreshed on ${serviceData.token}');
     log("________________________");
 
     serviceData.dio.options.headers = _getHeadersWithCurrentToken();
@@ -37,7 +39,7 @@ mixin class ApiHandler {
 
   Map<String, dynamic> _getHeadersWithCurrentToken() {
     final Map<String, dynamic> newHeaders = Map.from(defaultHeaders);
-    newHeaders['Authorization'] = 'Bearer ${serviceData.token.jwt}';
+    newHeaders['Authorization'] = serviceData.token.bearer;
     return newHeaders;
   }
 
@@ -49,18 +51,11 @@ mixin class ApiHandler {
 
       return res.data;
     } on DioException catch (e) {
-      if (e.response?.statusCode == 401) {
-        serviceData.exceptionsStream.add(UnAuthorizedException());
-      } else if (e.response?.statusCode == 400 &&
-          e.response?.data['error'] == 'User not found.' &&
-          requestData.url == ApiEndpoints.user) {
-        serviceData.exceptionsStream.add(UnAuthorizedException());
-      } else {
-        log('headers: ${serviceData.dio.options.headers}');
-        log('error by calling ${requestData.url}');
-        log(requestData.toString());
-        rethrow;
+      if (requestData.customExceptionHandler != null) {
+        requestData.customExceptionHandler!();
       }
+      _handleAuthorizationErrors(e, requestData.url);
+      _onUnHandledException(e, requestData);
     } catch (e) {
       rethrow;
     }
@@ -74,5 +69,22 @@ mixin class ApiHandler {
         options: Options(method: methods[method]!),
         queryParameters: requestData.queryParams,
         data: requestData.data);
+  }
+
+  void _handleAuthorizationErrors(DioException e, String url) {
+    if (e.response?.statusCode == 401) {
+      serviceData.exceptionsStream.add(UnAuthorizedException());
+    } else if (e.response?.statusCode == 400 &&
+        e.response?.data['error'] == 'User not found.' &&
+        url == ApiEndpoints.user) {
+      serviceData.exceptionsStream.add(UnAuthorizedException());
+    }
+  }
+
+  void _onUnHandledException(DioException e, RequestData requestData) {
+    log('headers: ${serviceData.dio.options.headers}');
+    log('error by calling ${requestData.url}');
+    log(requestData.toString());
+    throw e;
   }
 }

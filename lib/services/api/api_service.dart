@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:galaxy_rudata/services/api/service/models/service_data.dart';
 import 'package:galaxy_rudata/utils/utils.dart';
@@ -66,6 +67,6 @@ class ApiService {
     _apiData = ServiceData(token, dio, preferencesService, apiExceptions);
     _apiData.requiredFuture = initialized;
 
-    log("JWT Token: ${token.jwt}");
+    log(token.toString());
   }
 }
