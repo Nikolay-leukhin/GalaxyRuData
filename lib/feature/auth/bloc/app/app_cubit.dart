@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -36,12 +38,12 @@ class AppCubit extends Cubit<AppState> {
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     final res = await apiService.auth.getAppVersion();
 
-    final lastVersion = res['appVersion'];
+    final lastVersion =
+        res[Platform.isAndroid ? 'androidVersion' : 'iosVersion'];
     final localVersion = packageInfo.version;
 
     print('local version: $localVersion');
     print('remote version: $lastVersion');
-
 
     for (int i = 0; i < 3; i++) {
       int lastVersionCode = int.parse(lastVersion.split('.')[i]);

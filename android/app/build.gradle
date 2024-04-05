@@ -52,7 +52,7 @@ android {
         applicationId "com.kadastr.rosreestr"
         minSdkVersion 23
         targetSdkVersion flutter.targetSdkVersion
-        versionCode 14 // for new version
+        versionCode 17
         versionName flutterVersionName
         multiDexEnabled true
     }
