@@ -39,7 +39,7 @@ class AppCubit extends Cubit<AppState> {
     final res = await apiService.auth.getAppVersion();
 
     final lastVersion =
-        res[Platform.isAndroid ? 'androidVersion' : 'iosVersion'];
+        res[Platform.isAndroid ? 'appVersionAndroid' : 'appVersionIOS'];
     final localVersion = packageInfo.version;
 
     print('local version: $localVersion');
